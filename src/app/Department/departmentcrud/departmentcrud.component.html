@@ -1,1 +1,29 @@
-<p>departmentcrud works!</p>
+<div class="content">
+    <app-sidebar></app-sidebar>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Departmentlist">Department List</a></li>
+                <li class="breadcrumb-item active">{{Title}} Department</li>
+            </ol>
+        </nav>
+        <div class="col-sm-12 px-4 pt-2">
+            <form [formGroup]="deptform" action="" #ngForm (ngSubmit)="OnSubmit()">
+                <h3 class="text-black pb-2">Add Department</h3>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="floatingText" name="dept" [(ngModel)]="department.name" formControlName="dept" maxlength="24" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)" required>
+                    <label for="floatingText">Department</label>
+                    <div *ngIf="deptform.controls['dept'].invalid && (deptform.controls['dept'].dirty || deptform.controls['dept'].touched)" class="alert alert-danger">
+                        <div *ngIf="deptform.controls['dept'].errors?.['required']">Name is required.</div>
+                        <div *ngIf="deptform.controls['dept'].errors?.['minlength']">Name must be at least 4 characters long.</div>
+                        <div *ngIf="deptform.controls['dept'].errors?.['maxlength']">Name don't exceed 15 characters long.</div>
+                        <div *ngIf="deptform.controls['dept'].invalid || deptform.controls['dept'].errors?.['maxlength']">Please enter a valid name</div>
+                    </div>
+                </div>
+                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4">Add</button></a>
+            </form>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

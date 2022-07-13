@@ -1,1 +1,31 @@
-<p>departmentlist works!</p>
+<div class="content">
+    <app-sidebar></app-sidebar>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item active">Department List</li>
+            </ol>
+        </nav>
+        <div class="container-fluid px-4 pt-2 pb-2">
+            <h3 class="text-black pb-2">Department List</h3>
+            <div class="header" id="style">
+                <div *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a></div>
+                <!-- <div class="container"><div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div></div> -->
+            </div>
+            <div *ngFor="let item of data | filter: _dept | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+                <div class="row g-3 my-2">
+                    <div class="col-md-12 hover rounded">
+                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
+                            <div class="w-100 mx-4 text-dark"><b class="mx-4">{{item.name}}</b></div>
+                            <div *ngIf="IsCoordinator || Editable === true" class="col-1"><a routerLink="/EditDepartment/{{item.id}}" class="mx-2"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div *ngIf="Editable === true" class="offset-1 col-1" id="pointer"><a (click)="disableDepartment(item.id)" class="mx-2"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+    <app-footer></app-footer>
+</div>
