@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
   baseurl = "https://localhost:5001/Auth/"
 
-  roleId: number;
+  // roleId: number;
 
   public IsloggedIn = localStorage.getItem('token') != null;
   public IsHead = false;
