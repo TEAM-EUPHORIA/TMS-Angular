@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class CoursecrudService {
+export class CourseService {
 
   constructor(private http: HttpClient) { }
   baseurl = "https://localhost:5001/Course/"
@@ -20,5 +20,13 @@ putcourse(data: any): Observable<any> {
   headers.append('Content-Type', 'application/json; charset=utf-8');
   return this.http.put<any>(this.baseurl + `course`, data)
 }
-
+getAllCourses(): Observable<any> {
+  return this.http.get<any>(this.baseurl)
+}
+getCoursesByUserId(id: number): Observable<any> {
+  return this.http.get<any>(this.baseurl + `users/${id}`);
+}
+disableCourse(id: number): Observable<any> {
+  return this.http.delete<any>(this.baseurl + `disable/${id}`)
+}
 }
