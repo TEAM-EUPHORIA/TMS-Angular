@@ -20,7 +20,7 @@ export class DepartmentlistComponent implements OnInit {
   IsCoordinator: boolean = this.auth.IsCoordinator;
   IsHead: boolean = this.auth.IsHead;
   Editable = false;
-  roleid: number = this.auth.roleId;
+  roleid: number = this.auth.getRoleId();
 
   ngOnInit(): void {
     this.roleid = this.auth.getRoleId();

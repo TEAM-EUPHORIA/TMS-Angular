@@ -6,13 +6,15 @@ import { DepartmentlistComponent } from './Department/departmentlist/departmentl
 import { LoginComponent } from './Login/login/login.component';
 import { ReviewcrudComponent } from './Review/Review/reviewcrud/reviewcrud.component';
 import { ReviewlistComponent } from './Review/Review/reviewlist/reviewlist.component';
+import { HomeComponent } from './Shared/home/home.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'Login', component: LoginComponent },
-  { path: "addcourse", component: CoursecrudComponent },
+  { path: 'addcourse', component: CoursecrudComponent },
   { path: 'Review', component: ReviewcrudComponent },
   { path: 'ReviewList', component: ReviewlistComponent },
-  { path: 'Department', component: DepartmentcrudComponent },
+  { path: 'addDepartment', component: DepartmentcrudComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent }
 ]
 

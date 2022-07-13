@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,9 +33,6 @@ import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { LoginComponent } from './Login/login/login.component';
 import { HomeComponent } from './Shared/home/home.component';
 import { SidebarComponent } from './Shared/sidebar/sidebar.component';
-import { HttpClientModule } from '@angular/common/http';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { FooterComponent } from './Shared/footer/footer.component';
 
 export function tokenGetter() {
