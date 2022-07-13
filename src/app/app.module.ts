@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CourseCrudComponent } from './Course/Course/course-crud/course-crud.component';
 import { CourselistComponent } from './Course/Course/courselist/courselist.component';
 import { CoursecrudComponent } from './Course/Course/coursecrud/coursecrud.component';
 import { DepartmentlistComponent } from './Department/departmentlist/departmentlist.component';
@@ -32,7 +31,6 @@ import { SidebarComponent } from './Shared/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    CourseCrudComponent,
     CourselistComponent,
     CoursecrudComponent,
     DepartmentlistComponent,
