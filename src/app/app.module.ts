@@ -27,6 +27,7 @@ import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { LoginComponent } from './Login/login/login.component';
 import { HomeComponent } from './Shared/home/home.component';
+import { SidebarComponent } from './Shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { HomeComponent } from './Shared/home/home.component';
     GivemomComponent,
     ViewmomComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
