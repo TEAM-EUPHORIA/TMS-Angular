@@ -18,7 +18,6 @@ import { ViewfeedbackComponent } from './Feedback/Course/viewfeedback/viewfeedba
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 import { TopiccrudComponent } from './Course/Topic/topiccrud/topiccrud.component';
-import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
 import { CourseviewComponent } from './Course/Course/courseview/courseview.component';
 import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
@@ -34,6 +33,8 @@ import { LoginComponent } from './Login/login/login.component';
 import { HomeComponent } from './Shared/home/home.component';
 import { SidebarComponent } from './Shared/sidebar/sidebar.component';
 import { FooterComponent } from './Shared/footer/footer.component';
+import { QuillModule } from 'ngx-quill';
+import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -79,6 +80,7 @@ export function tokenGetter() {
     HttpClientModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
+    QuillModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

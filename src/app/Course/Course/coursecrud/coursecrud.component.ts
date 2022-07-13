@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoursecrudService } from '../coursecrud.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { CourseService } from '../../course.service';
 
 
 @Component({
@@ -12,9 +12,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CoursecrudComponent implements OnInit {
 
- Traineeid!: number;
+ Traineeid !: number;
   
-  constructor( private route: Router, private cs: CoursecrudService,
+  constructor( private route: Router, private cs: CourseService,
     private routing: Router, private router: ActivatedRoute, private http : HttpClient,
     // private auth: LoginService
      ) { }

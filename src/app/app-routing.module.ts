@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursecrudComponent } from './Course/Course/coursecrud/coursecrud.component';
 import { DepartmentcrudComponent } from './Department/departmentcrud/departmentcrud.component';
 import { DepartmentlistComponent } from './Department/departmentlist/departmentlist.component';
+import { TopiccrudComponent } from './Course/Topic/topiccrud/topiccrud.component';
 import { LoginComponent } from './Login/login/login.component';
 import { ReviewcrudComponent } from './Review/Review/reviewcrud/reviewcrud.component';
 import { ReviewlistComponent } from './Review/Review/reviewlist/reviewlist.component';
 import { HomeComponent } from './Shared/home/home.component';
+import { CourselistComponent } from './Course/Course/courselist/courselist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -15,7 +17,10 @@ const routes: Routes = [
   { path: 'Review', component: ReviewcrudComponent },
   { path: 'ReviewList', component: ReviewlistComponent },
   { path: 'addDepartment', component: DepartmentcrudComponent },
-  { path: 'DepartmentList', component: DepartmentlistComponent }
+  { path: 'DepartmentList', component: DepartmentlistComponent },
+  { path: 'AddCourse', component: CoursecrudComponent },
+  { path: 'AddTopic', component: TopiccrudComponent },
+  { path: 'CourseList', component: CourselistComponent },
 ]
 
 @NgModule({

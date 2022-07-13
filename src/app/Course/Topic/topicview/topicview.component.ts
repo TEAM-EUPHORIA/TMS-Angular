@@ -1,13 +1,14 @@
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-topicview',
-  templateUrl: './topicview.component.html',
-  styleUrls: ['./topicview.component.css']
+  selector: 'app-topicview',
+  templateUrl: './topicview.component.html',
+  styleUrls: ['./topicview.component.css']
 })
 export class TopicviewComponent implements OnInit {
 
-  constructor() { }
+  constructor() { }
 
   //temparary variable for data storage
   temp : any;
@@ -19,3 +20,4 @@ export class TopicviewComponent implements OnInit {
   }
 
 }
+
