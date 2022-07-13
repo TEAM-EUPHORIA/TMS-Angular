@@ -33,5 +33,22 @@ export class UserService {
     return this.http.delete<any>(this.baseurl + `disable/${id}`);
   }
 
+  // baseurl = "https://localhost:5001/User/Dashboard"
+  getDashboard(): Observable<any> {
+    return this.http.get<any>("https://localhost:5001/User/Dashboard")
+  }
+  getUserCount(): Observable<any[]> {
+    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetUserCount`)
+  }
+  getCourseCount(): Observable<any[]> {
+    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetCourseCount`)
+  }
+  getReviewCount(): Observable<any[]> {
+    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetReviewCount`)
+  }
+  getDepartmentCount(): Observable<any[]> {
+    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetDepartmentCount`)
+  }
+
 
 }
