@@ -11,15 +11,14 @@ import { CourselistComponent } from './Course/Course/courselist/courselist.compo
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
-  { path: "addcourse", component: CoursecrudComponent },
   { path: 'Review', component: ReviewcrudComponent },
   { path: 'ReviewList', component: ReviewlistComponent },
-  { path: 'Department', component: DepartmentcrudComponent },
+  { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
-  { path: 'Login', component: LoginComponent},
-  { path: 'addcourse', component: CoursecrudComponent},
-  { path: 'addtopic', component: TopiccrudComponent},
-  { path: 'courselist', component: CourselistComponent},
+  { path: 'Login', component: LoginComponent },
+  { path: 'AddCourse', component: CoursecrudComponent },
+  { path: 'AddTopic', component: TopiccrudComponent },
+  { path: 'CourseList', component: CourselistComponent },
 ]
 
 @NgModule({
