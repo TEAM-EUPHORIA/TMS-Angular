@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CourselistComponent } from './Course/Course/courselist/courselist.component';
@@ -38,6 +39,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    CoursecrudComponent,
     CourselistComponent,
     CoursecrudComponent,
     DepartmentlistComponent,
@@ -64,6 +66,8 @@ export function tokenGetter() {
     SidebarComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
