@@ -12,7 +12,7 @@
             <div class="header" id="style">
                 <a *ngIf="add" routerLink="/AddCourse"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a>
                 <div class="container">
-                    <div class="col-md-11" id="hov" *ngIf="IsCoordinator"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div>
+                    <!-- <div class="col-md-11" id="hov" *ngIf="IsCoordinator"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
                 </div>
                 <div class="container-fluid" *ngIf="IsCoordinator">
                     <div class="col-md-12">
@@ -27,10 +27,10 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-12 rounded hover">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
-                            <div class="w-50" id="pointer"><a (click)="pass(item.id)"><p class="text-dark mt-2 pointer"><b>{{item.name}}</b></p></a></div>
+                            <!-- <div class="w-50" id="pointer"><a (click)="pass(item.id)"><p class="text-dark mt-2 pointer"><b>{{item.name}}</b></p></a></div> -->
                             <div class="" *ngIf="IsCoordinator"><a routerLink="/AddCourse/{{item.id}}"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
                             <div class="" *ngIf="IsCoordinator" id="pointer"><a (click)="disableCourse(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
-                            <div class="" *ngIf="IsCoordinator || IsTrainer"><a (click)="View(item)"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div>
+                            <!-- <div class="" *ngIf="IsCoordinator || IsTrainer"><a (click)="View(item)"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div> -->
                         </div>
                     </div>
                 </div>

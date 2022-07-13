@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'Review', component: ReviewcrudComponent },
   { path: 'ReviewList', component: ReviewlistComponent },
-  { path: 'AddDepartment', component: DepartmentcrudComponent },
+  { path: 'Department', component: DepartmentcrudComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'AddCourse', component: CoursecrudComponent },
