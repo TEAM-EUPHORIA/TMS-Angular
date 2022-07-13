@@ -31,6 +31,9 @@ import { LoginComponent } from './Login/login/login.component';
 import { HomeComponent } from './Shared/home/home.component';
 import { SidebarComponent } from './Shared/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FooterComponent } from './Shared/footer/footer.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -63,7 +66,8 @@ export function tokenGetter() {
     ViewmomComponent,
     LoginComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    FooterComponent,
   ],
   imports: [
     FormsModule,
@@ -71,7 +75,10 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

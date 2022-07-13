@@ -1,1 +1,42 @@
-<p>reviewlist works!</p>
+<div class="content">
+    <app-sidebar></app-sidebar>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a routerLink="/Home">Home</a>
+                </li>
+                <li class="breadcrumb-item active">{{title}}</li>
+            </ol>
+        </nav>
+        <div class="container-fluid px-4 pt-2 pb-2">
+            <h3 class="text-black pb-2">{{title}}</h3>
+            <div class="header" id="style">
+                <a *ngIf="add && !logIn.IsCoordinator" routerLink="/ScheduleReview"><button type="button" class="btn btn-dark pe-4 px-4 ms-2">Add</button></a>
+                <div class="container">
+                    <!-- <div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
+                </div>
+            </div>
+            <div *ngFor="let item of data |filter:searchuser| paginate: {itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+                <div class="row g-3 my-2">
+                    <div class="col-md-12 hover rounded">
+                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
+                            <div class="col-2"><p class="mb-0 text-dark"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
+                            <div class="col-2"><p class="mb-0 text-dark"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
+                            <div class="col-0" *ngIf="Editable"><a routerLink="/ScheduleReview/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div class="col-0" *ngIf="Editable" id="pointer"><a (click)="disableReview(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                            <div class="col-2" *ngIf="Complete && logIn.IsCoordinator"><a routerLink="/ViewMOM/{{item.id}}/{{item.trainee.id}}">
+                                <button type="button" class="btn btn-dark pe-3 px-3 mx-3">View MOM</button></a>
+                            </div>
+                            <div class="col-2" *ngIf="incomplete && logIn.IsTrainee"><a routerLink="/UploadMOM/{{item.id}}/{{item.trainee.id}}">
+                                <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Upload MOM</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container justify-content-center d-flex pagination"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>    
+    </div>
+    <app-footer></app-footer>
+</div>
