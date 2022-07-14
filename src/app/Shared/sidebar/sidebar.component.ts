@@ -9,12 +9,12 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(public auth : LoginService,
+  constructor(public ls : LoginService,
     private route : Router) { }
 
 
   ngOnInit(): void {
-  
+   
   }
   
   LogOut(){

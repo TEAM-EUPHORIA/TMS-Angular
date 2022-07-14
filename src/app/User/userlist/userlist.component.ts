@@ -1,10 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Observable } from 'rxjs';
-import { DepartmentService } from 'src/app/Department/department.service';
 import { LoginService } from 'src/app/Login/login.service';
-import { UserService } from '../user.service';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-userlist',
@@ -13,97 +12,51 @@ import { UserService } from '../user.service';
 })
 export class UserlistComponent implements OnInit {
 
-  canAdd!: boolean;
-  constructor(private auth: LoginService,
-    private user: UserService,
-    private route: ActivatedRoute,
-    private dservice: DepartmentService,
-    private toastService: HotToastService) { }
-
-  searchuser!: string;
-  searchdept!: string;
-  data$!: Observable<any>;
-  dept: any;
-  users$!: Observable<any>;
-  users: any;
-  _dept!: '';
-  _user!: '';
-  page: number = 1;
-  totalLength: any;
-  roleId!: number;
-  Role!: string;
-  option!: number;
-  editable = false;
-  dpt = false;
-  title!: string;
-
+  constructor(public ls: LoginService, private ts: HotToastService, private router: Router, private http: HttpClient) { }
+  title: any;
+  searchuser = '';
+  _dept = ''
+  dpt = false
+  dept: any[] = [];
+  users: any[] = [];
+  edit = false
+  disableUser(item: any) {
+    console.warn(item)
+  }
   ngOnInit(): void {
-    this.option = this.route.snapshot.params['option'];
-    var roleId: number = + this.option;
-    if (this.roleId == 2) this.editable = true;
-    if (this.roleId == 1) {
-      if (this.option == 2) this.editable = true;
-      else this.editable = false
+    this.title = this.router.url.slice(1)
+    this.dpt = this.title != 'Co-Ordinator'
+    switch (this.title) {
+      case 'Co-Ordinator':
+        this.getUsers(2)
+        if (this.ls.IsHead) this.edit = true;
+        break;
+      case 'Trainer':
+        this.getUsers(3)
+        if (this.ls.IsCoordinator) this.edit = true;
+        break;
+      case 'Trainee':
+        this.getUsers(4)
+        if (this.ls.IsCoordinator) this.edit = true;
+        break;
+      case 'Reviewer':
+        this.getUsers(5)
+        if (this.ls.IsCoordinator) this.edit = true;
+        break;
+
+      default:
+        break;
     }
-    if (roleId > 2) this.dpt = true;
-
-    this.route.params.subscribe(p => {
-      this.user.getAllUsersByRoleId(p["option"]).subscribe(res => {
-        this.users = res;
-        this.option = p["option"];
-        this.title = this.users[0].role.name
-        this.roleId = this.auth.getRoleId();
-        if (this.roleId == 2) {
-          this.editable = true;
-          this.canAdd = true;
-        }
-        if (this.roleId == 1) {
-          if (this.option == 2) {
-            this.canAdd = true;
-            this.editable = true;
-          }
-          else {
-            this.canAdd = false
-            this.editable = false
-          }
-
-        }
-      })
-    })
-    this.GetAllDepartment();
-    this.GetUsers()
+    this.getDepartments()
   }
-
-  private setEditable(roleId: number) {
-    if (this.roleId == 2)
-      this.editable = true;
-    if (this.roleId == 1) {
-      if (this.option == 2)
-        this.editable = true;
-    }
-    if (roleId > 2)
-      this.dpt = true;
-  }
-
-  SearchActive(search: string) {
-    this.searchuser = search;
-  }
-  GetUsers() {
-    this.user.getAllUsersByRoleId(this.option).subscribe(res => {
-      this.users = res;
-      this.title = this.users[0].role.name
-    })
-  }
-  GetAllDepartment() {
-    this.dservice.getAllDepartment().subscribe(res => {
+  getDepartments() {
+    this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
       this.dept = res
     })
   }
-  disableUser(id: number) {
-    this.user.disableUser(id).subscribe(() => this.GetUsers())
-    this.showToast();
-  }
-  showToast() {
-    this.toastService.error('Disabled')
+  getUsers(roleId: any) {
+    this.http.get(baseurl + `User/role/${roleId}`).subscribe((res: any) => {
+      this.users = res
+    })
   }
 }

@@ -11,20 +11,27 @@ import { HomeComponent } from './Shared/home/home.component';
 import { CourselistComponent } from './Course/Course/courselist/courselist.component';
 import { CourseviewComponent } from './Course/Course/courseview/courseview.component';
 import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
+import { DashboardComponent } from './User/dashboard/dashboard.component';
+import { UserlistComponent } from './User/userlist/userlist.component';
+import { UsercrudComponent } from './User/usercrud/usercrud.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'Login', component: LoginComponent },
-  { path: 'addcourse', component: CoursecrudComponent },
-  { path: 'Review', component: ReviewcrudComponent },
-  { path: 'ReviewList', component: ReviewlistComponent },
-  { path: 'addDepartment', component: DepartmentcrudComponent },
+  { path: 'Login', component: LoginComponent},
+  { path: 'Dashboard', component: DashboardComponent},
+  { path: 'Co-Ordinator', component: UserlistComponent},
+  { path: 'Trainer', component: UserlistComponent},
+  { path: 'Trainee', component: UserlistComponent},
+  { path: 'Reviewer', component: UserlistComponent},
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent},
+  { path: 'Update-Trainer/:id', component: UsercrudComponent},
+  { path: 'Update-Trainee/:id', component: UsercrudComponent},
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent},
+  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'Completed-Reviews', component: ReviewlistComponent },
+  { path: 'Courses', component: CourselistComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
-  { path: 'AddCourse', component: CoursecrudComponent },
-  { path: 'AddTopic', component: TopiccrudComponent },
-  { path: 'CourseList', component: CourselistComponent },
   { path: 'CourseView', component: CourseviewComponent},
-  { path: 'TopicView', component: TopicviewComponent},
 ]
 
 @NgModule({

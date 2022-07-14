@@ -1,55 +1,63 @@
 <div class="sidebar pe-4 pb-3" id="sidebar">
     <nav class="navbar bg-light navbar-light">
-        <a [routerLink]="['']" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary">TMS</h3>
-        </a>
-        <!-- Common Home -->
-        <div class="navbar-nav w-100">
-            <div *ngIf="!auth.IsloggedIn">
-                <a [routerLink]="['']" routerLinkActive="active" class="nav-item nav-link "><i class="fa fa-home"
-                        aria-hidden="true"></i>Home</a>
-            </div>
+      <a routerLink="" class="navbar-brand mx-4 mb-3">
+        <h3 class="text-primary">TMS</h3>
+      </a>
+  
+      <div class="navbar-nav w-100">
+        <div>
+          <a *ngIf="!ls.IsloggedIn" routerLink="/" routerLinkActive="active" class="nav-item nav-link "><i
+              class="fa fa-home" aria-hidden="true"></i>Home</a>
         </div>
-
-        <!-- Sidebar Starts -->
-        <div class="navbar-nav w-100">
-            <a *ngIf="auth.IsloggedIn" [routerLink]="['']" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-home" id="hov" aria-hidden="true"></i>Home</a>
-            <a *ngIf="auth.IsloggedIn" routerLink="/Dashboard" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-desktop" aria-hidden="true"></i>Dashboard</a>
-            <a *ngIf="auth.IsloggedIn" routerLink="/UserProfile" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-card"></i>My Profile</a>
-            <a *ngIf="auth.IsHead" routerLink="/Userlist/2" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i>Co-Ordinator</a>
-            <a *ngIf="auth.IsHead || auth.IsCoordinator" routerLink="/Departmentlist" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="true"></i>Department</a>
-            <a *ngIf="auth.IsHead || auth.IsCoordinator" routerLink="/Userlist/3" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-male" aria-hidden="true"></i>Trainer</a>
-            <a *ngIf="auth.IsHead || auth.IsCoordinator" routerLink="/Userlist/4" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-users" aria-hidden="true"></i>Trainee</a>
-            <a *ngIf="auth.IsHead || auth.IsCoordinator" routerLink="/Userlist/5" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
-            <a *ngIf="auth.IsCoordinator" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
-            <a *ngIf="auth.IsTrainee || auth.IsTrainer" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>My Courses</a>
-            <!-- <a *ngIf="IsTrainee" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>My Reviews</a> -->
-            <!-- <a *ngIf="IsCoordinator" routerLink="/AssignCourse" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-file-pen"></i>Assign Course</a> -->
-            <a *ngIf="auth.IsCoordinator || auth.IsReviewer || auth.IsTrainee" routerLink="/ReviewList/1" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Upcoming Review</a>
-            <a *ngIf="auth.IsCoordinator || auth.IsReviewer || auth.IsTrainee" routerLink="/ReviewList/2" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed Review</a>
-            <!-- <a *ngIf="IsCoordinator || IsReviewer || IsTrainee" routerLink="/ReviewList/3" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-xmark"></i>Canceled Review</a> -->
-        </div>
-        <!-- Sidebar ends -->
+      </div>
+  
+  
+      <div class="navbar-nav w-100">
+        <a *ngIf="ls.IsloggedIn" routerLink="/" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-home"
+            id="hov" aria-hidden="true"></i>Home</a>
+        <a *ngIf="ls.IsloggedIn" routerLink="/Dashboard" routerLinkActive="active" class="nav-item nav-link"><i
+            class="fa fa-desktop" aria-hidden="true"></i>Dashboard</a>
+        <a *ngIf="ls.IsloggedIn" routerLink="/Profile/{{ls.getId()}}" routerLinkActive="active" class="nav-item nav-link"><i
+            class="fa fa-address-card"></i>My Profile</a>
+        <a *ngIf="ls.IsHead" routerLink="/Co-Ordinator" routerLinkActive="active" class="nav-item nav-link"><i
+            class="fa fa-user" aria-hidden="true"></i>Co-Ordinator</a>
+        <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Department" routerLinkActive="active"
+          class="nav-item nav-link"><i class="fa fa-book" aria-hidden="true"></i>Department</a>
+        <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainer" routerLinkActive="active"
+          class="nav-item nav-link"><i class="fa fa-male" aria-hidden="true"></i>Trainer</a>
+        <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainee" routerLinkActive="active"
+          class="nav-item nav-link"><i class="fa fa-users" aria-hidden="true"></i>Trainee</a>
+        <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active"
+          class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
+        <a *ngIf="ls.IsCoordinator" routerLink="/Courses" routerLinkActive="active" class="nav-item nav-link"><i
+            class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
+        <a *ngIf="ls.IsTrainee || ls.IsTrainer" routerLink="/Courses" routerLinkActive="active"
+          class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>My Courses</a>
+        <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Upcoming-Reviews"
+          routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Upcoming Reviews</a>
+        <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Reviews"
+          routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed
+          Reviews</a>
+      </div>
     </nav>
-</div>
-
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-        <a class="sidebar-toggler flex-shrink-0" (click)="toggleNavbar()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="navbar-nav align-items-center ms-auto">
-            <div class="nav-item" *ngIf="auth.IsloggedIn">
-                <a class="d-none d-lg-inline-flex">
-                    <a routerLink="'/'"><i class="fa fa-sign-out" aria-hidden="true" (click)="LogOut()"> &nbsp;
-                        LogOut</i></a>
-                    </a>
-                </div>
-                <div *ngIf="!auth.IsloggedIn">
-                    <a class="d-none d-lg-inline-flex">
-                        <a routerLink="/Login"><i class="fa fa-sign-out" aria-hidden="true"> &nbsp; LogIn</i></a>
-                    </a>
-                </div>
-            </div>
-        </nav>
-<!-- Navbar End -->
+  
+  </div>
+  
+  <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+    <a class="sidebar-toggler flex-shrink-0" (click)="toggleNavbar()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <div class="navbar-nav align-items-center ms-auto">
+      <div class="nav-item">
+  
+        <a *ngIf="ls.IsloggedIn" routerLink="/"><i class="fa fa-sign-out" aria-hidden="true" (click)="LogOut()"> &nbsp;
+            LogOut</i></a>
+  
+      </div>
+      <div>
+        <a *ngIf="!ls.IsloggedIn" routerLink="/Login"><i class="fa fa-sign-out" aria-hidden="true"> &nbsp; LogIn</i></a>
+  
+      </div>
+    </div>
+  </nav>
+  
