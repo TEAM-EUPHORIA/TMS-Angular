@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-userlist',
@@ -12,16 +13,25 @@ import { baseurl } from 'src/app/URL';
 })
 export class UserlistComponent implements OnInit {
 
-  constructor(public ls: LoginService, private ts: HotToastService, private router: Router, private http: HttpClient) { }
+  constructor(public ls: LoginService, private ts: HotToastService, private router: Router, private http: HttpClient, private userservice: UserService) { }
   title: any;
   searchuser = '';
   _dept = ''
+  data:any
   dpt = false
   dept: any[] = [];
   users: any[] = [];
   edit = false
-  disableUser(item: any) {
-    console.warn(item)
+  page: number = 1;
+  totalLength: any;
+  disableUser(id: any) {
+    console.warn(id)
+    this.userservice.disableUser(id).subscribe(res => {
+      this.data =res
+      console.log(res)
+    })
+    this.showToast();
+    window.location.reload();
   }
   ngOnInit(): void {
     this.title = this.router.url.slice(1)
@@ -62,4 +72,8 @@ export class UserlistComponent implements OnInit {
       this.users = res
     })
   }
+  showToast() {
+    this.ts.error('Disabled')
+  }
+  
 }
