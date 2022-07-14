@@ -10,7 +10,7 @@
         </nav>
         <div class="col-sm-12 px-4 pt-2">
             <form [formGroup]="deptform" action="" #ngForm (ngSubmit)="OnSubmit()">
-                <h3 class="text-black pb-2">Add Department</h3>
+                <h3 class="text-black pb-2">{{Title}} Department</h3>
                 <div class="form-floating mb-4">
                     <input type="text" class="form-control" id="floatingText" name="dept" [(ngModel)]="department.name" formControlName="dept" maxlength="24" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)" required>
                     <label for="floatingText">Department</label>
@@ -21,7 +21,7 @@
                         <div *ngIf="deptform.controls['dept'].invalid || deptform.controls['dept'].errors?.['maxlength']">Please enter a valid name</div>
                     </div>
                 </div>
-                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4">Add</button></a>
+                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4">{{title}}</button></a>
             </form>
         </div>
     </div>

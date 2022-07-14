@@ -3,70 +3,99 @@
     <div class="pt-4 px-4">
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
-        <h2 class="pt-2 px-4">Dashboard</h2>
-        <div *ngIf="role==='Training Head'">
-            <div class="container-fluid pt-2 px-2">
-                <div class="row g-1">
-                    <div class="col-m-6">
-                        <a routerLink="/UserProfile/{{this.id}}" class="nav-item nav-link" id="boxshadow">
-                            <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h6 class="mb-3">Welcome, {{data.Name}}</h6><h6 class="mb-0">Role:{{data.Role}}</h6></div>
+        <h2 class="pt-2 px-4 text-dark">Dashboard</h2>
+        <div class="container-fluid pt-2 px-2">
+            <div class="row g-1">
+                <div class="col-m-6">
+                    <a routerLink="/Profile" class="nav-item nav-link" id="boxshadow">
+                        <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
+                            <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                class="img-fluid rounded-start Dprofile" alt="image">
+                            <div class="ms-3">
+                                <h6 class="mb-3 text-dark">Welcome, {{data.Name}}</h6>
+                                <h6 class="mb-0 text-dark">Role:{{data.Role}}</h6>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
+            </div>
+            <div *ngIf="ls.IsHead">
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/2" class="nav-item nav-link active" id="boxshadow">
+                        <a routerLink="/Co-Ordinator" class="nav-item nav-link active" id="boxshadow">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center">
                                 <div class="col-2"><i class="fa fa-user fs-3 text-dark" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Co-Ordinator</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.coordinatorsCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Co-Ordinator</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3 text-dark">{{data.coordinatorsCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/Departmentlist" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa fa-book text-dark fs-3 mx-2" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Department</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.departmentCount}}</h3></div>
+                        <a routerLink="/DepartmentList" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa fa-book text-dark fs-3 mx-2" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Department</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3 text-dark">{{data.departmentCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/3" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                        <a routerLink="/Trainer" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"> <i class="fa fa-male text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Trainer</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.trainersCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Trainer</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-4 text-dark">{{data.trainersCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/4" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                        <a routerLink="/Trainee" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-users text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Trainee</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.traineesCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Trainee</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-4 text-dark">{{data.traineesCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/5" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                        <a routerLink="/Reviewer" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-user-md text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Reviewer</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.reviewersCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Reviewer</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-4 text-dark">{{data.reviewersCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -74,54 +103,65 @@
             </div>
         </div>
         <!-- Co-Ordinator Dashboard -->
-        <div *ngIf="role==='Training Coordinator'">
+        <div *ngIf="ls.IsCoordinator">
             <div class="container-fluid pt-2 px-2">
-                <div class="row g-1">
-                    <div class="col-m-6">
-                        <a routerLink="/UserProfile/{{this.id}}" class="nav-item nav-link rounded" id="boxshadow">
-                            <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h6 class="mb-3">Welcome, {{data.Name}}</h6><h6 class="mb-0">Role:{{data.Role}}</h6></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Departmentlist" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa fa-book text-dark fs-3 mx-2" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Department</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.departmentCount}}</h3></div>
+                        <a routerLink="/DepartmentList" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa fa-book text-dark fs-3 mx-2" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Department</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3 text-dark">{{data.departmentCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
                         <a routerLink="/CourseList" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Courses</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.courseCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Courses</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3 text-dark">{{data.courseCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/3" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                        <a routerLink="/Trainer" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"> <i class="fa fa-male text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Trainer</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.trainersCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Trainer</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-4 text-dark">{{data.trainersCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/Userlist/4" class="nav-item nav-link active rounded" id="boxshadow">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                        <a routerLink="/Trainee" class="nav-item nav-link active rounded" id="boxshadow">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-users text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Trainee</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.traineesCount}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Trainee</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-4 text-dark">{{data.traineesCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -129,11 +169,17 @@
                 <div class="row g-3 my-2">
                     <div class="row g-3 my-2">
                         <div class="col-md-6">
-                            <a routerLink="/Userlist/5" class="nav-item nav-link active rounded" id="boxshadow">
-                                <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                    <div class="col-2"><i class="fa fa-user-md text-dark fs-3" aria-hidden="true"></i></div>
-                                    <div class="col-xs-2 "><h4 class="mb-0 text-dark">Reviewer</h4></div>
-                                    <div class="col-2"><h3 class="mb-0 mx-4">{{data.reviewersCount}}</h3></div>
+                            <a routerLink="/Reviewer" class="nav-item nav-link active rounded" id="boxshadow">
+                                <div
+                                    class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                    <div class="col-2"><i class="fa fa-user-md text-dark fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-xs-2 ">
+                                        <h4 class="mb-0 text-dark">Reviewer</h4>
+                                    </div>
+                                    <div class="col-2">
+                                        <h3 class="mb-0 mx-4 text-dark">{{data.reviewersCount}}</h3>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -141,82 +187,146 @@
                 </div>
             </div>
         </div>
-        <!-- Trainee Dashboard -->
-        <div *ngIf="role==='Trainee'">
-            <div class="container-fluid pt-2 px-2">
-                <div class="row g-1">
-                    <div class="col-m-6">
-                        <a routerLink="/UserProfile/{{this.id}}" class="nav-item nav-link rounded" id="boxshadow">
-                            <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h6 class="mb-3">Welcome, {{data.Name}}</h6><h6 class="mb-0">Role:{{data.Role}}</h6></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+        <!-- Trainer Dashboard -->
+        <div *ngIf="ls.IsTrainer">
+            <div class="container-fluid px-2">
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/CourseList/{{data.id}}" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa-solid fa-square-pen fs-3 text-dark" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Courses</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.courseCount}}</h3></div>
+                        <a routerLink="/CourseList" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2">
+                                    <i class="fa-solid fa-square-pen fs-3 text-dark" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Courses</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data.courseCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
                         <a routerLink="/ReviewList/1" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Upcoming Review</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3></div>
+                            <div
+                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2">
+                                    <i class="fa fa-book text-dark fs-3" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Completed Course</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data.completedCourseCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/2" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Completed Review</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data["Completed Review"]}}</h3></div>
+                        <a routerLink="Completed-Reviews" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2">
+                                    <i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Progress Course</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data.inProgressCourseCount}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Reviewer Dashboard -->
-        <div *ngIf="role==='Reviewer'">
+        <!-- Trainee Dashboard -->
+        <div *ngIf="ls.IsTrainee">
             <div class="container-fluid pt-2 px-2">
-                <div class="row g-1">
-                    <div class="col-m-6">
-                        <a routerLink="/UserProfile/{{this.id}}" class="nav-item nav-link rounded" id="boxshadow">
-                            <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h6 class="mb-3">Welcome, {{data.Name}}</h6><h6 class="mb-0">Role:{{data.Role}}</h6></div>
+                <div class="row g-3 my-2">
+                    <div class="col-md-6">
+                        <a routerLink="/CourseList" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa-solid fa-square-pen fs-3 text-dark"
+                                        aria-hidden="true"></i></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Courses</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data.courseCount}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a routerLink="/ReviewList/1" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Upcoming Review</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
+                        <a routerLink="Completed-Reviews" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Completed Review</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data["Completed Review"]}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reviewer Dashboard -->
+        <div *ngIf="ls.IsReviewer">
+            <div class="container-fluid pt-2 px-2">
+                <div class="row g-3 my-2">
+                    <div class="col-md-6">
                         <a routerLink="/ReviewList/1" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Upcoming Review</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3></div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Upcoming Review</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/2" class="nav-item nav-link active">
-                            <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
-                                <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Completed Review</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data["Completed Review"]}}</h3></div>
+                        <a routerLink="Completed-Reviews" class="nav-item nav-link active">
+                            <div
+                                class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
+                                <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <h4 class="mb-0 text-dark">Completed Review</h4>
+                                </div>
+                                <div class="col-2">
+                                    <h3 class="mb-0 mx-3">{{data["Completed Review"]}}</h3>
+                                </div>
                             </div>
                         </a>
                     </div>

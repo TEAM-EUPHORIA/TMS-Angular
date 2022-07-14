@@ -1,0 +1,83 @@
+<div class="content">
+
+    <!-- <app-sidebar></app-sidebar> -->
+
+    <!-- Breadcrums Start -->
+    <div class="Bread pt-4 px-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a routerLink="/Home">Home</a>
+                </li>
+                <li class="breadcrumb-item ">
+                    <a routerLink="/CourseList">Course List</a>
+                </li>
+                <li class="breadcrumb-item ">
+                    <a routerLink="/TopicList">Topic List</a>
+                </li>
+                <li class="breadcrumb-item active">CourseFeedback</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Breadcrums End -->
+
+    <section>
+        <h3 class="pt-4 px-4">{{text}}</h3>
+    </section>
+
+    <!--Feedback form Start-->
+    <form action="" #ngForm (ngSubmit)="OnSubmit()">
+
+        <div class="row mb-4">
+            <div class="col-md-4 p-2 ">
+                <h3>{{Course}}</h3>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-2 ">
+                <h6> Rating :</h6>
+            </div>
+
+            <!--Feedback rating -->
+            <div *ngIf="Add" class="col-md-2 ">
+                <!-- <ngb-rating  class="rating bg-none" [max]="5"
+            [(rate)]="data.rating" [readonly]="true"></ngb-rating> -->
+                <ngb-rating style="color:rgb(27, 140, 233);font-size: 35px;" class="rating bg-none" name="name"
+                [max]="5.0" [(ngModel)]="Feedback.rating" [(rate)]="Feedback.rating" [readonly]="false">
+                </ngb-rating>
+            </div>
+            <div *ngIf="Edit" class="col-md-2 ">
+                <!-- <ngb-rating  class="rating bg-none" [max]="5"
+            [(rate)]="data.rating" [readonly]="true"></ngb-rating> -->
+                <ngb-rating style="color:rgb(27, 140, 233);font-size: 35px;" class="rating bg-none" name="name"
+                [max]="5.0" [(ngModel)]="CourseFeedback.rating" [(rate)]="CourseFeedback.rating" [readonly]="false">
+                </ngb-rating>
+            </div>
+        </div>
+
+        <!--FEEDBACK TEXTAREA-->
+        <div class="row mt-4">
+            <div class="col-md-2 ">
+                <h6> Feedback : </h6>
+            </div>
+            <div *ngIf="Add" class="col-md-2">
+                <!-- <input type="text" name="rate" [(ngModel)]="CourseFeedback.feddback"> -->
+                <textarea name="rate" [(ngModel)]="Feedback.feedback" rows="5" cols="45"></textarea>
+            </div>
+            <div *ngIf="Edit" class="col-md-2">
+                <!-- <input type="text" name="rate" [(ngModel)]="CourseFeedback.feddback"> -->
+                <textarea name="rate" [(ngModel)]="CourseFeedback.feedback" rows="5" cols="45"></textarea>
+            </div>
+
+            <!--Submit button-->
+            <a> <button type="submit" class="btn btn-dark pe-4 px-4">{{txt}}</button> </a>
+            <!-- <a routerLink="../ViewCourseFeedback" routerLinkActivate="active"></a> -->
+            <!--feedback form end-->
+
+        </div>
+    </form>
+    <!--feedback form end-->
+    <!-- <app-footer></app-footer> -->
+</div>

@@ -11,20 +11,63 @@ import { HomeComponent } from './Shared/home/home.component';
 import { CourselistComponent } from './Course/Course/courselist/courselist.component';
 import { CourseviewComponent } from './Course/Course/courseview/courseview.component';
 import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
+import { DashboardComponent } from './User/dashboard/dashboard.component';
+import { UserlistComponent } from './User/userlist/userlist.component';
+import { UsercrudComponent } from './User/usercrud/usercrud.component';
+import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedback/givecoursefeedback.component';
+import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
+import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
+
+import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
+import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
+import { UserprofileComponent } from './User/userprofile/userprofile.component';
+import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'Login', component: LoginComponent },
-  { path: 'addcourse', component: CoursecrudComponent },
-  { path: 'Review', component: ReviewcrudComponent },
-  { path: 'ReviewList', component: ReviewlistComponent },
-  { path: 'addDepartment', component: DepartmentcrudComponent },
-  { path: 'DepartmentList', component: DepartmentlistComponent },
-  { path: 'AddCourse', component: CoursecrudComponent },
-  { path: 'AddTopic', component: TopiccrudComponent },
+  { path: 'Login', component: LoginComponent},
+  { path: 'Dashboard', component: DashboardComponent},
+  { path: 'Co-Ordinator', component: UserlistComponent},
+  { path: 'Trainer', component: UserlistComponent},
+  { path: 'Trainee', component: UserlistComponent},
+  { path: 'Reviewer', component: UserlistComponent},
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent},
+  { path: 'Update-Trainer/:id', component: UsercrudComponent},
+  { path: 'Update-Trainee/:id', component: UsercrudComponent},
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent},
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
+  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'EditUser/:userId', component: UsercrudComponent },
+  // { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  // { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  // { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  // { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  // { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
+  // { path: 'Add-Trainer/:id', component: UsercrudComponent },
+  // { path: 'Add-Trainee/:id', component: UsercrudComponent },
+  // { path: 'Add-Reviewer/:id', component: UsercrudComponent },
+  { path: 'ReviewList/:reviewId', component: ReviewlistComponent },
+  { path: 'Profile', component: UserprofileComponent },
+  { path: ':list/Profile', component: UserprofileComponent },
+  { path: 'Completed-Reviews', component: ReviewlistComponent },
   { path: 'CourseList', component: CourselistComponent },
+  { path: 'AddCourse', component: CoursecrudComponent },
+  { path: 'EditCourse', component: CoursecrudComponent },
+  { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'CourseView', component: CourseviewComponent},
   { path: 'TopicView', component: TopicviewComponent},
+  { path: 'GiveCourseFeedback', component: GivecoursefeedbackComponent},
+  { path: 'EditCourseFeedback', component: GivecoursefeedbackComponent},
+  { path: 'ViewCourseFeedback', component: ViewcoursefeedbackComponent},
+  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent},
+  { path: 'ViewTraineeFeedback', component: ViewtraineefeedbackComponent},
+  { path: 'Attendance', component: AttendancelistComponent},
+
+  { path: 'AddDepartment', component: DepartmentcrudComponent },
+  { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
+  { path: 'CourseView', component: CourseviewComponent },
 ]
 
 @NgModule({

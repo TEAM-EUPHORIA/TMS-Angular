@@ -23,10 +23,10 @@
                         <a routerLink="/ViewCourseFeedback/{{data.id}}/{{traineeId}}"><button type="button" class="btn btn-dark">View Feedback</button></a>
                     </div> -->
                     <div class="col-1" *ngIf="auth.IsTrainee && !Givefeedback">
-                        <a routerLink="/ViewCourseFeedback/{{Course.id}}"><button type="button" class="btn btn-dark">View Feedback</button></a>
+                        <a (click)="ToFeedback()" ><button type="button" class="btn btn-dark">View Feedback</button></a>
                     </div>
                     <div class="col-1" *ngIf="auth.IsTrainee && Givefeedback">
-                        <a routerLink="/CourseFeedback/{{Course.id}}"><button type="button" class="btn btn-dark">Give Feedback</button></a>
+                        <a (click)="ToAddFeedback()"><button type="button" class="btn btn-dark">Give Feedback</button></a>
                     </div>
                 </div>
             </div>

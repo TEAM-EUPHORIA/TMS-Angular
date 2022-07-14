@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   
-  constructor(private router: Router, private routing: Router, private toastService: HotToastService,
+  constructor(private router: Router, private toastService: HotToastService,
     private http : HttpClient) { }
     Tokendata: any;
     public Role: any;
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("Token",this.response.token);
       }
       this.Responsemsg = "LoggedIn Successfully"
-      this.router.navigate(['/Home'])
+      this.router.navigate(['/Home']);
     },err => {
       this.errormsg = err;
       if(this.errormsg.error.errors.Email[0] != undefined){

@@ -14,8 +14,6 @@ import { CourselistComponent } from './Course/Course/courselist/courselist.compo
 import { CoursecrudComponent } from './Course/Course/coursecrud/coursecrud.component';
 import { DepartmentlistComponent } from './Department/departmentlist/departmentlist.component';
 import { DepartmentcrudComponent } from './Department/departmentcrud/departmentcrud.component';
-import { GivefeedbackComponent } from './Feedback/Course/givefeedback/givefeedback.component';
-import { ViewfeedbackComponent } from './Feedback/Course/viewfeedback/viewfeedback.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 import { TopiccrudComponent } from './Course/Topic/topiccrud/topiccrud.component';
@@ -36,6 +34,11 @@ import { SidebarComponent } from './Shared/sidebar/sidebar.component';
 import { FooterComponent } from './Shared/footer/footer.component';
 import { QuillModule } from 'ngx-quill';
 import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedback/givecoursefeedback.component';
+import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
+import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
+import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
 
 export function tokenGetter() {
   return localStorage.getItem("Token");
@@ -49,8 +52,6 @@ export function tokenGetter() {
     CoursecrudComponent,
     DepartmentlistComponent,
     DepartmentcrudComponent,
-    GivefeedbackComponent,
-    ViewfeedbackComponent,
     UploadassignmentComponent,
     AssignmentlistComponent,
     TopiccrudComponent,
@@ -70,6 +71,10 @@ export function tokenGetter() {
     HomeComponent,
     SidebarComponent,
     FooterComponent,
+    GivecoursefeedbackComponent,
+    ViewcoursefeedbackComponent,
+    ViewtraineefeedbackComponent,
+    GivetraineefeedbackComponent,
   ],
   imports: [
     FormsModule,
@@ -79,6 +84,7 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     QuillModule.forRoot(),
