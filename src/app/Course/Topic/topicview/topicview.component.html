@@ -1,36 +1,36 @@
-<!-- <div class="content">
+<div class="content">
     <app-sidebar></app-sidebar>
     <div class="pt-4 px-4">
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
-                <li class="breadcrumb-item active">{{this.data.name}}</li>
+                <li class="breadcrumb-item active">{{Topic.name}}</li>
             </ol>
         </nav>
         <div class="container-fluid px-4">
             <div class="row g-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-10"><h2 class="pt-4">{{data.name}}</h2></div>
+                    <div class="col-10"><h2 class="pt-4">{{Topic.name}}</h2></div>
                     <div class="col-2">
-                        <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{data.duration}}</p>
+                        <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
                         <b class="text-primary fs-4">
-                            <div *ngIf="IsTrainee">
+                            <div *ngIf="auth.IsTrainee">
                                 <a *ngIf="Ischecked === true">Attendance <input type='checkbox' class='form' value='Yes' checked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                                 <a *ngIf="Ischecked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                             </div>
-                            <div><a *ngIf="IsCoordinator || auth.IsTrainer" routerLink="/Attendance/{{data.courseId}}/{{data.topicId}}">Attendance List</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/Attendance/{{Topic.courseId}}/{{Topic.topicId}}">Attendance List</a></div>
                         </b>
                     </div>
                 </div>
             </div>
         </div>
         <div class="mx-2"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
-        <div class="container-fluid  px-4">
+        <!-- <div class="container-fluid  px-4">
             <app-assignment-ques></app-assignment-ques>
-            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!upload"><app-assignment-list> </app-assignment-list></div>
-            <div class="row justify-content-center mt-5" *ngIf="upload"><app-upload-assignment (SubmittedAssignment)="handleSubmit($event)"></app-upload-assignment></div>
-        </div>
+            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey"><app-assignment-list> </app-assignment-list></div>
+            <div class="row justify-content-center mt-5" *ngIf="uploadKey"><app-upload-assignment (SubmittedAssignment)="handleSubmit($event)"></app-upload-assignment></div>
+        </div> -->
     </div>
     <app-footer></app-footer>
-</div> -->
+</div>

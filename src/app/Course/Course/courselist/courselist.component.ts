@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { DepartmentService } from 'src/app/Department/department.service';
 import { LoginService } from 'src/app/Login/login.service';
 import { CourseService } from '../../course.service';
@@ -11,49 +12,52 @@ import { CourseService } from '../../course.service';
 })
 export class CourselistComponent implements OnInit {
 
-  constructor(private CourseService:CourseService, private route: Router, private dservice : DepartmentService , public auth : LoginService) { }
+  constructor(private CourseService:CourseService, private route: Router, public auth : LoginService, private http : HttpClient) { }
   _course = '';
-  course: any;
+  //variable to store and iterate through list of courses
+  courselist : any;
   _dept = '';
+  //variable to store and iterate through list of departments
   dept: any
+
+  // Paginate settings
   page: number = 1;
   totalLength: any;
-  searchuser !: string;
-  roleId !: number;
-  Trainer: boolean = false;
-  IsCoordinator: boolean = false;
-  IsTrainer: boolean = false;
-  IsTrainee: boolean = true;
+  search !: string;
+  // 
 
+  private CoordinatorId : number = 2;     // Coordinator role id
+  private TrainerId : number = 3;        // Trainer role id
+  private TraineeId : number = 4;       // Trainee role id
+  
+  //Enables the add button in course list for coordinator
   add: boolean = false;
 
+  //This method activates the methods when Courseist component created 
   ngOnInit(): void  {
     this.GetallDepartment();
-    if (this.auth.getRoleId() == 2) {
-      this.IsCoordinator=true;
+    if (this.auth.getRoleId() == this.CoordinatorId) {
       this.getAllCourses();
       this.add = true;
     }
-    else if (this.auth.getRoleId() == 3) {
-      this.getCoursesByUserId(this.auth.getId())
-      this.IsTrainer = true;
-    } else {
-
+    else if (this.auth.getRoleId() == this.TrainerId) {
       this.getCoursesByUserId(this.auth.getId())
     }
-    
+    else if(this.auth.getRoleId() == this.TraineeId){
+      this.getCoursesByUserId(this.auth.getId())
+    }
   }
   getAllCourses() {
     this.CourseService.getAllCourses().
       subscribe(res => {
-        this.course = res
+        this.courselist = res
       })
   }
-
+  //returns list of courses assigned to the particular user
   getCoursesByUserId(id: number) {
     console.warn(id)
     this.CourseService.getCoursesByUserId(id).subscribe(res => {
-      this.course = res;
+      this.courselist = res;
     })
   }
 
@@ -65,11 +69,18 @@ export class CourselistComponent implements OnInit {
   //   this.toastService.error('Disabled')
   }
   SearchActive(search: string) {
-    this.searchuser = search;
+    this.search = search;
+  }
+  ToCourseView(id : number){
+    var course : any;
+    this.http.get("https://localhost:5001/Course/"+ id).subscribe(res => {
+      course = res;
+      this.route.navigate(['/CourseView'], { state: { courseView : course } });
+    });
   }
   GetallDepartment() {
-    this.dservice.getAllDepartment().subscribe(res => {
-      this.dept = res
+    this.http.get("https://localhost:5001/Department/departments").subscribe(res =>{
+      this.dept = res;
     })
   }
 

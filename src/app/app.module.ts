@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginInterceptor } from './Login/login.interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -37,7 +38,7 @@ import { QuillModule } from 'ngx-quill';
 import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
 
 export function tokenGetter() {
-  return localStorage.getItem("token");
+  return localStorage.getItem("Token");
 }
 
 @NgModule({
@@ -89,7 +90,11 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+        useClass: LoginInterceptor,
+        multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

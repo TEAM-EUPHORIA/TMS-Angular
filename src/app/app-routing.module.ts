@@ -9,6 +9,8 @@ import { ReviewcrudComponent } from './Review/Review/reviewcrud/reviewcrud.compo
 import { ReviewlistComponent } from './Review/Review/reviewlist/reviewlist.component';
 import { HomeComponent } from './Shared/home/home.component';
 import { CourselistComponent } from './Course/Course/courselist/courselist.component';
+import { CourseviewComponent } from './Course/Course/courseview/courseview.component';
+import { TopicviewComponent } from './Course/Topic/topicview/topicview.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'AddCourse', component: CoursecrudComponent },
   { path: 'AddTopic', component: TopiccrudComponent },
   { path: 'CourseList', component: CourselistComponent },
+  { path: 'CourseView', component: CourseviewComponent},
+  { path: 'TopicView', component: TopicviewComponent},
 ]
 
 @NgModule({

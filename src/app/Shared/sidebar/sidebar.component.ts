@@ -14,11 +14,7 @@ export class SidebarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.warn(this.auth.IsloggedIn, "Logged");
-    console.warn(this.auth.IsHead, "Head");
-    console.warn(this.auth.IsCoordinator, "Coordinator");
-    console.warn(this.auth.IsTrainee, "Trainee");
-    console.warn(this.auth.IsTrainer, "Trainer");
+  
   }
   
   LogOut(){
