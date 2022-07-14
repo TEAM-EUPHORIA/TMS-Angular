@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,35 +12,36 @@ import { UserService } from '../user.service';
 export class UserprofileComponent implements OnInit {
 
   constructor(
+    private http : HttpClient,
     private userService: UserService,
     public sanitizer: DomSanitizer,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private router: ActivatedRoute,
     // private datashare: DatashareService
-  ) { }
+  ) {this.userId = this.route.getCurrentNavigation()?.extras.state?.['userId']; }
   access: boolean = false;
   data: any;
   base64String: any;
   id!: number;
   image: any;
+  userId : any;
 
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.params['userId'];
-    this.getUserById(this.id);
+    console.log(this.userId)
+    if(this.userId != undefined) this.getUserProfile(this.userId);
+    else
+    this.getUserById();
   }
-  getUserById(Id: number) {
-    this.userService.getUsersById(Id).subscribe((res) => {
-      this.data = res;
-      if (this.data.roleId <= 2) {
-        this.access = false;
-      } else {
-        this.access = true;
-      }
-      this.data.base64 = this.data.base64 + "," + this.data.image
+  getUserById() {
+    this.http.get<any>("https://localhost:5001/User").subscribe(res => {
+      this.data = res; 
+      this.data.base64 = this.data.base64+","+this.data.image;
     });
   }
-
-  getOption() {
-    this.id = this.activatedRoute.snapshot.params['userId'];
+  getUserProfile(id : number){
+    this.http.get<any>("https://localhost:5001/User/"+id).subscribe(res => {
+      this.data = res;
+      this.data.base64 = this.data.base64+","+this.data.image;
+    });
   }
 }

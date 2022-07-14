@@ -14,6 +14,8 @@ export class DepartmentcrudComponent implements OnInit {
   role = "Co-Ordinator"
   id!: number;
   Title!: string;
+  title! : string;
+
 
   deptform = new FormGroup({
     dept: new FormControl('', [
@@ -32,8 +34,11 @@ export class DepartmentcrudComponent implements OnInit {
     this.id = this.route.snapshot.params['deptId']
     if (this.id == null) {
       this.Title = "Add";
+      this.title = "Add"
     } else {
       this.Title = "Edit";
+      this.title = "Save"
+
     }
     console.warn(this.id);
     if (this.id != null || !this.id) {
@@ -65,7 +70,7 @@ export class DepartmentcrudComponent implements OnInit {
         this.showToast();
       })
     }
-    this.routing.navigateByUrl("/Departmentlist");
+    this.routing.navigateByUrl("/DepartmentList");
   }
   showToast() {
     this.toastService.success('Successfully Added')

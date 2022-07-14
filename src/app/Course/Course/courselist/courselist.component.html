@@ -28,7 +28,7 @@
                     <div class="col-md-12 rounded hover">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
                             <div class="w-50" id="pointer"><a (click)="ToCourseView(item.id)"><p class="text-dark mt-2 pointer"><b>{{item.name}}</b></p></a></div>
-                            <div class="" *ngIf="auth.IsCoordinator"><a routerLink="/AddCourse/{{item.id}}"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div class="" *ngIf="auth.IsCoordinator"><a (click)="ToEditCourse(item)"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
                             <div class="" *ngIf="auth.IsCoordinator" id="pointer"><a (click)="disableCourse(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
                             <div class="" *ngIf="auth.IsCoordinator || auth.IsTrainer"><a routerLink="/AssignCourse/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div>
                         </div>
@@ -38,5 +38,5 @@
         </div>
         <div class="container justify-content-center d-flex pagination"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
 </div>

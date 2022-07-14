@@ -20,6 +20,7 @@ import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeed
 
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
+import { UserprofileComponent } from './User/userprofile/userprofile.component';
 
 
 
@@ -37,8 +38,22 @@ const routes: Routes = [
   { path: 'Update-Reviewer/:id', component: UsercrudComponent},
   { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'EditUser/:userId', component: UsercrudComponent },
+  // { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  // { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  // { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  // { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  // { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
+  // { path: 'Add-Trainer/:id', component: UsercrudComponent },
+  // { path: 'Add-Trainee/:id', component: UsercrudComponent },
+  // { path: 'Add-Reviewer/:id', component: UsercrudComponent },
+  { path: 'ReviewList/:reviewId', component: ReviewlistComponent },
+  { path: 'Profile', component: UserprofileComponent },
+  { path: ':list/Profile', component: UserprofileComponent },
   { path: 'Completed-Reviews', component: ReviewlistComponent },
-  { path: 'Courses', component: CourselistComponent },
+  { path: 'CourseList', component: CourselistComponent },
+  { path: 'AddCourse', component: CoursecrudComponent },
+  { path: 'EditCourse', component: CoursecrudComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'CourseView', component: CourseviewComponent},
   { path: 'TopicView', component: TopicviewComponent},
@@ -48,6 +63,9 @@ const routes: Routes = [
   { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent},
   { path: 'ViewTraineeFeedback', component: ViewtraineefeedbackComponent},
 
+  { path: 'AddDepartment', component: DepartmentcrudComponent },
+  { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
+  { path: 'CourseView', component: CourseviewComponent },
 ]
 
 @NgModule({

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../course.service';
+import { LoginService } from 'src/app/Login/login.service';
 
 
 @Component({
@@ -13,16 +14,19 @@ import { CourseService } from '../../course.service';
 export class CoursecrudComponent implements OnInit {
 
  Traineeid !: number;
+
   
   constructor( private route: Router, private cs: CourseService,
     private routing: Router, private router: ActivatedRoute, private http : HttpClient,
-    // private auth: LoginService
-     ) { }
+    private auth: LoginService ) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
+  
   data: any;
   dept: any;
   Title!: string;
+  course! : any;
   courseId! : number;
-
+  Editable : boolean = false;
+  
   Course: any = {
     id: 0,
     statusId: 1,
@@ -59,19 +63,22 @@ export class CoursecrudComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.courseId = this.router.snapshot.params['courseId'];
-    if (this.courseId == null) {
-      this.Title = "Add";
-    } else {
-      console.warn(this.courseId);
+    this.getAllDepartment();
+    this.getUserByRole();
+    console.warn(this.course);
+    if(this.course != undefined || this.course != null){
       this.Title = "Edit"
-      
+      this.Editable = true;
+    }else{
+      this.Title = "Add";
     }
+    this.courseId = this.course.id;
+    console.log(this.courseId);
+  
   }
   OnSubmit() {
-    if (this.Course.id != 0) {
+    if (this.course != undefined || this.course == null) {
       this.cs.putcourse(this.Course).subscribe((res) => {
-
       })
     }
     else {
@@ -81,14 +88,20 @@ export class CoursecrudComponent implements OnInit {
     this.routing.navigateByUrl("/CourseList");
   }
 
-  getUserByRole(id : number) {
-    this.http.get("https://localhost:5001/User/"+`${id}`).subscribe((res) => {
+  getUserByRole() {
+    this.http.get("https://localhost:5001/User/role/"+`${3}`).subscribe((res) => {
       this.data = res
     });
   }
   getAllDepartment() {
-    this.http.get("https://localhost:5001/Department/").subscribe(res => {
+    this.http.get("https://localhost:5001/Department/departments").subscribe(res => {
       this.dept = res
+      console.log(this.dept)
+    })
+  }
+  getCourseById(){
+    this.http.get("https://localhost:5001/Course/").subscribe(res => {
+      this.Course = res;
     })
   }
 }
