@@ -19,6 +19,7 @@ import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedbac
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
 
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
+import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
 
 
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'Update-Trainer/:id', component: UsercrudComponent},
   { path: 'Update-Trainee/:id', component: UsercrudComponent},
   { path: 'Update-Reviewer/:id', component: UsercrudComponent},
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
   { path: 'Completed-Reviews', component: ReviewlistComponent },
   { path: 'Courses', component: CourselistComponent },

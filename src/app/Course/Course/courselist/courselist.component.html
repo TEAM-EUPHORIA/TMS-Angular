@@ -30,7 +30,7 @@
                             <div class="w-50" id="pointer"><a (click)="ToCourseView(item.id)"><p class="text-dark mt-2 pointer"><b>{{item.name}}</b></p></a></div>
                             <div class="" *ngIf="auth.IsCoordinator"><a routerLink="/AddCourse/{{item.id}}"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
                             <div class="" *ngIf="auth.IsCoordinator" id="pointer"><a (click)="disableCourse(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
-                            <div class="" *ngIf="auth.IsCoordinator || auth.IsTrainer"><a><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div>
+                            <div class="" *ngIf="auth.IsCoordinator || auth.IsTrainer"><a routerLink="/AssignCourse/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div>
                         </div>
                     </div>
                 </div>
