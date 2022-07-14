@@ -65,7 +65,7 @@ export class CoursecrudComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDepartment();
     this.getUserByRole();
-    console.warn(this.course);
+    console.warn(this.course.id);
     if(this.course != undefined || this.course != null){
       this.Title = "Edit"
       this.Editable = true;
