@@ -1,0 +1,33 @@
+<div class="content">
+    <app-sidebar></app-sidebar>
+  
+    <section>
+      <h3 class="pt-4 px-4">Give Trainee Feedback</h3>
+    </section>
+  
+    <!--Feedback form start-->
+    <form action="" #ngForm (ngSubmit)="OnSubmit()">
+      <div class="row mb-4">
+        <div class="col-md-2">
+          <h6>Trainee :</h6>
+        </div>
+        <div class="col-md-4">
+          <p>{{ Traineename }}</p>
+        </div>
+      </div>
+  
+      <!--FEEDBACK TEXTAREA-->
+      <div class="row mb-4">
+        <div class="col-md-2">
+          <h6>Feedback :</h6>
+        </div>
+        <div class="form-outline w-25 mb-4">
+          <textarea name="feedback" [(ngModel)]="TraineeFeedback.feedback" rows="5" cols="45"></textarea>
+        </div>
+      </div>
+  
+      <!--Submit button-->
+      <a href="#"><button type="submit" class="btn btn-dark pe-4 px-4">Submit</button></a>
+    </form>
+    <!--feedback form end-->
+  </div>

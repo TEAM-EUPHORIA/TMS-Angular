@@ -14,6 +14,13 @@ import { TopicviewComponent } from './Course/Topic/topicview/topicview.component
 import { DashboardComponent } from './User/dashboard/dashboard.component';
 import { UserlistComponent } from './User/userlist/userlist.component';
 import { UsercrudComponent } from './User/usercrud/usercrud.component';
+import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedback/givecoursefeedback.component';
+import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
+import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
+
+import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -32,6 +39,13 @@ const routes: Routes = [
   { path: 'Courses', component: CourselistComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'CourseView', component: CourseviewComponent},
+  { path: 'TopicView', component: TopicviewComponent},
+  { path: 'GiveCourseFeedback', component: GivecoursefeedbackComponent},
+  { path: 'EditCourseFeedback', component: GivecoursefeedbackComponent},
+  { path: 'ViewCourseFeedback', component: ViewcoursefeedbackComponent},
+  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent},
+  { path: 'ViewTraineeFeedback', component: ViewtraineefeedbackComponent},
+
 ]
 
 @NgModule({

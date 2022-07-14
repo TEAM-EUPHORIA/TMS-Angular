@@ -1,0 +1,51 @@
+<!-- <div *ngFor="let item of "></div>  -->
+
+<div class="content">
+    <app-sidebar></app-sidebar>
+    <section>
+      <h3 class="pt-4 px-4">Course Feedback</h3>
+    </section>
+  
+    <!--Feedback form start-->
+    <form>
+      <!-- <div *ngFor="let item of data">        -->
+      <div class="row mb-4">
+        <div class="col-md-4 p-2">
+          <h5>Course</h5>       
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-2">
+          <h6>Rating :</h6>
+        </div>
+  
+        <div class="col-md-2">
+          <!-- <ngb-rating  class="rating bg-none" [max]="5"
+            [(rate)]="data.rating" [readonly]="true"></ngb-rating> -->
+  
+            <ngb-rating style="color:rgb(27, 140, 233);font-size: 40px;" class="rating bg-none" [max]="5"
+            [(rate)]="data.rating" [readonly]="true"></ngb-rating>
+        </div>
+      </div>
+  
+      <!--FEEDBACK TEXTAREA-->
+      <div class="row">
+        <div class="col-2">
+          <h6>Feedback :</h6>
+        </div>
+        <div class="col-md-8">
+          <p>{{ data.feedback }}</p>
+        </div>
+  
+        <!--Submit button-->
+        <a (click)="ToEditFeedback()"><button type="submit" class="btn btn-dark pe-4 px-4">EDIT</button></a>
+  
+        <!--feedback form end-->
+        
+      </div>
+    </form>
+    <!--feedback form end-->
+    <app-footer></app-footer>
+  </div>
+  <router-outlet></router-outlet>

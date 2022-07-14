@@ -18,7 +18,7 @@ export class CourseviewComponent implements OnInit {
   Course : any;
   ngOnInit(): void {
     console.warn(this.Course);
-    this.Givefeedback = (this.Course.topics[0] == null)
+    this.Givefeedback = (this.Course.feedbacks[0] == null)
   }
 
   ToTopicView(id : any){
@@ -27,6 +27,17 @@ export class CourseviewComponent implements OnInit {
       topic = res;
       this.router.navigate(['/TopicView'],{state : {topicView : topic}})
     })
+  }
+  ToFeedback(){
+    var cId : any;
+    cId = this.Course.id;
+    console.log(cId);
+    this.router.navigate(['/ViewCourseFeedback'],{state : {courseId : cId}});
+  }
+  ToAddFeedback(){
+  var cId : any;
+  cId = this.Course.id;
+    this.router.navigate(['/GiveCourseFeedback'],{state : {cid : cId}}); 
   }
   disableTopic(courseId : number,topicId : number){
 
