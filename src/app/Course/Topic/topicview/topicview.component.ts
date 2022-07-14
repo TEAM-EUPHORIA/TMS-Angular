@@ -2,6 +2,7 @@
 import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 
 @Component({
@@ -31,6 +32,20 @@ export class TopicviewComponent implements OnInit {
 
   ngOnInit(): void {
     console.warn(this.Topic);
+    this.ContentInit();
+  }
+
+  ContentInit(){
+    this.Topic.content = JSON.parse(this.Topic.content);
+    var config = {
+      "theme": "snow",
+      "modules": {
+          "toolbar": false
+      }
+    };
+    var quill = new Quill('#editor', config);
+    quill.setContents(this.Topic.content);
+    quill.disable();
     this.courseId = this.Topic.courseId;
     this.topicId = this.Topic.topicId;
   }

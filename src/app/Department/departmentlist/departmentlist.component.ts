@@ -10,15 +10,14 @@ import { DepartmentService } from '../department.service';
 })
 export class DepartmentlistComponent implements OnInit {
 
-  constructor(private dservice: DepartmentService, private auth: LoginService, private toastService: HotToastService) { }
+  constructor(private dservice: DepartmentService, public auth: LoginService, private toastService: HotToastService) { }
 
   role!: string;
   data: any;
   _dept = '';
   page: number = 1;
   totalLength: any;
-  IsCoordinator: boolean = this.auth.IsCoordinator;
-  IsHead: boolean = this.auth.IsHead;
+  
   Editable = false;
   roleid: number = this.auth.getRoleId();
 

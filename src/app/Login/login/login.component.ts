@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("Token",this.response.token);
       }
       this.Responsemsg = "LoggedIn Successfully"
-      window.location.replace("/")
+      this.router.navigate(['/Home']);
     },err => {
       this.errormsg = err;
       if(this.errormsg.error.errors.Email[0] != undefined){
