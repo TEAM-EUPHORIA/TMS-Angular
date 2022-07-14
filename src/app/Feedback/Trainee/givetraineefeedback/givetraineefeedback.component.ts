@@ -39,7 +39,7 @@ export class GivetraineefeedbackComponent implements OnInit {
   }
   OnSubmit() {
     if (this.TraineeFeedback.id == 0 || this.TraineeFeedback.id == null || this.TraineeFeedback.id == undefined) {
-      this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+      this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
       })
     }
     else {
