@@ -23,6 +23,7 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
+import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 
 
 
@@ -55,7 +56,7 @@ const routes: Routes = [
   // { path: 'Update-Trainer/:id', component: UsercrudComponent },
   // { path: 'Update-Trainee/:id', component: UsercrudComponent },
   // { path: 'Update-Reviewer/:id', component: UsercrudComponent },
-  // { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
   // { path: 'Add-Trainer/:id', component: UsercrudComponent },
   // { path: 'Add-Trainee/:id', component: UsercrudComponent },
   { path: 'AddUser', component: UsercrudComponent },
@@ -87,6 +88,9 @@ const routes: Routes = [
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   { path: 'CourseView', component: CourseviewComponent },
+  { path: 'Home', component: HomeComponent},
+  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
 ]
 
 @NgModule({

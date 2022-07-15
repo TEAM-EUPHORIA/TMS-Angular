@@ -39,6 +39,7 @@ import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedbac
 import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
+import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 
 export function tokenGetter() {
   return localStorage.getItem("Token");
@@ -75,6 +76,7 @@ export function tokenGetter() {
     ViewcoursefeedbackComponent,
     ViewtraineefeedbackComponent,
     GivetraineefeedbackComponent,
+    ViewtraineelistComponent,
   ],
   imports: [
     FormsModule,

@@ -1,5 +1,6 @@
 
 import { state } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Quill from 'quill';
@@ -13,7 +14,7 @@ import { LoginService } from 'src/app/Login/login.service';
 export class TopicviewComponent implements OnInit {
 
   constructor(private router : Router,
-  public auth : LoginService) { this.Topic = this.router.getCurrentNavigation()?.extras.state?.['topicView'];}
+  public auth : LoginService , private http: HttpClient) { this.Topic = this.router.getCurrentNavigation()?.extras.state?.['topicView'];}
 
   //temparary variable for data storage
   temp : any;
@@ -28,6 +29,7 @@ export class TopicviewComponent implements OnInit {
   Course : any
   courseId!: number;
   topicId!:number;
+  ownerId! : number;
 
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class TopicviewComponent implements OnInit {
     quill.disable();
     this.courseId = this.Topic.courseId;
     this.topicId = this.Topic.topicId;
+    this.ownerId = this.auth.getId();
   }
   toAttendance(){
     var obj : any ={
@@ -63,6 +66,13 @@ export class TopicviewComponent implements OnInit {
   }
 
   MarkAttendance(){
+    var data : any ={
+      courseId : this.courseId,
+      topicId : this.topicId,
+      ownerId : this.auth.getId()
+    }
+    this.http.put("https://localhost:5001/Course/attendance", data).subscribe(res => {
+    });
     
   }
 

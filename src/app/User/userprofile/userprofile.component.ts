@@ -30,6 +30,7 @@ export class UserprofileComponent implements OnInit {
     else
       this.getUserById();
   }
+
   getUserById() {
     this.http.get<any>(baseurl + "User").subscribe(res => {
       this.data = res; 
