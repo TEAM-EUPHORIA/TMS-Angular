@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DepartmentService } from 'src/app/Department/department.service';
-import { LoginService } from 'src/app/Login/login.service';
 import { UserService } from '../user.service';
 
 @Component({
