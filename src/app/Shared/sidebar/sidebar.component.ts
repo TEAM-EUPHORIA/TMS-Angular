@@ -11,26 +11,29 @@ export class SidebarComponent implements OnInit {
 
   constructor(public ls : LoginService,
     private route : Router) { }
+    upCommingReview : number = 1;
+    completedReview : number = 2;
 
 
   ngOnInit(): void {
    
   }
-  
-  LogOut(){
+  LogOut(){ 
     localStorage.clear();
     this.route.navigate(['/']);
     window.location.reload();
   }
   toggleNavbar() {
-
     var sidebar = document.querySelector(".sidebar")
-
     var nav = document.querySelector(".content")
-
     sidebar?.classList.toggle('open')
-
     nav?.classList.toggle('open')
-
+  }
+  toReviewList(){
+    var obj : any ={
+      upCommingReviewId : this.upCommingReview,
+      completedReviewId : this.completedReview
+    }
+    this.route.navigate(['/ReviewList'],{state:{statusId : obj}});
   }
 }

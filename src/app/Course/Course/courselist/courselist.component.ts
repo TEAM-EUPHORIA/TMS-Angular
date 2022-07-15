@@ -35,7 +35,6 @@ export class CourselistComponent implements OnInit {
 
   //This method activates the methods when Courseist component created 
   ngOnInit(): void  {
-    this.GetallDepartment();
     if (this.auth.getRoleId() == this.CoordinatorId) {
       this.getAllCourses();
       this.add = true;
@@ -46,6 +45,7 @@ export class CourselistComponent implements OnInit {
     else if(this.auth.getRoleId() == this.TraineeId){
       this.getCoursesByUserId(this.auth.getId())
     }
+    this.GetallDepartment();
   }
   getAllCourses() {
     this.CourseService.getAllCourses().
