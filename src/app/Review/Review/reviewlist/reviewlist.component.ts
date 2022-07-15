@@ -64,6 +64,13 @@ export class ReviewlistComponent implements OnInit {
     }
     this.router.navigate(['/ViewMOM'],{state:{obj}});
   }
+  toUploadMOM(id : number,tid : number){
+    var obj : any = {
+      reviewId : id,
+      traineeId : tid
+    }
+    this.router.navigate(['/UploadMOM'],{state:{review : obj}});
+  }
   disableReview(id: number) {
     this.rs.getReviewById(id).subscribe(res => {
       var data: any = res;

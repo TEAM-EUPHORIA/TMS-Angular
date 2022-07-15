@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ReviewService } from '../../review.service';
 
 @Component({
@@ -18,9 +18,12 @@ export class GivemomComponent implements OnInit {
   traineeId! : number;
   OwnerId = null;
   StatusId = 2;
+  MOM : any;
   MOMId! :number;
+  momDetails : any;
 
-  constructor(private reviewService: ReviewService, private route: ActivatedRoute) { }
+  constructor(private reviewService: ReviewService, private route: ActivatedRoute, private router : Router)
+  {this.momDetails = this.router.getCurrentNavigation()?.extras.state?.['review'], this.MOM = this.router.getCurrentNavigation()?.extras.state?.['mom'] }
 
   mom: any = {
     reviewId: '',
@@ -32,10 +35,14 @@ export class GivemomComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.reviewId = this.route.snapshot.params['reviewId'];
-    this.traineeId = this.route.snapshot.params['traineeId'];
-    console.warn(this.reviewId + this.traineeId)
-    if (this.MOMId != undefined && this.MOMId != null) {
+    console.warn(this.momDetails);
+    // this.reviewId = this.route.snapshot.params['reviewId'];
+    // this.traineeId = this.route.snapshot.params['traineeId'];
+    this.reviewId = this.momDetails.reviewId;
+    this.traineeId = this.momDetails.traineeId;
+    console.warn(this.reviewId , this.traineeId)
+    console.warn(this.traineeId)
+    if (this.traineeId != undefined && this.traineeId != null) {
       this.editMom();
     } else if (this.reviewId != undefined && this.reviewId != null) {
       this.uploadMOM();
@@ -44,7 +51,7 @@ export class GivemomComponent implements OnInit {
   uploadMOM() {
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
-      console.warn(this.data)
+      console.warn(this.reviewId)
     })
   }
   editMom() {

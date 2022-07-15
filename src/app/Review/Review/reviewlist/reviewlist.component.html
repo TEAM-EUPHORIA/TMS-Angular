@@ -29,10 +29,10 @@
                                 <button type="button" class="btn btn-dark pe-3 px-3 mx-3">View MOM</button></a>
                             </div>
                             <div class="col-2" *ngIf="(date.getTime() > item.reviewTime.getTime() && ls.IsTrainee) && (item.statusId != 2)">
-                                <a routerLink="/UploadMOM/{{item.id}}/{{item.trainee.id}}">
+                                <a (click)="toUploadMOM(item.id,item.traineeId)">
                                 <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Upload MOM</button></a>
                             </div>
-                            <div class="col-2" *ngIf="item.mom != null && ls.IsTrainee "><a routerLink="/UploadMOM/{{item.id}}">
+                            <div class="col-2" *ngIf="item.mom != null && ls.IsTrainee "><a routerLink="/EditMOM/{{item.id}}">
                                 <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Edit MOM</button></a>
                             </div>
                         </div>
