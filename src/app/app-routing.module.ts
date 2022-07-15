@@ -23,24 +23,26 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
+import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
+import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent },
   { path: 'Home', component: HomeComponent },
-  { path: 'Login', component: LoginComponent},
-  { path: 'Dashboard', component: DashboardComponent},
+  { path: 'Login', component: LoginComponent },
+  { path: 'Dashboard', component: DashboardComponent },
 
-  { path: 'Co-Ordinator', component: UserlistComponent},
-  { path: 'Trainer', component: UserlistComponent},
-  { path: 'Trainee', component: UserlistComponent},
-  { path: 'Reviewer', component: UserlistComponent},
-  
+  { path: 'Co-Ordinator', component: UserlistComponent },
+  { path: 'Trainer', component: UserlistComponent },
+  { path: 'Trainee', component: UserlistComponent },
+  { path: 'Reviewer', component: UserlistComponent },
+
   { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
-  
-  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },  
+
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
   { path: 'Update-Trainer/:id', component: UsercrudComponent },
   { path: 'Update-Trainee/:id', component: UsercrudComponent },
   { path: 'Update-Reviewer/:id', component: UsercrudComponent },
@@ -61,8 +63,6 @@ const routes: Routes = [
   { path: 'Upcoming-Review', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent },
 
-  { path: 'ReviewList/:reviewId', component: ReviewlistComponent },
-  { path: 'Completed-Reviews', component: ReviewlistComponent },
   { path: 'CourseList', component: CourselistComponent },
   { path: 'AddCourse', component: CoursecrudComponent },
   { path: 'EditCourse', component: CoursecrudComponent },
@@ -81,6 +81,10 @@ const routes: Routes = [
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   { path: 'CourseView', component: CourseviewComponent },
+  { path: 'Home', component: HomeComponent},
+  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
+  { path: 'UploadAssignment', component: UploadassignmentComponent }
 ]
 
 @NgModule({

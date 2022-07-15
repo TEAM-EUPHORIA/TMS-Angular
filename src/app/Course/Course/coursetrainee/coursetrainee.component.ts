@@ -1,7 +1,8 @@
+import { state } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { baseurl } from 'src/app/URL';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -14,7 +15,7 @@ export class CoursetraineeComponent implements OnInit {
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router) { }
   searchText: string = "";
   id : number = 0;
   List : boolean = false;
@@ -22,6 +23,7 @@ export class CoursetraineeComponent implements OnInit {
   page: number = 1;
   totalLength: any;
   
+  traineeId = 3;
   toggleData(){
     this.toDisplay = !this.toDisplay;
     //this.AddTrainee();
@@ -55,7 +57,7 @@ export class CoursetraineeComponent implements OnInit {
         console.warn(res);
       })
     }
-    //window.location.reload();
+    window.location.reload();
   }
   scrollbar(){
     overflow: scroll;
@@ -85,6 +87,7 @@ export class CoursetraineeComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
+  
   //   console.log(this.id)
   //   this.courseId = this.id;
     var route = `Course/getCourseUser/${this.id}`
@@ -99,5 +102,15 @@ export class CoursetraineeComponent implements OnInit {
       this.List = (this.newTrainees.length > 0) ;
     })
   }
+    toviewtraineelist(){
+    var obje = {
+     courseId : this.id, 
+     roleId : this.traineeId
+    };
+    console.log(obje);
+    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
 
-}
+    }
+  }
+
+

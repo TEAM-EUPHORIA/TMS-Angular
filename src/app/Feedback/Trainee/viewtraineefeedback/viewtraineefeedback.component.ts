@@ -17,8 +17,6 @@ export class ViewtraineefeedbackComponent implements OnInit {
     Traineeid !: number;
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['courseId'];
-    this.Traineeid = this.route.snapshot.params['traineeId'];
     this.getAllTraineeFeedback()
   }
   getAllTraineeFeedback() {
