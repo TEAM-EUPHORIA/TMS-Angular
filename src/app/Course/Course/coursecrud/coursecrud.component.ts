@@ -26,7 +26,7 @@ export class CoursecrudComponent implements OnInit {
   course! : any;
   courseId! : number;
   Editable : boolean = false;
-  
+  TrainerId ='';
   Course: any = {
     id: 0,
     statusId: 1,
@@ -77,8 +77,9 @@ export class CoursecrudComponent implements OnInit {
   
   }
   OnSubmit() {
-    if (this.course != undefined || this.course == null) {
-      this.cs.putcourse(this.Course).subscribe((res) => {
+    if (this.course != undefined || this.course != null) {
+      this.course.trainerId = this.TrainerId;
+      this.cs.putcourse(this.course).subscribe((res) => {
       })
     }
     else {
@@ -91,6 +92,7 @@ export class CoursecrudComponent implements OnInit {
   getUserByRole() {
     this.http.get("https://localhost:5001/User/role/"+`${3}`).subscribe((res) => {
       this.data = res
+      console.log(res)
     });
   }
   getAllDepartment() {
