@@ -68,7 +68,9 @@ export class UsercrudComponent implements OnInit {
     this.GetallDepartment();
     this.RoleId = this.route.snapshot.params['roleId'];
     this.userId = this.route.snapshot.params['userId'];
-    if (this.RoleId != null) {
+    console.log("role"+this.RoleId);
+    console.log("user"+this.userId);
+    if (this.RoleId != null ) {
       this.Text = "Add";
       this.user.roleId = Number.parseInt(this.route.snapshot.params['roleId']);
       this.TitleDisplay(this.RoleId);

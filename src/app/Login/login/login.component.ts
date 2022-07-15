@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
       console.log(this.response.token);
       if(this.response != null){
         localStorage.setItem("Token",this.response.token);
+        window.location.replace("/")
       }
       this.Responsemsg = "LoggedIn Successfully"
       this.router.navigate(['/Home']);
