@@ -30,6 +30,7 @@ export class TopicviewComponent implements OnInit {
   courseId!: number;
   topicId!:number;
   ownerId! : number;
+  trainerId!:number;
 
 
   ngOnInit(): void {
@@ -51,6 +52,7 @@ export class TopicviewComponent implements OnInit {
     this.courseId = this.Topic.courseId;
     this.topicId = this.Topic.topicId;
     this.ownerId = this.auth.getId();
+    this.trainerId = this.Topic.trainerId;
   }
   toAttendance(){
     var obj : any ={
@@ -58,6 +60,15 @@ export class TopicviewComponent implements OnInit {
       courseId : this.courseId
     };
     this.router.navigate(['/Attendance'], {state : {aid : obj}});
+    console.log(this.Topic.id);
+  }
+  toAssignment(){
+    var obj : any ={
+      topicId : this.topicId,
+      courseId : this.courseId,
+      trainerId : this.trainerId
+    };
+    this.router.navigate(['/UploadAssignment'], {state : {aid : obj}});
     console.log(this.Topic.id);
   }
 

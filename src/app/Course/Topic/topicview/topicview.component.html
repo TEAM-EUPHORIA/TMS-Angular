@@ -19,14 +19,14 @@
                                 <a *ngIf="Ischecked === true">Attendance <input type='checkbox' class='form' value='Yes' checked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                                 <a *ngIf="Ischecked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="toAttendance()">
-                                Attendance List</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="toAttendance()" id="pointer">Attendance List</a></div>
                         </b>
                     </div>
                 </div>
             </div>
         </div>
         <div class="mx-4"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
+        <app-uploadassignment></app-uploadassignment>
         <!-- <div class="container-fluid  px-4">
             <app-assignment-ques></app-assignment-ques>
             <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey"><app-assignment-list> </app-assignment-list></div>

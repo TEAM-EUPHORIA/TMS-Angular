@@ -56,4 +56,12 @@ export class CourseviewComponent implements OnInit {
 
   }
 
+  toATopic(courseId : number ,topicId :number){
+    var obj : any ={
+      topicId : topicId,
+      courseId : courseId
+    };
+    this.router.navigate(['/EditTopic'], {state : {aid : obj}});
+  }
+
 }
