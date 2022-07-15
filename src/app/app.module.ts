@@ -40,6 +40,7 @@ import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedbac
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
 
+import { DatePipe } from '@angular/common';
 export function tokenGetter() {
   return localStorage.getItem("Token");
 }
@@ -96,11 +97,13 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-        useClass: LoginInterceptor,
-        multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginInterceptor,
+      multi: true
+    },
+    DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

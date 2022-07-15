@@ -10,12 +10,12 @@ import { ReviewService } from '../../review.service';
 export class GivemomComponent implements OnInit {
 
   data: any;
-  reviewId! : number;
+  reviewId! : '';
   reviewerName = '';
   reviewDate = '';
   reviewTime = '';
   reviewMode = '';
-  traineeId! : number;
+  traineeId! : '';
   OwnerId = null;
   StatusId = 2;
   MOM : any;
@@ -23,7 +23,7 @@ export class GivemomComponent implements OnInit {
   momDetails : any;
 
   constructor(private reviewService: ReviewService, private route: ActivatedRoute, private router : Router)
-  {this.momDetails = this.router.getCurrentNavigation()?.extras.state?.['review'], this.MOM = this.router.getCurrentNavigation()?.extras.state?.['mom'] }
+  { }
 
   mom: any = {
     reviewId: '',
@@ -36,8 +36,7 @@ export class GivemomComponent implements OnInit {
 
   ngOnInit(): void {
     console.warn(this.momDetails);
-    // this.reviewId = this.route.snapshot.params['reviewId'];
-    // this.traineeId = this.route.snapshot.params['traineeId'];
+    
     this.reviewId = this.momDetails.reviewId;
     this.traineeId = this.momDetails.traineeId;
     console.warn(this.reviewId , this.traineeId)

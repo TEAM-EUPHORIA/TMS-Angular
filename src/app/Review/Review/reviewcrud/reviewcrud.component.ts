@@ -25,7 +25,7 @@ export class ReviewcrudComponent implements OnInit {
   Department !: string;
   Title !: string;
 
-  constructor(private review: ReviewService, private dservice: DepartmentService, private user: UserService, private route: ActivatedRoute, private routing: Router,public datepipe: DatePipe) { }
+  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe) { }
 
   StatusId = 1;
 
@@ -41,7 +41,8 @@ export class ReviewcrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reviewId = this.route.snapshot.params['reviewId'];
+    this.reviewId = this.route.snapshot.params['id'];
+    console.log(this.reviewId)
     this.GetallDepartment();
     console.warn(this.reviewId);
     if (this.reviewId == null) {
@@ -66,6 +67,7 @@ export class ReviewcrudComponent implements OnInit {
     this.review.getReviewById(this.reviewId).subscribe(res => {
       this.Review = res;
       this.departmentId = this.Review.reviewer.departmentId;
+      console.log(res)
       this.myFunction();
       this.Click()
     })
@@ -80,14 +82,15 @@ export class ReviewcrudComponent implements OnInit {
   OnSubmit() {
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe((res) => {
+        navigateToListPage('/Completed-Review');
       })
-
+      
     }
     else {
       this.review.postReview(this.Review).subscribe((res) => {
+        navigateToListPage("/Upcoming-Review");
       })
     }
-    //this.routing.navigateByUrl("/ReviewList/1");
   }
   OnSelected(): void {
     this.Review.departmentId
@@ -115,8 +118,11 @@ export class ReviewcrudComponent implements OnInit {
   GetUsersByDepartmentAndRole_Trainee(dsp: number) {
     this.review.GetUsersByDepartmentAndRole(dsp, 4).subscribe(res => {
       this.trainee = res
-      console.warn(this.trainee)
     });
   }
+}
+
+function navigateToListPage(url:string) {
+  window.location.replace(url);
 }
 

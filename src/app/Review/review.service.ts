@@ -16,10 +16,10 @@ export class ReviewService {
   getReviewByStatusAndUser(statusId: number, userId : number) : Observable<any> {
     return this.http.get<any>(this.baseurl + `review/status/${statusId},${userId}`)
   }
-  getReviewById(id: number): Observable<any[]> {
+  getReviewById(id: any): Observable<any[]> {
     return this.http.get<any>(this.baseurl + `${id}`)
   }
-  getReviewByStatus(statusId: number): Observable<any[]> {
+  getReviewByStatus(statusId: any): Observable<any[]> {
     return this.http.get<any>(this.baseurl + `review/status/${statusId}`)
   }
   GetUsersByDepartmentAndRole(deptid: number, roleid: number): Observable<any> {
@@ -37,7 +37,7 @@ export class ReviewService {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.http.put<any>(this.baseurl + `review`, data)
   }
-  getMoMbyId(Reviewerid: number, Traineeid: number): Observable<any> {
+  getMoMbyId(Reviewerid: string, Traineeid: string): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log(Reviewerid, Traineeid);
