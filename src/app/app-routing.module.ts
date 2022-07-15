@@ -23,24 +23,26 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
+import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
+import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent },
   { path: 'Home', component: HomeComponent },
-  { path: 'Login', component: LoginComponent},
-  { path: 'Dashboard', component: DashboardComponent},
+  { path: 'Login', component: LoginComponent },
+  { path: 'Dashboard', component: DashboardComponent },
 
-  { path: 'Co-Ordinator', component: UserlistComponent},
-  { path: 'Trainer', component: UserlistComponent},
-  { path: 'Trainee', component: UserlistComponent},
-  { path: 'Reviewer', component: UserlistComponent},
-  
+  { path: 'Co-Ordinator', component: UserlistComponent },
+  { path: 'Trainer', component: UserlistComponent },
+  { path: 'Trainee', component: UserlistComponent },
+  { path: 'Reviewer', component: UserlistComponent },
+
   { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
-  
-  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },  
+
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
   { path: 'Update-Trainer/:id', component: UsercrudComponent },
   { path: 'Update-Trainee/:id', component: UsercrudComponent },
   { path: 'Update-Reviewer/:id', component: UsercrudComponent },
@@ -49,13 +51,13 @@ const routes: Routes = [
   { path: 'Add-Trainer', component: UsercrudComponent },
   { path: 'Add-Trainee', component: UsercrudComponent },
   { path: 'Add-Reviewer', component: UsercrudComponent },
-  
+
   { path: 'EditUser/:userId', component: UsercrudComponent },
   // { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
   // { path: 'Update-Trainer/:id', component: UsercrudComponent },
   // { path: 'Update-Trainee/:id', component: UsercrudComponent },
   // { path: 'Update-Reviewer/:id', component: UsercrudComponent },
-  // { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Add-Co-Ordinator/:id', component: UsercrudComponent },
   // { path: 'Add-Trainer/:id', component: UsercrudComponent },
   // { path: 'Add-Trainee/:id', component: UsercrudComponent },
   { path: 'AddUser', component: UsercrudComponent },
@@ -87,6 +89,10 @@ const routes: Routes = [
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   { path: 'CourseView', component: CourseviewComponent },
+  { path: 'Home', component: HomeComponent},
+  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
+  { path: 'UploadAssignment', component: UploadassignmentComponent }
 ]
 
 @NgModule({

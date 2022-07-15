@@ -25,6 +25,7 @@ export class UserlistComponent implements OnInit {
   edit = false
   page: number = 1;
   totalLength: any;
+  roleId : any ;
   disableUser(id: any) {
     console.warn(id)
     this.userservice.disableUser(id).subscribe(res => {
@@ -65,6 +66,7 @@ export class UserlistComponent implements OnInit {
         break;
     }
     this.getDepartments()
+    this.getUsers(this.roleId)
   }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {

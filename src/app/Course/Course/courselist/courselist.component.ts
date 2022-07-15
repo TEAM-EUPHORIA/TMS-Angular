@@ -83,6 +83,7 @@ export class CourselistComponent implements OnInit {
     course = obj;
     this.route.navigate(['/EditCourse'], { state: { course :course }})
   }
+  
   GetallDepartment() {
     this.http.get("https://localhost:5001/Department/departments").subscribe(res =>{
       this.dept = res;
