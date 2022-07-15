@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { baseurl } from 'src/app/URL';
 import { ReviewService } from '../../review.service';
 
 @Component({
@@ -10,20 +13,30 @@ import { ReviewService } from '../../review.service';
 export class GivemomComponent implements OnInit {
 
   data: any;
-  reviewId! : '';
+  reviewId = '';
   reviewerName = '';
   reviewDate = '';
   reviewTime = '';
   reviewMode = '';
-  traineeId! : '';
+  traineeId = '';
   OwnerId = null;
   StatusId = 2;
-  MOM : any;
-  MOMId! :number;
-  momDetails : any;
+  MOM: any;
+  MOMId!: number;
+  momDetails: any;
 
-  constructor(private reviewService: ReviewService, private route: ActivatedRoute, private router : Router)
-  { }
+  constructor(private reviewService: ReviewService, private router: Router, private http: HttpClient) { }
+  momForm = new FormGroup({
+    agenda: new FormControl('', [
+      Validators.required
+    ]),
+    meetingNotes: new FormControl('', [
+      Validators.required
+    ]),
+    purposeOfMeeting: new FormControl('', [
+      Validators.required
+    ]),
+  })
 
   mom: any = {
     reviewId: '',
@@ -35,12 +48,9 @@ export class GivemomComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    console.warn(this.momDetails);
-    
-    this.reviewId = this.momDetails.reviewId;
-    this.traineeId = this.momDetails.traineeId;
-    console.warn(this.reviewId , this.traineeId)
-    console.warn(this.traineeId)
+    var temp = this.router.url.split('/')
+    this.reviewId = temp[1]
+    this.traineeId = temp[2]
     if (this.traineeId != undefined && this.traineeId != null) {
       this.editMom();
     } else if (this.reviewId != undefined && this.reviewId != null) {
@@ -48,15 +58,15 @@ export class GivemomComponent implements OnInit {
     }
   }
   uploadMOM() {
+    console.log(this.reviewId)
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
-      console.warn(this.reviewId)
+      console.warn(this.data)
     })
   }
   editMom() {
     this.reviewService.getReviewById(this.traineeId).subscribe(res => {
       this.data = res;
-      console.warn(this.data);
       this.reviewId = this.data.id;
       this.reviewerName = this.data.reviewer.fullName;
       this.reviewMode = this.data.mode;
@@ -68,15 +78,26 @@ export class GivemomComponent implements OnInit {
       })
     })
   }
-
+  private navigateToListPage() {
+    window.location.replace('/Completed-Review')
+  }
   OnSubmit() {
-    if (this.MOMId != undefined && this.MOMId != null) {
-      this.reviewService.PutMOM(this.mom).subscribe(res => {
-      })
-    } else if (this.reviewId != undefined && this.reviewId != null) {
-      this.mom.traineeId = this.traineeId;
-      this.reviewService.CreateMOM(this.mom).subscribe((res) => {
-      })
-    }
+    let mom: any;
+    this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe((res) => {
+      mom = res
+      if (mom) {
+        this.reviewService.PutMOM(this.mom).subscribe(res => {
+          this.navigateToListPage();
+        })
+      } else {
+        this.mom.traineeId = this.traineeId;
+        this.mom.reviewId = this.reviewId;
+        this.mom.statusId = 1
+        console.warn(this.mom)
+        this.reviewService.CreateMOM(this.mom).subscribe((res) => {
+          this.navigateToListPage();
+        })
+      }
+    })
   }
 }

@@ -7,7 +7,7 @@
 				<li class="breadcrumb-item active">MOM</li>
 			</ol>
 		</nav>
-		<form action="" #ngForm (ngSubmit)="OnSubmit()">
+		<form [formGroup]="momForm" action="" #ngForm (ngSubmit)="OnSubmit()">
 			<div class="container-fluid px-4 pt-2 pb-2">
 				<h3 class="text-black pb-2">Upload Minutes of Meeting</h3>
 				<div class="row">
@@ -34,15 +34,15 @@
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="description" [(ngModel)]="mom.purposeOfMeeting" formControlName="description" maxlength="1000" minlength="3" required></textarea></div>
+							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="purposeOfMeeting" [(ngModel)]="mom.purposeOfMeeting" formControlName="purposeOfMeeting" maxlength="1000" minlength="3" required></textarea></div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Agenda</b ></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="description" [(ngModel)]="mom.agenda" formControlName="description" maxlength="1000" minlength="3" required></textarea></div>
+							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="agenda" [(ngModel)]="mom.agenda" formControlName="agenda" maxlength="1000" minlength="3" required></textarea></div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Meeting Notes</b ></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="description" [(ngModel)]="mom.meetingNotes" formControlName="description" maxlength="1000" minlength="3" required></textarea></div>
+							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="meetingNotes" [(ngModel)]="mom.meetingNotes" formControlName="meetingNotes" maxlength="1000" minlength="3" required></textarea></div>
 						</div>
 						<button type="submit" class="btn btn-dark mt-4 pe-4 px-4">Submit</button>
 					</div>
