@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
     this.http.get(baseurl + `User/Dashboard`).subscribe(res => {
       this.data = res
       this.data.Base64 = this.data.Base64 + "," + this.data.Image
+      console.warn(this.data);
     })
   }
 

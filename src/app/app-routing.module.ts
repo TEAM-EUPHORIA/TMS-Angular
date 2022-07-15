@@ -17,16 +17,18 @@ import { UsercrudComponent } from './User/usercrud/usercrud.component';
 import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedback/givecoursefeedback.component';
 import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
-
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
 import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
+import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
+import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
 
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
+  { path: 'Home', component: HomeComponent },
   { path: 'Login', component: LoginComponent},
   { path: 'Dashboard', component: DashboardComponent},
 
@@ -57,14 +59,16 @@ const routes: Routes = [
   { path: 'AddCourse', component: CoursecrudComponent },
   { path: 'EditCourse', component: CoursecrudComponent },
   { path: 'DepartmentList', component: DepartmentlistComponent },
-  { path: 'CourseView', component: CourseviewComponent},
-  { path: 'TopicView', component: TopicviewComponent},
-  { path: 'GiveCourseFeedback', component: GivecoursefeedbackComponent},
-  { path: 'EditCourseFeedback', component: GivecoursefeedbackComponent},
-  { path: 'ViewCourseFeedback', component: ViewcoursefeedbackComponent},
-  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent},
-  { path: 'ViewTraineeFeedback', component: ViewtraineefeedbackComponent},
-  { path: 'Attendance', component: AttendancelistComponent},
+  { path: 'CourseView', component: CourseviewComponent },
+  { path: 'TopicView', component: TopicviewComponent },
+  { path: 'AddTopic/:courseId', component: TopiccrudComponent },
+  { path: 'EditTopic', component: TopiccrudComponent },
+  { path: 'GiveCourseFeedback', component: GivecoursefeedbackComponent },
+  { path: 'EditCourseFeedback', component: GivecoursefeedbackComponent },
+  { path: 'ViewCourseFeedback', component: ViewcoursefeedbackComponent },
+  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent },
+  { path: 'ViewTraineeFeedback', component: ViewtraineefeedbackComponent },
+  { path: 'Attendance', component: AttendancelistComponent },
 
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },

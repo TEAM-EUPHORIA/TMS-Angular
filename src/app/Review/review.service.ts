@@ -8,11 +8,14 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class ReviewService {
-
+  
   constructor(private http: HttpClient) { }
-
+  
   baseurl = "https://localhost:5001/Review/";
-
+  
+  getReviewByStatusAndUser(statusId: number, userId : number) : Observable<any> {
+    return this.http.get<any>(this.baseurl + `review/status/${statusId},${userId}`)
+  }
   getReviewById(id: number): Observable<any[]> {
     return this.http.get<any>(this.baseurl + `${id}`)
   }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -20,9 +21,10 @@ export class CoursetraineeComponent implements OnInit {
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
+  
   toggleData(){
     this.toDisplay = !this.toDisplay;
-    // this.AddTrainee();
+    //this.AddTrainee();
     var model = document.getElementById("exampleModal")
     model?.classList.toggle('show')
     console.warn(model)
@@ -53,7 +55,7 @@ export class CoursetraineeComponent implements OnInit {
         console.warn(res);
       })
     }
-    window.location.reload();
+    //window.location.reload();
   }
   scrollbar(){
     overflow: scroll;
