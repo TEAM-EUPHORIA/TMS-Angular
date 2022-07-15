@@ -31,6 +31,7 @@
                 </div>
                 <ng-template #elseblock>No Data</ng-template>
             </div>
+            <div *ngIf="!toDisplay">
             <div class="" *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
@@ -44,7 +45,7 @@
                                     </a></div>
                                 <div class="col-0 d-none d-md-inline">
                                     <p class="mb-0 h3 text-danger"><i class="fa-solid fa-x "
-                                            (click)="removeUser(item)" ></i>
+                                            (click)="removeUser(item)"></i>
                                     </p>
                                 </div>
                             </div>
@@ -52,10 +53,12 @@
                     </div>
                 </div>
             </div>
+            <br>
             <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div>
         </div>
-        <div class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
-
+        <div class="mt-5">
+            <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+        </div>
     </div>
     <app-footer></app-footer>
 </div>

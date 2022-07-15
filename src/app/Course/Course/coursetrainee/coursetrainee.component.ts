@@ -55,7 +55,7 @@ export class CoursetraineeComponent implements OnInit {
         console.warn(res);
       })
     }
-    //window.location.reload();
+    window.location.reload();
   }
   scrollbar(){
     overflow: scroll;

@@ -18,6 +18,7 @@ export class UserlistComponent implements OnInit {
   searchuser = '';
   _dept = ''
   data:any
+  showDept = false;
   dpt = false
   dept: any[] = [];
   users: any[] = [];
@@ -34,24 +35,30 @@ export class UserlistComponent implements OnInit {
     window.location.reload();
   }
   ngOnInit(): void {
+    
+
     this.title = this.router.url.slice(1)
     this.dpt = this.title != 'Co-Ordinator'
     switch (this.title) {
       case 'Co-Ordinator':
         this.getUsers(2)
         if (this.ls.IsHead) this.edit = true;
+        this.showDept = false;
         break;
       case 'Trainer':
         this.getUsers(3)
         if (this.ls.IsCoordinator) this.edit = true;
+        this.showDept = true;
         break;
       case 'Trainee':
         this.getUsers(4)
         if (this.ls.IsCoordinator) this.edit = true;
+        this.showDept = true;
         break;
       case 'Reviewer':
         this.getUsers(5)
         if (this.ls.IsCoordinator) this.edit = true;
+        this.showDept = true;
         break;
 
       default:

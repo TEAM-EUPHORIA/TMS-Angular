@@ -13,7 +13,7 @@
             <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
             <a *ngIf="ls.IsCoordinator" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
             <a *ngIf="ls.IsTrainee || ls.IsTrainer" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>My Courses</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/ReviewList/1" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Upcoming Reviews</a>
+            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Upcoming-Reviews" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Upcoming Reviews</a>
             <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/ReviewList/2" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed Reviews</a>
         </div>
     </nav>
