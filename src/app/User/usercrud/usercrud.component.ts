@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DepartmentService } from 'src/app/Department/department.service';
+import { LoginService } from 'src/app/Login/login.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,26 +12,18 @@ import { UserService } from '../user.service';
   styleUrls: ['./usercrud.component.css']
 })
 export class UsercrudComponent implements OnInit {
+  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private ls: LoginService, private route: ActivatedRoute) { }
 
-  constructor(private userService: UserService, private dservice: DepartmentService, private routing: Router, private route: ActivatedRoute, public sanitizer: DomSanitizer) { }
-
-  RoleId = null;
-  userId!: number;
-  Title!: string;
-  Editable: boolean = false;
-  Titles = ["Training Head", "Coordinator", "Trainer", "Trainee", "Reviewer"];
-  data: any;
-  dept: any;
-  _dept: any = null;
-  access!: boolean;
-  Text!: string;
+  departments: any[] = [];
+  pageTitle = this.router.url.slice(1).split('/')[0]
+  pageAction = this.router.url.slice(1).split('-')[0]
+  redirect = this.router.url.slice(1).split('-')[1]
+  edit = false;
   userform = new FormGroup({
     fullname: new FormControl('', [
       Validators.required,
       Validators.maxLength(15),
       Validators.minLength(3)
-
-
     ]),
     email: new FormControl('', [
       Validators.required,
@@ -41,7 +34,6 @@ export class UsercrudComponent implements OnInit {
       Validators.required,
       Validators.maxLength(30),
       Validators.minLength(3)
-
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -51,11 +43,10 @@ export class UsercrudComponent implements OnInit {
     department: new FormControl('', [
       Validators.required,
     ])
-
   })
   user: any = {
     id: 0,
-    roleId: this.RoleId,
+    roleId: 0,
     departmentId: null,
     fullName: '',
     userName: '',
@@ -66,52 +57,37 @@ export class UsercrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetallDepartment();
-    this.RoleId = this.route.snapshot.params['roleId'];
-    this.userId = this.route.snapshot.params['userId'];
-    if (this.RoleId != null) {
-      this.Text = "Add";
-      this.user.roleId = Number.parseInt(this.route.snapshot.params['roleId']);
-      this.TitleDisplay(this.RoleId);
-    } else if (this.userId != null) {
-      this.Text = "Edit";
-      this.EditDetails(this.userId);
+    this.user.id = this.route.snapshot.params["id"]
+    if (this.user.id != undefined) {
+      this.userService.getUsersById(this.user.id).subscribe(res => {
+        this.user = res;
+        console.log(this.user)
+        this.user.base64 = this.user.base64 + "," + this.user.image;
+        this.edit = true
+      })
     }
   }
-  //  
-  TitleDisplay(id: number) {
-    if (id <= 2) {
-      if (id == 1) this.Title = this.Titles[0];
-      else this.Title = this.Titles[1];
-      this.access = false;
-    } else {
-      if (id == 3) this.Title = this.Titles[2];
-      else if (id == 4) this.Title = this.Titles[3];
-      else this.Title = this.Titles[4];
-      this.access = true;
-    }
-  }
-  EditDetails(userid: number) {
-    this.Editable = true;
-    this.userService.getUsersById(userid).subscribe(res => {
-      this.user = res;
-      this.user.base64 = this.user.base64 + "," + this.user.image
-      this.TitleDisplay(this.user.roleId);
-    })
-  }
+
   OnSubmit() {
-    this.user.departmentId = this._dept;
-    if (this.RoleId != null) {
+    this.setRole()
+    if (this.pageAction = 'Add') {
       this.userService.postUser(this.user).subscribe(res => {
+        if (res)
+          this.navigateToListPage();
       })
-      setTimeout(() => { this.routing.navigateByUrl("/Userlist/" + this.RoleId) }, 5000)
-
-    } else if (this.userId != null) {
-      this.userService.updateUser(this.user).subscribe(res => {
-      })
-      setTimeout(() => { this.routing.navigateByUrl("/Userlist/" + this.user.role.id) }, 5000)
     }
-
+    if (this.pageAction = 'Update') {
+      this.userService.updateUser(this.user).subscribe(res => {
+        if (res)
+          this.navigateToListPage();
+      })
+    }
   }
+  private navigateToListPage() {
+    window.location.replace(`/${this.redirect.split('/')[0]}`);
+    console.log(this.redirect)
+  }
+
   handleUpload(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -122,8 +98,27 @@ export class UsercrudComponent implements OnInit {
     };
   }
   GetallDepartment() {
-    this.dservice.getAllDepartment().subscribe(res => {
-      this.dept = res
-    })
+    this.dservice.getAllDepartment().subscribe((res) => this.departments = res)
+  }
+
+  setRole() {
+    console.log(this.redirect)
+    switch (this.redirect) {
+      case 'Co-Ordinator':
+        this.user.roleId = 2
+        break;
+      case 'Trainer':
+        this.user.roleId = 3
+        break;
+      case 'Trainee':
+        this.user.roleId = 4
+        break;
+      case 'Reviewer':
+        this.user.roleId = 5
+        break;
+
+      default:
+        break;
+    }
   }
 }

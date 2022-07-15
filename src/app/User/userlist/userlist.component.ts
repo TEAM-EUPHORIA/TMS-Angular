@@ -59,9 +59,6 @@ export class UserlistComponent implements OnInit {
     }
     this.getDepartments()
   }
-  toUserProfile(id : number){
-    this.router.navigate([`${this.title}list/Profile`],{state:{userId: id}});
-  }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
       this.dept = res
@@ -75,5 +72,4 @@ export class UserlistComponent implements OnInit {
   showToast() {
     this.ts.error('Disabled')
   }
-  
 }
