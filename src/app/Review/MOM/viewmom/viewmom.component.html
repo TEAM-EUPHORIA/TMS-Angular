@@ -1,1 +1,51 @@
-<p>viewmom works!</p>
+<div class="content">
+    <app-sidebar></app-sidebar>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item active">MOM</li>
+            </ol>
+        </nav>
+        <div class="container-fluid px-4 pt-2 pb-2">
+            <h3 class="text-black pb-2">Minutes of Meeting</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Reviewer Name</b></div>
+                        <div class="col-md-6"><p>{{data.review.reviewer.fullName}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Trainee Name</b></div>
+                        <div class="col-md-6"><p>{{data.trainee.fullName}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Review Date</b></div>
+                        <div class="col-md-6"><p>{{data.review.reviewDate |date}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Review Time</b></div>
+                        <div class="col-md-6"><p>{{data.review.reviewTime | date:'shortTime'}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Review Mode</b></div>
+                        <div class="col-md-6"><p>{{data.review.mode}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>
+                        <div class="col-md-6"><p>{{data.purposeOfMeeting}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Agenda</b ></div>
+                        <div class="col-md-6"><p>{{data.agenda}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"><b class="text-dark">Meeting Notes</b ></div>
+                        <div class="col-md-6"><p>{{data.meetingNotes}}</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

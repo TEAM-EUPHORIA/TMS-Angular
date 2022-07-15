@@ -1,33 +1,30 @@
 <div class="content">
     <app-sidebar></app-sidebar>
-  
-    <section>
-      <h3 class="pt-4 px-4">Trainee Feedback</h3>
-    </section>
-  
-    <!--feedback form start-->
-    <form>
-      <!--trainee name -->
-      <div class="row mb-4">
-        <div class="col-md-2">
-          <h6>Trainee :</h6>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/TopicList">Topic List</a></li>
+                <li class="breadcrumb-item active">TraineeFeedback</li>
+            </ol>
+        </nav>
+        <div class="container-fluid px-4 pt-2 pb-2">
+            <h3 class="text-black">Course Feedback</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mt-4">
+                        <div class="col-md-4"><b class="text-dark">Trainee</b></div>
+                        <div class="col-md-8"><p>{{data.trainee.userName}}</p></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4"><b class="text-dark">Feedback</b></div>
+                        <div class="col-md-8"><p>{{data.feedback}}</p></div>
+                    </div>
+                    <a href="#"><button type="button" class="btn btn-dark pe-4 px-4">Edit</button></a>
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-          <p>{{ data.trainee.userName }}</p>
-        </div>
-      </div>
-  
-      <!--FEEDBACK TEXTAREA-->
-      <div class="row">
-        <div class="col-md-2">
-          <h6>Feedback :</h6>
-        </div>
-        <div class="col-md-8">
-          <p>{{ data.feedback }}</p>
-        </div>
-  
-        <a href="#"><button type="button" class="btn btn-dark pe-4 px-4">Edit</button></a>
-        <!-- <a href="head-addco.html">  <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a> -->
-      </div>
-    </form>
-  </div>
+    </div>
+    <app-footer></app-footer>
+</div>
