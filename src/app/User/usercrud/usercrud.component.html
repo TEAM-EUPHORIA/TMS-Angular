@@ -4,12 +4,11 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/Userlist/2">{{Title}} List</a></li>
-                <li class="breadcrumb-item active">{{Text}} {{Title}}</li>
+                <li class="breadcrumb-item "><a routerLink="/{{pageTitle}}">{{pageTitle}}</a></li>
             </ol>
         </nav>
-        <div class="container-fluid pt-2 px-4" [ngSwitch]="access">
-            <h3 class="text-black pb-2">{{Text}} {{Title}}</h3>
+        <div class="container-fluid pt-2 px-4">
+            <h3 class="text-black pb-2">{{pageTitle}}</h3>
             <form [formGroup]="userform" action="" name="myForm" (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
                     <input type="text" class="form-control" name="name" [(ngModel)]="user.fullName" formControlName="fullname" required maxlength="25" minlength="3" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
@@ -41,7 +40,7 @@
                         <div *ngIf="userform.controls['username'].invalid || userform.controls['username'].errors?.['maxlength']">Please enter a valid Username</div>
                     </div>
                 </div>
-                <div class="form-floating mb-4" *ngIf="Editable === false">
+                <div class="form-floating mb-4" *ngIf="pageAction == 'Add'">
                     <input type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password" required>
                     <label for="floatingPassword">Password*</label>
                     <div *ngIf="userform.controls['password'].invalid && (userform.controls['password'].dirty || userform.controls['password'].touched)" class="alert alert-danger">
@@ -51,10 +50,10 @@
                         <div *ngIf="userform.controls['password'].invalid || userform.controls['password'].errors?.['maxlength']">Password enter a valid password</div>
                     </div>
                 </div>
-                <div class="form-floating mb-4" *ngSwitchCase="true">
+                <div class="form-floating mb-4" *ngIf="showDept">
                     <select name="Department" id="Department Name" formControlName="department" class="form-select" name="_dept" [(ngModel)]="user.departmentId">
                         <option value="">Select the Department</option>
-                        <option *ngFor="let item of dept" value={{item.id}}> {{item.name}}</option>
+                        <option *ngFor="let item of departments" value={{item.id}}> {{item.name}}</option>
                     </select>
                     <label for="floatingInput">Department*</label>
                     <div *ngIf="userform.controls['department'].invalid && (userform.controls['department'].dirty || userform.controls['department'].touched)" class="alert alert-danger">
@@ -65,18 +64,13 @@
                     </div>
                 </div>
                 <div class="col-md-12 card rounded card-body">
-                    <div class="form-group" *ngIf="Editable === false">
-                        <label class="mr-2">*Upload your Image:</label>
-                        <input type="file" name="file" accept="image/*" (change)="handleUpload($event)">
-                        <input type="hidden" name="role" value="{{user.roleId}}">
-                    </div>
-                    <div class="form-group" *ngIf="Editable === true">
-                        <label class="mr-2">Edit your Image:</label>
-                        <img [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" class="img-fluid rounded-start Eprofile" alt="image">
+                    <div class="form-group">
+                        <label class="mr-2">Image:</label>
+                        <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" class="img-fluid rounded-start Eprofile" alt="image">
                         <input type="file" name="file" (change)="handleUpload($event)">
                     </div>
                 </div> 
-                <button type="submit" class="btn btn-dark pe-4 px-4 ms-2">{{Text}}</button>
+                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4" [disabled]="userform.pristine">{{pageAction}}</button>
             </form>
         </div>
     </div>
