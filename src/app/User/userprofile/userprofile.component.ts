@@ -10,18 +10,20 @@ import { baseurl } from 'src/app/URL';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
-
+  
   constructor(
     private http : HttpClient,
     public sanitizer: DomSanitizer,
     private router: ActivatedRoute,
-  ) {}
-  access: boolean = false;
-  data: any;
-  base64String: any;
-  id!: number;
-  image: any;
+    public route: Router
+    ) {}
+    access: boolean = false;
+    data: any;
+    base64String: any;
+    id!: number;
+    image: any;
   userId : any;
+  breadcrumbs = this.route.url.split('/').splice(1)
 
   ngOnInit(): void {
     this.userId = this.router.snapshot.params["id"]

@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-                <li class="breadcrumb-item active">Profile</li>
+                <li class="breadcrumb-item" *ngFor="let item of breadcrumbs"><a routerLink="{{item}}">{{item}}</a></li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2" [ngSwitch]="access">
