@@ -17,7 +17,6 @@ import { UsercrudComponent } from './User/usercrud/usercrud.component';
 import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedback/givecoursefeedback.component';
 import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
-
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
 import { UserprofileComponent } from './User/userprofile/userprofile.component';
