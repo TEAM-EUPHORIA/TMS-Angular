@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item active">List</li>
+                <li class="breadcrumb-item active">{{title}} List</li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
@@ -12,11 +12,11 @@
             <div class="header" id="style">
                 <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 ms-2 "
                         *ngIf="edit">Add</button></a>
-                <div class="container" *ngIf="edit">
+                <div class="container" >
                     <div class="col-md-11" id="hov"><input class="form-control" id="search" type="text"
                             placeholder="Search" aria-label="Search"></div>
                 </div>
-                <div class="container" *ngIf="edit">
+                <div class="container" >
                     <div class="col-md-12 mx-2" id="hov">
                         <select name="Department" id="Department Name" class="form-select " name="_dept"
                             [(ngModel)]="_dept">
