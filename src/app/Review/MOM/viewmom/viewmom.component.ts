@@ -17,15 +17,16 @@ export class ViewmomComponent implements OnInit {
   data: any;
   momId :any;
   ngOnInit(): void {
-    // this.reviewId = this.activatedRoute.snapshot.params['reviewId'];
-    // this.traineeId = this.activatedRoute.snapshot.params['traineeId'];
-    this.getMom();
     this.reviewId = this.momId.reviewId;
-    this.reviewId = this.momId.traineeId;
-    console.log(this.reviewId, this.traineeId)
+    this.traineeId = this.momId.traineeId;
+    this.getMom(this.reviewId, this.traineeId);
   }
-  getMom() {
-    this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe((res) => {
+  toEditMOM(){
+    console.warn(this.data);
+    this.route.navigate(['/EditMOM'],{state:{mom : this.data}});
+  }
+  getMom(reviewId : number, traineeId:number) {
+    this.reviewService.getMoMbyId(reviewId, traineeId).subscribe((res) => {
       this.data = res;
       console.log(this.data)
     });
