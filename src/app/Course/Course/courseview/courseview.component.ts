@@ -27,6 +27,7 @@ export class CourseviewComponent implements OnInit {
     var topic : any;
     this.http.get("https://localhost:5001/Course/"+this.Course.id+"/topics/"+id).subscribe(res => {
       topic = res;
+      console.log(topic.Course)
       this.router.navigate(['/TopicView'],{state : {topicView : topic}})
     })
     
