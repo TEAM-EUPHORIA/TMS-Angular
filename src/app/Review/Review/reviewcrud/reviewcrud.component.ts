@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component,EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observer } from 'rxjs';
 import { DepartmentService } from 'src/app/Department/department.service';
 import { UserService } from 'src/app/User/user.service';
 import { ReviewService } from '../../review.service';
@@ -29,6 +30,8 @@ export class ReviewcrudComponent implements OnInit {
 
   StatusId = 1;
 
+  errorMsg:any;
+
   Review: any = {
     id: 0,
     reviewerId: 0,
@@ -39,7 +42,6 @@ export class ReviewcrudComponent implements OnInit {
     mode: '',
     isDisabled: false
   }
-
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
     console.log(this.reviewId)
@@ -59,10 +61,10 @@ export class ReviewcrudComponent implements OnInit {
     }
 
   }
-  myFunction(){ 
-    this.Review.reviewDate=this.datepipe.transform(this.Review.reviewDate, 'yyyy-MM-dd');
-    this.Review.reviewTime=this.datepipe.transform(this.Review.reviewTime, 'HH:mm');
-   }
+  myFunction() {
+    this.Review.reviewDate = this.datepipe.transform(this.Review.reviewDate, 'yyyy-MM-dd');
+    this.Review.reviewTime = this.datepipe.transform(this.Review.reviewTime, 'HH:mm');
+  }
   getReviewById() {
     this.review.getReviewById(this.reviewId).subscribe(res => {
       this.Review = res;
@@ -81,14 +83,26 @@ export class ReviewcrudComponent implements OnInit {
 
   OnSubmit() {
     if (this.reviewId) {
-      this.review.putReview(this.Review).subscribe((res) => {
-        navigateToListPage('/Completed-Review');
+      this.review.putReview(this.Review).subscribe({
+        next: (res: any) => {
+          navigateToListPage('/Completed-Review');
+        },
+        error(err) {
+          console.warn(err["error"])
+        },
       })
-      
+
     }
     else {
-      this.review.postReview(this.Review).subscribe((res) => {
-        navigateToListPage("/Upcoming-Review");
+      console.log(this.Review) // to be removed
+      this.review.postReview(this.Review).subscribe({
+        next: (res: any) => {
+          navigateToListPage("/Upcoming-Review");
+          console.warn(res)
+        },
+        error(err:any) {
+          console.warn(err["error"])
+        },
       })
     }
   }
@@ -122,7 +136,7 @@ export class ReviewcrudComponent implements OnInit {
   }
 }
 
-function navigateToListPage(url:string) {
+function navigateToListPage(url: string) {
   window.location.replace(url);
 }
 

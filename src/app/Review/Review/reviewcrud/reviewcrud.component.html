@@ -30,11 +30,12 @@
                     <label for="floatingText">Trainee</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="date" class="form-control rounded" placeholder="Date" aria-label="date" aria-describedby="search-addon" name="duration2" [value]='Review.reviewDate | date:"yyyy-MM-dd"' [(ngModel)]="Review.reviewDate" />
+                    <input type="date" class="form-control rounded" placeholder="Date" aria-label="date" aria-describedby="search-addon" name="reviewDate" [value]='Review.reviewDate | date:"yyyy-MM-dd"' [(ngModel)]="Review.reviewDate" />
                     <label for="floatingText">Date</label>
+                    <span id="reviewDate"></span>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="time" class="form-control rounded" placeholder="Time" aria-label="Search" aria-describedby="search-addon" name="duration3" [(ngModel)]="Review.reviewTime" />
+                    <input type="time" class="form-control rounded" placeholder="Time" aria-label="Search" aria-describedby="search-addon" name="reviewTime" [(ngModel)]="Review.reviewTime" />
                     <label for="floatingText">Time</label>
                 </div>
                 <div class="form-floating mb-4">
