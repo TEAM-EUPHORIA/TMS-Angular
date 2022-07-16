@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Quill } from 'quill';
+import Quill from 'quill';
+import { baseurl } from 'src/app/URL';
 import { TopicService } from '../topic.service';
 
 @Component({
@@ -13,7 +15,6 @@ export class TopiccrudComponent implements OnInit {
   courseId!: number;
   topicId!: number;
   config: any;
-  quill!: Quill;
   Title!: string;
   topicform = new FormGroup({
     Topicname: new FormControl('', [
@@ -27,13 +28,12 @@ export class TopiccrudComponent implements OnInit {
       Validators.minLength(7)
     ])
   });
-  Topic :any
-  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute) 
-  { this.Topic = this.router.getCurrentNavigation()?.extras.state?.['aid'] }
-  inav!:number;
+  Topic: any
+  quill: any;
+  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
   id!: number;
-  topicname!:string;
-  topicduration!:string;
+  topicname!: string;
+  topicduration!: string;
   topic: any = {
     name: '',
     courseId: '',
@@ -41,23 +41,7 @@ export class TopiccrudComponent implements OnInit {
     content: '',
   };
 
-  ngOnInit(): void {
-    // var i = this.route.snapshot.params[('courseId')];
-    // this.id = this.route.snapshot.params['topicId'];
-    this.courseId = this.Topic.courseId;
-    this.topicId = this.Topic.topicId;
-    console.log(this.courseId, this.topicId)
-    this.getTopicById(this.courseId,this.topicId);
-
-    console.log("topic id "+this.id)
-    this.inav=this.courseId;
-    if (this.id == null || this.id == undefined) {
-      this.Title = "Add";
-    }
-    else {
-      this.Title = "Edit"
-    }
-    // this.courseId = Number.parseInt(courseId);
+  getQuill() {
     var toolbarOptions = [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block', 'image'],
@@ -77,42 +61,75 @@ export class TopiccrudComponent implements OnInit {
 
       ['clean']                                         // remove formatting button
     ];
-    this.config = {
+    var config = {
       "theme": "snow",
       modules: {
         toolbar: toolbarOptions
       },
     };
-    this.quill = new Quill('#editor', {
-      theme: 'snow'});
-    
+    return new Quill('#editor', config);
   }
-  OnSubmit(){
-    if(this.topicId !=0){
-      this.PostTopic();
-    }else{
-      this.topicService.UpdateTopic(this.topic).subscribe((res) =>{
+
+  ngOnInit(): void {
+    this.courseId = this.route.snapshot.params["courseId"]
+    this.topicId = this.route.snapshot.params["topicId"]
+    this.quill = this.getQuill()
+    console.log(this.courseId)
+    if (this.courseId != undefined && this.topicId != undefined) {
+      this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}`).subscribe({
+        next: (res: any) => {
+          this.topic = res
+          this.topic.content = JSON.parse(this.topic.content)
+          this.quill.setContents(this.topic.content)
+        },
+        error(err) {
+          console.warn(err["error"])
+        },
       })
     }
   }
+  OnSubmit() {
+    console.log(this.topic)
+    if (this.topic.courseId != 0 && this.topic.topicId != 0) {
+      this.UpdateTopic();
+    } else {
+      this.PostTopic();
+    }
+  }
+
+  private UpdateTopic() {
+    this.setTopicContent();
+    this.topicService.UpdateTopic(this.topic).subscribe({
+      next: (res: any) => {
+        window.location.replace(`/CourseView/${this.topic.courseId}`);
+      },
+      error(err) {
+        console.warn(err["error"]);
+      },
+    });
+  }
 
   PostTopic() {
- 
-    console.log(this.topic);
+    this.setTopicContent();
+    console.log(this.topic); // to be removed
+    this.topicService.CreateTopic(this.topic).subscribe({
+      next: (res: any) => {
+        window.location.replace("/CourseView/" + this.courseId)
+      },
+      error(err: any) {
+        console.log(err["error"])
+      },
+    })
+  }
+  private setTopicContent() {
     var data = JSON.stringify(this.quill.getContents());
-    this.topic.name=this.topicname;
-    this.topic.duration=this.topicduration;
     this.topic.content = data;
     this.topic.courseId = this.courseId;
-    this.topicService.CreateTopic(this.topic).subscribe(res => {
-    })
-    setTimeout(() => {
-      this.router.navigateByUrl("/CourseView/"+ this.inav)
-    }, 5000)
   }
+
   getTopicById(cid: number, tid: number) {
     this.topicService.getTopicByCourseIdTopicID(cid, tid).subscribe(res => {
-      this.topic=res;
+      this.topic = res;
       console.log(res);
     })
   }
