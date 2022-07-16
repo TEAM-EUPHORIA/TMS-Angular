@@ -14,8 +14,9 @@
     bottom: 45px;
     z-index: 99;
 }
-
-
+a{
+    text-decoration: none;
+}
 
 #spinner {
     opacity: 0;
@@ -194,7 +195,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
     border-radius: 40px;
 }
 

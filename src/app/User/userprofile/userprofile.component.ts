@@ -22,8 +22,8 @@ export class UserprofileComponent implements OnInit {
     base64String: any;
     id!: number;
     image: any;
-  userId : any;
-  breadcrumbs = this.route.url.split('/').splice(1)
+    userId : any;
+    breadcrumbs = this.route.url.split('/').splice(1)
 
   ngOnInit(): void {
     this.userId = this.router.snapshot.params["id"]

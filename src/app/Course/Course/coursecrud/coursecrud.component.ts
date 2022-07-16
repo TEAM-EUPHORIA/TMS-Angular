@@ -22,7 +22,7 @@ export class CoursecrudComponent implements OnInit {
   
   data: any;
   dept: any;
-  Title!: string;
+  Title: string = "Add";
   course! : any;
   courseId! : number;
   Editable : boolean = false;
@@ -67,11 +67,9 @@ export class CoursecrudComponent implements OnInit {
     this.getUserByRole();
     console.warn(this.course.id);
     if(this.course != undefined || this.course != null){
-      this.Title = "Edit"
+      this.Title = "Update"
       this.Editable = true;
-    }else{
-      this.Title = "Add";
-    }
+     }
     this.courseId = this.course.id;
     console.log(this.courseId);
   

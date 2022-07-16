@@ -35,7 +35,7 @@ export class GivecoursefeedbackComponent implements OnInit {
   ngOnInit(): void {
     console.warn(this.CourseFeedback)
     if(this.CourseFeedback != undefined || this.CourseFeedback != null){
-      this.txt = "Edit";
+      this.txt = "Update";
       this.text = "Edit Coursefeedback";
       this.Edit  = true;
       console.log(this.CourseFeedback)
@@ -59,8 +59,8 @@ export class GivecoursefeedbackComponent implements OnInit {
       this.http.put("https://localhost:5001/FeedBack/course/feedback",this.CourseFeedback).subscribe((res) => {
         console.log(res);
       })
-      this.route.navigate(['/CourseList'])
     }
+    this.route.navigate(['/CourseView'])
   }
 
 }

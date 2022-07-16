@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { DepartmentService } from 'src/app/Department/department.service';
 import { UserService } from '../user.service';
 
@@ -11,7 +12,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./usercrud.component.css']
 })
 export class UsercrudComponent implements OnInit {
-  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute) { }
+  removeimage=true;
+  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) { }
 
   departments: any[] = [];
   pageTitle = this.router.url.slice(1).split('/')[0]
@@ -91,6 +93,11 @@ export class UsercrudComponent implements OnInit {
   private navigateToListPage() {
     window.location.replace(`/${this.redirect.split('/')[0]}`);
     console.log(this.redirect)
+    this.showToast()
+  }
+
+  showToast() {
+    this.toastService.success(this.pageAction+'ed')
   }
 
   handleUpload(event: any) {
@@ -126,5 +133,8 @@ export class UsercrudComponent implements OnInit {
       default:
         break;
     }
+  }
+  changeimage(){
+    this.removeimage=false;
   }
 }

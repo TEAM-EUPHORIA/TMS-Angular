@@ -30,7 +30,7 @@ export class ReviewcrudComponent implements OnInit {
 
   StatusId = 1;
 
-  errorMsg:any;
+  errorMsg: any;
 
   Review: any = {
     id: 0,
@@ -42,6 +42,10 @@ export class ReviewcrudComponent implements OnInit {
     mode: '',
     isDisabled: false
   }
+
+    minDate:Date= new Date();
+    maxDate:Date= new Date();
+
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
     console.log(this.reviewId)
@@ -54,6 +58,9 @@ export class ReviewcrudComponent implements OnInit {
       this.Title = "Edit"
     }
     this.setoption();
+
+    this.minDate.setDate(this.minDate.getDate()+2);
+    this.maxDate.setDate(this.maxDate.getDate()+15);
   }
   setoption(form?: NgForm) {
     if (this.reviewId != null) {
@@ -100,7 +107,7 @@ export class ReviewcrudComponent implements OnInit {
           navigateToListPage("/Upcoming-Review");
           console.warn(res)
         },
-        error(err:any) {
+        error(err: any) {
           console.warn(err["error"])
         },
       })

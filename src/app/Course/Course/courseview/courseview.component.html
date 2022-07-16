@@ -11,12 +11,10 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <div class="row g-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-10">
-                        <h3>{{Course.name}}</h3>
-                    </div>
+                    <div class="col-10"><h3>{{Course.name}}</h3></div>
                     <div class="col-2">
                         <p class="pt-2 fs-5"><b class="text-dark">Trainer : </b>{{Course.trainer.fullName}}</p>
-                    <a class="pt-2 fs-5" (click)="ToViewTraineeList()">View TraineeList</a>
+                    <!-- <a class="pt-2 fs-5" (click)="ToViewTraineeList()">View TraineeList</a> -->
                     </div>
                 </div>
             </div>
@@ -24,27 +22,21 @@
 
             <div class="row g-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-11">
+                    <div class="col-10">
                         <p class="fs-5 mt-2"><b class="text-dark">Duration : </b>{{Course.duration}}</p>
                     </div>
-                    <!-- <div class="col-1" *ngIf="IsCoordinator || Trainer">
-                        <a routerLink="/ViewCourseFeedback/{{data.id}}/{{traineeId}}"><button type="button" class="btn btn-dark">View Feedback</button></a>
-                    </div> -->
-                    <div class="col-1" *ngIf="auth.IsTrainee && !Givefeedback">
+                    <div class="col-2 mx-4" *ngIf="auth.IsTrainee && !Givefeedback">
                         <a (click)="ToFeedback()"><button type="button" class="btn btn-dark">View Feedback</button></a>
                     </div>
-                    <div class="col-1" *ngIf="auth.IsTrainee && Givefeedback">
-                        <a (click)="ToAddFeedback()"><button type="button" class="btn btn-dark">Give
-                                Feedback</button></a>
+                    <div class="col-2 mx-4" *ngIf="auth.IsTrainee && Givefeedback">
+                        <a (click)="ToAddFeedback()"><button type="button" class="btn btn-dark">Give Feedback</button></a>
                     </div>
                 </div>
             </div>
             <div class="row g-2 mt-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-11"><b class="text-dark">Course Topics :</b></div>
-                    <div class="col-1" id="btn" *ngIf="auth.IsCoordinator"><a
-                            routerLink="/AddTopic/{{Course.id}}"><button type="button" class="btn btn-dark">Add
-                                Topic</button></a></div>
+                    <div class="col-11"><h5 class="text-dark"><b>Course Topics :</b></h5></div>
+                    <div class="col-1" id="btn" *ngIf="auth.IsCoordinator"><a routerLink="/AddTopic/{{Course.id}}"><button type="button" class="btn btn-dark">Add Topic</button></a></div>
                 </div>
             </div>
             <div *ngFor="let item of Course.topics">
