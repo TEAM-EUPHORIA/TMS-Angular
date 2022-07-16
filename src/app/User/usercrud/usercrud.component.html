@@ -12,7 +12,7 @@
             <form [formGroup]="userform" action="" name="myForm" (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
                     <input type="text" class="form-control" name="name" [(ngModel)]="user.fullName" formControlName="fullname" required maxlength="25" minlength="3" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
-                    <label for="floatingText">Fullname*</label>
+                    <label for="floatingText">Full Name*</label>
                     <div *ngIf="userform.controls['fullname'].invalid && (userform.controls['fullname'].dirty || userform.controls['fullname'].touched)" class="alert alert-danger">
                         <div *ngIf="userform.controls['fullname'].errors?.['required']">Full Name is required.</div>
                         <div *ngIf="userform.controls['fullname'].errors?.['minlength']">Full Name must be at least 4 characters long.</div>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="email" [(ngModel)]="user.email" formControlName="email" class="form-control" name="email" required required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <input type="email" [(ngModel)]="user.email"  formControlName="email" class="form-control" name="email" required required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                     <label for="floatingInput">Email address*</label>
                     <div *ngIf="userform.controls['email'].invalid && (userform.controls['email'].dirty || userform.controls['email'].touched)" class="alert alert-danger">
                         <div *ngIf="userform.controls['email'].errors?.['required']">Email is required.</div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-floating form-floating-sm mb-4 nav-item dropdown">
                     <input type="text" [(ngModel)]="user.userName" formControlName="username" class="form-control" name="username" required pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
-                    <label for="floatingText">Username*</label>
+                    <label for="floatingText">Nickname*</label>
                     <div *ngIf="userform.controls['username'].invalid && (userform.controls['username'].dirty || userform.controls['username'].touched)" class="alert alert-danger">
                         <div *ngIf="userform.controls['username'].errors?.['required']">Username is required.</div>
                         <div *ngIf="userform.controls['username'].errors?.['minlength']">Username must be at least 4 characters long.</div>

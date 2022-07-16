@@ -13,7 +13,7 @@
                 <div *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a></div>
                 <!-- <div class="container"><div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div></div> -->
             </div>
-            <div *ngFor="let item of data | filter: _dept | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of data | filter: _dept | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 hover rounded">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
