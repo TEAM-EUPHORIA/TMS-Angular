@@ -25,6 +25,7 @@ import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
 import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
+import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 
 
 
@@ -42,10 +43,10 @@ const routes: Routes = [
   { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
 
-  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
-  { path: 'Update-Trainer/:id', component: UsercrudComponent },
-  { path: 'Update-Trainee/:id', component: UsercrudComponent },
-  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  { path: 'Update Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update Trainer/:id', component: UsercrudComponent },
+  { path: 'Update Trainee/:id', component: UsercrudComponent },
+  { path: 'Update Reviewer/:id', component: UsercrudComponent },
 
   { path: 'Add-Co-Ordinator', component: UsercrudComponent },
   { path: 'Add-Trainer', component: UsercrudComponent },
@@ -84,7 +85,8 @@ const routes: Routes = [
   { path: 'Home', component: HomeComponent},
   { path: 'ViewTraineeList', component: ViewtraineelistComponent},
   
-  { path: 'UploadAssignment', component: UploadassignmentComponent }
+  { path: 'UploadAssignment', component: UploadassignmentComponent },
+  { path: 'ViewAssignment', component: ViewassignmentComponent}
 ]
 
 @NgModule({

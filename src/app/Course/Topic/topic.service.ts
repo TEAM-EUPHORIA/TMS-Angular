@@ -21,6 +21,9 @@ export class TopicService {
   }
   getTopicByCourseIdTopicID(cid: number, tid: number): Observable<any[]> {
     var url = "https://localhost:5001/Course/" + `${cid}` + "/topics/" + `${tid}`;
-    return this.http.get<any[]>(url)
+    return this.http.get<any[]>(url);
+  }
+  GetTopicByCourseIdandTopicId(courseId : number,topicId : number): Observable<any>{
+    return this.http.get<any>("https://localhost:5001/Course/"+courseId+"/topics/"+ topicId);
   }
 }

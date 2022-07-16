@@ -16,7 +16,7 @@ export class CourseviewComponent implements OnInit {
     
   Givefeedback: boolean = false;
   Course : any;
-  traineeId = 3;
+  traineeRoleId = 3;
 
   ngOnInit(): void {
     console.warn(this.Course);
@@ -24,12 +24,12 @@ export class CourseviewComponent implements OnInit {
   }
 
   ToTopicView(id : any){
-    var topic : any;
-    this.http.get("https://localhost:5001/Course/"+this.Course.id+"/topics/"+id).subscribe(res => {
-      topic = res;
-      this.router.navigate(['/TopicView'],{state : {topicView : topic}})
-    })
-    
+    var topicobj : any = {
+      courseId : this.Course.id,
+      topicId : id,
+      trainerId : this.Course.trainer.id
+    };
+    this.router.navigate(['/TopicView'],{state : {topicView : topicobj} });
   }
   ToFeedback(){
     var cId : any;
@@ -42,21 +42,20 @@ export class CourseviewComponent implements OnInit {
   cId = this.Course.id;
     this.router.navigate(['/GiveCourseFeedback'],{state : {cid : cId}}); 
   }
-  toviewtraineelist(){
-    var obje = {
+  ToViewTraineeList(){
+    var obj = {
      courseId : this.Course.id ,
-     roleId : this.traineeId,
+     roleId : this.traineeRoleId,
      feedbacks : this.Course.traineeFeedbacks
     };
-    console.log(obje);
-    this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    this.router.navigate(['/ViewTraineeList'], {state : {vid : obj}});
 
     }
-  disableTopic(courseId : number,topicId : number){
+  DisableTopic(courseId : number,topicId : number){
 
   }
 
-  toATopic(courseId : number ,topicId :number){
+  ToTopic(courseId : number ,topicId :number){
     var obj : any ={
       topicId : topicId,
       courseId : courseId

@@ -15,7 +15,6 @@ import { CoursecrudComponent } from './Course/Course/coursecrud/coursecrud.compo
 import { DepartmentlistComponent } from './Department/departmentlist/departmentlist.component';
 import { DepartmentcrudComponent } from './Department/departmentcrud/departmentcrud.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
-import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 import { TopiccrudComponent } from './Course/Topic/topiccrud/topiccrud.component';
 import { CourseviewComponent } from './Course/Course/courseview/courseview.component';
 import { CoursetraineeComponent } from './Course/Course/coursetrainee/coursetrainee.component';
@@ -42,6 +41,9 @@ import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeed
 import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 
 import { DatePipe } from '@angular/common';
+import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
+import { AssignmentquesComponent } from './Course/Assignment/assignmentques/assignmentques.component';
+import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 export function tokenGetter() {
   return localStorage.getItem("Token");
 }
@@ -78,6 +80,8 @@ export function tokenGetter() {
     ViewtraineefeedbackComponent,
     GivetraineefeedbackComponent,
     ViewtraineelistComponent,
+    ViewassignmentComponent,
+    AssignmentquesComponent,
   ],
   imports: [
     FormsModule,

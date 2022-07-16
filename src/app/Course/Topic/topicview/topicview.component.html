@@ -26,12 +26,24 @@
             </div>
         </div>
         <div class="mx-4"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
-        <app-uploadassignment></app-uploadassignment>
-        <!-- <div class="container-fluid  px-4">
-            <app-assignment-ques></app-assignment-ques>
-            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey"><app-assignment-list> </app-assignment-list></div>
-            <div class="row justify-content-center mt-5" *ngIf="uploadKey"><app-upload-assignment (SubmittedAssignment)="handleSubmit($event)"></app-upload-assignment></div>
-        </div> -->
+        <h3>Topic's Assignment</h3>
+        <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee">
+            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
+                <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="trainerId"></app-assignmentques>
+            </div>
+        </div>
+        <h3>Submitted Assignment</h3>
+        <div class="container-fluid  px-4" *ngIf="!uploadKey && submitted">
+            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="auth.IsCoordinator || auth.IsTrainer">
+                <app-assignmentlist [courseId]="courseId" [topicId]="topicId"></app-assignmentlist>
+            </div>
+            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
+                <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="auth.getId()"></app-assignmentques>
+            </div>
+        </div>
+        <div class="container-fluid  px-4" *ngIf="auth.IsTrainee || auth.IsTrainer && uploadKey">
+            <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+        </div>
     </div>
     <app-footer></app-footer>
 </div>
