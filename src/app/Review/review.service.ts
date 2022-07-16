@@ -37,11 +37,11 @@ export class ReviewService {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.http.put<any>(this.baseurl + `review`, data)
   }
-  getMoMbyId(Reviewerid: string, Traineeid: string): Observable<any> {
+  getMoMbyId(Revieweid: string, Traineeid: string): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
-    console.log(Reviewerid, Traineeid);
-    return this.http.get<any>(this.baseurl + `mom/${Reviewerid},${Traineeid}`);
+    console.log(Revieweid, Traineeid);
+    return this.http.get<any>(this.baseurl + `mom/${Revieweid},${Traineeid}`);
   }
   CreateMOM(data: any): Observable<any> {
     return this.http.post<any>(this.baseurl + `mom`, data)
