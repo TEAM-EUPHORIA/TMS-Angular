@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-2">
                         <p class="pt-2 fs-5"><b class="text-dark">Trainer : </b>{{Course.trainer.fullName}}</p>
-                    <a class="pt-2 fs-5" (click)="toviewtraineelist()">View TraineeList</a>
+                        <a class="pt-2 fs-5" *ngIf="auth.IsTrainer" (click)="toviewtraineelist()">View TraineeList</a>
                     </div>
                 </div>
             </div>
@@ -42,9 +42,7 @@
             <div class="row g-2 mt-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
                     <div class="col-11"><b class="text-dark">Course Topics :</b></div>
-                    <div class="col-1" id="btn" *ngIf="auth.IsCoordinator"><a
-                            routerLink="/AddTopic/{{Course.id}}"><button type="button" class="btn btn-dark">Add
-                                Topic</button></a></div>
+                    <div class="col-1" id="btn" *ngIf="auth.IsCoordinator"><a routerLink="/AddTopic/{{Course.id}}"><button type="button" class="btn btn-dark">Add Topic</button></a></div>
                 </div>
             </div>
             <div *ngFor="let item of Course.topics">
