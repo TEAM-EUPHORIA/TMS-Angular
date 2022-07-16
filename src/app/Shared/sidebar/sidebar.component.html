@@ -1,5 +1,5 @@
 <div class="sidebar pe-4 pb-3" id="sidebar">
-    <nav class="navbar bg-light navbar-light">
+    <nav class="navbar navbar-light">
         <a routerLink="" class="navbar-brand mx-4 mb-3"><h3 class="text-primary">TMS</h3></a>
         <div class="navbar-nav w-100"><a *ngIf="!ls.IsloggedIn" routerLink="/" routerLinkActive="active" class="nav-item nav-link "><i class="fa fa-home" aria-hidden="true"></i>Home</a></div>
         <div class="navbar-nav w-100">
@@ -13,7 +13,8 @@
             <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
             <a *ngIf="ls.IsCoordinator" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
             <a *ngIf="ls.IsTrainee || ls.IsTrainer" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>My Courses</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Upcoming-Review" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Upcoming Reviews</a>
+            <a *ngIf="ls.IsCoordinator" routerLink="/Upcoming-Review" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Scheduled Reviews</a>
+            <a *ngIf="ls.IsReviewer || ls.IsTrainee" routerLink="/Upcoming-Review" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>My Reviews</a>
             <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Review" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed Reviews</a>
         </div>
     </nav>

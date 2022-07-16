@@ -28,13 +28,13 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-12 hover rounded">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
-                            <div class="col-3" id="pointer"><a routerLink="/{{title}}/Profile/{{item.id}}">
-                                    <p class="mb-0 text-dark fs-5" title="Click here to view {{title}} Profile"><b>Name : </b>{{ item.fullName }}</p>
+                            <div class="col-2" id="pointer"><a routerLink="/{{title}}/Profile/{{item.id}}">
+                                    <p class="mb-0 text-dark" title="Click here to view {{title}} Profile"><b>Name : </b>{{ item.fullName }}</p>
                                 </a></div>
-                            <div class="col-3" *ngIf="dpt">
-                                    <p class="mb-0 text-dark fs-5"><b>Department : </b>{{ item.department.name }}</p></div>
+                            <div class="col-2" *ngIf="dpt">
+                                    <p class="mb-0 text-dark"><b>Department : </b>{{ item.department.name }}</p></div>
                             <div class="col-3">
-                                    <p class="mb-0 text-dark fs-5"><b>Email : </b> {{ item.email }}</p>
+                                    <p class="mb-0 text-dark"><b>Email : </b> {{ item.email }}</p>
                                 </div>
                             <div class="col-0" *ngIf="edit"><a routerLink="/Update-{{title}}/{{item.id}}"><i
                                         class="fa-solid fa-pen-to-square text-dark"></i></a></div>
@@ -45,8 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5"></div>
-        <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+        <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>

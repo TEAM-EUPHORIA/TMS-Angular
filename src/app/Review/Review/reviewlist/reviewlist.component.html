@@ -12,7 +12,7 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">{{pageTitle}}</h3>
             <div class="header" id="style">
-                <a *ngIf="ls.IsCoordinator" routerLink="/ScheduleReview"><button type="button" class="btn btn-dark pe-4 px-4 ms-2">Add</button></a>
+                <a *ngIf="ls.IsCoordinator" routerLink="/ScheduleReview"><button type="button" class="btn btn-dark pe-4 px-4">Add</button></a>
                 <div class="container">
                     <div class="col-md-11" id="hov">
                         <input class="form-control" id="search" type="text" placeholder="Search" aria-label="Search">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngFor="let item of data |filter:searchuser| paginate: {itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of data |filter:searchuser| paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength}">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 hover rounded">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
@@ -48,9 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="container justify-content-center d-flex pagination"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>    
+        <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>   
     </div>
     <app-footer></app-footer>
 </div>
-<!-- date.getTime() > item.reviewTime.getTime() -->
-<!-- {{date.getTime() | date:'medium'}}{{" "+(date.getTime() > item.reviewTime.getTime())+" "}}{{item.reviewTime | date:'medium'}} -->

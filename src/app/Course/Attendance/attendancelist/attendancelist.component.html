@@ -21,8 +21,8 @@
                             <div class="col-2"><p class="mb-0 text-dark"><b>Name : </b>{{item.owner.fullName}}</p></div>
                             <div class="col-2"><p class="mb-0 text-dark"><b>Email : </b>{{item.owner.email}}</p></div>
                             <div class="col-2">
-                                <p class="mb-0 text-success" *ngIf="item.status"><b class="fs-5">Present</b></p>
-                                <p class="mb-0 text-danger" *ngIf="!item.status"><b class="fs-5">Absent</b></p>
+                                <p class="mb-0 text-success" *ngIf="item.status"><b class="fs-5">Marked</b></p>
+                                <p class="mb-0 text-danger" *ngIf="!item.status"><b class="fs-5">Not Marked</b></p>
                             </div>
                         </div>
                     </div>
