@@ -81,8 +81,17 @@ export class GivemomComponent implements OnInit {
   }
   private showOrHideBtn(temp: string[]) {
     if (temp.length == 3) {
-      this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
-      this.pageTitle = "Review Details"
+      if(temp[1] == 'UploadMOM')
+      {
+        this.pageTitle = "Review Details"
+      }
+      else
+      {
+        console.warn("else")
+        this.pageTitle = "Edit Mom for Review"
+        this.toggleDisplayNone()
+        this.showBtn = false
+      }
     }
     else if (temp.length == 4) {
       this.showBtn = false;
@@ -108,6 +117,7 @@ export class GivemomComponent implements OnInit {
       this.reviewDate = this.data.reviewDate;
       this.reviewTime = this.data.reviewTime;
       // this.traineeId = this.data.traineeId;
+      this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
       this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe(result => {
         this.mom = result;
         console.warn(this.mom)
