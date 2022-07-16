@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 })
 export class UsercrudComponent implements OnInit {
   constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute) { }
-
+  removeimage=true;
   departments: any[] = [];
   pageTitle = this.router.url.slice(1).split('/')[0]
   pageAction = this.router.url.slice(1).split('-')[0]
@@ -126,5 +126,8 @@ export class UsercrudComponent implements OnInit {
       default:
         break;
     }
+  }
+  changeimage(){
+    this.removeimage=false;
   }
 }
