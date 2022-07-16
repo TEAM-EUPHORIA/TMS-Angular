@@ -30,7 +30,7 @@ export class ReviewcrudComponent implements OnInit {
 
   StatusId = 1;
 
-  errorMsg:any;
+  errorMsg: any;
 
   Review: any = {
     id: 0,
@@ -100,7 +100,7 @@ export class ReviewcrudComponent implements OnInit {
           navigateToListPage("/Upcoming-Review");
           console.warn(res)
         },
-        error(err:any) {
+        error(err: any) {
           console.warn(err["error"])
         },
       })

@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngFor="let item of courselist |filter:_dept|filter:search | paginate: {itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of courselist |filter:_dept|filter:search | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 rounded hover">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">

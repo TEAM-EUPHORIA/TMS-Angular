@@ -11,21 +11,21 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  constructor(private router: Router, private toastService: HotToastService,
-    private http : HttpClient) { }
-    Tokendata: any;
-    public Role: any;
-    public RoleId: any;
-    public currentId: any;
 
-    //Response from server is stored
-    response: any;
-    Responsemsg : any;
-    //Error msg to be stored from server
-    errormsg : any;
-    Emailmsg : any;
-    Passwordmsg : any;
+  constructor(private router: Router, private toastService: HotToastService,
+    private http: HttpClient) { }
+  Tokendata: any;
+  public Role: any;
+  public RoleId: any;
+  public currentId: any;
+
+  //Response from server is stored
+  response: any;
+  Responsemsg: any;
+  //Error msg to be stored from server
+  errormsg: any;
+  Emailmsg: any;
+  Passwordmsg: any;
 
   //model for Login
   Login: any = {
@@ -37,25 +37,27 @@ export class LoginComponent implements OnInit {
 
   OnSubmit() {
     console.log(this.Login);
-    this.http.post("https://localhost:5001/Auth/login",this.Login).subscribe(res => {
+    this.http.post("https://localhost:5001/Auth/login", this.Login).subscribe(res => {
       this.response = res;
       console.log(this.response.token);
-      if(this.response != null){
-        localStorage.setItem("Token",this.response.token);
+      if (this.response != null) {
+        localStorage.setItem("Token", this.response.token);
         window.location.replace("/")
       }
       this.Responsemsg = "LoggedIn Successfully"
       window.location.replace("/")
-    },err => {
+    }, err => {
       this.errormsg = err;
-      if(this.errormsg.error.errors.Email[0] != undefined){
+      if (this.errormsg.error.errors.Email[0] != undefined) {
         this.Emailmsg = this.errormsg.error.errors.Email[0];
       }
-      if(this.errormsg.error.errors.Password[0] != undefined){
+      if (this.errormsg.error.errors.Password[0] != undefined) {
         this.Passwordmsg = this.errormsg.error.errors.Password[0];
       }
     })
+    setTimeout(() => this.showToast(), 2000)
   }
+
   showToast() {
     this.toastService.success('Login Successfully')
   }
