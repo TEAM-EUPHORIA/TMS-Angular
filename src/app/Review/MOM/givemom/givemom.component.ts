@@ -4,7 +4,6 @@ import { FormControl, FormControlName, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { baseurl } from 'src/app/URL';
 import { ReviewService } from '../../review.service';
-
 @Component({
   selector: 'app-givemom',
   templateUrl: './givemom.component.html',
@@ -82,14 +81,13 @@ export class GivemomComponent implements OnInit {
     window.location.replace('/Completed-Review')
   }
   OnSubmit() {
-    let mom: any;
-    this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe((res) => {
-      mom = res
-      if (mom) {
+    this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({
+      next: (res: any) => {
         this.reviewService.PutMOM(this.mom).subscribe(res => {
           this.navigateToListPage();
         })
-      } else {
+      },
+      error: (err: any) => {
         this.mom.traineeId = this.traineeId;
         this.mom.reviewId = this.reviewId;
         this.mom.statusId = 1
@@ -99,5 +97,6 @@ export class GivemomComponent implements OnInit {
         })
       }
     })
+
   }
 }
