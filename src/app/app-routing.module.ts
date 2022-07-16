@@ -56,6 +56,7 @@ const routes: Routes = [
   { path: 'ScheduleReview', component: ReviewcrudComponent },
   { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent },
   { path: 'UploadMOM/:reviewId', component: GivemomComponent },
+  { path: 'UploadMom/:reviewId', component: GivemomComponent },
   { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent },
   { path: 'Profile', component: UserprofileComponent },
   { path: ':list/Profile/:id', component: UserprofileComponent },

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
 import { ReviewService } from '../../review.service';
 @Component({
@@ -10,7 +11,7 @@ import { ReviewService } from '../../review.service';
   styleUrls: ['./givemom.component.css']
 })
 export class GivemomComponent implements OnInit {
-
+  date: Date = new Date();
   data: any;
   reviewId = '';
   reviewerName = '';
@@ -23,8 +24,9 @@ export class GivemomComponent implements OnInit {
   MOM: any;
   MOMId!: number;
   momDetails: any;
-
-  constructor(private reviewService: ReviewService, private router: Router, private http: HttpClient) { }
+  pageTitle = 'Review Details'
+  showBtn= true
+  constructor(private reviewService: ReviewService, private router: Router, private http: HttpClient,public ls:LoginService) { }
   momForm = new FormGroup({
     agenda: new FormControl('', [
       Validators.required
@@ -45,35 +47,80 @@ export class GivemomComponent implements OnInit {
     meetingNotes: '',
     purposeOfMeeting: ''
   };
+  showMom(event$:HTMLDivElement){
+    var btn = event$
+    if(btn.innerText == "Upload")
+    {
+      btn.innerText = "Hide Mom"
+      this.pageTitle = "Upload Mom for Review"
+    }
+    else 
+    {
+      btn.innerText = "Upload"
+      this.pageTitle = "Review Details"
+    }
+    this.toggleDisplayNone();
+  }
+  private toggleDisplayNone() {
+    var ele = document.getElementById("mom");
+    ele?.classList.toggle('d-none');
+  }
 
   ngOnInit(): void {
     var temp = this.router.url.split('/')
-    this.reviewId = temp[1]
-    this.traineeId = temp[2]
-    if (this.traineeId != undefined && this.traineeId != null) {
+    this.reviewId = temp[2]
+    this.traineeId = temp[3]
+    console.warn(this.reviewId,this.traineeId)
+    if (this.reviewId != undefined && this.traineeId != undefined) {
       this.editMom();
-    } else if (this.reviewId != undefined && this.reviewId != null) {
+    } else if (this.reviewId != undefined) {
+      console.warn(this.reviewId ,this.traineeId)      
       this.uploadMOM();
     }
+    this.showOrHideBtn(temp);
   }
+  private showOrHideBtn(temp: string[]) {
+    if (temp.length == 3) {
+      if(temp[1] == 'UploadMOM')
+      {
+        this.pageTitle = "Review Details"
+      }
+      else
+      {
+        console.warn("else")
+        this.pageTitle = "Edit Mom for Review"
+        this.toggleDisplayNone()
+        this.showBtn = false
+      }
+    }
+    else if (temp.length == 4) {
+      this.showBtn = false;
+      this.pageTitle = "Edit Mom for Review"
+      this.toggleDisplayNone()
+    }
+  }
+
   uploadMOM() {
     console.log(this.reviewId)
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
-      console.warn(this.data)
+      this.data.reviewTime = new Date(this.data.reviewTime)
     })
   }
   editMom() {
-    this.reviewService.getReviewById(this.traineeId).subscribe(res => {
+    this.reviewService.getReviewById(this.reviewId).subscribe(res => {
+      console.log(this.traineeId)
       this.data = res;
       this.reviewId = this.data.id;
       this.reviewerName = this.data.reviewer.fullName;
       this.reviewMode = this.data.mode;
       this.reviewDate = this.data.reviewDate;
       this.reviewTime = this.data.reviewTime;
-      this.traineeId = this.data.traineeId;
+      // this.traineeId = this.data.traineeId;
+      this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
       this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe(result => {
         this.mom = result;
+        console.warn(this.mom)
       })
     })
   }

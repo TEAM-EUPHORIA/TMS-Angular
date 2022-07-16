@@ -9,45 +9,68 @@
 		</nav>
 		<form [formGroup]="momForm" action="" #ngForm (ngSubmit)="OnSubmit()">
 			<div class="container-fluid px-4 pt-2 pb-2">
-				<h3 class="text-black pb-2">Upload Minutes of Meeting</h3>
+				<h3 class="text-black pb-2">{{pageTitle}}</h3>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Reviewer Name</b></div>
-							<div class="col-md-6"><p>{{data.reviewer.fullName}}</p></div>
+							<div class="col-md-6">
+								<p>{{data.reviewer.fullName}}</p>
+							</div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Trainee Name</b></div>
-							<div class="col-md-6"><p>{{data.trainee.fullName}}</p></div>
+							<div class="col-md-6">
+								<p>{{data.trainee.fullName}}</p>
+							</div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Review Date</b></div>
-							<div class="col-md-6"><p>{{data.reviewDate |date}}</p></div>
+							<div class="col-md-6">
+								<p>{{data.reviewDate |date}}</p>
+							</div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Review Time</b></div>
-							<div class="col-md-6"><p>{{data.reviewTime | date:'shortTime'}}</p></div>
+							<div class="col-md-6">
+								<p>{{data.reviewTime | date:'shortTime'}}</p>
+							</div>
 						</div>
 						<div class="row mt-4">
 							<div class="col-md-6"><b class="text-dark">Review Mode</b></div>
-							<div class="col-md-6"><p>{{data.mode}}</p></div>
+							<div class="col-md-6">
+								<p>{{data.mode}}</p>
+							</div>
 						</div>
-						<div class="row mt-4">
-							<div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="purposeOfMeeting" [(ngModel)]="mom.purposeOfMeeting" formControlName="purposeOfMeeting" maxlength="1000" minlength="3" required></textarea></div>
+						<div class="btn btn-dark mt-3" #btn
+							*ngIf="showBtn"
+							(click)="showMom(btn)">Upload</div>
+						<div class="d-none" id="mom">
+							<div class="row mt-4">
+								<div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>
+								<div class="col-md-6"><textarea class="form-control" id="floatingText"
+										name="purposeOfMeeting" [(ngModel)]="mom.purposeOfMeeting"
+										formControlName="purposeOfMeeting" maxlength="1000" minlength="3"
+										required></textarea></div>
+							</div>
+							<div class="row mt-4">
+								<div class="col-md-6"><b class="text-dark">Agenda</b></div>
+								<div class="col-md-6"><textarea class="form-control" id="floatingText" name="agenda"
+										[(ngModel)]="mom.agenda" formControlName="agenda" maxlength="1000" minlength="3"
+										required></textarea></div>
+							</div>
+							<div class="row mt-4">
+								<div class="col-md-6"><b class="text-dark">Meeting Notes</b></div>
+								<div class="col-md-6"><textarea class="form-control" id="floatingText"
+										name="meetingNotes" [(ngModel)]="mom.meetingNotes"
+										formControlName="meetingNotes" maxlength="1000" minlength="3"
+										required></textarea></div>
+							</div>
+							<button type="submit" class="btn btn-dark mt-4 pe-4 px-4">Submit</button>
 						</div>
-						<div class="row mt-4">
-							<div class="col-md-6"><b class="text-dark">Agenda</b ></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="agenda" [(ngModel)]="mom.agenda" formControlName="agenda" maxlength="1000" minlength="3" required></textarea></div>
-						</div>
-						<div class="row mt-4">
-							<div class="col-md-6"><b class="text-dark">Meeting Notes</b ></div>
-							<div class="col-md-6"><textarea class="form-control" id="floatingText" name="meetingNotes" [(ngModel)]="mom.meetingNotes" formControlName="meetingNotes" maxlength="1000" minlength="3" required></textarea></div>
-						</div>
-						<button type="submit" class="btn btn-dark mt-4 pe-4 px-4">Submit</button>
 					</div>
 				</div>
 			</div>
 		</form>
-	<app-footer></app-footer>
-</div>
+		<app-footer></app-footer>
+	</div>
