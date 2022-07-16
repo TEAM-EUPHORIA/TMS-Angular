@@ -48,10 +48,10 @@ export class CourselistComponent implements OnInit {
     this.GetallDepartment();
   }
   getAllCourses() {
-    this.CourseService.getAllCourses().
-      subscribe(res => {
-        this.courselist = res
-      })
+    this.CourseService.getAllCourses().subscribe(res => {
+      this.courselist = res
+      console.log(res)
+    })
   }
   //returns list of courses assigned to the particular user
   getCoursesByUserId(id: number) {

@@ -18,8 +18,8 @@
                     <div class="col-md-12 hover rounded">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
                             <div class="w-100 mx-4 text-dark"><b class="mx-4">{{item.name}}</b></div>
-                            <div *ngIf="auth.IsCoordinator || Editable === true" class="col-1"><a routerLink="/EditDepartment/{{item.id}}" class="mx-2"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
-                            <div *ngIf="Editable === true" class="offset-1 col-1" id="pointer"><a (click)="disableDepartment(item.id)" class="mx-2"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                            <div *ngIf="auth.IsCoordinator || Editable === true" class="col-2"><a routerLink="/EditDepartment/{{item.id}}" class="mx-2"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div *ngIf="Editable === true" class="col-1" id="pointer"><a (click)="disableDepartment(item.id)" class="mx-2"><i class="fa-solid fa-ban text-dark"></i></a></div>
                         </div>
                     </div>
                 </div>
