@@ -80,6 +80,7 @@ const routes: Routes = [
   { path: 'Attendance', component: AttendancelistComponent },
 
   { path: 'AddDepartment', component: DepartmentcrudComponent },
+  { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   { path: 'CourseView', component: CourseviewComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'Home', component: HomeComponent},

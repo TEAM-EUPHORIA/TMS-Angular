@@ -68,6 +68,7 @@ export class GivemomComponent implements OnInit {
 
   ngOnInit(): void {
     var temp = this.router.url.split('/')
+    console.log(temp)
     this.reviewId = temp[2]
     this.traineeId = temp[3]
     console.warn(this.reviewId,this.traineeId)
