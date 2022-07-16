@@ -42,6 +42,10 @@ export class ReviewcrudComponent implements OnInit {
     mode: '',
     isDisabled: false
   }
+
+    minDate:Date= new Date();
+    maxDate:Date= new Date();
+
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
     console.log(this.reviewId)
@@ -54,6 +58,9 @@ export class ReviewcrudComponent implements OnInit {
       this.Title = "Edit"
     }
     this.setoption();
+
+    this.minDate.setDate(this.minDate.getDate()+2);
+    this.maxDate.setDate(this.maxDate.getDate()+15);
   }
   setoption(form?: NgForm) {
     if (this.reviewId != null) {

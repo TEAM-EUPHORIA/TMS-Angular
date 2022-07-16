@@ -83,7 +83,7 @@
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
                                 <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3">Welcome, {{data.Name}}</h4><h4 class="mb-0">Role:{{data.Role}}</h4></div>
+                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
                             </div>
                         </a>
                     </div>
@@ -187,7 +187,7 @@
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
                                 <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3">Welcome, {{data.Name}}</h4><h4 class="mb-0">Role:{{data.Role}}</h4></div>
+                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
                             </div>
                         </a>
                     </div>
@@ -197,16 +197,16 @@
                         <a routerLink="/CourseList/{{data.id}}" class="nav-item nav-link active">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa-solid fa-square-pen fs-3 text-dark" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Courses</h4></div>
-                                <div class="col-2"><h3 class="mb-0 mx-3">{{data.courseCount}}</h3></div>
+                                <div class="col-xs-2 mx-4"><h4 class="mb-0 mx-4 text-dark">Courses</h4></div>
+                                <div class="col-2"><h3 class="mb-0 mx-4">{{data.courseCount}}</h3></div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/1" class="nav-item nav-link active">
+                        <a routerLink="/Upcoming-Review" class="nav-item nav-link active">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Upcoming Review</h4></div>
+                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Reviews</h4></div>
                                 <div class="col-2"><h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3></div>
                             </div>
                         </a>
@@ -214,7 +214,7 @@
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/2" class="nav-item nav-link active">
+                        <a routerLink="/Completed-Review" class="nav-item nav-link active">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i></div>
                                 <div class="col-xs-2 "><h4 class="mb-0 text-dark">Completed Review</h4></div>
@@ -234,23 +234,23 @@
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="bg-light hover rounded d-flex align-items-center justify-content-between p-4">
                                 <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3">Welcome, {{data.Name}}</h4><h4 class="mb-0">Role:{{data.Role}}</h4></div>
+                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/1" class="nav-item nav-link active">
+                        <a routerLink="/Upcoming-Review" class="nav-item nav-link active">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-book text-dark fs-3" aria-hidden="true"></i></div>
-                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Upcoming Review</h4></div>
+                                <div class="col-xs-2 "><h4 class="mb-0 text-dark">Reviews</h4></div>
                                 <div class="col-2"><h3 class="mb-0 mx-3">{{data["Upcomming Review"]}}</h3></div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/ReviewList/2" class="nav-item nav-link active">
+                        <a routerLink="/Completed-Review" class="nav-item nav-link active">
                             <div class="p-4 bg-light hover rounded d-flex justify-content-around align-items-center rounded">
                                 <div class="col-2"><i class="fa fa-male text-dark mx-2 fs-3" aria-hidden="true"></i></div>
                                 <div class="col-xs-2 "><h4 class="mb-0 text-dark">Completed Review</h4></div>
