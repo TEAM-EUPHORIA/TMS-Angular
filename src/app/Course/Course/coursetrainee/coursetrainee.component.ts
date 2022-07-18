@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { baseurl } from 'src/app/URL';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'src/app/Login/login.service';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -15,7 +16,7 @@ export class CoursetraineeComponent implements OnInit {
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
   searchText: string = "";
   id : number = 0;
   List : boolean = false;
@@ -108,9 +109,20 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
 
     }
+    togivetraineefeedback(id : number, name : string){
+      var objec : any ={
+        traineeId : id,
+        courseId : this.id,
+        traineeName : name
+      }
+      // console.warn(objec);
+      this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
+    
+    }
+    
   }
 
 

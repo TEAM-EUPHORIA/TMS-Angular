@@ -1,6 +1,8 @@
 
 <div *ngFor="let item of ListOfAssignments">
     <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
-        <p>{{item.owner.fullName}}</p>
+        <a (click)="ViewAssignment(item)">
+            <p>{{item.owner.fullName}}</p>
+        </a>
     </div>
 </div>

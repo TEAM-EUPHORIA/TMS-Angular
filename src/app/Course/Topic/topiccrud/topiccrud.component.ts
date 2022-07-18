@@ -15,7 +15,7 @@ export class TopiccrudComponent implements OnInit {
   courseId!: number;
   topicId!: number;
   config: any;
-  Title!: string;
+  Title !: string;
   topicform = new FormGroup({
     Topicname: new FormControl('', [
       Validators.required,
@@ -74,7 +74,6 @@ export class TopiccrudComponent implements OnInit {
     this.courseId = this.route.snapshot.params["courseId"]
     this.topicId = this.route.snapshot.params["topicId"]
     this.quill = this.getQuill()
-    console.log(this.courseId)
     if (this.courseId != undefined && this.topicId != undefined) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}`).subscribe({
         next: (res: any) => {
@@ -89,8 +88,7 @@ export class TopiccrudComponent implements OnInit {
     }
   }
   OnSubmit() {
-    console.log(this.topic)
-    if (this.topic.courseId != 0 && this.topic.topicId != 0) {
+    if (this.topic.courseId != 0 && this.topicId != 0) {
       this.UpdateTopic();
     } else {
       this.PostTopic();
@@ -114,7 +112,7 @@ export class TopiccrudComponent implements OnInit {
     console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
-        window.location.replace("/CourseView/" + this.courseId)
+        this.ToCourseView(this.courseId);
       },
       error(err: any) {
         console.log(err["error"])
@@ -130,8 +128,15 @@ export class TopiccrudComponent implements OnInit {
   getTopicById(cid: number, tid: number) {
     this.topicService.getTopicByCourseIdTopicID(cid, tid).subscribe(res => {
       this.topic = res;
-      console.log(res);
     })
+  }
+
+  ToCourseView(id : number){
+    var course : any;
+    this.http.get("https://localhost:5001/Course/"+ id).subscribe(res => {
+      course = res;
+      this.router.navigate(['/CourseView'], { state: { courseView : course } });
+    });
   }
 
 }

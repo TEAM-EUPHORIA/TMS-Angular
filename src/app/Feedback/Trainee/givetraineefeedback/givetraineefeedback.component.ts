@@ -11,9 +11,9 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class GivetraineefeedbackComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, private http : HttpClient , private router : Router , private auth : LoginService) { this.objec = this.router.getCurrentNavigation()?.extras.state?.['rid'] }
+  constructor(private route : ActivatedRoute, private http : HttpClient , private router : Router , private auth : LoginService) { this.objec = this.router.getCurrentNavigation()?.extras.state?.['vid'] }
 
-  Traineeid: any;
+  Traineeid ! : number;
   Traineename = '';
   id ! : number;
   objec : any;
@@ -30,6 +30,7 @@ export class GivetraineefeedbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.Traineeid = this.route.snapshot.params['traineeId']
     this.courseId = this.objec.courseId
     this.Traineeid = this.objec.traineeId;
     this.Traineename = this.objec.traineeName;

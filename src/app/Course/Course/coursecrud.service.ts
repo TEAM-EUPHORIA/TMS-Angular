@@ -29,4 +29,7 @@ getCoursesByUserId(id: number): Observable<any> {
 disableCourse(id: number): Observable<any> {
   return this.http.delete<any>(this.baseurl + `disable/${id}`)
 }
+getCourse(id : number) : Observable<any>{
+  return this.http.get<any>(this.baseurl + id);
+}
 }

@@ -13,6 +13,7 @@ import { UserService } from '../user.service';
 })
 export class UsercrudComponent implements OnInit {
   removeimage=true;
+  option: string = 'choose a image';
   constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) { }
 
   departments: any[] = [];
@@ -70,6 +71,7 @@ export class UsercrudComponent implements OnInit {
         console.log(this.user)
         this.user.base64 = this.user.base64 + "," + this.user.image;
         this.edit = true
+        this.option = 'replace image'
       })
     }
   }

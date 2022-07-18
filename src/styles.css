@@ -78,9 +78,13 @@ a{
     height: 100vh;
     overflow-y: auto;
     background: var(--light);
+    /* background: lightgrey;          color changed */
     transition: 0.5s;
     z-index: 999;
 }
+.bg{
+    background-color: lightgrey;
+  }
 
 .content {
     margin-left: 250px;
@@ -129,7 +133,8 @@ a{
     padding: 7px 20px;
     color: var(--dark);
     font-weight: 500;
-    border-left: 3px solid var(--light);
+    border-left: 3px solid var (--light);              
+    /* border-left: 3px solid var lightgrey;               color changed */
     border-radius: 0 30px 30px 0;
     outline: none;
 }
@@ -137,7 +142,8 @@ a{
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: #FFFFFF;
+    background: white;    
+    /* background: lightgrey;              color changed */
     border-color: var(--primary);
 }
 
@@ -300,14 +306,17 @@ background-image {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.dd{
+    margin-right: 20%;
+}
 
 body {
     height: 100%;
 }
 #img{
     background-position: center;
-    height:100%;
-    width: 80%;
+    height:70%;
+    width: 65%;
 }
 #img:hover{
     transform: scale(0.98);
@@ -316,6 +325,16 @@ body {
 #profile{
     height: 10%;
     width: 6%;
+}
+.Dprofile{
+    width: 5%;
+}
+#Uprofile{
+    width: 70%;
+    height: 60%;
+}
+.Eprofile{
+    width: 5%;
 }
  body {
      background-color: #f9f9fa
@@ -432,19 +451,9 @@ body {
 }
 .pagination{
     position: sticky ;
-    
-    top: 80%;
+    top: 90%;
 }
-.Dprofile{
-    width: 5%;
-}
-#Uprofile{
-    width: 50%;
-    /* height: 500px; */
-}
-.Eprofile{
-    width: 5%;
-}
+
 #card{
     margin-top: 20%;
 }
@@ -688,3 +697,16 @@ body {
     padding: .375rem .5625rem;
     font-weight: normal
   }
+  /* Quick-zoom Container */
+.img {
+    transform-origin: 50% 65%;
+  transition: transform 5s, filter 1s ease-in-out;
+  filter: brightness(100%);
+  }
+  
+  /* The Transformation */
+  .img:hover {
+    filter: brightness(100%);
+    transform: scale(2);
+  }
+ 
