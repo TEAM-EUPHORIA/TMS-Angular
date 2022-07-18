@@ -113,13 +113,13 @@ export class CoursetraineeComponent implements OnInit {
     this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
 
     }
-    togivetraineefeedback(id : number, name : string){
+    togivetraineefeedback(traineeId : number, name : string){
       var objec : any ={
-        traineeId : id,
+        traineeId : traineeId,
         courseId : this.id,
         traineeName : name
       }
-      // console.warn(objec);
+      console.warn(objec);
       this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
     
     }

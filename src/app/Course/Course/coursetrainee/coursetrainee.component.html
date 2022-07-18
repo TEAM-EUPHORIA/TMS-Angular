@@ -37,19 +37,12 @@
                                     <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a routerLink="/GiveTraineeFeedback/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
                                     <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div>
                                 </div>
-                                <a (click)="togivetraineefeedback(item.id,item.fullName)">
-                                    <div *ngIf="auth.IsTrainer" class="col-2"> <button type="button"
-                                            class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button>
-                                    </div>
-                                    </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
             </div>
-            <br>
-            <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div>
         </div>
         <div class="mt-5">
             <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
