@@ -32,12 +32,7 @@ export class CourseviewComponent implements OnInit {
     });
   }
   ToTopicView(id : any){
-    var topicobj : any = {
-      courseId : this.Course.id,
-      topicId : id,
-      trainerId : this.Course.trainer.id
-    };
-    this.router.navigate(['/TopicView/'+this.Course.id+`/`+id]);
+    this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id]);
   }
   ToFeedback(){
     this.router.navigate(['/ViewCourseFeedback/'+this.Course.id]);
@@ -54,14 +49,12 @@ export class CourseviewComponent implements OnInit {
      feedbacks : this.Course.traineeFeedbacks
     };
     this.router.navigate(['/ViewTraineeList'], {state : {vid : obj}});
-
     }
   DisableTopic(courseId : number,topicId : number){
 
   }
 
   ToTopic(courseId : number ,topicId :number){
-    
     this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId]);
   }
 

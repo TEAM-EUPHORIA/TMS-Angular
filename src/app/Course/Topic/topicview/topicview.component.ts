@@ -72,12 +72,8 @@ export class TopicviewComponent implements OnInit {
     this.trainerId = this.temp.trainerId;
   }
 
-  ToAttendance(){
-    var obj : any ={
-      topicId : this.topicId,
-      courseId : this.courseId
-    };
-    this.router.navigate(['/Attendance'], {state : {aid : obj}});
+  ToAttendanceList(){
+    this.router.navigate(['/AttendanceList/'+this.courseId+'/'+this.topicId]);
   }
 
   ToAssignment(){

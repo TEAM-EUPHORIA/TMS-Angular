@@ -109,8 +109,9 @@ export class CoursetraineeComponent implements OnInit {
     };
     console.log(obje);
     // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
-
     }
-  }
 
-
+    GiveTraineeFeedback(traineeId : number,traineeName : string){
+      this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
+    }
+ }
