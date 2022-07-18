@@ -22,6 +22,7 @@ export class UserlistComponent implements OnInit {
   dpt = false
   dept: any[] = [];
   users: any[] = [];
+  usersCopy: any[] = [];
   edit = false
   page: number = 1;
   totalLength: any;
@@ -75,11 +76,37 @@ export class UserlistComponent implements OnInit {
   }
   getUsers(roleId: any) {
     this.http.get(baseurl + `User/role/${roleId}`).subscribe((res: any) => {
+      console.warn(roleId)
       this.users = res
+      this.usersCopy = this.users
     })
   }
   showToast() {
     this.ts.error('Disabled')
   }
-  
+  filterByDepartment(item: HTMLSelectElement,) {
+    if (item.value != '') {
+      this.users = this.usersCopy.filter(u => u.departmentId == item.value)
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.users = this.usersCopy
+      this.updateCurrentPageAndTotalLength();
+    }
+  }
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.users.length;
+  }
+  filterByName(search: HTMLInputElement) {
+    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement 
+    dropdown.value = ""
+    if (search.value != '') {
+      this.users = this.usersCopy.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.users = this.usersCopy
+      this.updateCurrentPageAndTotalLength();
+      dropdown.disabled = false
+    }
+  }
 }
