@@ -13,10 +13,14 @@ export class DepartmentlistComponent implements OnInit {
   constructor(private dservice: DepartmentService, public auth: LoginService, private toastService: HotToastService) { }
 
   role!: string;
-  data: any;
+  data: any[]=[];
   _dept = '';
   page: number = 1;
   totalLength: any;
+  department:any[]=[];
+  departmentlist:any[]=[];
+  departmentlistcopy:any[]=[];
+
   
   Editable = false;
   roleid: number = this.auth.getRoleId();
@@ -27,13 +31,15 @@ export class DepartmentlistComponent implements OnInit {
 
     } else if (this.roleid == 2) {
       this.Editable = true;
-
+    
     }
     this.GetallDepartment()
   }
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe(res => {
-      this.data = res
+      this.departmentlist = res
+      this.departmentlistcopy = res
+      console.log(res)
     })
   }
   SearchActive(search: string) {
@@ -45,5 +51,20 @@ export class DepartmentlistComponent implements OnInit {
   }
   showToast() {
     this.toastService.error('Disabled')
+  }
+ 
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.departmentlist.length;
+  }
+  filterByName(search: HTMLInputElement) {
+    if (search.value != '') {
+      console.log(this.departmentlist)
+      this.departmentlist = this.departmentlistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.departmentlist = this.departmentlistcopy
+      this.updateCurrentPageAndTotalLength();
+    }
   }
 }

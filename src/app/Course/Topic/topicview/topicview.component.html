@@ -33,23 +33,48 @@
                 </div>
             </div>
             <div class="mx-4"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
-            <h3>Topic's Assignment</h3>
-            <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee">
-                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
-                    <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="trainerId"></app-assignmentques>
+            <div class="row g-2">
+                <h3>Topic's Assignment</h3>
+                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer">
+                    <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
                 </div>
-            </div>
-            <h3>Submitted Assignment</h3>
-            <div class="container-fluid  px-4" *ngIf="!uploadKey && submitted">
-                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="auth.IsCoordinator || auth.IsTrainer">
-                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId"></app-assignmentlist>
+                <div class="container bg-light p-3 rounded border">
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            Created By : {{Topic.assignments[0].owner.fullName}}
+                        </div>
+                        <div>
+                            Created On : {{Topic.assignments[0].owner.createdOn | date}}
+                        </div>
+                        <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer" class="text-primary">View</a>
+                        <a download="assignment.pdf" [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">
+                            Download
+                        </a>
+                    </div>
                 </div>
-                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
-                    <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="auth.getId()"></app-assignmentques>
+                <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee">
                 </div>
-            </div>
-            <div class="container-fluid  px-4" *ngIf="auth.IsTrainee || auth.IsTrainer && uploadKey">
-                <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+                <h3>Submitted Assignment</h3>
+                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainee && !submitted">
+                    <app-uploadassignment  (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+                </div>
+                <!-- <div class="container-fluid  px-4" > -->
+                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId" *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
+                    <div class="container bg-light p-3 rounded border" *ngIf="!uploadKey && submitted">
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                Created By : {{assignment.owner.fullName}}
+                            </div>
+                            <div>
+                                Created On : {{assignment.owner.createdOn | date}}
+                            </div>
+                            <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer" class="text-primary">View</a>
+                            <a download="assignment.pdf" [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment)">
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

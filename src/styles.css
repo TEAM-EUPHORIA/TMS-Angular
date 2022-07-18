@@ -306,6 +306,9 @@ background-image {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.font{
+    font-size: 17px;
+}
 .dd{
     margin-right: 20%;
 }
@@ -696,5 +699,17 @@ body {
     line-height: 1;
     padding: .375rem .5625rem;
     font-weight: normal
+  }
+  /* Quick-zoom Container */
+.img {
+    transform-origin: 50% 65%;
+  transition: transform 5s, filter 1s ease-in-out;
+  filter: brightness(100%);
+  }
+  
+  /* The Transformation */
+  .img:hover {
+    filter: brightness(100%);
+    transform: scale(2);
   }
  

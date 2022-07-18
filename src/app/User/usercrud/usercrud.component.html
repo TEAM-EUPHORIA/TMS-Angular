@@ -66,7 +66,7 @@
                 <div class="col-md-12 card rounded card-body">
                     <div class="form-group">
                         <label class="mr-2 w-100" for="file">
-                            <img *ngIf="user.base64 != undefined" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)"
+                            <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)"
                                 alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>

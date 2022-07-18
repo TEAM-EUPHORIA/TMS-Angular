@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
 
@@ -10,7 +11,7 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class AssignmentlistComponent implements OnInit {
 
-  constructor(private http : HttpClient, public auth : LoginService, private router : Router) { }
+  constructor(private http : HttpClient, public auth : LoginService, private router : Router,public sanitizer:DomSanitizer) { }
   
   @Input()
   courseId : any;

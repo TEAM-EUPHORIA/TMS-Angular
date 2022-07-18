@@ -1,8 +1,14 @@
-
-<div *ngFor="let item of ListOfAssignments">
-    <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
-        <a (click)="ViewAssignment(item)">
-            <p>{{item.owner.fullName}}</p>
+<div *ngFor="let item of ListOfAssignments" class="container bg-light p-3 rounded border">
+    <div class="d-flex justify-content-around">
+        <div>
+            Created By : {{item.owner.fullName}}
+        </div>
+        <div>
+            Created On : {{item.owner.createdOn | date}}
+        </div>
+        <a (click)="ViewAssignment(item)" target="_blank" rel="noopener noreferrer" class="text-primary">View</a>
+        <a download="assignment.pdf" [href]="sanitizer.bypassSecurityTrustUrl(item.base64+','+item)">
+            Download
         </a>
     </div>
 </div>
