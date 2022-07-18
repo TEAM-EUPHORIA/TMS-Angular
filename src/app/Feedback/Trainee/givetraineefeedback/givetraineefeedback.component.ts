@@ -13,7 +13,7 @@ export class GivetraineefeedbackComponent implements OnInit {
 
   constructor(private route : ActivatedRoute, private http : HttpClient , private router : Router , private auth : LoginService) { this.objec = this.router.getCurrentNavigation()?.extras.state?.['rid'] }
 
-  Traineeid: any;
+  Traineeid ! : number;
   Traineename = '';
   id ! : number;
   objec : any;
@@ -30,11 +30,12 @@ export class GivetraineefeedbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseId = this.objec.courseId
+    // this.Traineeid = this.route.snapshot.params['traineeId']
+    this.courseId = this.objec.Id
     this.Traineeid = this.objec.traineeId;
     this.Traineename = this.objec.traineeName;
     this.trainerId = this.auth.getId();
-    console.warn(this.id,this.Traineeid,this.Traineename);
+    console.warn(this.courseId,this.Traineeid,this.Traineename);
     this.setoption();
   }
   setoption(form?: NgForm) {

@@ -46,10 +46,10 @@
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <select *ngIf="!Editable" class="form-select form-select-lg" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
+                        <select *ngIf="!Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
-                        <select *ngIf="Editable" class="form-select form-select-lg" area-label="default select example" name="departmentId" [(ngModel)]="course.departmentId" formControlName="department" required>
+                        <select *ngIf="Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="course.departmentId" formControlName="department" required>
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
                         <label for="floatingInput">Department*</label>
@@ -59,10 +59,10 @@
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <select *ngIf="!Editable" class="form-select form-select-lg" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
+                        <select *ngIf="!Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
-                        <select *ngIf="Editable" class="form-select form-select-lg" area-label="default select example" name="Trainer" [(ngModel)]="TrainerId" formControlName="trainer" required>
+                        <select *ngIf="Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="TrainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
                         <label for="floatingInput">Trainer*</label>
