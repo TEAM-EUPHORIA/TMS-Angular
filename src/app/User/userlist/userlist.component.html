@@ -12,19 +12,19 @@
             <div class="header" id="style">
                 <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 "*ngIf="edit">Add</button></a>
                 <div class="container" ><div class="col-md-11" id="hov">
-                    <input class="form-control" id="search" type="text"placeholder="Search" aria-label="Search">
+                    <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
                 </div></div>
                 <div class="container" *ngIf="showDept">
                     <div class="col-md-12 mx-2" id="hov">
-                        <select name="Department" id="Department Name" class="form-select " name="_dept"[(ngModel)]="_dept">
+                        <select #department name="Department" id="departmentId" class="form-select " name="_dept" (change)="filterByDepartment(department)">
                             <option value="">Select the Department</option>
-                            <option *ngFor="let item of dept" value={{item.name}}>{{item.name}}</option>
+                            <option *ngFor="let item of dept" value={{item.id}}>{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <div *ngFor="let item of users |filter: searchuser | filter: _dept | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of users | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 hover rounded">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
@@ -36,7 +36,7 @@
                             <div class="col-3">
                                     <p class="mb-0 text-dark"><b>Email : </b> {{ item.email }}</p>
                                 </div>
-                            <div class="col-0" *ngIf="edit"><a routerLink="/Update-{{title}}/{{item.id}}"><i
+                            <div class="col-0" *ngIf="edit"><a routerLink="/Update {{title}}/{{item.id}}"><i
                                         class="fa-solid fa-pen-to-square text-dark" title="Click here to edit {{title}}"></i></a></div>
                             <div class="col-0" id="pointer" *ngIf="edit"><a (click)="disableUser(item.id)"
                                     class="mx-2"><i class="fa-solid fa-ban text-dark" title="Click here to diable {{title}}"></i></a></div>

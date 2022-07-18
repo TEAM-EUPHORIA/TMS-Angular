@@ -3,7 +3,7 @@
         <a routerLink="" class="navbar-brand mx-4 mb-3"><h3 class="text-primary">TMS</h3></a>
         <div class="navbar-nav w-100"><a *ngIf="!ls.IsloggedIn" routerLink="/" routerLinkActive="active" class="nav-item nav-link "><i class="fa fa-home" aria-hidden="true"></i>Home</a></div>
         <div class="navbar-nav w-100">
-            <a *ngIf="ls.IsloggedIn" routerLink="/" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-home" id="hov" aria-hidden="true"></i>Home</a>
+            <a *ngIf="ls.IsloggedIn" routerLink="/" routerLinkActive="" class="nav-item nav-link"><i class="fa fa-home" id="hov" aria-hidden="true"></i>Home</a>
             <a *ngIf="ls.IsloggedIn" routerLink="/Dashboard" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-desktop" aria-hidden="true"></i>Dashboard</a>
             <a *ngIf="ls.IsloggedIn" routerLink="/Profile" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-card"></i>My Profile</a>
             <a *ngIf="ls.IsHead" routerLink="/Co-Ordinator" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i>Co-Ordinator</a>

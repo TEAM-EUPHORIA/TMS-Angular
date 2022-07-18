@@ -26,7 +26,7 @@
             <div *ngFor="let item of courselist |filter:_dept|filter:search | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 rounded hover">
-                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
+                        <div class="p-4 bg-gray rounded shadow-sm d-flex justify-content-around align-items-center">
                             <div class="w-100 mx-4" id="pointer"><a (click)="ToCourseView(item.id)"><p class="mt-2 mx-4"><b>Course : </b>{{item.name}}</p></a></div>
                             <div class="col-4" *ngIf="auth.IsCoordinator"><p class="text-dark mt-2"><b>Department : </b>{{item.department.name}}</p></div>
                             <div class="col-1" id="pointer" *ngIf="auth.IsCoordinator"><a (click)="ToEditCourse(item)"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
