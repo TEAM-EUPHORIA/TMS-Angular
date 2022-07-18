@@ -19,7 +19,7 @@
                 </div>
                 <div class="container-fluid" *ngIf="auth.IsCoordinator">
                     <div class="col-md-12">
-                        <select #department name="Department" id="departmentId" class="form-select " name="_dept" [(ngModel)]="_dept" (change)="filterByDepartment(department)">
+                        <select #department name="Department" id="hello" class="form-select " name="_dept" [(ngModel)]="_dept" (change)="filterByDepartment(department)">
                             <option value="">Select the Department</option>
                             <option *ngFor="let item of dept" value={{item.id}}>{{item.name}}</option>
                         </select>

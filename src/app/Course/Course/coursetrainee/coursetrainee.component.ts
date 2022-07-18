@@ -23,6 +23,8 @@ export class CoursetraineeComponent implements OnInit {
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
+  coursetraineelist:any[]=[];
+  coursetraineelistcopy:any[]=[];
   
   traineeId = 3;
   toggleData(){
@@ -118,9 +120,23 @@ export class CoursetraineeComponent implements OnInit {
         courseId : this.id,
         traineeName : name
       }
-      // console.warn(objec);
+      // console.warn(object);
       this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
     
+    }
+    private updateCurrentPageAndTotalLength() {
+      this.page = 1;
+      this.totalLength = this.coursetraineelist.length;
+    }
+    filterByName(search: HTMLInputElement) {
+      if (search.value != '') {
+        console.log(this.coursetraineelist)
+        this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.coursetraineelist = this.coursetraineelistcopy
+        this.updateCurrentPageAndTotalLength();
+      }
     }
     
   }
