@@ -53,6 +53,14 @@ export class CourselistComponent implements OnInit {
       console.log(res)
     })
   }
+  myfunction (id : number){
+    let text = "Are You Sure You Want To Disable The Course";
+    if (confirm(text) == true) {
+      this.disableCourse(id)
+    } else {
+      text = "You canceled!";
+  }
+  }
   //returns list of courses assigned to the particular user
   getCoursesByUserId(id: number) {
     console.warn(id)

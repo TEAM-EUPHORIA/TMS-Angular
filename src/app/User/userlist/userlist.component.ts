@@ -84,6 +84,14 @@ export class UserlistComponent implements OnInit {
   showToast() {
     this.ts.error('Disabled')
   }
+  myfunction (id : number){
+    let text = "Are You Sure You Want To Disable The User";
+    if (confirm(text) == true) {
+      this.disableUser(id)
+    } else {
+      text = "You canceled!";
+  }
+  }
   filterByDepartment(item: HTMLSelectElement,) {
     if (item.value != '') {
       this.users = this.usersCopy.filter(u => u.departmentId == item.value)
