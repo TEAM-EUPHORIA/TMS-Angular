@@ -31,8 +31,8 @@
                         <div class="col-md-12">
                             <div class="p-4 bg-light shadow-sm">
                                 <div class="container d-flex justify-content-around align-items-center rounded">
-                                    <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}"><p class="mb-0 text-dark"><b>Name : </b>{{ item.fullName }}</p></a></div>
-                                    <div class="col-4"><a routerLink="/UserProfile/{{ item.id }}"><p class="mb-0 text-dark"><b>Email : </b> {{ item.email }}</p></a></div>
+                                    <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
+                                    <div class="col-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>
                                     <div class="col-0" *ngIf="auth.IsCoordinator"><p class="mb-0 h3 text-danger"><i class="fa-solid fa-x fs-5"(click)="removeUser(item)"></i></p></div>
                                     <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a routerLink="/GiveTraineeFeedback/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
                                     <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div>
@@ -48,8 +48,6 @@
                 </div>
                 <div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
             </div>
-            <br>
-            <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div>
         </div>
         <div class="mt-5">
             <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>

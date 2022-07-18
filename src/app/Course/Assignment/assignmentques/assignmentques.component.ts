@@ -35,6 +35,7 @@ export class AssignmentquesComponent implements OnInit {
       next: (res:any) =>{
         if(res != null)
         this.AssignmentQuestion = res;
+        console.warn("hi assignment")
       },
       error(err){
         this.error = err;

@@ -19,10 +19,13 @@ export class CoursetraineeComponent implements OnInit {
   constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
   searchText: string = "";
   id : number = 0;
+  deptId! : number;
   List : boolean = false;
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
+  coursetraineelist:any[]=[];
+  coursetraineelistcopy:any[]=[];
   
   traineeId = 3;
   toggleData(){
@@ -88,17 +91,17 @@ export class CoursetraineeComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
-  
-  //   console.log(this.id)
-  //   this.courseId = this.id;
+    this.deptId = this.route.snapshot.params['deptId'];
+ 
     var route = `Course/getCourseUser/${this.id}`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.trainees = res;
       console.warn(this.trainees)
     })
-    route = `User/role/4`
+    route = `User/GetUsersByDepartmentAndRole/${this.deptId},4`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.newTrainees = res
+      console.warn(this.newTrainees)
       this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)))
       this.List = (this.newTrainees.length > 0) ;
     })
@@ -115,4 +118,22 @@ export class CoursetraineeComponent implements OnInit {
     GiveTraineeFeedback(traineeId : number,traineeName : string){
       this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
     }
- }
+    
+    private updateCurrentPageAndTotalLength() {
+      this.page = 1;
+      this.totalLength = this.coursetraineelist.length;
+    }
+    filterByName(search: HTMLInputElement) {
+      if (search.value != '') {
+        console.log(this.coursetraineelist)
+        this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.coursetraineelist = this.coursetraineelistcopy
+        this.updateCurrentPageAndTotalLength();
+      }
+    }
+    
+  }
+
+

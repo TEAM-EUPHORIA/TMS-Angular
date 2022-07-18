@@ -23,12 +23,13 @@ export class CourseviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.CourseInit();
-    this.Givefeedback = (this.Course.feedbacks[0] == null)
   }
   CourseInit(){
     this.courseId = this.route.snapshot.params['courseId'];
     this.courseService.getCourse(this.courseId).subscribe(res => {
       this.Course = res;
+      this.Givefeedback = (this.Course.feedbacks[0] == null)
+      console.warn(this.Course);
     });
   }
   ToTopicView(id : any){
@@ -40,7 +41,7 @@ export class CourseviewComponent implements OnInit {
   ToAddFeedback(){
   var cId : any;
   cId = this.Course.id;
-    this.router.navigate(['/GiveCourseFeedback'],{state : {cid : cId}}); 
+    this.router.navigate(['/GiveCourseFeedback/'+this.Course.id]); 
   }
   ToViewTraineeList(){
     var obj = {
