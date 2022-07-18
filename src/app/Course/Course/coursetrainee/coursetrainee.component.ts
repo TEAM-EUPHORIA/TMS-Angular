@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { baseurl } from 'src/app/URL';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'src/app/Login/login.service';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -15,9 +16,10 @@ export class CoursetraineeComponent implements OnInit {
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
   searchText: string = "";
   id : number = 0;
+  deptId! : number;
   List : boolean = false;
   toDisplay : boolean = false;
   page: number = 1;
@@ -87,17 +89,17 @@ export class CoursetraineeComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
-  
-  //   console.log(this.id)
-  //   this.courseId = this.id;
+    this.deptId = this.route.snapshot.params['deptId'];
+ 
     var route = `Course/getCourseUser/${this.id}`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.trainees = res;
       console.warn(this.trainees)
     })
-    route = `User/role/4`
+    route = `User/GetUsersByDepartmentAndRole/${this.deptId},4`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.newTrainees = res
+      console.warn(this.newTrainees)
       this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)))
       this.List = (this.newTrainees.length > 0) ;
     })
@@ -108,9 +110,20 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
 
     }
+    togivetraineefeedback(id : number, name : string){
+      var objec : any ={
+        traineeId : id,
+        courseId : this.id,
+        traineeName : name
+      }
+      // console.warn(objec);
+      this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
+    
+    }
+    
   }
 
 

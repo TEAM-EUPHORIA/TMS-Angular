@@ -34,6 +34,9 @@ export class ReviewlistComponent implements OnInit {
   _dept = ''
   page = 1
   totalLength = 1
+  review: any;
+  reviewlist: any[] = [];
+  reviewlistcopy: any[] = [];
   SearchActive(search: string) {
     this.searchuser = search;
   }
@@ -48,6 +51,9 @@ export class ReviewlistComponent implements OnInit {
       this.edit = true;
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
+
+        this.reviewlist = res;
+        this.reviewlistcopy = res;
         console.log(this.data)
       })
     }
@@ -63,7 +69,8 @@ export class ReviewlistComponent implements OnInit {
     this.data = res;
     for (var item of this.data) {
       item.reviewTime = new Date(item.reviewTime);
-      console.warn(item.statusId);
+      item.department = this.dept.find((department) => item.departmentId == department.id)
+      console.warn(this.dept);
     }
     this.totalLength = this.data.length
   }
@@ -80,7 +87,35 @@ export class ReviewlistComponent implements OnInit {
   }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
+    
       this.dept = res
     })
+  }
+  filterByDepartment(item: HTMLSelectElement) {
+    console.log(item)
+    if (item.value != '') {
+      this.reviewlist = this.reviewlistcopy.filter(u => u.departmentId == item.value)
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.reviewlist = this.reviewlistcopy
+      this.updateCurrentPageAndTotalLength();
+    }
+  }
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.reviewlist.length;
+  }
+  filterByName(search: HTMLInputElement) {
+    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
+    dropdown.value = ""
+    if (search.value != '') {
+      console.log(this.reviewlist)
+      this.reviewlist = this.reviewlistcopy.filter((review: any) => review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.reviewlist = this.reviewlistcopy
+      this.updateCurrentPageAndTotalLength();
+      dropdown.disabled = false
+    }
   }
 }
