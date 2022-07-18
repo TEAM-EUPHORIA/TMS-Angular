@@ -12,18 +12,23 @@
             <div class="header" id="style">
                 <a *ngIf="add" routerLink="/AddCourse"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a>
                 <div class="container">
+                    <div class="col-md-11" id="hov">
+                    <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
+                </div>
                     <!-- <div class="col-md-11" id="hov" *ngIf="IsCoordinator"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
                 </div>
                 <div class="container-fluid" *ngIf="auth.IsCoordinator">
                     <div class="col-md-12">
-                        <select name="Department" id="Department Name" class="form-select " name="_dept" [(ngModel)]="_dept">
+                        <select #department name="Department" id="departmentId" class="form-select " name="_dept" [(ngModel)]="_dept" (change)="filterByDepartment(department)">
                             <option value="">Select the Department</option>
-                            <option *ngFor="let item of dept" value={{item.name}}>{{item.name}}</option>
+                            <option *ngFor="let item of dept" value={{item.id}}>{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div *ngFor="let item of courselist |filter:_dept|filter:search | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+            
+            
+            <div *ngFor="let item of courselist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 rounded hover">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
@@ -37,6 +42,7 @@
                 </div>
             </div>
         </div>
+
         <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>

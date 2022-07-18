@@ -16,21 +16,19 @@
                         class="btn btn-dark pe-4 px-4">Add</button></a>
                 <div class="container">
                     <div class="col-md-11" id="hov">
-                        <input class="form-control" id="search" type="text" placeholder="Search" aria-label="Search">
+                        <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
                     </div>
                 </div>
                 <div class="container">
                     <div class="col-md-12 mx-2" id="hov">
-                        <select name="Department" id="Department Name" class="form-select " name="_dept"
-                            [(ngModel)]="_dept">
+                        <select #department name="Department" id="departmentId" class="form-select " name="_dept" (change)="filterByDepartment(department)">
                             <option value="">Select the Department</option>
-                            <option *ngFor="let item of dept" value={{item.name}}>{{item.name}}</option>
+                            <option *ngFor="let item of dept" value={{item.id}}>{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div
-                *ngFor="let item of data |filter:searchuser| paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength}">
+            <div *ngFor="let item of reviewlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12 hover rounded">
                         <a routerLink="/UploadMOM/{{item.id}}">
@@ -40,6 +38,9 @@
                                 </div>
                                 <div class="col-2">
                                     <p class="mb-0 text-dark"><b>Reviewer : </b> {{item.reviewer.fullName}}</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="mb-0 text-dark"><b>Department: </b> {{item.department.name}}</p>
                                 </div>
                                 <div class="col-0" *ngIf="edit && item.statusId == 1"><a
                                         routerLink="/ScheduleReview/{{item.id}}"><i

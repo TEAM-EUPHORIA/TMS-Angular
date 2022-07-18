@@ -11,7 +11,8 @@
             <h3 class="text-black pb-2">{{title}} List</h3>
             <div class="header" id="style">
                 <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 "*ngIf="edit">Add</button></a>
-                <div class="container" ><div class="col-md-11" id="hov">
+                <div class="container" >
+                    <div class="col-md-11" id="hov">
                     <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
                 </div></div>
                 <div class="container" *ngIf="showDept">

@@ -15,11 +15,12 @@ export class CourselistComponent implements OnInit {
   constructor(private CourseService:CourseService, private route: Router, public auth : LoginService, private http : HttpClient) { }
   _course = '';
   //variable to store and iterate through list of courses
-  courselist : any;
   _dept = '';
   //variable to store and iterate through list of departments
   dept: any
-
+  courselist : any;
+  course:any[]=[];
+  courselistcopy:any[]=[];
   // Paginate settings
   page: number = 1;
   totalLength: any;
@@ -50,6 +51,7 @@ export class CourselistComponent implements OnInit {
   getAllCourses() {
     this.CourseService.getAllCourses().subscribe(res => {
       this.courselist = res
+      this.courselistcopy = res
       console.log(res)
     })
   }
@@ -88,6 +90,31 @@ export class CourselistComponent implements OnInit {
     this.http.get("https://localhost:5001/Department/departments").subscribe(res =>{
       this.dept = res;
     })
+  }
+  filterByDepartment(item: HTMLSelectElement,) {
+    if (item.value != '') {
+      this.courselist = this.courselistcopy.filter(u => u.departmentId == item.value)
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.courselist = this.courselistcopy
+      this.updateCurrentPageAndTotalLength();
+    }
+  }
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.courselist.length;
+  }
+  filterByName(search: HTMLInputElement) {
+    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement 
+    dropdown.value = ""
+    if (search.value != '') {
+      this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.courselist = this.courselistcopy
+      this.updateCurrentPageAndTotalLength();
+      dropdown.disabled = false
+    }
   }
 
 }
