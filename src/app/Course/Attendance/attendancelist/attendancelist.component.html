@@ -17,7 +17,7 @@
             <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
-                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-4 bg-light d-flex justify-content-around border hover rounded">
                             <div class="col-2"><p class="mb-0 text-dark"><b>Name : </b>{{item.owner.fullName}}</p></div>
                             <div class="col-2"><p class="mb-0 text-dark"><b>Email : </b>{{item.owner.email}}</p></div>
                             <div class="col-2">

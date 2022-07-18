@@ -11,7 +11,7 @@
             <h3 class="text-black pb-2">Trainee List</h3>
             <div class="col-md-10 d-flex">
                 <input #search type="search" placeholder="Search text" class="form-control search-wrapper"[(ngModel)]="searchText">
-                <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Add</div>
+                <div class="btn btn-dark mx-4 pe-4 px-4 hover" *ngIf="auth.IsCoordinator" (click)="toggleData()">Add</div>
             </div>
             <div class="container dd" *ngIf="toDisplay">
                 <div *ngIf="List ; else elseblock">
@@ -21,7 +21,7 @@
                             <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)"/></div>
                         </div>
                     </div>
-                    <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div>
+                    <div class="btn btn-dark pe-4 px-4 hover" (click)="Save()">Save</div>
                 </div>
                 <ng-template #elseblock>No Data</ng-template>
             </div>
@@ -37,11 +37,14 @@
                                     <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a routerLink="/GiveTraineeFeedback/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
                                     <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div>
                                 </div>
+                                <a (click)="GiveTraineeFeedback(item.id,item.fullName)">
+                                    <div *ngIf="auth.IsTrainer" class="col-2"> <button type="button" class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button></div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
+                <div class="btn btn-dark pe-4 px-4 mt-5 hover" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
             </div>
         </div>
         <div class="mt-5">

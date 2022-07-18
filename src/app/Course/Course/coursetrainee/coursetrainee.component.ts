@@ -112,19 +112,13 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
+    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    }
 
+    GiveTraineeFeedback(traineeId : number,traineeName : string){
+      this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
     }
-    togivetraineefeedback(traineeId : number, name : string){
-      var objec : any ={
-        traineeId : traineeId,
-        courseId : this.id,
-        traineeName : name
-      }
-      console.warn(objec);
-      this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
     
-    }
     private updateCurrentPageAndTotalLength() {
       this.page = 1;
       this.totalLength = this.coursetraineelist.length;

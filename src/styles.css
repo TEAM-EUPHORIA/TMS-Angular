@@ -472,7 +472,7 @@ body {
   }
 .hover:hover{
     transform: scale(0.98);
-    box-shadow: grey  0px 0px 10px;
+    box-shadow: gray  0px 0px 10px;
     /* background-color: aqua; */
     /* box-shadow: 0 0 5px 2px rgba(246, 19, 19, 0.3); */
     /* background-size: 130%; */
