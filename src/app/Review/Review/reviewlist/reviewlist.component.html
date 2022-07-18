@@ -33,8 +33,8 @@
                     <div class="col-md-12 hover rounded">
                         <a routerLink="/UploadMOM/{{item.id}}">
                             <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
-                                <div class="col-2"><p class="mb-0 text-dark"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
-                                <div class="col-2"><p class="mb-0 text-dark"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
+                                <div class="col-2"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
+                                <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
                                 <div class="col-0" *ngIf="edit && item.statusId === 1"><a routerLink="/ScheduleReview/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
                                 <div class="col-0" *ngIf="edit && item.statusId === 1" id="pointer"><a (click)="disableReview(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
                                 <div class="col-2" *ngIf="(date.getTime() > item.reviewTime.getTime() && ls.IsTrainee) && (item.statusId !== 2)"><a routerLink="/UploadMom/{{item.id}}">

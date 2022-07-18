@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'Trainee', component: UserlistComponent },
   { path: 'Reviewer', component: UserlistComponent },
 
-  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
 
   { path: 'Update Co-Ordinator/:id', component: UsercrudComponent },
