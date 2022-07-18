@@ -53,16 +53,16 @@ export class DepartmentlistComponent implements OnInit {
   showToast() {
     this.toastService.error('Disabled')
   }
-  // filterByDepartment(item: HTMLSelectElement,) {
-  //   console.log(item)
-  //   if (item.value != '') {
-  //     this.departmentlist = this.departmentlistcopy.filter(u => u.departmentId == item.value)
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.departmentlist = this.departmentlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //   }
-  // }
+  filterByDepartment(item: HTMLSelectElement,) {
+    console.log(item)
+    if (item.value != '') {
+      this.departmentlist = this.departmentlistcopy.filter(u => u.departmentId == item.value)
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.departmentlist = this.departmentlistcopy
+      this.updateCurrentPageAndTotalLength();
+    }
+   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.departmentlist.length;
