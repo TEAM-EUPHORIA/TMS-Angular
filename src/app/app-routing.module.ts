@@ -76,7 +76,7 @@ const routes: Routes = [
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
   { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent },
-  { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent },
+  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent },
   { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent },
   { path: 'Attendance', component: AttendancelistComponent },
 

@@ -10,7 +10,7 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">Department List</h3>
             <div class="header" id="style">
-                <div *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a></div>
+                <div class="hover" *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a></div>
                 <!-- <div class="container"><div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div></div> -->
             </div>
             <div *ngFor="let item of data | filter: _dept | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
