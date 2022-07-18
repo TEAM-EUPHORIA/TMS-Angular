@@ -8,7 +8,7 @@ import { TopicService } from '../../Topic/topic.service';
   templateUrl: './uploadassignment.component.html',
   styleUrls: ['./uploadassignment.component.css']
 })
-export class UploadassignmentComponent implements OnInit {
+export class UploadassignmentComponent {
 
   constructor(private upload: CourseService, private assignment: TopicService, private router : Router) 
   { }
@@ -17,9 +17,6 @@ export class UploadassignmentComponent implements OnInit {
 
   @Output()
   SubmittedAssignment : EventEmitter<any> = new EventEmitter<any>();
-
-  ngOnInit(): void {
-  }
   
   Onsubmit() {
     this.SubmittedAssignment.emit(this.base64);
