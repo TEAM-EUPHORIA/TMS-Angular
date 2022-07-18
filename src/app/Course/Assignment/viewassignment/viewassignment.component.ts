@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './viewassignment.component.html',
   styleUrls: ['./viewassignment.component.css']
 })
-export class ViewassignmentComponent implements OnInit {
+export class ViewassignmentComponent{
 
   constructor(public sanitizer : DomSanitizer, private router : Router) { this.Assignment = this.router.getCurrentNavigation()?.extras.state?.['assignment']}
   
   Assignment : any;
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 
 }

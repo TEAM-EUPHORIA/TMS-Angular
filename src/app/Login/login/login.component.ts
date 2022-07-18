@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   constructor(private router: Router, private toastService: HotToastService,
     private http: HttpClient) { }
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
     Email: '',
     Password: ''
   }
-
-  ngOnInit(): void { }
 
   OnSubmit() {
     console.log(this.Login);

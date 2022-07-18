@@ -12,38 +12,44 @@
         <div class="container-fluid px-4">
             <div class="row g-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-10"><h2 class="pt-4">{{Topic.name}}</h2></div>
+                    <div class="col-10">
+                        <h2 class="pt-4">{{Topic.name}}</h2>
+                    </div>
                     <div class="col-2">
                         <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
                         <b class="text-primary fs-4">
                             <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Ischecked === true">Attendance <input type='checkbox' class='form' value='Yes' checked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
-                                <a *ngIf="Ischecked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
+                                <a *ngIf="Ischecked === true">Attendance <input type='checkbox' class='form' value='Yes'
+                                        checked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
+                                <a *ngIf="Ischecked === false">Attendance <input type='checkbox' class='form'
+                                        value='Yes' unchecked name='checkbox_attendance'
+                                        (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="toAttendance()" id="pointer">View Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="toAttendance()"
+                                    id="pointer">View Attendance</a></div>
                         </b>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="mx-4"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
-        <h3>Topic's Assignment</h3>
-        <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee">
-            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
-                <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="trainerId"></app-assignmentques>
+            <div class="mx-4"><quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view></div>
+            <h3>Topic's Assignment</h3>
+            <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee">
+                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
+                    <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="trainerId"></app-assignmentques>
+                </div>
             </div>
-        </div>
-        <h3>Submitted Assignment</h3>
-        <div class="container-fluid  px-4" *ngIf="!uploadKey && submitted">
-            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="auth.IsCoordinator || auth.IsTrainer">
-                <app-assignmentlist [courseId]="courseId" [topicId]="topicId"></app-assignmentlist>
+            <h3>Submitted Assignment</h3>
+            <div class="container-fluid  px-4" *ngIf="!uploadKey && submitted">
+                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="auth.IsCoordinator || auth.IsTrainer">
+                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId"></app-assignmentlist>
+                </div>
+                <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
+                    <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="auth.getId()"></app-assignmentques>
+                </div>
             </div>
-            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded" *ngIf="!uploadKey">
-                <app-assignmentques [courseId]="courseId" [topicId]="topicId" [trainerId]="auth.getId()"></app-assignmentques>
+            <div class="container-fluid  px-4" *ngIf="auth.IsTrainee || auth.IsTrainer && uploadKey">
+                <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
             </div>
-        </div>
-        <div class="container-fluid  px-4" *ngIf="auth.IsTrainee || auth.IsTrainer && uploadKey">
-            <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
         </div>
     </div>
     <app-footer></app-footer>

@@ -7,17 +7,13 @@ import { LoginService } from 'src/app/Login/login.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   constructor(public ls : LoginService,
     private route : Router) { }
     upCommingReview : number = 1;
     completedReview : number = 2;
 
-
-  ngOnInit(): void {
-   
-  }
   LogOut(){ 
     localStorage.clear();
     this.route.navigate(['/']);
