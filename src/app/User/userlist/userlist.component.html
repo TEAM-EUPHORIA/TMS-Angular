@@ -11,8 +11,10 @@
             <h3 class="text-black pb-2">{{title}} List</h3>
             <div class="header" id="style">
                 <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 hover"*ngIf="edit">Add</button></a>
-                <div class="container" ><div class="col-md-11" id="hov">
-                    <input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div>
+                <div class="container">
+                    <div class="col-md-11" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div>
+                    <!-- <div class="col-md-11" id="hov"><input *ngIf="ls.IsHead" #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div> -->
+                    <!-- <div class="col-md-11" id="hov"><input *ngIf="ls.IsCoordinator" #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div> -->
                 </div>
                 <div class="container" *ngIf="showDept">
                     <div class="col-md-12 mx-2" id="hov">
@@ -27,7 +29,7 @@
             <div *ngFor="let item of users | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
-                        <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
+                        <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
                             <div class="col-2 mx-4" id="pointer"><a routerLink="/{{title}}/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
                             <div class="col-2" *ngIf="dpt"><p class="mb-0 text-dark font"><b>Department : </b>{{ item.department.name }}</p></div>
                             <div class="col-3 mx-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>

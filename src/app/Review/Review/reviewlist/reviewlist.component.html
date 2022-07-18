@@ -31,7 +31,7 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <a routerLink="/UploadMOM/{{item.id}}">
-                            <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
+                            <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
                                 <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
                                 <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
                                 <div class="col-0" *ngIf="edit && item.statusId === 1"><a routerLink="/ScheduleReview/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>

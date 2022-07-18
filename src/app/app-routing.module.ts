@@ -81,7 +81,7 @@ const routes: Routes = [
   //Attendance Routing Link
   { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent },
   //Assigning course to Trainee
-  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },

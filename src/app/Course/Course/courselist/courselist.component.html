@@ -28,12 +28,12 @@
             <div *ngFor="let item of courselist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
-                        <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
-                            <div class="w-100 mx-4" id="pointer"><a (click)="ToCourseView(item.id)"><p class="mt-2 mx-4 font"><b>Course : </b>{{item.name}}</p></a></div>
+                        <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
+                            <div class="w-100" id="pointer"><a (click)="ToCourseView(item.id)"><p class="mt-2 mx-4 font"><b>Course : </b>{{item.name}}</p></a></div>
                             <div class="col-4" *ngIf="auth.IsCoordinator"><p class="text-dark mt-2 font"><b>Department : </b>{{item.department.name}}</p></div>
-                            <div class="col-1" id="pointer" *ngIf="auth.IsCoordinator"><a (click)="ToEditCourse(item)"> <i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div class="col-1" id="pointer" *ngIf="auth.IsCoordinator"><a (click)="ToEditCourse(item)"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
                             <div class="col-1" id="pointer" *ngIf="auth.IsCoordinator"><a (click)="disableCourse(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
-                            <div class="col-2" *ngIf="auth.IsCoordinator || auth.IsTrainer"><a routerLink="/AssignCourse/{{item.id}}/{{item.departmentId}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View Trainee</button></a></div>
+                            <div class="col-2" *ngIf="auth.IsCoordinator || auth.IsTrainer"><a routerLink="/AssignCourse/{{item.id}}/{{item.departmentId}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-1">View Trainee</button></a></div>
                         </div>
                     </div>
                 </div>
