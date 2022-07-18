@@ -14,8 +14,10 @@ export class ViewcoursefeedbackComponent implements OnInit {
 
   data: any;
   id : number;
-
+userid=this.Auth.getId();
   ngOnInit(): void {
+    this.id = this.route.snapshot.params["courseId"]
+    console.log(this.id)
     this.getAllFeedback(this.id);
   }
   getAllFeedback(id : any) {
@@ -24,12 +26,12 @@ export class ViewcoursefeedbackComponent implements OnInit {
       console.warn(this.data);
     })
   }
-  ToEditFeedback(){
-    var feedback : any;
-    console.warn(this.data);
-    feedback = this.data;
-    console.warn(feedback);
-    this.router.navigate(['/EditCourseFeedback'],{state : {fid : feedback}});
-  }
+  // ToEditFeedback(){
+  //   var feedback : any;
+  //   console.warn(this.data);
+  //   feedback = this.data;
+  //   console.warn(feedback);
+  //   this.router.navigate(['/EditCourseFeedback'],{state : {fid : feedback}});
+  // }
 
 }
