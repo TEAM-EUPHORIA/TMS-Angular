@@ -13,8 +13,8 @@ export class ViewtraineefeedbackComponent implements OnInit {
   constructor(private route : ActivatedRoute, private auth : LoginService, private http : HttpClient,) { }
 
   data: any;
-    id !: number;
-    Traineeid !: number;
+  id !: number;
+  Traineeid !: number;
 
   ngOnInit(): void {
     this.getAllTraineeFeedback()

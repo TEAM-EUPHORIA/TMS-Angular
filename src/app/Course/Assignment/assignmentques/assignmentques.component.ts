@@ -24,6 +24,8 @@ export class AssignmentquesComponent implements OnInit {
 
   Assignment : any;
 
+  errormsg : any;
+
   ngOnInit(): void {
     this.GetAssignmentByTrainer(this.trainerId)
   }
@@ -31,9 +33,11 @@ export class AssignmentquesComponent implements OnInit {
   GetAssignmentByTrainer(trainerId : number){
     this.http.get<any>("https://localhost:5001/Course/"+ this.courseId +"/topics/"+ this.topicId +"/assignments/"+ trainerId).subscribe({
       next: (res:any) =>{
+        if(res != null)
         this.AssignmentQuestion = res;
       },
       error(err){
+        this.error = err;
         console.warn(err["error"]);
       } 
     })

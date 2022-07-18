@@ -20,7 +20,7 @@
                                 <a *ngIf="Ischecked === true">Attendance <input type='checkbox' class='form' value='Yes' checked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                                 <a *ngIf="Ischecked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()"/></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="toAttendance()" id="pointer">View Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="ToAttendance()" id="pointer">View Attendance</a></div>
                         </b>
                     </div>
                 </div>

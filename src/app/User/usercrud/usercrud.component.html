@@ -68,7 +68,7 @@
                         <label class="mr-2">Image:</label>
                         <img (click)="changeimage()" *ngIf="user.base64 != '' && removeimage == true" [src]= "sanitizer.bypassSecurityTrustUrl(user.base64)" class="img-fluid rounded-start Eprofile" alt="image">
                         <i  class=" fa-solid fa-x h6 text-danger" (click)="changeimage()" *ngIf="removeimage==true"></i>
-                        <input type="file" *ngIf="removeimage==false" name="file" (change)="handleUpload($event)">
+                        <input type="file" *ngIf="removeimage==false" name="file" (change)="handleUpload($event)" accept="image/x-png,image/gif,image/jpeg" >
 
                     </div>
                 </div> 

@@ -72,11 +72,7 @@ export class CourselistComponent implements OnInit {
     this.search = search;
   }
   ToCourseView(id : number){
-    var course : any;
-    this.http.get("https://localhost:5001/Course/"+ id).subscribe(res => {
-      course = res;
-      this.route.navigate(['/CourseView'], { state: { courseView : course } });
-    });
+    this.route.navigate(['/CourseView/'+id]);
   }
   ToEditCourse(obj : any){
     var course : any;
