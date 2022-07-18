@@ -85,7 +85,7 @@ export class UserlistComponent implements OnInit {
     this.ts.error('Disabled')
   }
   myfunction (id : number){
-    let text = "Are You Sure You Want To Disable The User";
+    let text = "Are you sure you want to disable the user";
     if (confirm(text) == true) {
       this.disableUser(id)
     } else {
