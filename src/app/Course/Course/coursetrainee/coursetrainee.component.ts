@@ -16,7 +16,7 @@ export class CoursetraineeComponent implements OnInit {
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router , public auth : LoginService) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
   searchText: string = "";
   id : number = 0;
   List : boolean = false;
@@ -109,7 +109,7 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
 
     }
     togivetraineefeedback(id : number, name : string){

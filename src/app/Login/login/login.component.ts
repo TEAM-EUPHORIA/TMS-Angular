@@ -35,25 +35,54 @@ export class LoginComponent {
 
   OnSubmit() {
     console.log(this.Login);
-    this.http.post("https://localhost:5001/Auth/login", this.Login).subscribe(res => {
-      this.response = res;
-      console.log(this.response.token);
-      if (this.response != null) {
-        localStorage.setItem("Token", this.response.token);
-        window.location.replace("/")
+    this.http.post("https://localhost:5001/Auth/login", this.Login).
+    subscribe({
+
+      next: (res: any) => {
+
+        localStorage.setItem("Token", res.token);
+
+        this.toastService.success("Login Success")
+
+        setTimeout(() => {
+
+          window.location.replace("/Home")
+
+        }, 200);
+
+      },
+
+      error: (err: any) => {
+
+        if (err["error"] == 'Unauthorized user') {
+
+          this.toastService.error(err["error"])
+
+        }
+
       }
-      this.Responsemsg = "LoggedIn Successfully"
-      window.location.replace("/")
-    }, err => {
-      this.errormsg = err;
-      if (this.errormsg.error.errors.Email[0] != undefined) {
-        this.Emailmsg = this.errormsg.error.errors.Email[0];
-      }
-      if (this.errormsg.error.errors.Password[0] != undefined) {
-        this.Passwordmsg = this.errormsg.error.errors.Password[0];
-      }
+
     })
-    setTimeout(() => this.showToast(), 2000)
+    
+    // .subscribe(res => {
+    //   this.response = res;
+    //   console.log(this.response.token);
+    //   if (this.response != null) {
+    //     localStorage.setItem("Token", this.response.token);
+    //     window.location.replace("/")
+    //   }
+    //   this.Responsemsg = "LoggedIn Successfully"
+    //   window.location.replace("/")
+    // }, err => {
+    //   this.errormsg = err;
+    //   if (this.errormsg.error.errors.Email[0] != undefined) {
+    //     this.Emailmsg = this.errormsg.error.errors.Email[0];
+    //   }
+    //   if (this.errormsg.error.errors.Password[0] != undefined) {
+    //     this.Passwordmsg = this.errormsg.error.errors.Password[0];
+    //   }
+    // })
+    // setTimeout(() => this.showToast(), 2000)
   }
 
   showToast() {

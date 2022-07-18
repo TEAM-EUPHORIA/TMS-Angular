@@ -1,7 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
@@ -15,16 +15,17 @@ import { TopicService } from '../topic.service';
 export class TopicviewComponent implements OnInit {
   
   constructor(private router : Router,
+    private route : ActivatedRoute,
     public auth : LoginService,
     private topicService : TopicService,
-    private http: HttpClient) { this.temp = this.router.getCurrentNavigation()?.extras.state?.['topicView'];}
+    private http: HttpClient) { }
     
-    //temparary variable for data storage
-    temp : any;
+  //temparary variable for data storage
+  temp : any;
     
-    submitted: boolean = false;
+  submitted: boolean = false;
   //checks upload is enabled or not
-  uploadKey : boolean = false;
+  uploadKey : boolean = true;
 
   //to check the attendance status of trainee
   Ischecked : boolean = false;
@@ -36,21 +37,22 @@ export class TopicviewComponent implements OnInit {
   public trainerId !: number;
   
   ngOnInit(): void {
+    this.courseId = this.route.snapshot.params['courseId'];
+    this.topicId = this.route.snapshot.params['topicId'];
     this.TopicInit();
     this.http.get(baseurl + `Course/${this.temp.courseId}/topics/${this.temp.topicId}/assignments/${this.auth.getId()}`).subscribe(
       res => {
-        if(res) this.submitted = true;
+        if(res) this.submitted = true,this.uploadKey = false;
       }
     );
   }
   
   TopicInit(){
-    this.topicService.GetTopicByCourseIdandTopicId(this.temp.courseId, this.temp.topicId).subscribe(res => {
+    this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe(res => {
       this.Topic = res;
+      if(this.Topic != null)
       this.ContentInit(this.Topic);
-    });
-    //need to be solved
-    //console.warn(this.Topic);      can't access this variable outside the function
+    });    
   }
 
   ContentInit(topic : any){
@@ -70,7 +72,7 @@ export class TopicviewComponent implements OnInit {
     this.trainerId = this.temp.trainerId;
   }
 
-  toAttendance(){
+  ToAttendance(){
     var obj : any ={
       topicId : this.topicId,
       courseId : this.courseId
@@ -78,7 +80,7 @@ export class TopicviewComponent implements OnInit {
     this.router.navigate(['/Attendance'], {state : {aid : obj}});
   }
 
-  toAssignment(){
+  ToAssignment(){
     var obj : any ={
       topicId : this.topicId,
       courseId : this.courseId,
@@ -109,6 +111,5 @@ export class TopicviewComponent implements OnInit {
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
     });  
   }
-
 }
 

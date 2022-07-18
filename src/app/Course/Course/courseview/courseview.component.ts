@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
+import { CourseService } from '../coursecrud.service';
 
 @Component({
   selector: 'app-courseview',
@@ -12,30 +13,34 @@ export class CourseviewComponent implements OnInit {
   
   constructor(private router : Router,
     public auth : LoginService,
-    private http : HttpClient) { this.Course = this.router.getCurrentNavigation()?.extras.state?.['courseView']; }
+    private route : ActivatedRoute,
+    private courseService : CourseService) { }
     
+  courseId !: number;
   Givefeedback: boolean = false;
   Course : any;
   traineeRoleId = 3;
 
   ngOnInit(): void {
-    console.warn(this.Course);
+    this.CourseInit();
     this.Givefeedback = (this.Course.feedbacks[0] == null)
   }
-
+  CourseInit(){
+    this.courseId = this.route.snapshot.params['courseId'];
+    this.courseService.getCourse(this.courseId).subscribe(res => {
+      this.Course = res;
+    });
+  }
   ToTopicView(id : any){
     var topicobj : any = {
       courseId : this.Course.id,
       topicId : id,
       trainerId : this.Course.trainer.id
     };
-    this.router.navigate(['/TopicView'],{state : {topicView : topicobj} });
+    this.router.navigate(['/TopicView/'+this.Course.id+`/`+id]);
   }
   ToFeedback(){
-    var cId : any;
-    cId = this.Course.id;
-    console.log(cId);
-    this.router.navigate(['/ViewCourseFeedback'],{state : {courseId : cId}});
+    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id]);
   }
   ToAddFeedback(){
   var cId : any;
@@ -56,11 +61,8 @@ export class CourseviewComponent implements OnInit {
   }
 
   ToTopic(courseId : number ,topicId :number){
-    var obj : any ={
-      topicId : topicId,
-      courseId : courseId
-    };
-    this.router.navigate(['/EditTopic'], {state : {aid : obj}});
+    
+    this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId]);
   }
 
 }
