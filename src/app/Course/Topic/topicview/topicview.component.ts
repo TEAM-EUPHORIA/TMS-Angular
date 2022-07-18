@@ -26,13 +26,14 @@ export class TopicviewComponent implements OnInit {
     
   //temparary variable for data storage
   temp : any;
+
     
   submitted: boolean = false;
   //checks upload is enabled or not
   uploadKey : boolean = true;
 
   //to check the attendance status of trainee
-  Ischecked : boolean = false;
+  Checked : boolean = false;
 
   Topic : any;
   public courseId !: number;
@@ -65,9 +66,10 @@ export class TopicviewComponent implements OnInit {
   TopicInit(){
     this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe(res => {
       this.Topic = res;
-      if(this.Topic != null)
-      this.ContentInit(this.Topic);
-      
+      this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
+      if(this.Topic != null){
+        this.ContentInit(this.Topic);
+      }
     });    
   }
 
