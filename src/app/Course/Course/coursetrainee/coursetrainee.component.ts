@@ -18,6 +18,7 @@ export class CoursetraineeComponent implements OnInit {
   trainees: any[] | any
   newTrainees: any[] | any
   data: any;
+  course:any;
   // courseService: any;
   constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService, private courseService:CourseService) { }
   searchText: string = "";
@@ -28,7 +29,8 @@ export class CoursetraineeComponent implements OnInit {
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
-  course:any;
+  coursetraineelist:any[]=[];
+  coursetraineelistcopy:any[]=[];
   
    traineeId = 3;
   toggleData(){
@@ -120,18 +122,26 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
-
+    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
     }
-    togivetraineefeedback(traineeId : number, name : string){
-      var objec : any ={
-        traineeId : traineeId,
-        courseId : this.id,
-        traineeName : name
-      }
-      console.warn(objec);
-      this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
+
+    GiveTraineeFeedback(traineeId : number,traineeName : string){
+      this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
+    }
     
+    private updateCurrentPageAndTotalLength() {
+      this.page = 1;
+      this.totalLength = this.coursetraineelist.length;
+    }
+    filterByName(search: HTMLInputElement) {
+      if (search.value != '') {
+        console.log(this.coursetraineelist)
+        this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.coursetraineelist = this.coursetraineelistcopy
+        this.updateCurrentPageAndTotalLength();
+      }
     }
     ToFeedback(){
       this.router.navigate(['/ViewTraineeFeedback/'+this.id,this.traineeId]);

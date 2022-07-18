@@ -17,7 +17,7 @@ export class DepartmentlistComponent implements OnInit {
   _dept = '';
   page: number = 1;
   totalLength: any;
-  department:any;
+  department:any[]=[];
   departmentlist:any[]=[];
   departmentlistcopy:any[]=[];
 
@@ -37,10 +37,9 @@ export class DepartmentlistComponent implements OnInit {
   }
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe(res => {
-      this.data = res
-      this.departmentlist=res;
-      this.departmentlistcopy=res;
-      console.log(this.data)
+      this.departmentlist = res
+      this.departmentlistcopy = res
+      console.log(res)
     })
   }
   SearchActive(search: string) {
@@ -53,31 +52,19 @@ export class DepartmentlistComponent implements OnInit {
   showToast() {
     this.toastService.error('Disabled')
   }
-  filterByDepartment(item: HTMLSelectElement,) {
-    console.log(item)
-    if (item.value != '') {
-      this.departmentlist = this.departmentlistcopy.filter(u => u.departmentId == item.value)
-      this.updateCurrentPageAndTotalLength();
-    } else {
-      this.departmentlist = this.departmentlistcopy
-      this.updateCurrentPageAndTotalLength();
-    }
-   }
+ 
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.departmentlist.length;
   }
   filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement 
-    dropdown.value = ""
     if (search.value != '') {
       console.log(this.departmentlist)
-      this.departmentlist = this.departmentlistcopy.filter((department: any) => department.Name.toLowerCase().includes(search.value.toLowerCase()))
+      this.departmentlist = this.departmentlistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
       this.updateCurrentPageAndTotalLength();
     } else {
       this.departmentlist = this.departmentlistcopy
       this.updateCurrentPageAndTotalLength();
-      dropdown.disabled = false
     }
   }
 }

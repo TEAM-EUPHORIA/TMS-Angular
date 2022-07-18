@@ -19,14 +19,13 @@ export class AttendancelistComponent implements OnInit {
   
   obj : any;
   ngOnInit(): void {
-    this.courseId = this.obj.topicId;
-    this.topicId = this.obj.courseId;
-    console.warn(this.courseId, "jb", this.topicId);
+    this.courseId = this.route.snapshot.params['courseId'];
+    this.topicId = this.route.snapshot.params['topicId'];
     this.getAttendanceList(this.courseId,this.topicId);
   }
 
   getAttendanceList(courseId : number,topicId: number){
-    this.http.get("https://localhost:5001/Course/getAttendance?courseId="+`${this.topicId}`+"&topicId="+`${topicId=1}`).subscribe(res => {
+    this.http.get("https://localhost:5001/Course/getAttendance?courseId="+`${this.courseId}`+"&topicId="+`${this.topicId}`).subscribe(res => {
       console.log(res)
       this.data = res
     })

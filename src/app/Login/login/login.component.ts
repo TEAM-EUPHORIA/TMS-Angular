@@ -42,7 +42,7 @@ export class LoginComponent {
 
         localStorage.setItem("Token", res.token);
 
-        this.toastService.success("Login Success")
+        this.toastService.success("Login Successful")
 
         setTimeout(() => {
 

@@ -41,9 +41,9 @@ import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeed
 import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 
 import { DatePipe } from '@angular/common';
-import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 import { AssignmentquesComponent } from './Course/Assignment/assignmentques/assignmentques.component';
 import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
+import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 export function tokenGetter() {
   return localStorage.getItem("Token");
 }

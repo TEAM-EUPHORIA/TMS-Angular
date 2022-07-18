@@ -1,7 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { CourseService } from '../../course.service';
-import { TopicService } from '../../Topic/topic.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-uploadassignment',
@@ -9,8 +6,8 @@ import { TopicService } from '../../Topic/topic.service';
   styleUrls: ['./uploadassignment.component.css']
 })
 export class UploadassignmentComponent {
-
-  constructor(private upload: CourseService, private assignment: TopicService, private router : Router) 
+  fileName = 'No File Choosen'
+  constructor() 
   { }
 
   base64 = '';
@@ -23,7 +20,9 @@ export class UploadassignmentComponent {
   }
 
   handleUpload(event: any) {
+    console.log("hi assignment")
     const file = event.target.files[0];
+    this.fileName = event.target.files[0].name
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {

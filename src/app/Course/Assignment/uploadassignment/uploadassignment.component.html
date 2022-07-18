@@ -1,17 +1,8 @@
-<div class="container-fluid px-4 pt-2 pb-2">
-    <div class="row justify-content-center" id="card">
-        <div class="col-lg-6">
-            <div class="card rounded">
-                <div class="card-body">
-                    <label class="control-label mt-3" for="field1">Upload File</label>
-                    <div class="controls mt-4">
-                        <form action="">
-                            <div class="entry input-group upload-input-group"><input class="form-control" name="fields[]" type="file" id="FILE" name="filename" (change)="handleUpload($event)"></div>
-                            <div class="text-center"><button (click)="Onsubmit()" class="btn btn-dark mt-4 mb-4"> Upload</button></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<form action="">
+    <label class="control-label mt-3" for="file">{{fileName}}
+        <i class="fa fa-upload" aria-hidden="true"></i>
+            <input class="form-control" name="fields[]" type="file"
+                id="file" name="filename" (change)="handleUpload($event)" class="d-none">
+    </label>
+</form>
+<button *ngIf="fileName != 'No File Choosen'" (click)="Onsubmit()" class="btn btn-dark mt-3"> Upload</button> 

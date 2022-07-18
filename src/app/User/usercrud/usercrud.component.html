@@ -65,17 +65,14 @@
                 </div>
                 <div class="col-md-12 card rounded card-body">
                     <div class="form-group">
-                        <label class="mr-2 w-100" for="file">
-                            <img *ngIf="user.base64 != undefined" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)"
-                                alt="profile picture" width="150px"> &nbsp;
+                        <label class="mr-2 w-100" id="pointer">
+                            <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>
-                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"
-                            #fileUpload>
-
+                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"#fileUpload>
                     </div>
                 </div> 
-                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4" [disabled]="userform.pristine">{{pageAction}}</button>
+                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover" [disabled]="userform.pristine">{{pageAction}}</button>
             </form>
         </div>
     </div>

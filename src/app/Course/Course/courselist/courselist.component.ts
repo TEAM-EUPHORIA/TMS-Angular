@@ -52,7 +52,7 @@ export class CourselistComponent implements OnInit {
     this.CourseService.getAllCourses().subscribe(res => {
       this.courselist = res
       this.courselistcopy = res
-      console.log(res)
+      console.log(this.courselistcopy)
     })
   }
   myfunction (id : number){
@@ -68,6 +68,7 @@ export class CourselistComponent implements OnInit {
     console.warn(id)
     this.CourseService.getCoursesByUserId(id).subscribe(res => {
       this.courselist = res;
+      this.courselistcopy = res
     })
   }
 
@@ -109,9 +110,11 @@ export class CourselistComponent implements OnInit {
     this.totalLength = this.courselist.length;
   }
   filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement 
-    dropdown.value = ""
+    const dropdown = document.getElementById("hello")! as HTMLSelectElement 
+    console.log(dropdown)
+    if(dropdown != null )dropdown.value = ""
     if (search.value != '') {
+      console.log(this.courselist)
       this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
       this.updateCurrentPageAndTotalLength();
     } else {
