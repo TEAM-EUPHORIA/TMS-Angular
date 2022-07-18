@@ -8,12 +8,12 @@
           <div class="display-4 text-center my-3">Login</div>
           <div class="form-outline mb-4"><input type="text" class="form-control" name="Username"
               [(ngModel)]="Login.Email" placeholder="Enter User name" /></div>
-          <span *ngIf="Emailmsg != null">
+          <span *ngIf="Emailmsg !== null">
             {{ Emailmsg }}
           </span>
           <div class="form-outline mb-3"><input type="password" class="form-control" name="Password"
               [(ngModel)]="Login.Password" placeholder="Enter password" /></div>
-          <span *ngIf="Passwordmsg != null">
+          <span *ngIf="Passwordmsg !== null">
             {{ Passwordmsg }}
           </span>
           <div class="d-flex justify-content-between align-items-center">

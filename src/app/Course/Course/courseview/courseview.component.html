@@ -43,9 +43,9 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <div class="col-2" id="pointer"><a class="pointer" (click)="ToTopicView(item.topicId)"><p class="text-dark mt-2"><b>{{item.name}}</b></p></a></div>
-                            <div class="col-0" *ngIf="auth.IsCoordinator"><a (click)="ToTopic(item.courseId,item.topicId)"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
-                            <div class="col-0" *ngIf="auth.IsCoordinator" id="pointer"><a (click)="DisableTopic(item.courseId ,item.topicId)"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                            <div class="w-100 mx-4" id="pointer"><a class="pointer" (click)="ToTopicView(item.topicId)"><p class="text-dark mt-2 mx-4"><b>{{item.name}}</b></p></a></div>
+                            <div class="col-2" *ngIf="auth.IsCoordinator"><a (click)="ToTopic(item.courseId,item.topicId)"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                            <div class="col-1" *ngIf="auth.IsCoordinator" id="pointer"><a (click)="DisableTopic(item.courseId ,item.topicId)"><i class="fa-solid fa-ban text-dark"></i></a></div>
                         </div>
                     </div>
                 </div>

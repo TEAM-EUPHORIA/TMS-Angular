@@ -40,7 +40,7 @@
                         <div *ngIf="userform.controls['username'].invalid || userform.controls['username'].errors?.['maxlength']">Please enter a valid Username</div>
                     </div>
                 </div>
-                <div class="form-floating mb-4" *ngIf="pageAction == 'Add'">
+                <div class="form-floating mb-4" *ngIf="pageAction === 'Add'">
                     <input type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password" required>
                     <label for="floatingPassword">Password*</label>
                     <div *ngIf="userform.controls['password'].invalid && (userform.controls['password'].dirty || userform.controls['password'].touched)" class="alert alert-danger">
@@ -81,4 +81,3 @@
     </div>
     <app-footer></app-footer>
 </div>
-<!-- <button type="submit" class="">{{Text}}</button> -->
