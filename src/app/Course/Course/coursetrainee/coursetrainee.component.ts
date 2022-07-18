@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { baseurl } from 'src/app/URL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
+import { CourseService } from '../coursecrud.service';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -16,16 +17,20 @@ export class CoursetraineeComponent implements OnInit {
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
+  data: any;
+  // courseService: any;
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService, private courseService:CourseService) { }
   searchText: string = "";
   id : number = 0;
+  Givefeedback: boolean = false;
   deptId! : number;
   List : boolean = false;
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
+  course:any;
   
-  traineeId = 3;
+   traineeId = 3;
   toggleData(){
     this.toDisplay = !this.toDisplay;
     //this.AddTrainee();
@@ -90,7 +95,12 @@ export class CoursetraineeComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
     this.deptId = this.route.snapshot.params['deptId'];
- 
+    this.courseService.getCourse(this.id).subscribe((res:any) => {
+      console.log(res)
+      this.course = res;
+      this.Givefeedback = (this.course.feedbacks[0] == null)
+      console.warn(this.course);
+    });
     var route = `Course/getCourseUser/${this.id}`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.trainees = res;
@@ -123,7 +133,24 @@ export class CoursetraineeComponent implements OnInit {
       this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
     
     }
-    
-  }
+    ToFeedback(){
+      this.router.navigate(['/ViewTraineeFeedback/'+this.id,this.traineeId]);
+    }
+    ToAddFeedback(){
+    var cId : any;
+    cId = this.id;
+      this.router.navigate(['/GiveTraineeFeedback/'+this.id]); 
+    }
+    getTraineeFeedbackById(){
+      this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
+        this.data = res
+        console.warn(this.data);
+      })
+    }
+    user(){
+      
+    }
+
+}
 
 

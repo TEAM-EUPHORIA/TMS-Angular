@@ -75,9 +75,10 @@ const routes: Routes = [
   { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
+  {path: 'EditTraineeFeedback/:courseId/:traineeId/:trainerId',component:GivetraineefeedbackComponent},
   { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent },
-  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent },
-  { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent },
+  { path: 'GiveTraineeFeedback/:courseId', component: GivetraineefeedbackComponent },
+  { path: 'ViewTraineeFeedback/:courseId/:traineeId', component: ViewtraineefeedbackComponent },
   { path: 'Attendance', component: AttendancelistComponent },
 
   { path: 'AddDepartment', component: DepartmentcrudComponent },
