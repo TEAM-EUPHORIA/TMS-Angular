@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/Login/login.service';
+import { UserService } from 'src/app/User/user.service';
 
 @Component({
   selector: 'app-givetraineefeedback',
@@ -14,16 +15,19 @@ export class GivetraineefeedbackComponent implements OnInit {
   constructor(private route : ActivatedRoute, 
     private http : HttpClient,
     private router : Router,
-    private auth : LoginService) { this.Traineename = this.router.getCurrentNavigation()?.extras.state?.['TraineeName'] }
+    private auth : LoginService,
+    private userService : UserService) { this.Traineename = this.router.getCurrentNavigation()?.extras.state?.['TraineeName'] }
 
-  Traineeid ! : number;
+  traineeId ! : number;
   Traineename = '';
   id !: number;
   trainerId : any;
   courseId : any;
-
+  deptId : any;
   txt = '';
   button = '';
+
+  temp : any;
 
   TraineeFeedback: any = {
     traineeId: '',
@@ -33,17 +37,20 @@ export class GivetraineefeedbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.Traineeid = this.route.snapshot.params['traineeId'];
+    this.traineeId = this.route.snapshot.params['traineeId'];
     this.courseId = this.route.snapshot.params['courseId'];
     this.trainerId = this.route.snapshot.params['trainerId'];
-    console.warn("Course ",this.courseId,"Trainee ",this.Traineeid,"Trainer ",this.trainerId,"TrainerName",this.Traineename);
+    this.userService.getUsersById(this.traineeId).subscribe(res => {
+      this.temp = res;
+      this.deptId = this.temp.departmentId;
+    })
     this.setoption();
   }
   setoption() {
     if (this.trainerId != undefined) {
       this.txt = 'Update';
       this.button = 'Update';
-      this.http.get<any>('https://localhost:5001/FeedBack/Trainee/feedback/'+`${this.courseId}`+ this.Traineeid,this.trainerId).subscribe({
+      this.http.get<any>('https://localhost:5001/FeedBack/trainee/'+`${this.courseId}`+','+ this.traineeId+','+this.trainerId).subscribe({
         next : (res) => {
           this.TraineeFeedback = res;
         }
@@ -55,18 +62,19 @@ export class GivetraineefeedbackComponent implements OnInit {
     }
   }
   OnSubmit() {
-    if (this.TraineeFeedback.id == 0 || this.TraineeFeedback.id == null || this.TraineeFeedback.id == undefined) {
-      this.TraineeFeedback.courseId = this.courseId;
-      this.TraineeFeedback.traineeId = this.Traineeid;
-      this.TraineeFeedback.trainerId = this.auth.getId();
-      console.warn(this.TraineeFeedback);
-        this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
-          })
-        }
-        else {
-            this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
-      })
-    }
+    // if (this.trainerId == undefined) {
+    //   this.TraineeFeedback.courseId = this.courseId;
+    //   this.TraineeFeedback.traineeId = this.Traineeid;
+    //   this.TraineeFeedback.trainerId = this.auth.getId();
+    //   console.warn(this.TraineeFeedback);
+    //     this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
+    //       });
+    //     }
+    //     else {
+    //         this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+    //   });
+    // }
+    window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
   }
 }
 

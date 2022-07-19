@@ -37,7 +37,14 @@
                                 <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox" (click)="removeUser(item)"/></div>
                                 <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a routerLink="/GiveTraineeFeedback/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
                                 <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
-                                <a (click)="GiveTraineeFeedback(item.id,item.fullName)"><div *ngIf="auth.IsTrainer" class="col-2"> <button type="button" class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button></div></a>
+                                <div *ngIf="auth.IsTrainer && !item.feedBackExists" class="col-2">
+                                    <a (click)="GiveTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button>
+                                    </a>
+                                </div>
+                                <div *ngIf="auth.IsTrainer && item.feedBackExists" class="col-2">
+                                    <a (click)="ViewTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">ViewTraineeFeedback</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

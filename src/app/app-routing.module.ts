@@ -106,6 +106,7 @@ const routes: Routes = [
   ///           <Course>
   //TraineeFeedback Routing Link
   { path: 'GiveTraineeFeedback/:courseId/:traineeId', component: GivetraineefeedbackComponent },
+  { path: 'EditTraineeFeedback/:courseId/:traineeId/:trainerId', component: GivetraineefeedbackComponent },
   { path: 'ViewTraineeFeedback/:courseId/:traineeId/:trainerId', component: ViewtraineefeedbackComponent },
 
   ///           <Reviews>
