@@ -31,9 +31,9 @@
                 </div>
             </div>
             <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
-            <div class="row g-2">
+            <div class="row g-2" *ngIf="auth.IsTrainee || auth.IsTrainer ">
                 <h3>Topic's Assignment</h3>
-                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer">
+                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer && Topic.assignments[0] == null">
                     <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)">
                     </app-uploadassignment>
                 </div>
@@ -60,7 +60,7 @@
                 <!-- <div class="container-fluid  px-4" > -->
                 <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
                     *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                <div *ngIf="assignment.ownerId != undefined" class="container bg-light p-3 rounded border">
+                <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator" class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
                         <div>
                             Created By : {{assignment.owner.fullName}}
@@ -71,14 +71,10 @@
                         <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
                             class="text-primary">View</a>
                         <a download="assignment.pdf"
-                            [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment)">
+                            [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
                             Download
                         </a>
                     </div>
-                    <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
-                        class="text-primary">View</a>
-                    <a download="assignment.pdf"
-                        [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment)">Download</a>
                 </div>
             </div>
         </div>

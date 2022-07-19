@@ -63,6 +63,7 @@ export class TopicviewComponent implements OnInit {
         }
       );
     }
+    // console.log(this.auth.IsTrainee || this.Topic.assignments[0] != null)
   }
   
   TopicInit(){
