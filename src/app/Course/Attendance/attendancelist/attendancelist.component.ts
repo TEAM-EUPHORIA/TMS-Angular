@@ -33,12 +33,11 @@ export class AttendancelistComponent implements OnInit {
   getAttendanceList(courseId : number,topicId: number){
     this.http.get("https://localhost:5001/Course/getAttendance?courseId="+`${this.courseId}`+"&topicId="+`${this.topicId}`).subscribe(res => {
       console.log(res)
-     
+     this.data = res
     })
   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
-    this.totalLength = this.attendancelist.length;
   }
   filterByName(search: HTMLInputElement) {
     const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
