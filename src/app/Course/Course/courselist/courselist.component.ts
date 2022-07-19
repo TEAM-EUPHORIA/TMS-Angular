@@ -88,7 +88,7 @@ export class CourselistComponent implements OnInit {
   ToEditCourse(obj : any){
     var course : any;
     course = obj;
-    this.route.navigate(['/EditCourse'], { state: { course :course }})
+    this.route.navigate(['/EditCourse/'+course], { state: { course :course }})
   }
   
   GetallDepartment() {

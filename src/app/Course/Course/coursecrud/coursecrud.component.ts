@@ -84,7 +84,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.postcourse(this.Course).subscribe((res) => {
       })
     }
-    this.routing.navigateByUrl("/CourseList");
+    window.location.replace("/CourseList");
   }
 
   getUserByRole() {

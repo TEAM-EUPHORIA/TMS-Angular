@@ -28,6 +28,8 @@
                         <div *ngIf="userform.controls['email'].errors?.['required']">Email is required.</div>
                         <div *ngIf="userform.controls['email'].errors?.['minlength']">Email must be at least 4 characters long.</div>
                         <div *ngIf="userform.controls['email'].errors?.['maxlength']">Email don't exceed 25 characters long.</div>
+                        <div *ngIf="userform.controls['email'].errors?.['serverError']">
+                            {{this.userform.controls['email'].getError('serverError')}}</div>
                         <div *ngIf="userform.controls['email'].invalid || userform.controls['email'].errors?.['maxlength']">Please enter a valid Email address</div>
                     </div>
                 </div>
