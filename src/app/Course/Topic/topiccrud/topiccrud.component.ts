@@ -88,10 +88,10 @@ export class TopiccrudComponent implements OnInit {
     }
   }
   OnSubmit() {
-    if (this.topic.courseId != 0 && this.topicId != 0) {
-      this.UpdateTopic();
-    } else {
+    if (this.topicId == undefined) {
       this.PostTopic();
+    } else {
+      this.UpdateTopic();
     }
   }
 
@@ -109,7 +109,7 @@ export class TopiccrudComponent implements OnInit {
 
   PostTopic() {
     this.setTopicContent();
-    console.log(this.topic); // to be removed
+    // console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
         this.ToCourseView(this.courseId);

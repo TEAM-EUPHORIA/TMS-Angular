@@ -48,7 +48,7 @@ export class LoginComponent {
 
           window.location.replace("/Home")
 
-        }, 200);
+        }, 1000);
 
       },
 
