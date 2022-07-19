@@ -59,7 +59,7 @@ export class CourseviewComponent implements OnInit {
   myfunction (id : number, topicId : number){
     let text = "Are you sure you want to disable the Topic";
     if (confirm(text) == true) {
-      this.DisableTopic(id,topicId)
+      this.DisableTopic(this.courseId,topicId)
     } else {
       text = "You canceled!";
   }
