@@ -10,7 +10,7 @@
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
-            <h3 class="text-black">Trainee Feedback</h3>
+            <h3 class="text-black">{{txt}} Trainee Feedback</h3>
             <form action="" #ngForm (ngSubmit)="OnSubmit()">
                 <div class="row">
                     <div class="col-md-6">
@@ -22,7 +22,7 @@
                             <div class="col-md-4"><b class="text-dark">Feedback</b></div>
                             <div class="col-md-8"><textarea name="feedback" [(ngModel)]="TraineeFeedback.feedback" rows="5" cols="45"></textarea> </div>
                         </div>
-                        <a (click)="OnSubmit()"><button type="button" class="btn btn-dark pe-4 px-4 hover">Submit</button></a>
+                        <a (click)="OnSubmit()"><button type="button" class="btn btn-dark pe-4 px-4">{{button}}</button></a>
                     </div>
                 </div>
             </form>

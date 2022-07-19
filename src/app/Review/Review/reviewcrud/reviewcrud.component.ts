@@ -89,10 +89,10 @@ export class ReviewcrudComponent implements OnInit {
   }
 
   OnSubmit() {
+    navigateToListPage('/Upcoming-Reviews');
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe({
         next: (res: any) => {
-          navigateToListPage('/Completed-Review');
         },
         error(err) {
           console.warn(err["error"])

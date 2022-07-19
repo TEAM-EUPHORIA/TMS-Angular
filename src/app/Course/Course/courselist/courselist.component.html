@@ -12,14 +12,10 @@
             <div class="header" id="style">
                 <a *ngIf="add" routerLink="/AddCourse"> <button type="button" class="btn btn-dark pe-4 px-4 hover">Add</button></a>
                 <div class="container">
-<<<<<<< HEAD
                     <div class="col-md-11" >
                     <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
                 </div>
                     <!-- <div class="col-md-11"  *ngIf="IsCoordinator"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
-=======
-                    <div class="col-md-11" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)"></div>
->>>>>>> 7b4bfee95d0c48fdcca874ff395d1676fd9713bd
                 </div>
                 <div class="container-fluid" *ngIf="auth.IsCoordinator">
                     <div class="col-md-12">
@@ -47,7 +43,7 @@
             </div>
         </div>
 
-        <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+        <div class="mt-4"><pagination-controls *ngIf="courselist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>

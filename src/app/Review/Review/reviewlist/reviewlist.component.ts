@@ -51,7 +51,6 @@ export class ReviewlistComponent implements OnInit {
       this.edit = true;
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
-
         this.reviewlist = res;
         this.reviewlistcopy = res;
         console.log(this.data)

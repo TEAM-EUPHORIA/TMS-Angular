@@ -123,7 +123,7 @@ const routes: Routes = [
 
   ///           <Reviews>
   //Review List routes
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'Upcoming-Review', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent },

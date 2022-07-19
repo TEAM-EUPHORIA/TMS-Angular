@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="btn btn-dark pe-4 px-4 mt-5 hover" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
-                <div class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+                <div class="mt-5"><pagination-controls *ngIf="trainees.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
             </div>
         </div>
     </div>

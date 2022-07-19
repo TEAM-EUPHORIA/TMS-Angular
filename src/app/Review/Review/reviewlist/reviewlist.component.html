@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+        <div class="mt-4"><pagination-controls *ngIf="reviewlist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>
