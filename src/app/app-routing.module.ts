@@ -23,15 +23,13 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
-import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 
 
 
 const routes: Routes = [
-  //shared Routhing link
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo:'Home',pathMatch:'full' },
   { path: 'Home', component: HomeComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
@@ -45,18 +43,38 @@ const routes: Routes = [
   { path: 'Trainer', component: UserlistComponent },
   { path: 'Trainee', component: UserlistComponent },
   { path: 'Reviewer', component: UserlistComponent },
-  //Add User Routing link
+
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
+  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+
+
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+
   { path: 'Add-Co-Ordinator', component: UsercrudComponent },
   { path: 'Add-Trainer', component: UsercrudComponent },
   { path: 'Add-Trainee', component: UsercrudComponent },
   { path: 'Add-Reviewer', component: UsercrudComponent },
   //Update User Routing link
-  { path: 'Update Co-Ordinator/:id', component: UsercrudComponent },
-  { path: 'Update Trainer/:id', component: UsercrudComponent },
-  { path: 'Update Trainee/:id', component: UsercrudComponent },
-  { path: 'Update Reviewer/:id', component: UsercrudComponent },
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
   //Department routing 
   { path: 'DepartmentList', component: DepartmentlistComponent },
+  { path: 'CourseView/:courseId', component: CourseviewComponent },
+  { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent },
+  { path: 'AddTopic/:courseId', component: TopiccrudComponent },
+  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
+  { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
+  { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
+  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent },
+  { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent },
+  { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent },
+  { path: 'Attendance', component: AttendancelistComponent },
+
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   ///         <User>
@@ -70,8 +88,7 @@ const routes: Routes = [
   { path: 'EditCourse/:courseId', component: CoursecrudComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent },
-  //Assign Trainee to Course routing link
-  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
   //Topic Routing Link
   { path: 'AddTopic/:courseId', component: TopiccrudComponent },
   { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
@@ -93,7 +110,7 @@ const routes: Routes = [
 
   ///           <Reviews>
   //Review List routes
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'Upcoming-Review', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent },

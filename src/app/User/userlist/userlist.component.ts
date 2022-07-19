@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
