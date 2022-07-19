@@ -117,6 +117,8 @@ export class GivemomComponent implements OnInit {
       this.reviewMode = this.data.mode;
       this.reviewDate = this.data.reviewDate;
       this.reviewTime = this.data.reviewTime;
+      this.data.reviewTime = new Date(this.data.reviewTime)
+      console.log(this.data.reviewTime.getTime())
       // this.traineeId = this.data.traineeId;
       this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
       this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe(result => {
@@ -126,7 +128,7 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    window.location.replace('/Completed-Review')
+    window.location.replace(`/ViewMOM/${this.reviewId},${this.traineeId}`)
   }
   OnSubmit() {
     this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({
