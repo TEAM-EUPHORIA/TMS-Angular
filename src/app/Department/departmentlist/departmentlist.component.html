@@ -13,11 +13,11 @@
                 <div *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4">Add</button></a></div>
                 <div class="container">
 
-                    <div class="col-md-6" id="hov">
+                    <div class="col-md-6" >
                     <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
                 </div>
                 </div>
-                <!-- <div class="container"><div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div></div> -->
+                <!-- <div class="container"><div class="col-md-6" ><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div></div> -->
             </div>
             <div *ngFor="let item of departmentlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">

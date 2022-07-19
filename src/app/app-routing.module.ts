@@ -30,7 +30,7 @@ import { ViewassignmentComponent } from './Course/Assignment/viewassignment/view
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo:'Home',pathMatch:'full' },
   { path: 'Home', component: HomeComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
@@ -40,18 +40,20 @@ const routes: Routes = [
   { path: 'Trainee', component: UserlistComponent },
   { path: 'Reviewer', component: UserlistComponent },
 
-  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
   { path: 'Upcoming-Reviews', component: ReviewlistComponent },
 
-  { path: 'Update Co-Ordinator/:id', component: UsercrudComponent },
-  { path: 'Update Trainer/:id', component: UsercrudComponent },
-  { path: 'Update Trainee/:id', component: UsercrudComponent },
-  { path: 'Update Reviewer/:id', component: UsercrudComponent },
+
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
 
   { path: 'Add-Co-Ordinator', component: UsercrudComponent },
   { path: 'Add-Trainer', component: UsercrudComponent },
   { path: 'Add-Trainee', component: UsercrudComponent },
   { path: 'Add-Reviewer', component: UsercrudComponent },
+  
   
   { path: 'ScheduleReview/:id', component: ReviewcrudComponent },
   { path: 'ScheduleReview', component: ReviewcrudComponent },
@@ -76,7 +78,7 @@ const routes: Routes = [
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
   { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent },
-  { path: 'GiveTraineeFeedback', component: GivetraineefeedbackComponent },
+  { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent },
   { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent },
   { path: 'Attendance', component: AttendancelistComponent },
 
