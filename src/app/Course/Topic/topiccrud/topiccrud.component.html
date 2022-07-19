@@ -16,6 +16,8 @@
                 <div *ngIf="topicform.controls['Topicname'].errors?.['required']">Course name is required.</div>
                 <div *ngIf="topicform.controls['Topicname'].errors?.['minlength']">Name must be at least 4 characters long.</div>
                 <div *ngIf="topicform.controls['Topicname'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
+                <div *ngIf="topicform.controls['Topicname'].errors?.['serverError']">
+                    {{this.topicform.controls['Topicname'].getError('serverError')}}</div>
                 <div *ngIf="topicform.controls['Topicname'].invalid || topicform.controls['Topicname'].errors?.['maxlength']">Please enter a valid Course name</div>
             </div>
             <input type="text" class="form-control p-3 mt-4 mb-4" placeholder="1 hr 30 mins" name="Duration" id="duration" [(ngModel)]="topic.duration" formcontrolName="duration" maxlength="15" pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$">

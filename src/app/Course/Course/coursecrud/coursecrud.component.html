@@ -20,6 +20,8 @@
                             <div *ngIf="courseform.controls['coursename'].errors?.['required']">Course name is required.</div>
                             <div *ngIf="courseform.controls['coursename'].errors?.['minlength']">Name must be at least 4 characters long.</div>
                             <div *ngIf="courseform.controls['coursename'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
+                            <div *ngIf="courseform.controls['coursename'].errors?.['serverError']">
+                                {{this.courseform.controls['coursename'].getError('serverError')}}</div>
                             <div *ngIf="courseform.controls['coursename'].invalid || courseform.controls['coursename'].errors?.['maxlength']">Please enter a valid Course name</div>
                         </div>
                     </div>

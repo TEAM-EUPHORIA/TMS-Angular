@@ -29,6 +29,7 @@ export class DepartmentcrudComponent implements OnInit {
   public department: any = {
     name: "",
   }
+  
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['deptId']
@@ -60,17 +61,40 @@ export class DepartmentcrudComponent implements OnInit {
 
   OnSubmit() {
     if (this.department.id != undefined) {
-      this.departmentservice.putdepartment(this.department).subscribe((res: any) => {
-        this.department = res
-        this.showToast_Edit();
+      this.departmentservice.putdepartment(this.department).subscribe({
+        next: (res: any) => {
+          window.location.replace("DepartmentList")
+          this.toastService.success("Department was created successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     } else {
-      this.departmentservice.postdepartment(this.department).subscribe((res: any) => {
-        this.department = res
-        this.showToast();
+      this.departmentservice.postdepartment(this.department).subscribe({
+        next: (res: any) => {
+          window.location.replace("DepartmentList")
+          this.toastService.success("Department was updated successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
     this.routing.navigateByUrl("/DepartmentList");
+  }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      const formControl = this.deptform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.deptform.controls['dept'].getError('serverError'));
+      }
+    });
   }
   showToast() {
     this.toastService.success('Successfully Added')

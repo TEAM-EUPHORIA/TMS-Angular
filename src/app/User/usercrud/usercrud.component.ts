@@ -91,9 +91,14 @@ export class UsercrudComponent implements OnInit {
       })
     }
     if (this.pageAction = 'Update') {
-      this.userService.updateUser(this.user).subscribe(res => {
-        if (res)
-          this.navigateToListPage();
+      this.userService.updateUser(this.user).subscribe({
+        next: (res: any) => {
+          window.location.replace(`${this.redirect}`)
+          this.toastService.success("The User was updated successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
   }

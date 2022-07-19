@@ -4,6 +4,8 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../course.service';
 import { LoginService } from 'src/app/Login/login.service';
+import { HotToastService } from '@ngneat/hot-toast';
+
 
 
 @Component({
@@ -18,7 +20,7 @@ export class CoursecrudComponent implements OnInit {
   
   constructor( private route: Router, private cs: CourseService,
     private routing: Router, private router: ActivatedRoute, private http : HttpClient,
-    private auth: LoginService ) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
+    private auth: LoginService,  private toastService: HotToastService ) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
   
   data: any;
   dept: any;
@@ -77,15 +79,43 @@ export class CoursecrudComponent implements OnInit {
   OnSubmit() {
     if (this.course != undefined || this.course != null) {
       this.course.trainerId = this.TrainerId;
-      this.cs.putcourse(this.course).subscribe((res) => {
+      this.cs.putcourse(this.course).subscribe({
+        next: (res: any) => {
+          window.location.replace("CourseList")
+          this.toastService.success("The User was created successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
     else {
-      this.cs.postcourse(this.Course).subscribe((res) => {
+      this.cs.postcourse(this.Course).subscribe({
+        next: (res: any) => {
+          window.location.replace("CourseList")
+          this.toastService.success("The User was updated successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
     window.location.replace("/CourseList");
   }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      const formControl = this.courseform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.courseform.controls['coursename'].getError('serverError'));
+      }
+    });
+  }
+  
 
   getUserByRole() {
     this.http.get("https://localhost:5001/User/role/"+`${3}`).subscribe((res) => {

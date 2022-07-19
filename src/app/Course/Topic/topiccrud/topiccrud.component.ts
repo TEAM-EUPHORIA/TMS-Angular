@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Quill from 'quill';
 import { baseurl } from 'src/app/URL';
 import { TopicService } from '../topic.service';
+import { HotToastService } from '@ngneat/hot-toast';
+
 
 @Component({
   selector: 'app-topiccrud',
@@ -30,7 +32,7 @@ export class TopiccrudComponent implements OnInit {
   });
   Topic: any
   quill: any;
-  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient,  private toastService: HotToastService) { }
   id!: number;
   topicname!: string;
   topicduration!: string;
@@ -101,11 +103,12 @@ export class TopiccrudComponent implements OnInit {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
       next: (res: any) => {
-        window.location.replace(`/CourseView/${this.topic.courseId}`);
+        window.location.replace("TopicView")
+        this.toastService.success("Topic was updated successfully.")
       },
-      error(err) {
-        console.warn(err["error"]);
-      },
+      error: (err: any) => {
+        this.serverSideErrorMsgs(err);
+      }
     });
   }
 
@@ -114,11 +117,26 @@ export class TopiccrudComponent implements OnInit {
     console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
+        window.location.replace("TopicView")
+        this.toastService.success("Topic was created successfully.")
       },
-      error(err: any) {
-        console.log(err["error"])
-      },
+      error: (err: any) => {
+        this.serverSideErrorMsgs(err);
+      }
     })
+  }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      const formControl = this.topicform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.topicform.controls['Topicname'].getError('serverError'));
+      }
+    });
   }
   private setTopicContent() {
     var data = JSON.stringify(this.quill.getContents());
