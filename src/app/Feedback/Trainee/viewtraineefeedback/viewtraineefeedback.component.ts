@@ -25,7 +25,7 @@ export class ViewtraineefeedbackComponent implements OnInit {
     this.getAllTraineeFeedback();
   }
   getAllTraineeFeedback() {
-    this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.Traineeid},+${this.auth.getId()}`).subscribe(res => {
+    this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
       this.data = res
       console.warn(this.data);
     })
