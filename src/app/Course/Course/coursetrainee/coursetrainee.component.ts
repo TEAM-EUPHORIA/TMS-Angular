@@ -11,12 +11,13 @@ import { LoginService } from 'src/app/Login/login.service';
   styleUrls: ['./coursetrainee.component.css']
 })
 export class CoursetraineeComponent implements OnInit {
+  
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
 
   addTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
   searchText: string = "";
   id : number = 0;
   deptId! : number;
@@ -26,6 +27,8 @@ export class CoursetraineeComponent implements OnInit {
   totalLength: any;
   coursetraineelist:any[]=[];
   coursetraineelistcopy:any[]=[];
+
+  Feedbacks : any
   
   traineeId = 3;
   toggleData(){
@@ -118,6 +121,16 @@ export class CoursetraineeComponent implements OnInit {
     GiveTraineeFeedback(traineeId : number,traineeName : string){
       this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
     }
+
+    /////                           NEEDS TO BE IMPLEMENTED WELL
+    // GetAllFeedbacks(){
+    //   this.http.get("https://localhost:5001/FeedBack/trainee/"+this.id).subscribe({
+    //     next : (res) => {
+    //       this.Feedbacks = res;
+    //       console.warn(this.Feedbacks);
+    //     }
+    //   })
+    // }
     
     private updateCurrentPageAndTotalLength() {
       this.page = 1;

@@ -14,7 +14,7 @@
                     <!-- <div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
                 </div>
             </div>
-            <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 6, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">

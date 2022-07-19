@@ -81,7 +81,7 @@ const routes: Routes = [
   //Attendance Routing Link
   { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent },
   //Assigning course to Trainee
-  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
@@ -93,7 +93,7 @@ const routes: Routes = [
 
   ///           <Reviews>
   //Review List routes
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'Upcoming-Review', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent },
