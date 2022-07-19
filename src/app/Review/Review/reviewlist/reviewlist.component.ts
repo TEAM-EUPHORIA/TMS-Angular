@@ -44,7 +44,6 @@ export class ReviewlistComponent implements OnInit {
   }
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
-    console.warn(this.router.url)
     this.getDepartments()
     this.statusId = this.router.url == '/Scheduled-Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Reviews' ? 1 : undefined
     console.log(this.statusId)
@@ -76,7 +75,6 @@ export class ReviewlistComponent implements OnInit {
     for (var item of this.data) {
       item.reviewTime = new Date(item.reviewTime);
       item.department = this.dept.find((department) => item.departmentId == department.id)
-      console.warn(this.dept);
     }
     this.totalLength = this.data.length
   }
