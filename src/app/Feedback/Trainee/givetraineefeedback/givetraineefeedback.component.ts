@@ -43,6 +43,8 @@ export class GivetraineefeedbackComponent implements OnInit {
     }
   }
   OnSubmit() {
+    this.route.snapshot.params["courseId"]
+    this.route.snapshot.params["traineeId"]
     this.TraineeFeedback.courseId = this.courseId;
     this.TraineeFeedback.traineeId = this.Traineeid;
     this.TraineeFeedback.trainerId = this.trainerId;
