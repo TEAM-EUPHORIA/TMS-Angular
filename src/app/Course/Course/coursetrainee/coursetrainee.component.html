@@ -4,39 +4,55 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item"><a routerLink="/CourseList">Course List</a></li>
-                <li class="breadcrumb-item active">Add Trainee</li>
+                <li class="breadcrumb-item active">Course List </li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
-            <h3 class="text-black pb-2">Trainee List</h3>
+    
+                <div *ngIf="!toDisplay ; else adduser">
+                  <h3>Course Trainees</h3>
+                </div>
+                <ng-template #adduser><h3>Assign Trainees</h3></ng-template>    
+        
             <div class="col-md-10 d-flex">
                 <input #search type="search" placeholder="Search text" class="form-control search-wrapper"[(ngModel)]="searchText">
-                <div class="btn btn-dark mx-4 pe-4 px-4 hover" *ngIf="auth.IsCoordinator" (click)="toggleData()">Add</div>
+                <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
             </div>
-            <div class="container dd" *ngIf="toDisplay">
+            <br>
+            
+            <div class="container" *ngIf="toDisplay">
                 <div *ngIf="List ; else elseblock">
-                    <div class="scrollbar">
+                    <div *ngIf="newTrainees.length > 4 ;else noscroll">
+                       <div class="scrollbar">   
+                            <div  *ngFor="let option of newTrainees | filter:searchText" class="my-3 p-4 d-flex bg-light justify-content-around">
+                                <div [id]="option.id" class="col-4">{{option.fullName}}</div>
+                                <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)"/></div>
+                             </div>
+                        </div>   
+                    </div>
+                    <ng-template #noscroll>
                         <div  *ngFor="let option of newTrainees | filter:searchText" class="my-3 p-4 d-flex bg-light justify-content-around">
                             <div [id]="option.id" class="col-4">{{option.fullName}}</div>
                             <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)"/></div>
-                        </div>
-                        <div class="btn btn-dark pe-4 px-4 hover" (click)="Save()">Save</div>
-                    </div>
+                         </div>
+                    </ng-template>        
                 </div>
-                <ng-template #elseblock>No Data</ng-template>
+                    <br>
+                <div class="text-left"><div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div></div>
+                <ng-template #elseblock><h5 class="text-center">No Data Found</h5></ng-template>
             </div>
-            <div *ngIf="!toDisplay">
-                <div *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+            
+            <div *ngIf="!toDisplay" >
+                <div *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
                             <div class="p-4 bg-light d-flex justify-content-around border hover rounded">
                                 <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
+                                
                                 <div class="col-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>
-                                <!-- <div class="col-0" *ngIf="auth.IsCoordinator"><p class="mb-0 h3 text-danger"><i class="fa-solid fa-x fs-5"(click)="removeUser(item)"></i></p></div> -->
+
                                 <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox" (click)="removeUser(item)"/></div>
-                                <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a routerLink="/GiveTraineeFeedback/{{item.id}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
-                                <!-- <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div> -->
+
                                 <div *ngIf="auth.IsTrainer && !item.feedBackExists" class="col-2">
                                     <a (click)="GiveTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button>
                                     </a>
@@ -49,10 +65,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="btn btn-dark pe-4 px-4 mt-5 hover" *ngIf="auth.IsCoordinator" (click)="Save()">Save</div>
-                <div class="mt-5"><pagination-controls *ngIf="trainees.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+                <div *ngIf="trainees.length > 4" class="mt-5">
+                    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+                </div>
+                <div *ngIf="trainees.length == 0"><h5 class="text-center">No Data Found</h5></div>
             </div>
+            <div class="text-left"><div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Remove</div></div>
+            <br>
+            <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
         </div>
+        
     </div>
     <app-footer></app-footer>
 </div>

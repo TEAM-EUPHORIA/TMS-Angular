@@ -111,7 +111,7 @@ export class TopiccrudComponent implements OnInit {
 
   PostTopic() {
     this.setTopicContent();
-    console.log(this.topic); // to be removed
+    // console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
       },
