@@ -20,6 +20,7 @@
                 <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
                 <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper"
                     [(ngModel)]="searchText">
+
             </div>
             <br>
 
@@ -41,11 +42,11 @@
                             <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)" /></div>
                         </div>
                     </ng-template>
-                    <div *ngIf="newTrainees.length != 0" class="text-left">
-                        <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div>
-                    </div>
                 </div>
                 <br>
+                <div *ngIf="newTrainees.length != 0" class="text-left">
+                    <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div>
+                </div>
                 <ng-template #elseblock>
                     <h5 class="text-center">No Trainees Found</h5>
                 </ng-template>
@@ -94,6 +95,9 @@
                 </div>
             </div>
             <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
+            <div *ngIf="trainees.length == 0">
+                <h5 class="text-center">No Data Found</h5>
+            </div>
         </div>
 
     </div>
