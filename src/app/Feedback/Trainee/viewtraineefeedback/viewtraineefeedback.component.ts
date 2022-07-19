@@ -17,10 +17,12 @@ export class ViewtraineefeedbackComponent implements OnInit {
   Traineeid !: number;
 
   ngOnInit(): void {
+    this.id=this.route.snapshot.params["courseId"]
+    this.Traineeid=this.route.snapshot.params["traineeId"]
     this.getAllTraineeFeedback()
   }
   getAllTraineeFeedback() {
-    this.http.get("https://localhost:5001/FeedBack/trainee").subscribe(res => {
+    this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.Traineeid},+${this.auth.getId()}`).subscribe(res => {
       this.data = res
       console.warn(this.data);
     })

@@ -34,7 +34,12 @@ const routes: Routes = [
   { path: 'Home', component: HomeComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
-
+  { path: 'Profile', component: UserprofileComponent },
+  
+  ///         <User>
+  //User profile dynamic
+  { path: ':list/Profile/:id', component: UserprofileComponent },
+  //User List Routing link
   { path: 'Co-Ordinator', component: UserlistComponent },
   { path: 'Trainer', component: UserlistComponent },
   { path: 'Trainee', component: UserlistComponent },
@@ -84,13 +89,52 @@ const routes: Routes = [
 
   { path: 'AddDepartment', component: DepartmentcrudComponent },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
+  ///         <User>
+
+  ///       <Course>
+  //Courses Routing Link
+  { path: 'CourseList', component: CourselistComponent },
   { path: 'CourseView', component: CourseviewComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
-  { path: 'Home', component: HomeComponent},
+  { path: 'AddCourse', component: CoursecrudComponent },
+  { path: 'EditCourse/:courseId', component: CoursecrudComponent },
+  { path: 'CourseView/:courseId', component: CourseviewComponent },
+  { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent },
+  //Assign Trainee to Course routing link
   { path: 'ViewTraineeList', component: ViewtraineelistComponent},
-  
+  //Topic Routing Link
+  { path: 'AddTopic/:courseId', component: TopiccrudComponent },
+  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
+  //Assignments Routing Link
   { path: 'UploadAssignment', component: UploadassignmentComponent },
-  { path: 'ViewAssignment', component: ViewassignmentComponent}
+  { path: 'ViewAssignment', component: ViewassignmentComponent},
+  //Attendance Routing Link
+  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent },
+  //Assigning course to Trainee
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
+  // CourseFeedback Routing Link
+  { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
+  { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
+  { path: 'ViewCourseFeedback/:courseId/:traineeId', component: ViewcoursefeedbackComponent },
+  ///           <Course>
+  //TraineeFeedback Routing Link
+  { path: 'GiveTraineeFeedback/:courseId/:traineeId', component: GivetraineefeedbackComponent },
+  { path: 'ViewTraineeFeedback/:courseId/:traineeId/:trainerId', component: ViewtraineefeedbackComponent },
+
+  ///           <Reviews>
+  //Review List routes
+  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'Completed-Review', component: ReviewlistComponent },
+  //Schedule Review and edit review routing link
+  { path: 'ScheduleReview', component: ReviewcrudComponent },
+  { path: 'ScheduleReview/:id', component: ReviewcrudComponent },
+  //MoM upload and update Routing Link
+  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent },
+  { path: 'UploadMOM/:reviewId', component: GivemomComponent },
+  { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent },
+  ///           <Reviews>
+  { path: 'Home', component: HomeComponent},
+  
 ]
 
 @NgModule({
