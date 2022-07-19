@@ -23,7 +23,6 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
-import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 
@@ -100,8 +99,7 @@ const routes: Routes = [
   { path: 'EditCourse/:courseId', component: CoursecrudComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent },
-  //Assign Trainee to Course routing link
-  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
   //Topic Routing Link
   { path: 'AddTopic/:courseId', component: TopiccrudComponent },
   { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },

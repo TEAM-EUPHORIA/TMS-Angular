@@ -38,7 +38,6 @@ import { GivecoursefeedbackComponent } from './Feedback/Course/givecoursefeedbac
 import { ViewcoursefeedbackComponent } from './Feedback/Course/viewcoursefeedback/viewcoursefeedback.component';
 import { ViewtraineefeedbackComponent } from './Feedback/Trainee/viewtraineefeedback/viewtraineefeedback.component';
 import { GivetraineefeedbackComponent } from './Feedback/Trainee/givetraineefeedback/givetraineefeedback.component';
-import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 
 import { DatePipe } from '@angular/common';
 import { AssignmentquesComponent } from './Course/Assignment/assignmentques/assignmentques.component';
@@ -79,7 +78,6 @@ export function tokenGetter() {
     ViewcoursefeedbackComponent,
     ViewtraineefeedbackComponent,
     GivetraineefeedbackComponent,
-    ViewtraineelistComponent,
     ViewassignmentComponent,
     AssignmentquesComponent,
   ],

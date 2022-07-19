@@ -10,12 +10,9 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">Course List</h3>
             <div class="header" id="style">
-                <a *ngIf="add" routerLink="/AddCourse"> <button type="button" class="btn btn-dark pe-4 px-4 hover">Add</button></a>
+                <a *ngIf="add" routerLink="/AddCourse" class="hover"><button type="button" class="btn btn-dark pe-4 px-4">Add</button></a>
                 <div class="container">
-                    <div class="col-md-11" >
-                    <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
-                </div>
-                    <!-- <div class="col-md-11"  *ngIf="IsCoordinator"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
+                    <div class="col-md-11" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)"></div>
                 </div>
                 <div class="container-fluid" *ngIf="auth.IsCoordinator">
                     <div class="col-md-12">
