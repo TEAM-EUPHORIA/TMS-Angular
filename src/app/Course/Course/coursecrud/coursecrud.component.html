@@ -73,7 +73,7 @@
                             <div *ngIf="courseform.controls['trainer'].invalid || courseform.controls['trainer'].errors?.['maxlength']">Please enter a valid Course trainer</div>
                         </div>
                     </div>
-                    <a><button [disabled]="!courseform.valid" type="submit" class="btn btn-dark pe-4 px-4">{{Title}}</button></a>
+                    <button [disabled]="!courseform.valid" type="submit" class="btn btn-dark pe-4 px-4 hover">{{Title}}</button>
                 </div>
             </form>
         </div>

@@ -110,6 +110,7 @@ export class UsercrudComponent implements OnInit {
       if (reader.result)
         this.user.base64 = reader.result.toString()
     };
+    this.option = 'replace image'
   }
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe((res) => this.departments = res)

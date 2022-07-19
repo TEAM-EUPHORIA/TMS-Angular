@@ -21,7 +21,7 @@
                         <div *ngIf="deptform.controls['dept'].invalid || deptform.controls['dept'].errors?.['maxlength']">Please enter a valid name</div>
                     </div>
                 </div>
-                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4">{{title}}</button></a>
+                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4 hover">{{title}}</button></a>
             </form>
         </div>
     </div>

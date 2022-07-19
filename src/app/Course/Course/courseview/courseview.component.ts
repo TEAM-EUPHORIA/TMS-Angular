@@ -52,7 +52,7 @@ export class CourseviewComponent implements OnInit {
     this.router.navigate(['/ViewTraineeList'], {state : {vid : obj}});
     }
   DisableTopic(courseId : number,topicId : number){
-
+    this.courseService.disableTopic(courseId,topicId).subscribe(() =>this.CourseInit());
   }
 
   ToTopic(courseId : number ,topicId :number){
