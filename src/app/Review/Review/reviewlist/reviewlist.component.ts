@@ -44,6 +44,7 @@ export class ReviewlistComponent implements OnInit {
   }
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
+    console.warn(this.router.url)
     this.getDepartments()
     this.statusId = this.router.url == '/Upcoming-Review' ? 1 : this.router.url == '/Completed-Review' ? 2 : undefined
     console.log(this.statusId)

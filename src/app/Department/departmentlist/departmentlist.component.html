@@ -21,13 +21,15 @@
                         <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
                             <div class="w-100 mx-4 text-dark font"><b class="mx-4">{{item.name}}</b></div>
                             <div *ngIf="auth.IsCoordinator || Editable === true" class="col-2"><a routerLink="/EditDepartment/{{item.id}}" class="mx-2"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
-                            <div *ngIf="Editable === true" class="col-1" id="pointer"><a (click)="disableDepartment(item.id)" class="mx-4"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                            <!-- <div *ngIf="Editable === true" class="col-1" id="pointer"><a (click)="disableDepartment(item.id)" class="mx-4"><i class="fa-solid fa-ban text-dark"></i></a></div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mt-5"><pagination-controls *ngIf="departmentlist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+    <div *ngIf="departmentlist.length >4" class="mt-5">
+        <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+    </div>
     <app-footer></app-footer>
 </div>

@@ -4,7 +4,8 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/{{pageTitle}}">{{pageTitle}}</a></li>
+                <li class="breadcrumb-item"><a routerLink="/Co-Ordinator">Co-Ordinator List</a></li>
+                <li class="breadcrumb-item ">{{pageTitle}}</li>
             </ol>
         </nav>
         <div class="container-fluid pt-2 px-4">
@@ -67,7 +68,7 @@
                 </div>
                 <div class="col-md-12 card rounded card-body">
                     <div class="form-group">
-                        <label class="mr-2 w-100" id="pointer" for="file">
+                        <label class="mr-2 w-100" for="file" id="pointer">
                             <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>

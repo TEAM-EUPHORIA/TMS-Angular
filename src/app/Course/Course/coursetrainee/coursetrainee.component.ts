@@ -43,14 +43,7 @@ export class CoursetraineeComponent implements OnInit {
     model?.classList.toggle('show')
     console.warn(model)
   }
-  // to be removed
-  toggleNavbar() {
-    var sidebar = document.querySelector(".sidebar")
-    var nav = document.querySelector(".content")
-    sidebar?.classList.toggle('open')
-    nav?.classList.toggle('open')
-  }
-  // 
+
   Save(){
     this.addTrainees.courseId = this.id
     this.removeTrainees.courseId = this.id
@@ -85,11 +78,23 @@ export class CoursetraineeComponent implements OnInit {
   private filterNewTrainees() {
     this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)));
   }
-
+  // saveRemove(){
+  //   this.addTrainees.courseId = this.id
+  //   this.removeTrainees.courseId = this.id
+  //   this.addTrainees.users.shift()
+  //   this.removeTrainees.users.shift()
+  //   if(this.removeTrainees.users.length > 0)
+  //   {
+  //     this.http.put("https://localhost:5001/" + `Course/removeUsers`,this.removeTrainees).subscribe(res => {
+  //       console.warn(res);
+  //     })
+  //   }
+  //   window.location.reload();
+  // }
   removeUser(option: any): any {
     // this.filterTrainees();
     var user = { userId: option.id, roleId: option.roleId }
-    this.newTrainees.push(option)
+    //this.newTrainees.push(option)
     this.removeTrainees.users.push(user)
     this.filterTrainees();
   }
@@ -130,6 +135,9 @@ export class CoursetraineeComponent implements OnInit {
 
     GiveTraineeFeedback(traineeId : number,traineeName : string){
       this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
+    }
+    ViewTraineeFeedback(traineeId : number,traineeName : string){
+      this.router.navigate(['ViewTraineeFeedback/'+this.id+'/'+traineeId+'/'+this.auth.getId()],{state:{TraineeName : traineeName}});
     }
 
     /////                           NEEDS TO BE IMPLEMENTED WELL

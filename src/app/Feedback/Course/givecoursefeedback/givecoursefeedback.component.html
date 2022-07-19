@@ -16,7 +16,8 @@
                     <div class="col-md-6">
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Course</b></div>
-                            <div class="col-md-8"><p></p></div>
+                            <div class="col-md-8" *ngIf="Add"><p>{{name}}</p></div>
+                            <div class="col-md-8" *ngIf="!Add"><p>{{name}}</p></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Rating</b></div>

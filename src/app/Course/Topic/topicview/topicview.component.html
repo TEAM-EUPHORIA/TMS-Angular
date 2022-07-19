@@ -12,26 +12,32 @@
         <div class="container-fluid px-4">
             <div class="row g-2">
                 <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-10"><h2 class="pt-4">{{Topic.name}}</h2></div>
+                    <div class="col-10">
+                        <h2 class="pt-4">{{Topic.name}}</h2>
+                    </div>
                     <div class="col-2">
                         <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
                         <b class="text-primary fs-4">
                             <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes' checked readonly name='checkbox_attendance'></a>
-                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
+                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes'
+                                        checked readonly name='checkbox_attendance'></a>
+                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
+                                        unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="ToAttendanceList()"id="pointer">View Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="ToAttendanceList()"
+                                    id="pointer">View Attendance</a></div>
                         </b>
                     </div>
                 </div>
             </div>
             <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
-            <div class="row g-2">
+            <div class="row g-2" *ngIf="auth.IsTrainee || auth.IsTrainer ">
                 <h3>Topic's Assignment</h3>
-                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer">
-                    <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer && Topic.assignments[0] == null">
+                    <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)">
+                    </app-uploadassignment>
                 </div>
-                <div class="container bg-light p-3 rounded border">
+                <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
                         <div>
                             Created By : {{Topic.assignments[0].owner.fullName}}
@@ -39,17 +45,22 @@
                         <div>
                             Created On : {{Topic.assignments[0].owner.createdOn | date}}
                         </div>
-                        <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer" class="text-primary">View</a>
-                        <a download="assignment.pdf" [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
+                        <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer"
+                            class="text-primary">View</a>
+                        <a download="assignment.pdf"
+                            [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
                 <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee"></div>
                 <h3>Submitted Assignment</h3>
-                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainee && !submitted">
+                <div class="container-fluid  px-4 pb-2"
+                    *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
                     <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
                 </div>
-                <app-assignmentlist [courseId]="courseId" [topicId]="topicId" *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                <div class="container bg-light p-3 rounded border" *ngIf="!uploadKey && submitted">
+                <!-- <div class="container-fluid  px-4" > -->
+                <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
+                    *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
+                <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator" class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
                         <div>
                             Created By : {{assignment.owner.fullName}}
@@ -57,8 +68,12 @@
                         <div>
                             Created On : {{assignment.owner.createdOn | date}}
                         </div>
-                        <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer" class="text-primary">View</a>
-                        <a download="assignment.pdf" [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment)">Download</a>
+                        <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
+                            class="text-primary">View</a>
+                        <a download="assignment.pdf"
+                            [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
+                            Download
+                        </a>
                     </div>
                 </div>
             </div>

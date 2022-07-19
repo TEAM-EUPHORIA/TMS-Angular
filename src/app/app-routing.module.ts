@@ -23,7 +23,6 @@ import { UserprofileComponent } from './User/userprofile/userprofile.component';
 import { AttendancelistComponent } from './Course/Attendance/attendancelist/attendancelist.component';
 import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
-import { ViewtraineelistComponent } from './Course/Course/viewtraineelist/viewtraineelist.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 
@@ -58,23 +57,12 @@ const routes: Routes = [
   { path: 'Add-Trainer', component: UsercrudComponent },
   { path: 'Add-Trainee', component: UsercrudComponent },
   { path: 'Add-Reviewer', component: UsercrudComponent },
-  
-  
-  { path: 'ScheduleReview/:id', component: ReviewcrudComponent },
-  { path: 'ScheduleReview', component: ReviewcrudComponent },
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent },
-  { path: 'UploadMOM/:reviewId', component: GivemomComponent },
-  { path: 'UploadMom/:reviewId', component: GivemomComponent },
-  { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent },
-  { path: 'Profile', component: UserprofileComponent },
-  { path: ':list/Profile/:id', component: UserprofileComponent },
-  
-  { path: 'Upcoming-Review', component: ReviewlistComponent },
-  { path: 'Completed-Review', component: ReviewlistComponent },
-
-  { path: 'CourseList', component: CourselistComponent },
-  { path: 'AddCourse', component: CoursecrudComponent },
-  { path: 'EditCourse', component: CoursecrudComponent },
+  //Update User Routing link
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  //Department routing 
   { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent },
@@ -100,8 +88,7 @@ const routes: Routes = [
   { path: 'EditCourse/:courseId', component: CoursecrudComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent },
-  //Assign Trainee to Course routing link
-  { path: 'ViewTraineeList', component: ViewtraineelistComponent},
+  
   //Topic Routing Link
   { path: 'AddTopic/:courseId', component: TopiccrudComponent },
   { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
@@ -119,6 +106,7 @@ const routes: Routes = [
   ///           <Course>
   //TraineeFeedback Routing Link
   { path: 'GiveTraineeFeedback/:courseId/:traineeId', component: GivetraineefeedbackComponent },
+  { path: 'EditTraineeFeedback/:courseId/:traineeId/:trainerId', component: GivetraineefeedbackComponent },
   { path: 'ViewTraineeFeedback/:courseId/:traineeId/:trainerId', component: ViewtraineefeedbackComponent },
 
   ///           <Reviews>

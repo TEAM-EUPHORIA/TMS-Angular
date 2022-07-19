@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastModule, HotToastService, Toast } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
@@ -22,7 +23,8 @@ export class TopicviewComponent implements OnInit {
     private topicService : TopicService,
     public datepipe: DatePipe,
     public sanitizer: DomSanitizer,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private toast : HotToastService) { }
     
   //temparary variable for data storage
   temp : any;
@@ -61,6 +63,7 @@ export class TopicviewComponent implements OnInit {
         }
       );
     }
+    // console.log(this.auth.IsTrainee || this.Topic.assignments[0] != null)
   }
   
   TopicInit(){
@@ -115,6 +118,8 @@ export class TopicviewComponent implements OnInit {
     this.http.post("https://localhost:5001/Course/assignment",Assignmentobj).subscribe(res => {
       console.log(res);
     });
+    this.toast.success("The assignment was submitted successfully")
+    window.location.reload();
   }
 
   MarkAttendance(){
