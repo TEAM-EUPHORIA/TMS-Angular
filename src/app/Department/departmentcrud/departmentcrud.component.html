@@ -16,7 +16,7 @@
                     <label for="floatingText">Department</label>
                     <div *ngIf="deptform.controls['dept'].invalid && (deptform.controls['dept'].dirty || deptform.controls['dept'].touched)" class="alert alert-danger">
                         <div *ngIf="deptform.controls['dept'].errors?.['required']">Name is required.</div>
-                        <div *ngIf="deptform.controls['dept'].errors?.['minlength']">Name must be at least 4 characters long.</div>
+                        <div *ngIf="deptform.controls['dept'].errors?.['minlength']">Name must be at least 3 characters long.</div>
                         <div *ngIf="deptform.controls['dept'].errors?.['maxlength']">Name don't exceed 15 characters long.</div>
                         <div *ngIf="deptform.controls['dept'].invalid || deptform.controls['dept'].errors?.['maxlength']">Please enter a valid name</div>
                     </div>

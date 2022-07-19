@@ -16,45 +16,46 @@ import { TopicService } from '../topic.service';
   styleUrls: ['./topicview.component.css']
 })
 export class TopicviewComponent implements OnInit {
-  
-  constructor(private router : Router,
-    private route : ActivatedRoute,
-    public auth : LoginService,
-    private topicService : TopicService,
+
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    public auth: LoginService,
+    private topicService: TopicService,
     public datepipe: DatePipe,
     public sanitizer: DomSanitizer,
     private http: HttpClient,
-    private toast : HotToastService) { }
-    
-  //temparary variable for data storage
-  temp : any;
+    private toast: HotToastService) { this.Coursename = this.router.getCurrentNavigation()?.extras.state?.['courseName'] }
 
-    
+  //temparary variable for data storage
+  temp: any;
+
+
   submitted: boolean = false;
   //checks upload is enabled or not
-  uploadKey : boolean = true;
+  uploadKey: boolean = true;
 
   //to check the attendance status of trainee
-  Checked : boolean = false;
+  Checked: boolean = false;
 
-  Topic : any;
+  Coursename: any;
+
+  Topic: any;
   public courseId !: number;
-  public topicId !:number;
+  public topicId !: number;
   public ownerId !: number;
   public trainerId !: number;
-  
-  assignment:any = {}
+
+  assignment: any = {}
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
+    console.log(this.Coursename)
     this.TopicInit();
-    if(this.auth.IsloggedIn)
-    {
+    if (this.auth.IsloggedIn) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
         res => {
-          if(res) 
-          {
+          if (res) {
             this.assignment = res;
             this.submitted = true
             this.uploadKey = false;
@@ -65,18 +66,18 @@ export class TopicviewComponent implements OnInit {
     }
     // console.log(this.auth.IsTrainee || this.Topic.assignments[0] != null)
   }
-  
-  TopicInit(){
+
+  TopicInit() {
     this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe(res => {
       this.Topic = res;
       this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
-      if(this.Topic != null){
+      if (this.Topic != null) {
         this.ContentInit(this.Topic);
       }
-    });    
+    });
   }
 
-  ContentInit(topic : any){
+  ContentInit(topic: any) {
     topic.content = JSON.parse(topic.content);
     var quill = new Quill('#editor');
     quill.setContents(topic.content);
@@ -88,48 +89,48 @@ export class TopicviewComponent implements OnInit {
     console.warn(this.Topic)
   }
 
-  ToAttendanceList(){
-    this.router.navigate(['/AttendanceList/'+this.courseId+'/'+this.topicId]);
+  ToAttendanceList() {
+    this.router.navigate(['/AttendanceList/' + this.courseId + '/' + this.topicId]);
   }
 
-  ToAssignment(){
-    var obj : any ={
-      topicId : this.topicId,
-      courseId : this.courseId,
-      trainerId : this.trainerId
+  ToAssignment() {
+    var obj: any = {
+      topicId: this.topicId,
+      courseId: this.courseId,
+      trainerId: this.trainerId
     };
-    this.router.navigate(['/UploadAssignment'], {state : {aid : obj}});
+    this.router.navigate(['/UploadAssignment'], { state: { aid: obj } });
     console.log(this.Topic.id);
   }
 
-  ViewAssignment(assignment : any){
-    assignment.base64 = assignment.base64 + "," +assignment.document;
+  ViewAssignment(assignment: any) {
+    assignment.base64 = assignment.base64 + "," + assignment.document;
     // console.warn(this.assignmenton);
-    this.router.navigate(['/ViewAssignment'], {state : { assignment : assignment.base64 }});
+    this.router.navigate(['/ViewAssignment'], { state: { assignment: assignment.base64 } });
   }
 
-  HandleSubmit(event : any){
-    var Assignmentobj : any ={
+  HandleSubmit(event: any) {
+    var Assignmentobj: any = {
       courseId: this.courseId,
-      topicId : this.topicId,
-      ownerId : this.auth.getId(),
-      base64  : event
+      topicId: this.topicId,
+      ownerId: this.auth.getId(),
+      base64: event
     }
-    this.http.post("https://localhost:5001/Course/assignment",Assignmentobj).subscribe(res => {
+    this.http.post("https://localhost:5001/Course/assignment", Assignmentobj).subscribe(res => {
       console.log(res);
     });
     this.toast.success("The assignment was submitted successfully")
     window.location.reload();
   }
 
-  MarkAttendance(){
-    var Attendanceobj : any ={
-      courseId : this.courseId,
-      topicId : this.topicId,
-      ownerId : this.auth.getId()
+  MarkAttendance() {
+    var Attendanceobj: any = {
+      courseId: this.courseId,
+      topicId: this.topicId,
+      ownerId: this.auth.getId()
     }
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
-    });  
+    });
   }
 }
 
