@@ -42,9 +42,6 @@ export class DepartmentlistComponent implements OnInit {
       console.log(res)
     })
   }
-  SearchActive(search: string) {
-    this._dept = search;
-  }
   disableDepartment(id: number) {
     this.dservice.disableDepartment(id).subscribe(() => this.GetallDepartment())
     this.showToast();

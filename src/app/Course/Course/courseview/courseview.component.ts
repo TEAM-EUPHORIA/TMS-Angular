@@ -35,13 +35,11 @@ export class CourseviewComponent implements OnInit {
   ToTopicView(id : any){
     this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id]);
   }
-  ToFeedback(){
-    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id+`/`+this.auth.getId()]);
+  ToViewFeedback(){
+    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id+`/`+this.auth.getId()],{state : { courseName : this.Course.name}});
   }
   ToAddFeedback(){
-  var cId : any;
-  cId = this.Course.id;
-    this.router.navigate(['/GiveCourseFeedback/'+this.Course.id]); 
+    this.router.navigate(['/GiveCourseFeedback/'+this.Course.id],{state : { courseName : this.Course.name}}); 
   }
   ToViewTraineeList(){
     var obj = {
@@ -57,6 +55,14 @@ export class CourseviewComponent implements OnInit {
 
   ToTopic(courseId : number ,topicId :number){
     this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId]);
+  }
+  myfunction (id : number, topicId : number){
+    let text = "Are you sure you want to disable the Topic";
+    if (confirm(text) == true) {
+      this.DisableTopic(id,topicId)
+    } else {
+      text = "You canceled!";
+  }
   }
 
 }
