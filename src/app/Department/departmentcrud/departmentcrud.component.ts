@@ -59,18 +59,23 @@ export class DepartmentcrudComponent implements OnInit {
   }
 
   OnSubmit() {
+    console.log(this.department)
     if (this.department.id != undefined) {
+      console.warn(this.department)
+      console.warn("edit")
       this.departmentservice.putdepartment(this.department).subscribe((res: any) => {
         this.department = res
         this.showToast_Edit();
       })
     } else {
+      console.warn(this.department)
+      console.warn("add")
       this.departmentservice.postdepartment(this.department).subscribe((res: any) => {
         this.department = res
         this.showToast();
       })
     }
-    this.routing.navigateByUrl("/DepartmentList");
+    window.location.replace("/DepartmentList");
   }
   showToast() {
     this.toastService.success('Successfully Added')

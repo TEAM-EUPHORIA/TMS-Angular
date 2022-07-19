@@ -65,13 +65,21 @@ export class CoursecrudComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDepartment();
     this.getUserByRole();
-    console.warn(this.course.id);
-    if(this.course != undefined || this.course != null){
+    // console.warn(this.course.id);
+    this.courseId = this.router.snapshot.params["courseId"]
+    this.cs.grtCourseByCourseId(this.courseId).subscribe({
+      next:(res:any)=>{
+        this.Course = res;
+        console.log(res.to)
+      },
+      error:(err:any)=>{
+        console.warn(err)
+      }
+    })
+    if(this.Course != undefined){
       this.Title = "Update"
-      this.Editable = true;
+      // this.Editable = true;
      }
-    this.courseId = this.course.id;
-    console.log(this.courseId);
   
   }
   OnSubmit() {

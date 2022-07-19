@@ -23,6 +23,9 @@ putcourse(data: any): Observable<any> {
 getAllCourses(): Observable<any> {
   return this.http.get<any>(this.baseurl)
 }
+grtCourseByCourseId(id : number): Observable<any> {
+  return this.http.get<any>(this.baseurl + `${id}`)
+}
 getCoursesByUserId(id: number): Observable<any> {
   return this.http.get<any>(this.baseurl + `users/${id}`);
 }

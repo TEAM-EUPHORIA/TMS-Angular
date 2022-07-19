@@ -5,7 +5,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">{{Topic.name}}</a></li>
+                <li class="breadcrumb-item "><a routerLink="/CourseList">{{Coursename}}</a></li>
                 <li class="breadcrumb-item active">{{Topic.name}}</li>
             </ol>
         </nav>
@@ -60,7 +60,8 @@
                 <!-- <div class="container-fluid  px-4" > -->
                 <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
                     *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator" class="container bg-light p-3 rounded border">
+                <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
+                    class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
                         <div>
                             Created By : {{assignment.owner.fullName}}
