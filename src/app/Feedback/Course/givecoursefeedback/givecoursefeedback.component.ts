@@ -12,7 +12,7 @@ export class GivecoursefeedbackComponent implements OnInit {
 
   constructor(private router : ActivatedRoute, private http : HttpClient , private auth : LoginService , private route : Router) { 
     this.CourseFeedback = this.route.getCurrentNavigation()?.extras.state?.['fid'];
-    this.CourseId = this.route.getCurrentNavigation()?.extras.state?.['cid'];
+    this.name = this.route.getCurrentNavigation()?.extras.state?.['courseName'];
   }
   Add : boolean = true;
   Edit : boolean = false;
@@ -20,7 +20,7 @@ export class GivecoursefeedbackComponent implements OnInit {
   Traineeid !: number;
   text ! : string;
   data: any
-  CourseId : any;
+  name : any;
   Course !: string;
   id !: number;
   temp: any;
@@ -34,6 +34,7 @@ export class GivecoursefeedbackComponent implements OnInit {
   
 
   ngOnInit(): void {
+    console.log(this.name)
     this.id = this.router.snapshot.params['courseId'];
     this.http.get("https://localhost:5001/FeedBack/course/"+`${this.id},${this.auth.getId()}`).subscribe(res=>{
       if(res){

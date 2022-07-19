@@ -58,23 +58,12 @@ const routes: Routes = [
   { path: 'Add-Trainer', component: UsercrudComponent },
   { path: 'Add-Trainee', component: UsercrudComponent },
   { path: 'Add-Reviewer', component: UsercrudComponent },
-  
-  
-  { path: 'ScheduleReview/:id', component: ReviewcrudComponent },
-  { path: 'ScheduleReview', component: ReviewcrudComponent },
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent },
-  { path: 'UploadMOM/:reviewId', component: GivemomComponent },
-  { path: 'UploadMom/:reviewId', component: GivemomComponent },
-  { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent },
-  { path: 'Profile', component: UserprofileComponent },
-  { path: ':list/Profile/:id', component: UserprofileComponent },
-  
-  { path: 'Upcoming-Review', component: ReviewlistComponent },
-  { path: 'Completed-Review', component: ReviewlistComponent },
-
-  { path: 'CourseList', component: CourselistComponent },
-  { path: 'AddCourse', component: CoursecrudComponent },
-  { path: 'EditCourse', component: CoursecrudComponent },
+  //Update User Routing link
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  //Department routing 
   { path: 'DepartmentList', component: DepartmentlistComponent },
   { path: 'CourseView/:courseId', component: CourseviewComponent },
   { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent },
