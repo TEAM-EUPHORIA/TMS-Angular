@@ -11,48 +11,60 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class GivetraineefeedbackComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, private http : HttpClient , private router : Router , private auth : LoginService) { this.objec = this.router.getCurrentNavigation()?.extras.state?.['vid'] }
+  constructor(private route : ActivatedRoute, 
+    private http : HttpClient,
+    private router : Router,
+    private auth : LoginService) { this.Traineename = this.router.getCurrentNavigation()?.extras.state?.['TraineeName'] }
 
   Traineeid ! : number;
   Traineename = '';
-  id ! : number;
-  objec : any;
+  id !: number;
   trainerId : any;
   courseId : any;
 
+  txt = '';
+  button = '';
+
   TraineeFeedback: any = {
-    id: 0,
     traineeId: '',
     trainerId: '',
     courseId: '',
-    statusId: 1,
     feedback: ''
   }
 
   ngOnInit(): void {
-    // this.Traineeid = this.route.snapshot.params['traineeId']
-    this.courseId = this.objec.courseId
-    this.Traineeid = this.objec.traineeId;
-    this.Traineename = this.objec.traineeName;
-    this.trainerId = this.auth.getId();
-    console.warn(this.id,this.Traineeid,this.Traineename);
+    this.Traineeid = this.route.snapshot.params['traineeId'];
+    this.courseId = this.route.snapshot.params['courseId'];
+    this.trainerId = this.route.snapshot.params['trainerId'];
+    console.warn("Course ",this.courseId,"Trainee ",this.Traineeid,"Trainer ",this.trainerId,"TrainerName",this.Traineename);
     this.setoption();
   }
-  setoption(form?: NgForm) {
-    if (this.TraineeFeedback.id != null) {
+  setoption() {
+    if (this.trainerId != undefined) {
+      this.txt = 'Update';
+      this.button = 'Update';
+      this.http.get<any>('https://localhost:5001/FeedBack/Trainee/feedback/'+`${this.courseId}`+ this.Traineeid,this.trainerId).subscribe({
+        next : (res) => {
+          this.TraineeFeedback = res;
+        }
+      });
+    }
+    else{
+      this.txt = 'Give';
+      this.button = 'Submit';
     }
   }
   OnSubmit() {
-    this.TraineeFeedback.courseId = this.courseId;
-    this.TraineeFeedback.traineeId = this.Traineeid;
-    this.TraineeFeedback.trainerId = this.trainerId;
-    console.warn(this.TraineeFeedback);
     if (this.TraineeFeedback.id == 0 || this.TraineeFeedback.id == null || this.TraineeFeedback.id == undefined) {
-      this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
-      })
-    }
-    else {
-      this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+      this.TraineeFeedback.courseId = this.courseId;
+      this.TraineeFeedback.traineeId = this.Traineeid;
+      this.TraineeFeedback.trainerId = this.auth.getId();
+      console.warn(this.TraineeFeedback);
+        this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
+          })
+        }
+        else {
+            this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
       })
     }
   }

@@ -10,13 +10,13 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">{{title}} List</h3>
             <div class="header" id="style">
-                <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 "*ngIf="edit">Add</button></a>
-                <div class="container" ><div class="col-md-11" id="hov">
-                    <input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div>
+                <a routerLink="/Add-{{title}}"><button type="button" class="btn btn-dark pe-4 px-4 hover"*ngIf="edit">Add</button></a>
+                <div class="container">
+                    <div class="col-md-11" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search" (keyup)="filterByName(search)"></div>
                 </div>
                 <div class="container" *ngIf="showDept">
                     <div class="col-md-12 mx-2" id="hov">
-                        <select #department name="Department" id="departmentId" class="form-select " name="_dept" (change)="filterByDepartment(department)">
+                        <select #department name="Department" id="departmentId" class="form-select hover" name="_dept" (change)="filterByDepartment(department)">
                             <option value="">Select the Department</option>
                             <option *ngFor="let item of dept" value={{item.id}}>{{item.name}}</option>
                         </select>
@@ -26,19 +26,19 @@
 
             <div *ngFor="let item of users | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
-                    <div class="col-md-12 hover rounded">
-                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center">
-                            <div class="col-2" id="pointer"><a routerLink="/{{title}}/Profile/{{item.id}}"><p class="mb-0 text-dark"><b>Name : </b>{{ item.fullName }}</p></a></div>
-                            <div class="col-2" *ngIf="dpt"><p class="mb-0 text-dark"><b>Department : </b>{{ item.department.name }}</p></div>
-                            <div class="col-3"><p class="mb-0 text-dark"><b>Email : </b> {{ item.email }}</p></div>
-                            <div class="col-0" *ngIf="edit"><a routerLink="/Update {{title}}/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark" title="Click here to edit {{title}}"></i></a></div>
-                            <div class="col-0" id="pointer" *ngIf="edit"><a (click)="myfunction(item.id)"class="mx-2"><i class="fa-solid fa-ban text-dark" title="Click here to diable {{title}}"></i></a></div>
+                    <div class="col-md-12">
+                        <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
+                            <div class="col-2 mx-4" id="pointer"><a routerLink="/{{title}}/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
+                            <div class="col-2" *ngIf="dpt"><p class="mb-0 text-dark font"><b>Department : </b>{{ item.department.name }}</p></div>
+                            <div class="col-3 mx-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>
+                            <div class="col-0" *ngIf="edit"><a routerLink="/Update-{{title}}/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark" title="Click here to edit {{title}}"></i></a></div>
+                            <div class="col-0 mx-4" id="pointer" *ngIf="edit"><a (click)="myfunction(item.id)"class="mx-2"><i class="fa-solid fa-ban text-dark" title="Click here to diable {{title}}"></i></a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+        <div *ngIf="users.length > 5" class="mt-4"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>

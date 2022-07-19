@@ -88,10 +88,12 @@ export class TopiccrudComponent implements OnInit {
     }
   }
   OnSubmit() {
-    if (this.topicId == undefined) {
-      this.PostTopic();
-    } else {
+    if (this.courseId != 0 && this.topicId != undefined) {
       this.UpdateTopic();
+      this.navigateToCourseView();
+    } else {
+      this.PostTopic();
+      this.navigateToCourseView();
     }
   }
 
@@ -112,7 +114,6 @@ export class TopiccrudComponent implements OnInit {
     // console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
-        this.ToCourseView(this.courseId);
       },
       error(err: any) {
         console.log(err["error"])
@@ -130,13 +131,8 @@ export class TopiccrudComponent implements OnInit {
       this.topic = res;
     })
   }
-
-  ToCourseView(id : number){
-    var course : any;
-    this.http.get("https://localhost:5001/Course/"+ id).subscribe(res => {
-      course = res;
-      this.router.navigate(['/CourseView'], { state: { courseView : course } });
-    });
+  private navigateToCourseView(){
+    window.location.replace('CourseView/'+this.courseId);
   }
 
 }

@@ -80,9 +80,14 @@ export class UsercrudComponent implements OnInit {
     this.setRole()
     console.log(this.user)
     if (this.pageAction = 'Add') {
-      this.userService.postUser(this.user).subscribe(res => {
-        if (res)
-          this.navigateToListPage();
+      this.userService.postUser(this.user).subscribe({
+        next: (res: any) => {
+          window.location.replace(`${this.redirect}`)
+          this.toastService.success("The User was created successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
     if (this.pageAction = 'Update') {
@@ -97,7 +102,19 @@ export class UsercrudComponent implements OnInit {
     console.log(this.redirect)
     this.showToast()
   }
-
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      const formControl = this.userform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.userform.controls['email'].getError('serverError'));
+      }
+    });
+  }
   showToast() {
     this.toastService.success(this.pageAction+'ed')
   }
@@ -110,6 +127,7 @@ export class UsercrudComponent implements OnInit {
       if (reader.result)
         this.user.base64 = reader.result.toString()
     };
+    this.option = 'replace image'
   }
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe((res) => this.departments = res)

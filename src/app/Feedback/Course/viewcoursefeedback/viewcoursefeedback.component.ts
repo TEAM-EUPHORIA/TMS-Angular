@@ -10,12 +10,15 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class ViewcoursefeedbackComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, private http: HttpClient, private Auth : LoginService, private router : Router ) { this.id = this.router.getCurrentNavigation()?.extras.state?.['courseId']; }
+  constructor(private route : ActivatedRoute, private http: HttpClient, private Auth : LoginService, private router : Router ) { this.Cname = this.router.getCurrentNavigation()?.extras.state?.['courseName']; }
 
   data: any;
-  id : number;
-
+  id !: number;
+  Cname : any;
+  userid=this.Auth.getId();
   ngOnInit(): void {
+    this.id = this.route.snapshot.params["courseId"]
+    console.log(this.Cname)
     this.getAllFeedback(this.id);
   }
   getAllFeedback(id : any) {
@@ -25,11 +28,8 @@ export class ViewcoursefeedbackComponent implements OnInit {
     })
   }
   ToEditFeedback(){
-    var feedback : any;
-    console.warn(this.data);
-    feedback = this.data;
-    console.warn(feedback);
-    this.router.navigate(['/EditCourseFeedback'],{state : {fid : feedback}});
+    console.warn(this.Cname)
+    this.router.navigate(['/EditCourseFeedback/'+this.id+'/'+this.userid],{state : {courseName : this.Cname}});
   }
 
 }

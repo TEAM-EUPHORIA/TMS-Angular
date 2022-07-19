@@ -1,7 +1,10 @@
 
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastModule, HotToastService, Toast } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
@@ -18,17 +21,21 @@ export class TopicviewComponent implements OnInit {
     private route : ActivatedRoute,
     public auth : LoginService,
     private topicService : TopicService,
-    private http: HttpClient) { }
+    public datepipe: DatePipe,
+    public sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private toast : HotToastService) { }
     
   //temparary variable for data storage
   temp : any;
+
     
   submitted: boolean = false;
   //checks upload is enabled or not
   uploadKey : boolean = true;
 
   //to check the attendance status of trainee
-  Ischecked : boolean = false;
+  Checked : boolean = false;
 
   Topic : any;
   public courseId !: number;
@@ -36,48 +43,52 @@ export class TopicviewComponent implements OnInit {
   public ownerId !: number;
   public trainerId !: number;
   
+  assignment:any = {}
+
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
     this.TopicInit();
-    this.http.get(baseurl + `Course/${this.temp.courseId}/topics/${this.temp.topicId}/assignments/${this.auth.getId()}`).subscribe(
-      res => {
-        if(res) this.submitted = true,this.uploadKey = false;
-      }
-    );
+    if(this.auth.IsloggedIn)
+    {
+      this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
+        res => {
+          if(res) 
+          {
+            this.assignment = res;
+            this.submitted = true
+            this.uploadKey = false;
+            console.log(res)
+          }
+        }
+      );
+    }
   }
   
   TopicInit(){
     this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe(res => {
       this.Topic = res;
-      if(this.Topic != null)
-      this.ContentInit(this.Topic);
+      this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
+      if(this.Topic != null){
+        this.ContentInit(this.Topic);
+      }
     });    
   }
 
   ContentInit(topic : any){
     topic.content = JSON.parse(topic.content);
-    var config = {
-      "theme": "snow",
-      "modules": {
-          "toolbar": false
-      }
-    };
-    var quill = new Quill('#editor', config);
+    var quill = new Quill('#editor');
     quill.setContents(topic.content);
     quill.disable();
     this.courseId = topic.courseId;
     this.topicId = topic.topicId;
     this.ownerId = this.auth.getId();
-    this.trainerId = this.temp.trainerId;
+    this.trainerId = this.trainerId;
+    console.warn(this.Topic)
   }
 
-  ToAttendance(){
-    var obj : any ={
-      topicId : this.topicId,
-      courseId : this.courseId
-    };
-    this.router.navigate(['/Attendance'], {state : {aid : obj}});
+  ToAttendanceList(){
+    this.router.navigate(['/AttendanceList/'+this.courseId+'/'+this.topicId]);
   }
 
   ToAssignment(){
@@ -90,6 +101,12 @@ export class TopicviewComponent implements OnInit {
     console.log(this.Topic.id);
   }
 
+  ViewAssignment(assignment : any){
+    assignment.base64 = assignment.base64 + "," +assignment.document;
+    // console.warn(this.assignmenton);
+    this.router.navigate(['/ViewAssignment'], {state : { assignment : assignment.base64 }});
+  }
+
   HandleSubmit(event : any){
     var Assignmentobj : any ={
       courseId: this.courseId,
@@ -100,6 +117,8 @@ export class TopicviewComponent implements OnInit {
     this.http.post("https://localhost:5001/Course/assignment",Assignmentobj).subscribe(res => {
       console.log(res);
     });
+    this.toast.success("The assignment was submitted successfully")
+    window.location.reload();
   }
 
   MarkAttendance(){

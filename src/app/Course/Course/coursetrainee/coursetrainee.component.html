@@ -15,7 +15,7 @@
                 <ng-template #adduser><h3>Assign Trainees</h3></ng-template>    
         
             <div class="col-md-10 d-flex">
-                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper"[(ngModel)]="searchText">
+                <input #search type="search" placeholder="Search text" class="form-control search-wrapper"[(ngModel)]="searchText">
                 <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
             </div>
             <br>
@@ -53,12 +53,6 @@
                                     <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox" (click)="removeUser(item)"/></div>
                                     <div class="col-0" *ngIf="auth.IsTrainer"><a (click)="toviewtraineelist()"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">Give Feedback</button></a></div>
                                 </div>
-                                <a (click)="togivetraineefeedback(item.id,item.fullName)">
-                                    <div *ngIf="auth.IsTrainer" class="col-2"> <button type="button"
-                                            class="btn btn-dark pe-4 px-4">GiveTraineeFeedback</button>
-                                    </div>
-                                    </a>
-                                </div>
                         </div>
                     </div>
                 </div>
@@ -66,8 +60,8 @@
                     <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
                 </div>
                 <div *ngIf="trainees.length == 0"><h5 class="text-center">No Data Found</h5></div>
-                <div class="text-left"><div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Remove</div></div>
             </div>
+            <div class="text-left"><div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Remove</div></div>
             <br>
             <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
         </div>

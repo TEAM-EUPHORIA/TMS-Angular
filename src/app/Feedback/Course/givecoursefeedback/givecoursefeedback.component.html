@@ -16,7 +16,8 @@
                     <div class="col-md-6">
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Course</b></div>
-                            <div class="col-md-8"><p></p></div>
+                            <div class="col-md-8" *ngIf="Add"><p>{{name}}</p></div>
+                            <div class="col-md-8" *ngIf="!Add"><p>{{name}}</p></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Rating</b></div>
@@ -32,7 +33,7 @@
                             <div class="col-md-8" *ngIf="Add"><textarea name="rate" [(ngModel)]="Feedback.feedback" rows="2" cols="60"></textarea></div>
                             <div class="col-md-8" *ngIf="Edit"><textarea name="rate" [(ngModel)]="CourseFeedback.feedback" rows="2" cols="60"></textarea></div>
                         </div>
-                        <button type="submit" class="btn btn-dark mt-4 pe-4 px-4">{{txt}}</button>
+                        <button type="submit" class="btn btn-dark mt-4 pe-4 px-4 hover">{{txt}}</button>
                     </div>
                 </div>
             </form>

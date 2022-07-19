@@ -4,7 +4,8 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/{{pageTitle}}">{{pageTitle}}</a></li>
+                <li class="breadcrumb-item"><a routerLink="/Co-Ordinator">Co-Ordinator List</a></li>
+                <li class="breadcrumb-item ">{{pageTitle}}</li>
             </ol>
         </nav>
         <div class="container-fluid pt-2 px-4">
@@ -27,6 +28,8 @@
                         <div *ngIf="userform.controls['email'].errors?.['required']">Email is required.</div>
                         <div *ngIf="userform.controls['email'].errors?.['minlength']">Email must be at least 4 characters long.</div>
                         <div *ngIf="userform.controls['email'].errors?.['maxlength']">Email don't exceed 25 characters long.</div>
+                        <div *ngIf="userform.controls['email'].errors?.['serverError']">
+                            {{this.userform.controls['email'].getError('serverError')}}</div>
                         <div *ngIf="userform.controls['email'].invalid || userform.controls['email'].errors?.['maxlength']">Please enter a valid Email address</div>
                     </div>
                 </div>
@@ -65,17 +68,14 @@
                 </div>
                 <div class="col-md-12 card rounded card-body">
                     <div class="form-group">
-                        <label class="mr-2 w-100" for="file">
-                            <img *ngIf="user.base64 != undefined" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)"
-                                alt="profile picture" width="150px"> &nbsp;
+                        <label class="mr-2 w-100" for="file" id="pointer">
+                            <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>
-                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"
-                            #fileUpload>
-
+                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"#fileUpload>
                     </div>
                 </div> 
-                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4" [disabled]="userform.pristine">{{pageAction}}</button>
+                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover" [disabled]="userform.pristine">{{pageAction}}</button>
             </form>
         </div>
     </div>

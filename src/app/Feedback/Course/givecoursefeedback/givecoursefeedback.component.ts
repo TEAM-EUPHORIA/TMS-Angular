@@ -12,15 +12,15 @@ export class GivecoursefeedbackComponent implements OnInit {
 
   constructor(private router : ActivatedRoute, private http : HttpClient , private auth : LoginService , private route : Router) { 
     this.CourseFeedback = this.route.getCurrentNavigation()?.extras.state?.['fid'];
-    this.CourseId = this.route.getCurrentNavigation()?.extras.state?.['cid'];
+    this.name = this.route.getCurrentNavigation()?.extras.state?.['courseName'];
   }
-  Add : boolean = false;
+  Add : boolean = true;
   Edit : boolean = false;
   txt !: string;
   Traineeid !: number;
   text ! : string;
   data: any
-  CourseId : any;
+  name : any;
   Course !: string;
   id !: number;
   temp: any;
@@ -31,26 +31,28 @@ export class GivecoursefeedbackComponent implements OnInit {
     feedback: '',
     rating: ''
   }
+  
 
   ngOnInit(): void {
-    console.warn(this.CourseFeedback)
-    if(this.CourseFeedback != undefined || this.CourseFeedback != null){
-      this.txt = "Update";
-      this.text = "Edit Coursefeedback";
-      this.Edit  = true;
-      console.log(this.CourseFeedback)
-    }else {
-      this.txt = "Submit";
-      this.text = "Give Coursefeedback";
-      this.Add = true;
-    }
+    console.log(this.name)
+    this.id = this.router.snapshot.params['courseId'];
+    this.http.get("https://localhost:5001/FeedBack/course/"+`${this.id},${this.auth.getId()}`).subscribe(res=>{
+      if(res){
+        this.CourseFeedback=res;
+        this.Add = false;
+        this.EditFeedback(this.CourseFeedback);
+      }
+    });
+    if(this.Add== true){
+      this.GiveFeedback();
+    } 
   }
   
   OnSubmit() {
-    this.Feedback.courseId = this.CourseId;
+    this.Feedback.courseId = this.id;
     this.Feedback.traineeId = this.auth.getId();
     console.warn(this.Feedback);
-    if (this.CourseFeedback == undefined || this.CourseFeedback == null) {
+    if (this.CourseFeedback == null) {
       this.http.post("https://localhost:5001/FeedBack/course/feedback",this.Feedback).subscribe((res) => {
         console.log(res);
       })
@@ -60,8 +62,25 @@ export class GivecoursefeedbackComponent implements OnInit {
         console.log(res);
       })
     }
-    this.route.navigate(['/CourseView'])
+    this.route.navigate(['/CourseView/'+`${this.id}`])
   }
-
+  EditFeedback(CourseFeedback : any){
+    console.warn(CourseFeedback);
+    if(CourseFeedback != null || CourseFeedback != undefined){
+      this.txt = "Update";
+      this.text = "Edit Coursefeedback";
+      this.Edit  = true;  
+    }
+    else{
+        alert("Non editable");
+    }
+  }
+  GiveFeedback(){
+    if(this.CourseFeedback == null || this.CourseFeedback == undefined){
+      this.txt = "Submit";
+        this.text = "Give Coursefeedback";
+        this.Add = true;
+    }
+  }
 }
 

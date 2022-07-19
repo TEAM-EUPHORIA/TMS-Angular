@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { baseurl } from 'src/app/URL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
+import { CourseService } from '../coursecrud.service';
 
 @Component({
   selector: 'app-coursetrainee',
@@ -11,20 +12,30 @@ import { LoginService } from 'src/app/Login/login.service';
   styleUrls: ['./coursetrainee.component.css']
 })
 export class CoursetraineeComponent implements OnInit {
+  
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService,  private courseService:CourseService) { }
 
   addTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService) { }
+  data: any;
+  course:any;
+  // courseService: any;
   searchText: string = "";
   id : number = 0;
+  Givefeedback: boolean = false;
+  deptId! : number;
   List : boolean = false;
   toDisplay : boolean = false;
   page: number = 1;
   totalLength: any;
+  coursetraineelist:any[]=[];
+  coursetraineelistcopy:any[]=[];
+
+  Feedbacks : any
   
-  traineeId = 3;
+   traineeId = 3;
   toggleData(){
     this.toDisplay = !this.toDisplay;
     //this.AddTrainee();
@@ -100,17 +111,22 @@ export class CoursetraineeComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
-  
-  //   console.log(this.id)
-  //   this.courseId = this.id;
+    this.deptId = this.route.snapshot.params['deptId'];
+    this.courseService.getCourse(this.id).subscribe((res:any) => {
+      console.log(res)
+      this.course = res;
+      this.Givefeedback = (this.course.feedbacks[0] == null)
+      console.warn(this.course);
+    });
     var route = `Course/getCourseUser/${this.id}`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.trainees = res;
       console.warn(this.trainees)
     })
-    route = `User/role/4`
+    route = `User/GetUsersByDepartmentAndRole/${this.deptId},4`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.newTrainees = res
+      console.warn(this.newTrainees)
       this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)))
       this.List = (this.newTrainees.length > 0) ;
     })
@@ -121,20 +137,55 @@ export class CoursetraineeComponent implements OnInit {
      roleId : this.traineeId
     };
     console.log(obje);
-    this.router.navigate(['/GiveTraineeFeedback'], {state : {vid : obje}});
+    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
+    }
 
+    GiveTraineeFeedback(traineeId : number,traineeName : string){
+      this.router.navigate(['GiveTraineeFeedback/'+this.id+'/'+traineeId],{state:{TraineeName : traineeName}});
     }
-    togivetraineefeedback(id : number, name : string){
-      var objec : any ={
-        traineeId : id,
-        courseId : this.id,
-        traineeName : name
+
+    /////                           NEEDS TO BE IMPLEMENTED WELL
+    // GetAllFeedbacks(){
+    //   this.http.get("https://localhost:5001/FeedBack/trainee/"+this.id).subscribe({
+    //     next : (res) => {
+    //       this.Feedbacks = res;
+    //       console.warn(this.Feedbacks);
+    //     }
+    //   })
+    // }
+    
+    private updateCurrentPageAndTotalLength() {
+      this.page = 1;
+      this.totalLength = this.coursetraineelist.length;
+    }
+    filterByName(search: HTMLInputElement) {
+      if (search.value != '') {
+        console.log(this.coursetraineelist)
+        this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.coursetraineelist = this.coursetraineelistcopy
+        this.updateCurrentPageAndTotalLength();
       }
-      // console.warn(objec);
-      this.router.navigate(['/GiveTraineeFeedback'], {state : {rid : objec}})
-    
     }
-    
-  }
+    ToFeedback(){
+      this.router.navigate(['/ViewTraineeFeedback/'+this.id,this.traineeId]);
+    }
+    ToAddFeedback(){
+    var cId : any;
+    cId = this.id;
+      this.router.navigate(['/GiveTraineeFeedback/'+this.id]); 
+    }
+    getTraineeFeedbackById(){
+      this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
+        this.data = res
+        console.warn(this.data);
+      })
+    }
+    user(){
+      
+    }
+
+}
 
 

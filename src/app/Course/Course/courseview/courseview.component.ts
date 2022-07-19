@@ -23,29 +23,23 @@ export class CourseviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.CourseInit();
-    this.Givefeedback = (this.Course.feedbacks[0] == null)
   }
   CourseInit(){
     this.courseId = this.route.snapshot.params['courseId'];
     this.courseService.getCourse(this.courseId).subscribe(res => {
       this.Course = res;
+      this.Givefeedback = (this.Course.feedbacks[0] == null)
+      console.warn(this.Course);
     });
   }
   ToTopicView(id : any){
-    var topicobj : any = {
-      courseId : this.Course.id,
-      topicId : id,
-      trainerId : this.Course.trainer.id
-    };
-    this.router.navigate(['/TopicView/'+this.Course.id+`/`+id]);
+    this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id]);
   }
-  ToFeedback(){
-    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id]);
+  ToViewFeedback(){
+    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id+`/`+this.auth.getId()],{state : { courseName : this.Course.name}});
   }
   ToAddFeedback(){
-  var cId : any;
-  cId = this.Course.id;
-    this.router.navigate(['/GiveCourseFeedback'],{state : {cid : cId}}); 
+    this.router.navigate(['/GiveCourseFeedback/'+this.Course.id],{state : { courseName : this.Course.name}}); 
   }
   ToViewTraineeList(){
     var obj = {
@@ -54,15 +48,21 @@ export class CourseviewComponent implements OnInit {
      feedbacks : this.Course.traineeFeedbacks
     };
     this.router.navigate(['/ViewTraineeList'], {state : {vid : obj}});
-
     }
   DisableTopic(courseId : number,topicId : number){
-
+    this.courseService.disableTopic(courseId,topicId).subscribe(() =>this.CourseInit());
   }
 
   ToTopic(courseId : number ,topicId :number){
-    
     this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId]);
+  }
+  myfunction (id : number, topicId : number){
+    let text = "Are you sure you want to disable the Topic";
+    if (confirm(text) == true) {
+      this.DisableTopic(id,topicId)
+    } else {
+      text = "You canceled!";
+  }
   }
 
 }

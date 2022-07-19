@@ -4,20 +4,24 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item active">Department List</li>
+                <li class="breadcrumb-item active">Attendance List</li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">Attendance List</h3>
+            <div class="col-md-6" id="hov">
+                <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
+            </div>
+            
             <div class="header" id="style">
                 <div class="container">
-                    <!-- <div class="col-md-6" id="hov"><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
+                    <!-- <div class="col-md-6" ><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
                 </div>
             </div>
-            <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 6, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
-                        <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
                             <div class="col-2"><p class="mb-0 text-dark"><b>Name : </b>{{item.owner.fullName}}</p></div>
                             <div class="col-2"><p class="mb-0 text-dark"><b>Email : </b>{{item.owner.email}}</p></div>
                             <div class="col-2">
@@ -29,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+        <div class="mt-5"><pagination-controls *ngIf="data .length > 4" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>

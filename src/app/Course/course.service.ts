@@ -26,7 +26,13 @@ getAllCourses(): Observable<any> {
 getCoursesByUserId(id: number): Observable<any> {
   return this.http.get<any>(this.baseurl + `users/${id}`);
 }
-disableCourse(id: number): Observable<any> {
-  return this.http.delete<any>(this.baseurl + `disable/${id}`)
+disableCourse(id: number ): Observable<any> {
+  return this.http.delete<any>(this.baseurl +  `disable/${id}`)
+}
+disableTopic(id: number ,topicId: number): Observable<any> {
+  return this.http.delete<any>(this.baseurl + `${id}/topics/disable/${topicId}`)
+}
+getTopicByCourseId(id : number) : Observable<any> {
+  return this.http.get<any>(this.baseurl + `${id}/topics`)
 }
 }
