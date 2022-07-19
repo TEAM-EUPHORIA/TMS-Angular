@@ -18,7 +18,7 @@
                     <!-- <div class="col-md-6" ><app-search (SearchtextChanged)="SearchActive($event)"></app-search></div> -->
                 </div>
             </div>
-            <div *ngFor="let item of attendancelist | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of data | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+        <div class="mt-5"><pagination-controls *ngIf="data .length > 4" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
 </div>
