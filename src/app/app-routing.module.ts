@@ -25,104 +25,99 @@ import { ViewmomComponent } from './Review/MOM/viewmom/viewmom.component';
 import { GivemomComponent } from './Review/MOM/givemom/givemom.component';
 import { UploadassignmentComponent } from './Course/Assignment/uploadassignment/uploadassignment.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
+import { MasterGuard } from './Login/Guards/master.guard';
+import { HeadGuard } from './Login/Guards/head.guard';
+import { CoordinatorGuard } from './Login/Guards/coordinator.guard';
+import { ReviewerGuard } from './Login/Guards/reviewer.guard';
+import { TraineeGuard } from './Login/Guards/trainee.guard';
+import { TrainerGuard } from './Login/Guards/trainer.guard';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo:'Home',pathMatch:'full' },
+  { path: '', redirectTo: 'Home', pathMatch: 'full' },
   { path: 'Home', component: HomeComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
   { path: 'Profile', component: UserprofileComponent },
-  
+
   ///         <User>
   //User profile dynamic
-  { path: ':list/Profile/:id', component: UserprofileComponent },
+  { path: ':list/Profile/:id', component: UserprofileComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
   //User List Routing link
-  { path: 'Co-Ordinator', component: UserlistComponent },
-  { path: 'Trainer', component: UserlistComponent },
-  { path: 'Trainee', component: UserlistComponent },
-  { path: 'Reviewer', component: UserlistComponent },
+  { path: 'Co-Ordinator', component: UserlistComponent, canActivate: [HeadGuard] },
+  { path: 'Trainer', component: UserlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
+  { path: 'Trainee', component: UserlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
+  { path: 'Reviewer', component: UserlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
 
-  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent, canActivate: [CoordinatorGuard] },
 
-
-  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
-  { path: 'Update-Trainer/:id', component: UsercrudComponent },
-  { path: 'Update-Trainee/:id', component: UsercrudComponent },
-  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
-
-  { path: 'Add-Co-Ordinator', component: UsercrudComponent },
-  { path: 'Add-Trainer', component: UsercrudComponent },
-  { path: 'Add-Trainee', component: UsercrudComponent },
-  { path: 'Add-Reviewer', component: UsercrudComponent },
+  { path: 'Add-Co-Ordinator', component: UsercrudComponent, canActivate: [HeadGuard] },
+  { path: 'Add-Trainer', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Add-Trainee', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Add-Reviewer', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
   //Update User Routing link
-  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
-  { path: 'Update-Trainer/:id', component: UsercrudComponent },
-  { path: 'Update-Trainee/:id', component: UsercrudComponent },
-  { path: 'Update-Reviewer/:id', component: UsercrudComponent },
+  { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent, canActivate: [HeadGuard] },
+  { path: 'Update-Trainer/:id', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Update-Trainee/:id', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Update-Reviewer/:id', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
   //Department routing 
-  { path: 'DepartmentList', component: DepartmentlistComponent },
-  { path: 'CourseView/:courseId', component: CourseviewComponent },
-  { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent },
-  { path: 'AddTopic/:courseId', component: TopiccrudComponent },
-  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
-  { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
-  { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
-  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent },
-  { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent },
-  { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent },
-  { path: 'Attendance', component: AttendancelistComponent },
+  { path: 'DepartmentList', component: DepartmentlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
+  { path: 'AddDepartment', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'CourseView/:courseId', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
+  { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
+  { path: 'AddTopic/:courseId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
 
-  { path: 'AddDepartment', component: DepartmentcrudComponent },
-  { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent },
   ///         <User>
+  { path: 'Attendance', component: AttendancelistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
 
   ///       <Course>
   //Courses Routing Link
-  { path: 'CourseList', component: CourselistComponent },
-  { path: 'CourseView', component: CourseviewComponent },
-  { path: 'CourseView/:courseId', component: CourseviewComponent },
-  { path: 'AddCourse', component: CoursecrudComponent },
-  { path: 'EditCourse/:courseId', component: CoursecrudComponent },
-  { path: 'CourseView/:courseId', component: CourseviewComponent },
-  { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent },
-  
+  { path: 'CourseList', component: CourselistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
+  { path: 'CourseView', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
+  { path: 'CourseView/:courseId', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
+  { path: 'AddCourse', component: CoursecrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'EditCourse/:courseId', component: CoursecrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
+
   //Topic Routing Link
-  { path: 'AddTopic/:courseId', component: TopiccrudComponent },
-  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent },
+  { path: 'AddTopic/:courseId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
   //Assignments Routing Link
-  { path: 'UploadAssignment', component: UploadassignmentComponent },
-  { path: 'ViewAssignment', component: ViewassignmentComponent},
+  { path: 'UploadAssignment', component: UploadassignmentComponent, canActivate: [MasterGuard], data: { guard: [TrainerGuard, TraineeGuard] } },
+  { path: 'ViewAssignment', component: ViewassignmentComponent },
   //Attendance Routing Link
-  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent },
+  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [CoordinatorGuard] },
   //Assigning course to Trainee
-  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent },
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [CoordinatorGuard] },
   // CourseFeedback Routing Link
-  { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent },
-  { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent },
-  { path: 'ViewCourseFeedback/:courseId/:traineeId', component: ViewcoursefeedbackComponent },
+  { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
+  { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
+  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
   ///           <Course>
   //TraineeFeedback Routing Link
-  { path: 'GiveTraineeFeedback/:courseId/:traineeId', component: GivetraineefeedbackComponent },
-  { path: 'EditTraineeFeedback/:courseId/:traineeId/:trainerId', component: GivetraineefeedbackComponent },
+  { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent, canActivate: [TrainerGuard] },
+  { path: 'ViewTraineeFeedback/:courseId', component: ViewtraineefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
+  { path: 'EditTraineeFeedback/:courseId/:traineeId/:trainerId', component: GivetraineefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'ViewTraineeFeedback/:courseId/:traineeId/:trainerId', component: ViewtraineefeedbackComponent },
 
   ///           <Reviews>
   //Review List routes
+  { path: 'Upcoming-Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, ReviewerGuard] } },
   { path: 'Upcoming-Review', component: ReviewlistComponent },
-  { path: 'Completed-Review', component: ReviewlistComponent },
+  { path: 'Completed-Review', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   //Schedule Review and edit review routing link
-  { path: 'ScheduleReview', component: ReviewcrudComponent },
-  { path: 'ScheduleReview/:id', component: ReviewcrudComponent },
+  { path: 'ScheduleReview', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'ScheduleReview/:id', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   //MoM upload and update Routing Link
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent },
-  { path: 'UploadMOM/:reviewId', component: GivemomComponent },
-  { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent },
+  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [ReviewerGuard, TraineeGuard] } },
+  { path: 'UploadMOM/:reviewId', component: GivemomComponent, canActivate: [TraineeGuard] },
+  { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent, canActivate: [TraineeGuard] },
   ///           <Reviews>
-  { path: 'Home', component: HomeComponent},
-  
+  { path: 'Home', component: HomeComponent },
+
 ]
 
 @NgModule({
