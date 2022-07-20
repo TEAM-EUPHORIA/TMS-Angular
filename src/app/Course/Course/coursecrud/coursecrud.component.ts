@@ -40,7 +40,7 @@ export class CoursecrudComponent implements OnInit {
   }
 
   courseform = new FormGroup({
-    coursename: new FormControl(['',
+    cname: new FormControl(['',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
@@ -67,13 +67,21 @@ export class CoursecrudComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDepartment();
     this.getUserByRole();
-    console.warn(this.course.id);
-    if(this.course != undefined || this.course != null){
+    // console.warn(this.course.id);
+    this.courseId = this.router.snapshot.params["courseId"]
+    this.cs.grtCourseByCourseId(this.courseId).subscribe({
+      next:(res:any)=>{
+        this.Course = res;
+        console.log(res.to)
+      },
+      error:(err:any)=>{
+        console.warn(err)
+      }
+    })
+    if(this.Course != undefined){
       this.Title = "Update"
-      this.Editable = true;
+      // this.Editable = true;
      }
-    this.courseId = this.course.id;
-    console.log(this.courseId);
   
   }
   OnSubmit() {
@@ -82,7 +90,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.putcourse(this.course).subscribe({
         next: (res: any) => {
           window.location.replace("CourseList")
-          this.toastService.success("The User was created successfully.")
+          this.toastService.success("The Course was updated successfully.")
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -93,7 +101,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.postcourse(this.Course).subscribe({
         next: (res: any) => {
           window.location.replace("CourseList")
-          this.toastService.success("The User was updated successfully.")
+          this.toastService.success("The Course was created successfully.")
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -111,7 +119,7 @@ export class CoursecrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.courseform.controls['coursename'].getError('serverError'));
+        console.warn(this.courseform.controls['cname'].getError('serverError'));
       }
     });
   }

@@ -12,7 +12,7 @@
             <div class="header" id="style">
                 <div *ngIf="Editable === true"><a routerLink="/AddDepartment"> <button type="button" class="btn btn-dark pe-4 px-4 hover">Add</button></a></div>
                 <div class="container">
-                    <div class="col-md-6" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)"></div>
+                    <div class="col-md-6" id="hov"><input #search class="form-control hover" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)" autofocus></div>
                 </div>
             </div>
             <div *ngFor="let item of departmentlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="departmentlist.length >4" class="mt-5">
+    <div *ngIf="departmentlist.length > 5" class="mt-5">
         <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
     </div>
     <app-footer></app-footer>

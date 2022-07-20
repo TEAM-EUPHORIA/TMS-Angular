@@ -15,7 +15,7 @@
                 <ng-template #adduser><h3>Assign Trainees</h3></ng-template>    
         
             <div class="col-md-10 d-flex">
-                <input #search type="search" placeholder="Search text" class="form-control search-wrapper"[(ngModel)]="searchText">
+                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper"[(ngModel)]="searchText">
                 <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
             </div>
             <br>
@@ -36,13 +36,14 @@
                             <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)"/></div>
                          </div>
                     </ng-template>        
+                    <div class="text-left"><div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div></div>
                 </div>
                     <br>
-                <div class="text-left"><div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div></div>
                 <ng-template #elseblock><h5 class="text-center">No Data Found</h5></ng-template>
             </div>
             
             <div *ngIf="!toDisplay" >
+                <div>
                 <div *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
@@ -65,14 +66,15 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="trainees.length > 4" class="mt-5">
-                    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
-                </div>
-                <div *ngIf="trainees.length == 0"><h5 class="text-center">No Data Found</h5></div>
             </div>
-            <div class="text-left"><div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="auth.IsCoordinator" (click)="Save()">Remove</div></div>
+            <div *ngIf="trainees.length > 4" class="mt-5">
+                <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+            </div>
+            <div class="text-left" *ngIf="auth.IsCoordinator"><div class="btn btn-dark pe-4 px-4 mt-5" *ngIf="trainees.length != 0" (click)="Save()">Remove</div></div>
+            </div>
             <br>
             <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
+            <div *ngIf="trainees.length == 0"><h5 class="text-center">No Data Found</h5></div>
         </div>
         
     </div>

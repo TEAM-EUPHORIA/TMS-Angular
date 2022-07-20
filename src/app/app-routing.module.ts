@@ -45,7 +45,6 @@ const routes: Routes = [
   { path: 'Reviewer', component: UserlistComponent },
 
   { path: 'AssignCourse/:courseId', component: CoursetraineeComponent },
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent },
 
 
   { path: 'Update-Co-Ordinator/:id', component: UsercrudComponent },
@@ -111,7 +110,8 @@ const routes: Routes = [
 
   ///           <Reviews>
   //Review List routes
-  { path: 'Upcoming-Review', component: ReviewlistComponent },
+  { path: 'Reviews', component: ReviewlistComponent },
+  { path: 'Scheduled-Reviews', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent },

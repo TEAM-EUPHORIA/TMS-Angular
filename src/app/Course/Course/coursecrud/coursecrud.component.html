@@ -13,16 +13,16 @@
             <form [formGroup]="courseform" action="" #ngForm (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
                     <div class="form-floating mb-4">
-                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="coursename" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
-                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="course.name" formControlName="coursename" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
+                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="cname" [(ngModel)]="Course.name" formControlName="cname" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
+                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="cname" [(ngModel)]="course.name" formControlName="cname" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
                         <label for="floatingText">Course Name*</label>
-                        <div *ngIf="courseform.controls['coursename'].invalid && (courseform.controls['coursename'].dirty || courseform.controls['coursename'].touched)" class="alert alert-danger">
-                            <div *ngIf="courseform.controls['coursename'].errors?.['required']">Course name is required.</div>
-                            <div *ngIf="courseform.controls['coursename'].errors?.['minlength']">Name must be at least 4 characters long.</div>
-                            <div *ngIf="courseform.controls['coursename'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
-                            <div *ngIf="courseform.controls['coursename'].errors?.['serverError']">
-                                {{this.courseform.controls['coursename'].getError('serverError')}}</div>
-                            <div *ngIf="courseform.controls['coursename'].invalid || courseform.controls['coursename'].errors?.['maxlength']">Please enter a valid Course name</div>
+                        <div *ngIf="courseform.controls['cname'].invalid && (courseform.controls['cname'].dirty || courseform.controls['cname'].touched)" class="alert alert-danger">
+                            <div *ngIf="courseform.controls['cname'].errors?.['required']">Course name is required.</div>
+                            <div *ngIf="courseform.controls['cname'].errors?.['minlength']">Name must be at least 4 characters long.</div>
+                            <div *ngIf="courseform.controls['cname'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
+                            <div *ngIf="courseform.controls['cname'].errors?.['serverError']">
+                                {{this.courseform.controls['cname'].getError('serverError')}}</div>
+                            <div *ngIf="courseform.controls['cname'].invalid || courseform.controls['cname'].errors?.['maxlength']">Please enter a valid Course name</div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">

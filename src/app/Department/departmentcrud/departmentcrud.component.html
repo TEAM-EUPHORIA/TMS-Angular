@@ -12,15 +12,15 @@
             <form [formGroup]="deptform" action="" #ngForm (ngSubmit)="OnSubmit()">
                 <h3 class="text-black pb-2">{{Title}} Department</h3>
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name" formControlName="dept" maxlength="24" pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)" required>
+                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name" formControlName="name" maxlength="24" pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)" required>
                     <label for="floatingText">Department</label>
-                    <div *ngIf="deptform.controls['dept'].invalid && (deptform.controls['dept'].dirty || deptform.controls['dept'].touched)" class="alert alert-danger">
-                        <div *ngIf="deptform.controls['dept'].errors?.['required']">dept' is required.</div>
-                        <div *ngIf="deptform.controls['dept'].errors?.['minlength']">dept' must be at least 4 characters long.</div>
-                        <div *ngIf="deptform.controls['dept'].errors?.['maxlength']">dept' don't exceed 15 characters long.</div>
-                        <div *ngIf="deptform.controls['dept'].errors?.['serverError']">
-                            {{this.deptform.controls['dept'].getError('serverError')}}</div>
-                        <div *ngIf="deptform.controls['dept'].invalid || deptform.controls['dept'].errors?.['maxlength']">Please enter a valid dept'</div>
+                    <div *ngIf="deptform.controls['name'].invalid && (deptform.controls['name'].dirty || deptform.controls['name'].touched)" class="alert alert-danger">
+                        <div *ngIf="deptform.controls['name'].errors?.['required']">Name is required.</div>
+                        <div *ngIf="deptform.controls['name'].errors?.['minlength']">Name must be at least 3 characters long.</div>
+                        <div *ngIf="deptform.controls['name'].errors?.['maxlength']">Name don't exceed 15 characters long.</div>
+                        <div *ngIf="deptform.controls['name'].errors?.['serverError']">
+                            {{this.deptform.controls['name'].getError('serverError')}}</div>
+                        <div *ngIf="deptform.controls['name'].invalid || deptform.controls['name'].errors?.['maxlength']">Please enter a valid name</div>
                     </div>
                 </div>
                 <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4 hover">{{title}}</button></a>
