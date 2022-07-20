@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { css } from 'jquery';
+import { CourseService } from '../../Course/coursecrud.service';
 // import { Console } from 'console';
 
 @Component({
@@ -20,25 +22,27 @@ export class AttendancelistComponent implements OnInit {
   attendance:any[]=[];
   attendancelist:any[]=[];
   attendancelistcopy:any[]=[];
-  constructor(private route : ActivatedRoute, private http : HttpClient,private router : Router) { this.obj = this.router.getCurrentNavigation()?.extras.state?.['aid']};
-  
+    
+    constructor(private route : ActivatedRoute, private http : HttpClient,private router : Router,private cs:CourseService) { this.obj = this.router.getCurrentNavigation()?.extras.state?.['aid']};
+    course :any = {}
   obj : any;
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
     this.getAttendanceList(this.courseId,this.topicId);
+    this.course = this.cs.course;
+    console.log(this.course)
   }
   
 
   getAttendanceList(courseId : number,topicId: number){
     this.http.get("https://localhost:5001/Course/getAttendance?courseId="+`${this.courseId}`+"&topicId="+`${this.topicId}`).subscribe(res => {
       console.log(res)
-     
+     this.data = res
     })
   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
-    this.totalLength = this.attendancelist.length;
   }
   filterByName(search: HTMLInputElement) {
     const dropdown = document.getElementById("departmentId")! as HTMLSelectElement

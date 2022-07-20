@@ -4,6 +4,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../course.service';
 import { LoginService } from 'src/app/Login/login.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 @Component({
@@ -13,20 +14,20 @@ import { LoginService } from 'src/app/Login/login.service';
 })
 export class CoursecrudComponent implements OnInit {
 
- Traineeid !: number;
+  Traineeid !: number;
 
-  
-  constructor( private route: Router, private cs: CourseService,
-    private routing: Router, private router: ActivatedRoute, private http : HttpClient,
-    private auth: LoginService ) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
-  
+
+  constructor(private route: Router, private cs: CourseService,
+    private routing: Router, private router: ActivatedRoute, private http: HttpClient,
+    private auth: LoginService,private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
+
   data: any;
   dept: any;
   Title: string = "Add";
-  course! : any;
-  courseId! : number;
-  Editable : boolean = false;
-  TrainerId ='';
+  course!: any;
+  courseId!: number;
+  Editable: boolean = false;
+  TrainerId = '';
   Course: any = {
     id: 0,
     statusId: 1,
@@ -65,30 +66,60 @@ export class CoursecrudComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDepartment();
     this.getUserByRole();
-    console.warn(this.course.id);
-    if(this.course != undefined || this.course != null){
+    // console.warn(this.course.id);
+    this.courseId = this.router.snapshot.params["courseId"]
+    this.cs.getCourseByCourseId().subscribe({
+      next: (res: any) => {
+        this.Course = res;
+        console.log(res);
+      },
+      error: (err: any) => {
+        console.warn(err)
+      }
+    })
+    if (this.courseId != undefined) {
+      console.warn(this.Course);
       this.Title = "Update"
-      this.Editable = true;
-     }
-    this.courseId = this.course.id;
-    console.log(this.courseId);
-  
+      // this.Editable = true;
+    }
+
   }
   OnSubmit() {
-    if (this.course != undefined || this.course != null) {
-      this.course.trainerId = this.TrainerId;
-      this.cs.putcourse(this.course).subscribe((res) => {
+    console.warn(this.course);
+    if (this.courseId != undefined || this.courseId != null) {
+      // this.course.trainerId = this.TrainerId;
+      this.cs.putcourse(this.Course).subscribe((res) => {
       })
     }
     else {
-      this.cs.postcourse(this.Course).subscribe((res) => {
+      this.cs.postcourse(this.Course).subscribe({
+        next: (res: any) => {
+          window.location.replace("/CourseList")
+          this.toastService.success("The User was created successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
-    window.location.replace("/CourseList");
+    // window.location.replace("/CourseList");
+  }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      const formControl = this.courseform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.courseform.controls['coursename'].getError('serverError'));
+      }
+    });
   }
 
   getUserByRole() {
-    this.http.get("https://localhost:5001/User/role/"+`${3}`).subscribe((res) => {
+    this.http.get("https://localhost:5001/User/role/" + `${3}`).subscribe((res) => {
       this.data = res
       console.log(res)
     });
@@ -99,7 +130,7 @@ export class CoursecrudComponent implements OnInit {
       console.log(this.dept)
     })
   }
-  getCourseById(){
+  getCourseById() {
     this.http.get("https://localhost:5001/Course/").subscribe(res => {
       this.Course = res;
     })

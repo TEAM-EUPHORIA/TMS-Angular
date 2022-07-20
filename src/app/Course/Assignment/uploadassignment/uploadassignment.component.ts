@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./uploadassignment.component.css']
 })
 export class UploadassignmentComponent {
-  fileName = 'No File Choosen'
+  fileName = 'Upload Assignment'
   constructor() 
   { }
 

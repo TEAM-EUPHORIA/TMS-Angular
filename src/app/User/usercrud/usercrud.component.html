@@ -4,7 +4,6 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item"><a routerLink="/Co-Ordinator">Co-Ordinator List</a></li>
                 <li class="breadcrumb-item ">{{pageTitle}}</li>
             </ol>
         </nav>
@@ -44,7 +43,8 @@
                     </div>
                 </div>
                 <div class="form-floating mb-4" *ngIf="pageAction === 'Add'">
-                    <input type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password" required>
+                    <input *ngIf="!edit" type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password" required>
+                    <input *ngIf="edit" type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password">
                     <label for="floatingPassword">Password*</label>
                     <div *ngIf="userform.controls['password'].invalid && (userform.controls['password'].dirty || userform.controls['password'].touched)" class="alert alert-danger">
                         <div *ngIf="userform.controls['password'].errors?.['required']">Password is required.</div>

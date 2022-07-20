@@ -1,5 +1,3 @@
-
-
 <div class="content">
     <app-sidebar></app-sidebar>
     <div class="pt-4 px-4">
@@ -16,8 +14,12 @@
                     <div class="col-m-6">
                         <a routerLink="/Profile" class="nav-item nav-link" id="boxshadow">
                             <div class="p-4 bg-light d-flex justify-content-between border hover rounded border">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile" alt="image">
+                                <div class="ms-3">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -46,7 +48,7 @@
                     <div class="col-md-6">
                         <a routerLink="/Trainer" class="nav-item nav-link active rounded" id="boxshadow">
                             <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
-                                 <i class="fa fa-male text-dark fs-3 mx-4" aria-hidden="true"></i>
+                                <i class="fa fa-male text-dark fs-3 mx-4" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Trainer</h4>
                                 <h3 class="mb-0 mx-4">{{data.trainersCount}}</h3>
                             </div>
@@ -82,8 +84,12 @@
                     <div class="col-m-6">
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile mx-4" alt="image">
-                                <div class="mx-4"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile mx-4" alt="image">
+                                <div class="mx-4">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -143,9 +149,23 @@
                 </div>
             </div>
         </div>
-         <!-- Trainer Dashboard -->
-         <div *ngIf="ls.IsTrainer">
+        <!-- Trainer Dashboard -->
+        <div *ngIf="ls.IsTrainer">
             <div class="container-fluid px-2">
+                <div class="row g-1">
+                    <div class="col-m-6">
+                        <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
+                            <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile mx-4" alt="image">
+                                <div class="mx-4">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
                         <a routerLink="/CourseList" class="nav-item nav-link active">
@@ -156,27 +176,29 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <a routerLink="/ReviewList/1" class="nav-item nav-link active">
-                            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div
+                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <i class="fa fa-book text-dark fs-3 mx-4" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Completed Course</h4>
                                 <h3 class="mb-0 mx-4">{{data.completedCourseCount}}</h3>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="row g-3 my-2">
+                <!-- <div class="row g-3 my-2">
                     <div class="col-md-6">
                         <a routerLink="Completed-Reviews" class="nav-item nav-link active">
-                            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div
+                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <i class="fa fa-male text-dark mx-4 fs-3" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Progress Course</h4>
                                 <h3 class="mb-0 mx-4">{{data.inProgressCourseCount}}</h3>
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- Trainee Dashboard -->
@@ -186,8 +208,12 @@
                     <div class="col-m-6">
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile" alt="image">
+                                <div class="ms-3">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -203,7 +229,7 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a routerLink="/Upcoming-Review" class="nav-item nav-link active">
+                        <a routerLink="/Reviews" class="nav-item nav-link active">
                             <div class="p-4 bg-light d-flex justify-content-between border  hover rounded">
                                 <i class="fa fa-book text-dark fs-3 mx-4" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Reviews</h4>
@@ -233,15 +259,19 @@
                     <div class="col-m-6">
                         <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
                             <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
-                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)" class="img-fluid rounded-start Dprofile" alt="image">
-                                <div class="ms-3"><h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4><h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4></div>
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile" alt="image">
+                                <div class="ms-3">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
-                        <a routerLink="/Upcoming-Review" class="nav-item nav-link active">
+                        <a routerLink="/Reviews" class="nav-item nav-link active">
                             <div class="p-4 bg-light d-flex justify-content-between border  hover rounded">
                                 <i class="fa fa-book text-dark fs-3 mx-4" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Reviews</h4>

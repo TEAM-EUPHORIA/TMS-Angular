@@ -68,7 +68,6 @@ export class UsercrudComponent implements OnInit {
     if (this.user.id != undefined) {
       this.userService.getUsersById(this.user.id).subscribe(res => {
         this.user = res;
-        console.log(this.user)
         this.user.base64 = this.user.base64 + "," + this.user.image;
         this.edit = true
         this.option = 'replace image'

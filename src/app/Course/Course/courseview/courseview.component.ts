@@ -26,14 +26,22 @@ export class CourseviewComponent implements OnInit {
   }
   CourseInit(){
     this.courseId = this.route.snapshot.params['courseId'];
-    this.courseService.getCourse(this.courseId).subscribe(res => {
-      this.Course = res;
-      this.Givefeedback = (this.Course.feedbacks[0] == null)
-      console.warn(this.Course);
+    this.courseService.getCourse(this.courseId).subscribe({
+      next:(res:any) => {
+
+        this.Course = res;
+        this.courseService.course = res;
+        this.Givefeedback = (this.Course.feedbacks[0] == null)
+        console.warn(this.Course);
+        console.warn(this.Course.name);
+      },
+      error:(err:any)=>{
+        window.location.replace("/")
+      }
     });
   }
   ToTopicView(id : any){
-    this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id]);
+    this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id],{state : { courseName : this.Course.name}});
   }
   ToViewFeedback(){
     this.router.navigate(['/ViewCourseFeedback/'+this.Course.id+`/`+this.auth.getId()],{state : { courseName : this.Course.name}});
@@ -54,12 +62,12 @@ export class CourseviewComponent implements OnInit {
   }
 
   ToTopic(courseId : number ,topicId :number){
-    this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId]);
+    this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId],{state : { CourseName :  this.Course.name}});
   }
   myfunction (id : number, topicId : number){
     let text = "Are you sure you want to disable the Topic";
     if (confirm(text) == true) {
-      this.DisableTopic(id,topicId)
+      this.DisableTopic(this.courseId,topicId)
     } else {
       text = "You canceled!";
   }

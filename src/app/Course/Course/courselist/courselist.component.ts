@@ -41,10 +41,10 @@ export class CourselistComponent implements OnInit {
       this.add = true;
     }
     else if (this.auth.getRoleId() == this.TrainerId) {
-      this.getCoursesByUserId(this.auth.getId())
+      this.getCoursebyToken(this.auth.getId())
     }
     else if(this.auth.getRoleId() == this.TraineeId){
-      this.getCoursesByUserId(this.auth.getId())
+      this.getCoursebyToken(this.auth.getId())
     }
     this.GetallDepartment();
   }
@@ -64,9 +64,9 @@ export class CourselistComponent implements OnInit {
   }
   }
   //returns list of courses assigned to the particular user
-  getCoursesByUserId(id: number) {
+  getCoursebyToken(id: number) {
     console.warn(id)
-    this.CourseService.getCoursesByUserId(id).subscribe(res => {
+    this.CourseService.getCourseByCourseId().subscribe(res => {
       this.courselist = res;
       this.courselistcopy = res
     })
@@ -85,17 +85,18 @@ export class CourselistComponent implements OnInit {
   ToCourseView(id : number){
     this.route.navigate(['/CourseView/'+id]);
   }
-  ToEditCourse(obj : any){
-    var course : any;
-    course = obj;
-    this.route.navigate(['/EditCourse/'+course], { state: { course :course }})
-  }
+  // ToEditCourse(obj : any){
+  //   var course : any;
+  //   course = obj;
+  //   this.route.navigate(['/EditCourse/'+course], { state: { course :course }})
+  // }
   
   GetallDepartment() {
     this.http.get("https://localhost:5001/Department/departments").subscribe(res =>{
       this.dept = res;
     })
   }
+
   filterByDepartment(item: HTMLSelectElement,) {
     if (item.value != '') {
       this.courselist = this.courselistcopy.filter(u => u.departmentId == item.value)
@@ -109,20 +110,46 @@ export class CourselistComponent implements OnInit {
     this.page = 1;
     this.totalLength = this.courselist.length;
   }
+  // filterByName(search: HTMLInputElement) {
+  //   const dropdown = document.getElementById("hello")! as HTMLSelectElement 
+  //   console.log(dropdown)
+  //   if(dropdown != null)dropdown.value = ""
+  //   if (search.value != '') {
+  //     console.log(this.courselist)
+  //     this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
+  //     this.updateCurrentPageAndTotalLength();
+  //   } else {
+  //     this.courselist = this.courselistcopy
+  //     this.updateCurrentPageAndTotalLength();
+  //     dropdown.disabled = false
+  //   }
+  // }
   filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("hello")! as HTMLSelectElement 
-    console.log(dropdown)
-    if(dropdown != null )dropdown.value = ""
-    if (search.value != '') {
-      console.log(this.courselist)
-      this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
-      this.updateCurrentPageAndTotalLength();
-    } else {
-      this.courselist = this.courselistcopy
-      this.updateCurrentPageAndTotalLength();
-      dropdown.disabled = false
+    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
+    if(this.auth.IsCoordinator)
+    {
+      if (search.value != '') {
+        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else if (search.value != null && dropdown.value != '') {
+        if (dropdown != null) this.courselistcopy = this.courselistcopy.filter((course: any) => course.departmentId == dropdown.value)
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.courselist = this.courselistcopy
+      }
+    }
+    else(this.auth.IsloggedIn)
+    {
+      if (search.value != '') {
+        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
+        this.updateCurrentPageAndTotalLength();
+      } else if (search.value != null) {
+        if (dropdown != null) this.courselistcopy = this.courselistcopy.filter((course: any) => course.departmentId == dropdown.value)
+        this.updateCurrentPageAndTotalLength();
+      } else {
+        this.courselist = this.courselistcopy
+      }
     }
   }
-
 }
 

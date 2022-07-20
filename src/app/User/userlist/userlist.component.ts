@@ -17,7 +17,7 @@ export class UserlistComponent implements OnInit {
   title: any;
   searchuser = '';
   _dept = ''
-  data:any
+  data: any
   showDept = false;
   dpt = false
   dept: any[] = [];
@@ -26,18 +26,18 @@ export class UserlistComponent implements OnInit {
   edit = false
   page: number = 1;
   totalLength: any;
-  roleId : any ;
+  roleId: any;
   disableUser(id: any) {
     console.warn(id)
     this.userservice.disableUser(id).subscribe(res => {
-      this.data =res
+      this.data = res
       console.log(res)
     })
     this.showToast();
     window.location.reload();
   }
   ngOnInit(): void {
-    
+
 
     this.title = this.router.url.slice(1)
     this.dpt = this.title != 'Co-Ordinator'
@@ -84,17 +84,17 @@ export class UserlistComponent implements OnInit {
   showToast() {
     this.ts.error('Disabled')
   }
-  myfunction (id : number){
+  myfunction(id: number) {
     let text = "Are you sure you want to disable the user";
     if (confirm(text) == true) {
       this.disableUser(id)
     } else {
       text = "You canceled!";
-  }
+    }
   }
   filterByDepartment(item: HTMLSelectElement,) {
     if (item.value != '') {
-      this.users = this.usersCopy.filter(u => u.departmentId == item.value)
+      this.users = this.users.filter(u => (u.departmentId == item.value && u.departmentId == item.value))
       this.updateCurrentPageAndTotalLength();
     } else {
       this.users = this.usersCopy
@@ -106,15 +106,15 @@ export class UserlistComponent implements OnInit {
     this.totalLength = this.users.length;
   }
   filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement 
-    dropdown.value = ""
+    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
     if (search.value != '') {
-      this.users = this.usersCopy.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()))
+      this.users = this.users.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else if (search.value != null && dropdown.value != '') {
+      if (dropdown != null) this.users = this.usersCopy.filter((user: any) => user.departmentId == dropdown.value)
       this.updateCurrentPageAndTotalLength();
     } else {
       this.users = this.usersCopy
-      this.updateCurrentPageAndTotalLength();
-      dropdown.disabled = false
     }
   }
 }

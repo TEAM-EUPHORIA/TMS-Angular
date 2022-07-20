@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observer } from 'rxjs';
 import { DepartmentService } from 'src/app/Department/department.service';
+import { LoginService } from 'src/app/Login/login.service';
 import { UserService } from 'src/app/User/user.service';
 import { ReviewService } from '../../review.service';
 
@@ -26,7 +27,7 @@ export class ReviewcrudComponent implements OnInit {
   Department !: string;
   Title !: string;
 
-  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe) { }
+  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe,private auth:LoginService) { }
 
   StatusId = 1;
 
@@ -89,10 +90,15 @@ export class ReviewcrudComponent implements OnInit {
   }
 
   OnSubmit() {
-    navigateToListPage('/Upcoming-Reviews');
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe({
         next: (res: any) => {
+          if(this.auth.IsCoordinator)
+          {
+            navigateToListPage('/Scheduled-Reviews');
+          }else{
+            navigateToListPage('/Reviews');
+          }
         },
         error(err) {
           console.warn(err["error"])
@@ -104,8 +110,12 @@ export class ReviewcrudComponent implements OnInit {
       console.log(this.Review) // to be removed
       this.review.postReview(this.Review).subscribe({
         next: (res: any) => {
-          navigateToListPage("/Upcoming-Review");
-          console.warn(res)
+          if(this.auth.IsCoordinator)
+          {
+            navigateToListPage('/Scheduled-Reviews');
+          }else{
+            navigateToListPage('/Reviews');
+          }
         },
         error(err: any) {
           console.warn(err["error"])

@@ -62,18 +62,18 @@ export class GivetraineefeedbackComponent implements OnInit {
     }
   }
   OnSubmit() {
-    // if (this.trainerId == undefined) {
-    //   this.TraineeFeedback.courseId = this.courseId;
-    //   this.TraineeFeedback.traineeId = this.Traineeid;
-    //   this.TraineeFeedback.trainerId = this.auth.getId();
-    //   console.warn(this.TraineeFeedback);
-    //     this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
-    //       });
-    //     }
-    //     else {
-    //         this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
-    //   });
-    // }
+    if (this.trainerId == undefined) {
+      this.TraineeFeedback.courseId = this.courseId;
+      this.TraineeFeedback.traineeId = this.traineeId;
+      this.TraineeFeedback.trainerId = this.auth.getId();
+      console.warn(this.TraineeFeedback);
+        this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
+          });
+        }
+        else {
+            this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+      });
+    }
     window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
   }
 }
