@@ -41,10 +41,10 @@ export class CourselistComponent implements OnInit {
       this.add = true;
     }
     else if (this.auth.getRoleId() == this.TrainerId) {
-      this.getCoursesByUserId(this.auth.getId())
+      this.getCoursebyToken(this.auth.getId())
     }
     else if(this.auth.getRoleId() == this.TraineeId){
-      this.getCoursesByUserId(this.auth.getId())
+      this.getCoursebyToken(this.auth.getId())
     }
     this.GetallDepartment();
   }
@@ -64,9 +64,9 @@ export class CourselistComponent implements OnInit {
   }
   }
   //returns list of courses assigned to the particular user
-  getCoursesByUserId(id: number) {
+  getCoursebyToken(id: number) {
     console.warn(id)
-    this.CourseService.getCoursesByUserId(id).subscribe(res => {
+    this.CourseService.getCourseByCourseId().subscribe(res => {
       this.courselist = res;
       this.courselistcopy = res
     })

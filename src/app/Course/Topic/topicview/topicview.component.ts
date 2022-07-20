@@ -8,6 +8,7 @@ import { HotToastModule, HotToastService, Toast } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
+import { CourseService } from '../../Course/coursecrud.service';
 import { TopicService } from '../topic.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class TopicviewComponent implements OnInit {
     public datepipe: DatePipe,
     public sanitizer: DomSanitizer,
     private http: HttpClient,
-    private toast: HotToastService) { this.Coursename = this.router.getCurrentNavigation()?.extras.state?.['courseName'] }
+    private cs: CourseService,
+    private toastService: HotToastService) { this.Coursename = this.router.getCurrentNavigation()?.extras.state?.['courseName'] }
 
   //temparary variable for data storage
   temp: any;
@@ -68,11 +70,17 @@ export class TopicviewComponent implements OnInit {
   }
 
   TopicInit() {
-    this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe(res => {
-      this.Topic = res;
-      this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
-      if (this.Topic != null) {
-        this.ContentInit(this.Topic);
+    this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe({
+
+      next: (res: any) => {
+        this.Topic = res;
+        this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
+        if (this.Topic != null) {
+          this.ContentInit(this.Topic);
+        }
+      },
+      error: (err: any) => {
+        window.location.replace("/")
       }
     });
   }
@@ -119,7 +127,7 @@ export class TopicviewComponent implements OnInit {
     this.http.post("https://localhost:5001/Course/assignment", Assignmentobj).subscribe(res => {
       console.log(res);
     });
-    this.toast.success("The assignment was submitted successfully")
+    this.toastService.success("The assignment was submitted successfully")
     window.location.reload();
   }
 
@@ -131,7 +139,12 @@ export class TopicviewComponent implements OnInit {
     }
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
+      this.showToast();
+
     });
+  }
+  showToast() {
+    this.toastService.success('Attendance submitted')
   }
 }
 

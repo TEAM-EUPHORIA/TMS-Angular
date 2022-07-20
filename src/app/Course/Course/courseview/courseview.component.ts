@@ -26,11 +26,18 @@ export class CourseviewComponent implements OnInit {
   }
   CourseInit(){
     this.courseId = this.route.snapshot.params['courseId'];
-    this.courseService.getCourse(this.courseId).subscribe(res => {
-      this.Course = res;
-      this.Givefeedback = (this.Course.feedbacks[0] == null)
-      console.warn(this.Course);
-      console.warn(this.Course.name);
+    this.courseService.getCourse(this.courseId).subscribe({
+      next:(res:any) => {
+
+        this.Course = res;
+        this.courseService.course = res;
+        this.Givefeedback = (this.Course.feedbacks[0] == null)
+        console.warn(this.Course);
+        console.warn(this.Course.name);
+      },
+      error:(err:any)=>{
+        window.location.replace("/")
+      }
     });
   }
   ToTopicView(id : any){

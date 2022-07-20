@@ -128,7 +128,7 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    window.location.replace(`/ViewMOM/${this.reviewId},${this.traineeId}`)
+    window.location.replace(`/ViewMOM/${this.reviewId},${this.ls.getId()}`)
   }
   OnSubmit() {
     this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({
