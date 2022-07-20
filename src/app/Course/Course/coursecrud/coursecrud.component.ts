@@ -90,7 +90,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.putcourse(this.course).subscribe({
         next: (res: any) => {
           window.location.replace("CourseList")
-          this.toastService.success("The Course was updated successfully.")
+          this.toastService.success("Course was updated successfully.")
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -101,7 +101,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.postcourse(this.Course).subscribe({
         next: (res: any) => {
           window.location.replace("CourseList")
-          this.toastService.success("The Course was created successfully.")
+          this.toastService.success("Course was created successfully.")
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
