@@ -130,6 +130,7 @@ export class TopicviewComponent implements OnInit {
       ownerId: this.auth.getId()
     }
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
+      console.log("any")
     });
   }
 }

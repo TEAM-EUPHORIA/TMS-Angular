@@ -102,7 +102,7 @@ export class GivemomComponent implements OnInit {
   }
 
   uploadMOM() {
-    console.log(this.reviewId)
+    console.log(this.mom)
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
       this.data.reviewTime = new Date(this.data.reviewTime)
@@ -117,6 +117,8 @@ export class GivemomComponent implements OnInit {
       this.reviewMode = this.data.mode;
       this.reviewDate = this.data.reviewDate;
       this.reviewTime = this.data.reviewTime;
+      this.data.reviewTime = new Date(this.data.reviewTime)
+      console.log(this.data.reviewTime.getTime())
       // this.traineeId = this.data.traineeId;
       this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
       this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe(result => {
@@ -126,7 +128,7 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    window.location.replace('/Completed-Review')
+    window.location.replace(`/ViewMOM/${this.reviewId},${this.traineeId}`)
   }
   OnSubmit() {
     this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({
@@ -136,7 +138,7 @@ export class GivemomComponent implements OnInit {
         })
       },
       error: (err: any) => {
-        this.mom.traineeId = this.traineeId;
+        this.mom.traineeId = this.ls.getId();
         this.mom.reviewId = this.reviewId;
         this.mom.statusId = 1
         console.warn(this.mom)

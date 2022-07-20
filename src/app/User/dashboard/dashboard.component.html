@@ -152,18 +152,31 @@
         <!-- Trainer Dashboard -->
         <div *ngIf="ls.IsTrainer">
             <div class="container-fluid px-2">
+                <div class="row g-1">
+                    <div class="col-m-6">
+                        <a routerLink="/Profile" class="nav-item nav-link rounded" id="boxshadow">
+                            <div class="p-4 bg-light d-flex justify-content-between border hover rounded">
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(data.Base64)"
+                                    class="img-fluid rounded-start Dprofile mx-4" alt="image">
+                                <div class="mx-4">
+                                    <h4 class="mb-3"><b class="text-dark">Welcome,</b> {{data.Name}}</h4>
+                                    <h4 class="mb-0"><b class="text-dark"> Role:</b>{{data.Role}}</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <div class="row g-3 my-2">
                     <div class="col-md-6">
                         <a routerLink="/CourseList" class="nav-item nav-link active">
-                            <div
-                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <i class="fa-solid fa-square-pen fs-3 text-dark mx-4" aria-hidden="true"></i>
                                 <h4 class="mb-0 text-dark">Courses</h4>
                                 <h3 class="mb-0 mx-4">{{data.courseCount}}</h3>
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <a routerLink="/ReviewList/1" class="nav-item nav-link active">
                             <div
                                 class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
@@ -172,9 +185,9 @@
                                 <h3 class="mb-0 mx-4">{{data.completedCourseCount}}</h3>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="row g-3 my-2">
+                <!-- <div class="row g-3 my-2">
                     <div class="col-md-6">
                         <a routerLink="Completed-Reviews" class="nav-item nav-link active">
                             <div
@@ -185,7 +198,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- Trainee Dashboard -->
