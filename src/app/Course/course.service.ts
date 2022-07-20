@@ -6,6 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CourseService {
+  private _course: any = {};
+  public get course(): any {
+    return this._course;
+  }
+  public set course(value: any) {
+    this._course = value;
+  }
 
   constructor(private http: HttpClient) { }
   baseurl = "https://localhost:5001/Course/"
@@ -23,8 +30,8 @@ putcourse(data: any): Observable<any> {
 getAllCourses(): Observable<any> {
   return this.http.get<any>(this.baseurl)
 }
-getCourseByCourseId(id : number): Observable<any> {
-  return this.http.get<any>(this.baseurl + `${id}`)
+getCourseByCourseId(): Observable<any> {
+  return this.http.get<any>(this.baseurl + `myCourses`);
 }
 getCoursesByUserId(id: number): Observable<any> {
   return this.http.get<any>(this.baseurl + `users/${id}`);

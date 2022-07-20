@@ -7,7 +7,6 @@ import { LoginService } from 'src/app/Login/login.service';
 import { HotToastService } from '@ngneat/hot-toast';
 
 
-
 @Component({
   selector: 'app-coursecrud',
   templateUrl: './coursecrud.component.html',
@@ -70,7 +69,7 @@ export class CoursecrudComponent implements OnInit {
     this.getUserByRole();
     // console.warn(this.course.id);
     this.courseId = this.router.snapshot.params["courseId"]
-    this.cs.getCourseByCourseId(this.courseId).subscribe({
+    this.cs.getCourseByCourseId().subscribe({
       next: (res: any) => {
         this.Course = res;
         console.log(res);
