@@ -43,7 +43,7 @@
                             Created By : {{Topic.assignments[0].owner.fullName}}
                         </div>
                         <div>
-                            Created On : {{Topic.assignments[0].owner.createdOn | date}}
+                            Created On : {{Topic.assignments[0].assignments.createdOn | date}}
                         </div>
                         <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer"
                             class="text-primary">View</a>
