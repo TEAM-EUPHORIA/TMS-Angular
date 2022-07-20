@@ -11,7 +11,7 @@
         </nav>
         <div class="container-fluid pt-2 px-4">
             <h3 class="text-black pb-2">{{Title}} Topic</h3>
-            <input type="text" class="form-control p-3 mt-2" placeholder="Enter the topic" name="Name" id="name" [(ngModel)]="topic.name" formcontrolName="name'" maxlength="50" pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
+            <input type="text" class="form-control p-3 mt-2" placeholder="Enter the topic" name="name" id="floatingText" [(ngModel)]="topic.name" formcontrolName="name" maxlength="50" pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
             <div *ngIf="topicform.controls['name'].invalid && (topicform.controls['name'].dirty || topicform.controls['name'].touched)" class="alert alert-danger">
                 <div *ngIf="topicform.controls['name'].errors?.['required']">Course name is required.</div>
                 <div *ngIf="topicform.controls['name'].errors?.['minlength']">Name must be at least 4 characters long.</div>
@@ -20,12 +20,13 @@
                     {{this.topicform.controls['name'].getError('serverError')}}</div>
                 <div *ngIf="topicform.controls['name'].invalid || topicform.controls['name'].errors?.['maxlength']">Please enter a valid Course name</div>
             </div>
-            <input type="text" class="form-control p-3 mt-4 mb-4" placeholder="1 hr 30 mins" name="Duration" id="duration" [(ngModel)]="topic.duration" formcontrolName="duration" maxlength="15" pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$">
+            <input type="text" class="form-control p-3 mt-4 mb-4" placeholder="1 hr 30 mins" name="name" id="name" [(ngModel)]="topic.duration" formcontrolName="duration" maxlength="15" pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$">
             <div *ngIf="topicform.controls['duration'].invalid && (topicform.controls['duration'].dirty || topicform.controls['duration'].touched)" class="alert alert-danger">
                 <div *ngIf="topicform.controls['duration'].errors?.['required']">Course name is required.</div>
                 <div *ngIf="topicform.controls['duration'].errors?.['minlength']">Name must be at least 4 characters long.</div>
                 <div *ngIf="topicform.controls['duration'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
                 <div *ngIf="topicform.controls['duration'].invalid || topicform.controls['duration'].errors?.['maxlength']">Please enter a valid Course name</div>
+                
             </div>
                     
             <form [formGroup]="topicform" action="" #ngForm (ngSubmit)="OnSubmit()">

@@ -15,20 +15,20 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class CoursecrudComponent implements OnInit {
 
- Traineeid !: number;
+  Traineeid !: number;
 
-  
-  constructor( private route: Router, private cs: CourseService,
-    private routing: Router, private router: ActivatedRoute, private http : HttpClient,
-    private auth: LoginService,  private toastService: HotToastService ) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
-  
+
+  constructor(private route: Router, private cs: CourseService,
+    private routing: Router, private router: ActivatedRoute, private http: HttpClient,
+    private auth: LoginService, private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
+
   data: any;
   dept: any;
   Title: string = "Add";
-  course! : any;
-  courseId! : number;
-  Editable : boolean = false;
-  TrainerId ='';
+  course!: any;
+  courseId!: number;
+  Editable: boolean = false;
+  TrainerId = '';
   Course: any = {
     id: 0,
     statusId: 1,
@@ -70,24 +70,25 @@ export class CoursecrudComponent implements OnInit {
     this.getUserByRole();
     // console.warn(this.course.id);
     this.courseId = this.router.snapshot.params["courseId"]
-    this.cs.grtCourseByCourseId(this.courseId).subscribe({
-      next:(res:any)=>{
+    this.cs.getCourseByCourseId(this.courseId).subscribe({
+      next: (res: any) => {
         this.Course = res;
-        console.log(res.to)
+        console.log(res);
       },
-      error:(err:any)=>{
+      error: (err: any) => {
         console.warn(err)
       }
     })
-    if(this.Course != undefined){
+    if (this.courseId != undefined) {
+      console.warn(this.Course);
       this.Title = "Update"
       // this.Editable = true;
-     }
-  
+    }
+
   }
   OnSubmit() {
     if (this.course != undefined || this.course != null) {
-      this.course.trainerId = this.TrainerId;
+      // this.course.trainerId = this.TrainerId;
       this.cs.putcourse(this.course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was updated successfully.")
@@ -126,7 +127,7 @@ export class CoursecrudComponent implements OnInit {
   
 
   getUserByRole() {
-    this.http.get("https://localhost:5001/User/role/"+`${3}`).subscribe((res) => {
+    this.http.get("https://localhost:5001/User/role/" + `${3}`).subscribe((res) => {
       this.data = res
       console.log(res)
     });
@@ -137,7 +138,7 @@ export class CoursecrudComponent implements OnInit {
       console.log(this.dept)
     })
   }
-  getCourseById(){
+  getCourseById() {
     this.http.get("https://localhost:5001/Course/").subscribe(res => {
       this.Course = res;
     })

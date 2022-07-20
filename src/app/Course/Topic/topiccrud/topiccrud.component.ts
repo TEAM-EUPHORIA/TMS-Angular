@@ -101,25 +101,30 @@ export class TopiccrudComponent implements OnInit {
   private UpdateTopic() {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
+      
       next: (res: any) => {
         this.toastService.success("Topic was updated successfully.")
        // window.location.replace("/CourseList");
       },
       error: (err: any) => {
+        console.log(err);
+        this.toastService.error("Topic name already exists")
         this.serverSideErrorMsgs(err);
       }
-    });
+    })
   }
 
   PostTopic() {
     this.setTopicContent();
-    console.log(this.topic); // to be removed
+     // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
         this.toastService.success("Topic was created successfully.")
       //  window.location.replace("/CourseList");
       },
       error: (err: any) => {
+        console.log(err);
+        this.toastService.error("Topic name alraedy exists.")
         this.serverSideErrorMsgs(err);
       }
     })
@@ -128,6 +133,7 @@ export class TopiccrudComponent implements OnInit {
     console.warn(err["error"]);
     const errors = err["error"];
     Object.keys(errors).forEach(prop => {
+      console.log(this.topicform.get(prop))
       const formControl = this.topicform.get(prop);
       if (formControl) {
         formControl.setErrors({
@@ -149,7 +155,10 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView(){
-    window.location.replace('CourseView/'+this.courseId);
+   // window.location.replace('CourseView/'+this.courseId);
+  }
+  showToast() {
+    this.toastService.success('ed')
   }
 
 }
