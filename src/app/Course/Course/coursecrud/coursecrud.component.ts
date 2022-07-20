@@ -38,9 +38,10 @@ export class CoursecrudComponent implements OnInit {
     name: '',
     duration: '',
   }
+  
 
   courseform = new FormGroup({
-    cname: new FormControl(['',
+     name: new FormControl(['',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
@@ -89,8 +90,8 @@ export class CoursecrudComponent implements OnInit {
       this.course.trainerId = this.TrainerId;
       this.cs.putcourse(this.course).subscribe({
         next: (res: any) => {
-          window.location.replace("CourseList")
           this.toastService.success("Course was updated successfully.")
+          // window.location.replace("/CourseList");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -100,15 +101,14 @@ export class CoursecrudComponent implements OnInit {
     else {
       this.cs.postcourse(this.Course).subscribe({
         next: (res: any) => {
-          window.location.replace("CourseList")
           this.toastService.success("Course was created successfully.")
+          window.location.replace("/CourseList");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
         }
       })
     }
-    window.location.replace("/CourseList");
   }
   private serverSideErrorMsgs(err: any) {
     console.warn(err["error"]);
@@ -119,7 +119,7 @@ export class CoursecrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.courseform.controls['cname'].getError('serverError'));
+        console.warn(this.courseform.controls['name'].getError('serverError'));
       }
     });
   }

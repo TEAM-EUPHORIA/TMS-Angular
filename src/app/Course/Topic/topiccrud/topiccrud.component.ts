@@ -2,11 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { baseurl } from 'src/app/URL';
 import { TopicService } from '../topic.service';
-import { HotToastService } from '@ngneat/hot-toast';
-
 
 @Component({
   selector: 'app-topiccrud',
@@ -19,7 +18,7 @@ export class TopiccrudComponent implements OnInit {
   config: any;
   Title !: string;
   topicform = new FormGroup({
-    Topicname: new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.minLength(3)
@@ -32,9 +31,9 @@ export class TopiccrudComponent implements OnInit {
   });
   Topic: any
   quill: any;
-  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient,  private toastService: HotToastService) { }
+  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient, private toastService: HotToastService) { }
   id!: number;
-  topicname!: string;
+  name!: string;
   topicduration!: string;
   topic: any = {
     name: '',
@@ -103,8 +102,8 @@ export class TopiccrudComponent implements OnInit {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
       next: (res: any) => {
-        window.location.replace("TopicView")
         this.toastService.success("Topic was updated successfully.")
+       // window.location.replace("/CourseList");
       },
       error: (err: any) => {
         this.serverSideErrorMsgs(err);
@@ -114,11 +113,11 @@ export class TopiccrudComponent implements OnInit {
 
   PostTopic() {
     this.setTopicContent();
-    // console.log(this.topic); // to be removed
+    console.log(this.topic); // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
-        window.location.replace("TopicView")
         this.toastService.success("Topic was created successfully.")
+      //  window.location.replace("/CourseList");
       },
       error: (err: any) => {
         this.serverSideErrorMsgs(err);
@@ -134,7 +133,7 @@ export class TopiccrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.topicform.controls['Topicname'].getError('serverError'));
+        console.warn(this.topicform.controls['name'].getError('serverError'));
       }
     });
   }
