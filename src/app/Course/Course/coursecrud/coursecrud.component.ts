@@ -92,7 +92,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.postcourse(this.Course).subscribe((res) => {
       })
     }
-    window.location.replace("/CourseList");
+    // window.location.replace("/CourseList");
   }
 
   getUserByRole() {

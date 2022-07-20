@@ -4,7 +4,8 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item active">Course List </li>
+                <li class="breadcrumb-item"><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item active">Course Trainees </li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
@@ -17,9 +18,10 @@
             </ng-template>
 
             <div class="col-md-10 d-flex">
-                <div class="btn btn-dark mx-4 pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
-                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper"
+                <div class="btn btn-dark pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
+                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper mx-4"
                     [(ngModel)]="searchText">
+
             </div>
             <br>
 
@@ -41,11 +43,11 @@
                             <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)" /></div>
                         </div>
                     </ng-template>
-                    <div *ngIf="newTrainees.length != 0" class="text-left">
-                        <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div>
-                    </div>
                 </div>
                 <br>
+                <div *ngIf="newTrainees.length != 0" class="text-left">
+                    <div class="btn btn-dark pe-4 px-4 " (click)="Save()">Add</div>
+                </div>
                 <ng-template #elseblock>
                     <h5 class="text-center">No Trainees Found</h5>
                 </ng-template>
@@ -57,9 +59,9 @@
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
                             <div class="p-4 bg-light d-flex justify-content-around border hover rounded">
-                                <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}">
-                                        <p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p>
-                                    </a></div>
+                                <div class="col-2">
+                                    <p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p>
+                                </div>
 
                                 <div class="col-4">
                                     <p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p>
@@ -94,6 +96,9 @@
                 </div>
             </div>
             <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
+            <!-- <div *ngIf="trainees.length == 0">
+                <h5 class="text-center">No Trainees Found</h5>
+            </div> -->
         </div>
 
     </div>
