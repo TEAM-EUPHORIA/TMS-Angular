@@ -102,7 +102,7 @@ export class GivemomComponent implements OnInit {
   }
 
   uploadMOM() {
-    console.log(this.reviewId)
+    console.log(this.mom)
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
       this.data.reviewTime = new Date(this.data.reviewTime)
@@ -128,7 +128,7 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    window.location.replace(`/ViewMOM/${this.reviewId},${this.traineeId}`)
+    window.location.replace(`/ViewMOM/${this.reviewId},${this.ls.getId()}`)
   }
   OnSubmit() {
     this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({
@@ -138,7 +138,7 @@ export class GivemomComponent implements OnInit {
         })
       },
       error: (err: any) => {
-        this.mom.traineeId = this.traineeId;
+        this.mom.traineeId = this.ls.getId();
         this.mom.reviewId = this.reviewId;
         this.mom.statusId = 1
         console.warn(this.mom)
