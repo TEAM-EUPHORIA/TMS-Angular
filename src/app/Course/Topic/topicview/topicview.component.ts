@@ -146,5 +146,16 @@ export class TopicviewComponent implements OnInit {
   showToast() {
     this.toastService.success('Attendance submitted')
   }
+  MarkTopicStatus(){
+   var TopicStatusobj : any ={
+    courseId : this.courseId,
+    topicId : this.topicId,
+    ownerId : this.auth.getId()
+   } 
+   this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res =>{
+
+   });
+  }
+  
 }
 

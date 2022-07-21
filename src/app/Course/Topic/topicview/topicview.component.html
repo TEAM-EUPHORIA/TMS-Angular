@@ -27,6 +27,15 @@
                             <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="ToAttendanceList()"
                                     id="pointer">View Attendance</a></div>
                         </b>
+                        <b class=" text-dark fs-4">
+
+                            <div *ngIf="auth.IsTrainer">
+
+                                <a (click)="MarkTopicStatus()">Topic Status <input type="checkbox" class="form" value="yes"> </a>
+
+                            </div>
+
+                        </b>
                     </div>
                 </div>
             </div>
@@ -51,7 +60,7 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee"></div>
+                <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee "></div>
                 <h3>Submitted Assignment</h3>
                 <div class="container-fluid  px-4 pb-2"
                     *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">

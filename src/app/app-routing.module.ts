@@ -50,7 +50,7 @@ const routes: Routes = [
   { path: 'Trainee', component: UserlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
   { path: 'Reviewer', component: UserlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
 
-  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent, canActivate: [CoordinatorGuard] },
+  { path: 'AssignCourse/:courseId', component: CoursetraineeComponent, canActivate: [MasterGuard],data:{guard :[CoordinatorGuard,TrainerGuard]} },
 
   { path: 'Add-Co-Ordinator', component: UsercrudComponent, canActivate: [HeadGuard] },
   { path: 'Add-Trainer', component: UsercrudComponent, canActivate: [CoordinatorGuard] },
@@ -91,7 +91,8 @@ const routes: Routes = [
   //Attendance Routing Link
   { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [CoordinatorGuard] },
   //Assigning course to Trainee
-  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate:[MasterGuard],data: { guard : [CoordinatorGuard, TrainerGuard] } },
+
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [MasterGuard], data:{guard:[CoordinatorGuard, TrainerGuard]} },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
