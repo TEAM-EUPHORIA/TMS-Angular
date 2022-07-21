@@ -72,9 +72,13 @@ export class TopicviewComponent implements OnInit {
 
       next: (res: any) => {
         this.Topic = res;
+        console.log(this.Topic.assignments[0])
         this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
         if (this.Topic != null) {
           this.ContentInit(this.Topic);
+          console.log(this.auth.IsCoordinator || this.auth.IsTrainer || this.auth.IsTrainee && !this.Topic.assignments[0] ==null)
+          console.log(this.Topic.assignments[0] ==null)
+
         }
         this.TopicChecked = this.Topic.status;
       },

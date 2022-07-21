@@ -43,10 +43,10 @@
                 </div>
             </div>
             <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
-            <div class="row g-2" *ngIf="auth.IsTrainee || auth.IsTrainer ">
-                <h3>Topic's Assignment</h3>
-                <div class="container-fluid  px-4 pb-2" *ngIf="auth.IsTrainer && Topic.assignments[0] == null">
-                    <app-uploadassignment *ngIf="!submitted" (SubmittedAssignment)="HandleSubmit($event)">
+            <div class="row g-2">
+                <div class="container-fluid  px-4 pb-2">
+                    <h3>Topic's Assignment</h3>
+                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer" (SubmittedAssignment)="HandleSubmit($event)" >
                     </app-uploadassignment>
                 </div>
                 <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
@@ -55,7 +55,7 @@
                             Created By : {{Topic.assignments[0].owner.fullName}}
                         </div>
                         <div>
-                            Created On : {{Topic.assignments[0].owner.createdOn | date}}
+                            Created On : {{Topic.assignments[0].createdOn | date}}
                         </div>
                         <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer"
                             class="text-primary">View</a>
@@ -63,30 +63,31 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <div class="container-fluid  px-4" *ngIf="auth.IsCoordinator || auth.IsTrainer || auth.IsTrainee "></div>
-                <h3>Submitted Assignment</h3>
-                <div class="container-fluid  px-4 pb-2"
-                    *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
-                    <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
-                </div>
-                <!-- <div class="container-fluid  px-4" > -->
-                <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
-                    *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
-                    class="container bg-light p-3 rounded border">
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            Created By : {{assignment.owner.fullName}}
+                <div class="container-fluid  px-4" *ngIf="Topic.assignments[0] != null" >
+                    <h3>Submitted Assignment</h3>
+                    <div class="container-fluid  px-4 pb-2"
+                        *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
+                        <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+                    </div>
+                    <!-- <div class="container-fluid  px-4" > -->
+                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
+                        *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
+                    <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
+                        class="container bg-light p-3 rounded border">
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                Created By : {{assignment.owner.fullName}}
+                            </div>
+                            <div>
+                                Created On : {{assignment.createdOn | date}}
+                            </div>
+                            <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
+                                class="text-primary">View</a>
+                            <a download="assignment.pdf"
+                                [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
+                                Download
+                            </a>
                         </div>
-                        <div>
-                            Created On : {{assignment.owner.createdOn | date}}
-                        </div>
-                        <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
-                            class="text-primary">View</a>
-                        <a download="assignment.pdf"
-                            [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
-                            Download
-                        </a>
                     </div>
                 </div>
             </div>
