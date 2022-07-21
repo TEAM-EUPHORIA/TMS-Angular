@@ -43,8 +43,8 @@
 							</div>
 						</div>
 						<div class="btn btn-dark mt-3" #btn
-							*ngIf="showBtn && ls.IsTrainee"
-							(click)="showMom(btn)">Upload</div>
+							*ngIf="showBtn && ls.IsTrainee && (date.getTime() > data.reviewTime.getTime())"
+							(click)="showMom(btn)">Upload MOM</div>
 						<div class="d-none" id="mom">
 							<div class="row mt-4">
 								<div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>

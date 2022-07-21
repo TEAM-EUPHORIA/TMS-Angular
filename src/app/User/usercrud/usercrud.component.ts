@@ -92,6 +92,7 @@ export class UsercrudComponent implements OnInit {
     if (this.pageAction = 'Update') {
       this.userService.updateUser(this.user).subscribe({
         next: (res: any) => {
+          this.redirect = this.redirect.split('/')[0]
           window.location.replace(`${this.redirect}`)
           this.toastService.success("The User was updated successfully.")
         },

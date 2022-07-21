@@ -37,10 +37,10 @@ export class CoursecrudComponent implements OnInit {
     name: '',
     duration: '',
   }
-  
+
 
   courseform = new FormGroup({
-     name: new FormControl(['',
+    name: new FormControl(['',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
@@ -64,15 +64,20 @@ export class CoursecrudComponent implements OnInit {
     ]),
   })
 
+  update(department:any){
+    this.Course.departmentId = department.value 
+    this.getUserByRole();
+  }
+
   ngOnInit(): void {
     this.getAllDepartment();
-    this.getUserByRole();
     // console.warn(this.course.id);
     this.courseId = this.router.snapshot.params["courseId"]
     if (this.auth.IsCoordinator) {
       this.cs.getCourseById(this.courseId).subscribe({
         next: (res: any) => {
           this.Course = res;
+          this.getUserByRole();
         },
         error: (err: any) => {
           console.warn(err)
@@ -82,18 +87,19 @@ export class CoursecrudComponent implements OnInit {
       if (this.courseId != undefined) {
         console.warn(this.Course);
         this.Title = "Update"
-        // this.Editable = true;
+        this.Editable = true;
       }
     }
 
   }
   OnSubmit() {
-    if (this.course != undefined || this.course != null) {
+    if (this.courseId != undefined || this.courseId != null) {
       // this.course.trainerId = this.TrainerId;
-      this.cs.putcourse(this.course).subscribe({
+      this.cs.putcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was updated successfully.")
-          // window.location.replace("/CourseList");
+          console.warn(this.course);
+          window.location.replace("/CourseList");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -105,6 +111,7 @@ export class CoursecrudComponent implements OnInit {
         next: (res: any) => {
           this.toastService.success("Course was created successfully.")
           window.location.replace("/CourseList");
+
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -125,10 +132,10 @@ export class CoursecrudComponent implements OnInit {
       }
     });
   }
-  
+
 
   getUserByRole() {
-    this.http.get("https://localhost:5001/User/role/" + `${3}`).subscribe((res) => {
+    this.http.get("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {
       this.data = res
       console.log(res)
     });

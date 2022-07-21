@@ -124,8 +124,9 @@ export class TopicviewComponent implements OnInit {
     this.http.post("https://localhost:5001/Course/assignment", Assignmentobj).subscribe(res => {
       console.log(res);
     });
-    this.toastService.success("The assignment was submitted successfully")
     window.location.reload();
+    this.toastService.success("The assignment was submitted successfully")
+
   }
 
   MarkAttendance() {
@@ -136,13 +137,9 @@ export class TopicviewComponent implements OnInit {
     }
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
-      this.showToast();
       this.toastService.success("The attendance was submitted successfully")
 
     });
-  }
-  showToast() {
-    this.toastService.success('Attendance submitted')
   }
   MarkTopicStatus(){
    var TopicStatusobj : any ={

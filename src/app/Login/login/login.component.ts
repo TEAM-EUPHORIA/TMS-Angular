@@ -34,7 +34,6 @@ export class LoginComponent {
   }
 
   OnSubmit() {
-    console.log(this.Login);
     this.http.post("https://localhost:5001/Auth/login", this.Login).
     subscribe({
 
