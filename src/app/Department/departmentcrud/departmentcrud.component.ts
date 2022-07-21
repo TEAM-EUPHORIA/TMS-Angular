@@ -18,7 +18,7 @@ export class DepartmentcrudComponent implements OnInit {
 
 
   deptform = new FormGroup({
-    dept: new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
       Validators.maxLength(15),
       Validators.minLength(3)
@@ -29,6 +29,7 @@ export class DepartmentcrudComponent implements OnInit {
   public department: any = {
     name: "",
   }
+  
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['deptId']
@@ -63,19 +64,43 @@ export class DepartmentcrudComponent implements OnInit {
     if (this.department.id != undefined) {
       console.warn(this.department)
       console.warn("edit")
-      this.departmentservice.putdepartment(this.department).subscribe((res: any) => {
-        this.department = res
-        this.showToast_Edit();
+      this.departmentservice.putdepartment(this.department).subscribe({
+        next: (res: any) => {
+          window.location.replace("DepartmentList")
+          this.toastService.success("Department was updated successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     } else {
       console.warn(this.department)
       console.warn("add")
-      this.departmentservice.postdepartment(this.department).subscribe((res: any) => {
-        this.department = res
-        this.showToast();
+      this.departmentservice.postdepartment(this.department).subscribe({
+        next: (res: any) => {
+          window.location.replace("DepartmentList")
+          this.toastService.success("Department was created successfully.")
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
       })
     }
-    window.location.replace("/DepartmentList");
+    // window.location.replace("/DepartmentList");
+  }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      console.log(this.deptform.get(prop))
+      const formControl = this.deptform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.deptform.controls['name'].getError('serverError'));
+      }
+    });
   }
   showToast() {
     this.toastService.success('Successfully Added')

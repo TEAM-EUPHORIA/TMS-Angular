@@ -18,8 +18,8 @@ export class TrainerGuard implements CanActivate {
       return true;
     }
     else {
-      this.toastService.warning("You're Unauthorized");
-      window.location.replace('/Home');
+      // this.toastService.warning("You're Unauthorized");
+      // window.location.replace('/Home');
       return false;
     }
   }

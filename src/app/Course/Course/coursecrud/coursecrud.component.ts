@@ -19,7 +19,7 @@ export class CoursecrudComponent implements OnInit {
 
   constructor(private route: Router, private cs: CourseService,
     private routing: Router, private router: ActivatedRoute, private http: HttpClient,
-    private auth: LoginService,private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
+    private auth: LoginService, private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
 
   data: any;
   dept: any;
@@ -37,9 +37,10 @@ export class CoursecrudComponent implements OnInit {
     name: '',
     duration: '',
   }
+  
 
   courseform = new FormGroup({
-    coursename: new FormControl(['',
+     name: new FormControl(['',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
@@ -85,24 +86,29 @@ export class CoursecrudComponent implements OnInit {
 
   }
   OnSubmit() {
-    console.warn(this.course);
-    if (this.courseId != undefined || this.courseId != null) {
+    if (this.course != undefined || this.course != null) {
       // this.course.trainerId = this.TrainerId;
-      this.cs.putcourse(this.Course).subscribe((res) => {
-      })
-    }
-    else {
-      this.cs.postcourse(this.Course).subscribe({
+      this.cs.putcourse(this.course).subscribe({
         next: (res: any) => {
-          window.location.replace("/CourseList")
-          this.toastService.success("The User was created successfully.")
+          this.toastService.success("Course was updated successfully.")
+          // window.location.replace("/CourseList");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
         }
       })
     }
-    // window.location.replace("/CourseList");
+    else {
+      this.cs.postcourse(this.Course).subscribe({
+        next: (res: any) => {
+          this.toastService.success("Course was created successfully.")
+          window.location.replace("/CourseList");
+        },
+        error: (err: any) => {
+          this.serverSideErrorMsgs(err);
+        }
+      })
+    }
   }
   private serverSideErrorMsgs(err: any) {
     console.warn(err["error"]);
@@ -113,10 +119,11 @@ export class CoursecrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.courseform.controls['coursename'].getError('serverError'));
+        console.warn(this.courseform.controls['name'].getError('serverError'));
       }
     });
   }
+  
 
   getUserByRole() {
     this.http.get("https://localhost:5001/User/role/" + `${3}`).subscribe((res) => {

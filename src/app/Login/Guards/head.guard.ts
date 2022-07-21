@@ -16,8 +16,8 @@ export class HeadGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean> | boolean | UrlTree {
     if (this.auth.IsHead) { console.log("Head"); return true; }
     else {
-      this.toastService.warning("You're Unauthorized");
-      window.location.replace('/Home');
+      // this.toastService.warning("You're Unauthorized");
+      // window.location.replace('/Home');
       return false;
     }
   }

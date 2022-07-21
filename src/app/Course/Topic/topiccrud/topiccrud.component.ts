@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { baseurl } from 'src/app/URL';
 import { TopicService } from '../topic.service';
@@ -17,7 +18,7 @@ export class TopiccrudComponent implements OnInit {
   config: any;
   Title !: string;
   topicform = new FormGroup({
-    Topicname: new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.minLength(3)
@@ -30,9 +31,9 @@ export class TopiccrudComponent implements OnInit {
   });
   Topic: any
   quill: any;
-  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient, private toastService: HotToastService) { }
   id!: number;
-  topicname!: string;
+  name!: string;
   topicduration!: string;
   topic: any = {
     name: '',
@@ -100,25 +101,47 @@ export class TopiccrudComponent implements OnInit {
   private UpdateTopic() {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
+      
       next: (res: any) => {
-        window.location.replace(`/CourseView/${this.topic.courseId}`);
+        this.toastService.success("Topic was updated successfully.")
+       // window.location.replace("/CourseList");
       },
-      error(err) {
-        console.warn(err["error"]);
-      },
-    });
+      error: (err: any) => {
+        console.log(err);
+        this.toastService.error("Topic name already exists")
+        this.serverSideErrorMsgs(err);
+      }
+    })
   }
 
   PostTopic() {
     this.setTopicContent();
-    // console.log(this.topic); // to be removed
+     // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
+        this.toastService.success("Topic was created successfully.")
+      //  window.location.replace("/CourseList");
       },
-      error(err: any) {
-        console.log(err["error"])
-      },
+      error: (err: any) => {
+        console.log(err);
+        this.toastService.error("Topic name alraedy exists.")
+        this.serverSideErrorMsgs(err);
+      }
     })
+  }
+  private serverSideErrorMsgs(err: any) {
+    console.warn(err["error"]);
+    const errors = err["error"];
+    Object.keys(errors).forEach(prop => {
+      console.log(this.topicform.get(prop))
+      const formControl = this.topicform.get(prop);
+      if (formControl) {
+        formControl.setErrors({
+          serverError: errors[prop]
+        });
+        console.warn(this.topicform.controls['name'].getError('serverError'));
+      }
+    });
   }
   private setTopicContent() {
     var data = JSON.stringify(this.quill.getContents());
@@ -132,7 +155,10 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView(){
-    window.location.replace('CourseView/'+this.courseId);
+   // window.location.replace('CourseView/'+this.courseId);
+  }
+  showToast() {
+    this.toastService.success('ed')
   }
 
 }

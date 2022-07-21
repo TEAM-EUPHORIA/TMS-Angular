@@ -16,8 +16,8 @@ export class TraineeGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean> | boolean | UrlTree {
     if (this.auth.IsTrainee) return true;
     else {
-      this.toastService.warning("You're Unauthorized");
-      window.location.replace('/Home');
+      // this.toastService.warning("You're Unauthorized");
+      // window.location.replace('/Home');
       return false;
     }
   }
