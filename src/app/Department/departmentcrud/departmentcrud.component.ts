@@ -86,7 +86,9 @@ export class DepartmentcrudComponent implements OnInit {
         }
       })
     }
-    // window.location.replace("/DepartmentList");
+  }
+  showToast() {
+    this.toastService.success('Login Successfully')
   }
   private serverSideErrorMsgs(err: any) {
     console.warn(err["error"]);
@@ -102,10 +104,10 @@ export class DepartmentcrudComponent implements OnInit {
       }
     });
   }
-  showToast() {
-    this.toastService.success('Successfully Added')
-  }
-  showToast_Edit() {
-    this.toastService.success('Successfully Edited')
-  }
+  // showToast_Add() {
+  //   this.toastService.success("Department was created successfully.")
+  // }
+  // showToast_Edit() {
+  //   this.toastService.success("Department was updated successfully.")
+  // }
 }

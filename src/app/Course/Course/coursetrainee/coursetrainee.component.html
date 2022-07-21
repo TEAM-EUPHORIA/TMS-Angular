@@ -8,22 +8,21 @@
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
-
-            <div *ngIf="!toDisplay ; else adduser">
-                <h3>Course Trainees</h3>
-            </div>
+            <div *ngIf="!toDisplay ; else adduser"><h3>Course Trainees</h3></div>
             <ng-template #adduser>
                 <h3>Assign Trainees</h3>
             </ng-template>
-
             <div class="col-md-10 d-flex">
+<<<<<<< HEAD
                 <div class="btn btn-dark  pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()" title="Add User to Course">Select </div>
                 <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper mx-4"
                     [(ngModel)]="searchText">
 
+=======
+                <div class="btn btn-dark  pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
+                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper mx-4 mt-2" [(ngModel)]="searchText">
+>>>>>>> 6cac4b8123a855b21afce9e903eb9f072648c2dc
             </div>
-            <br>
-
             <div class="container" *ngIf="toDisplay">
                 <div *ngIf="List ; else elseblock">
                     <div *ngIf="newTrainees.length > 4 ;else noscroll">
@@ -51,42 +50,26 @@
                     <h5 class="text-center">No Trainees Found</h5>
                 </ng-template>
             </div>
-
             <div *ngIf="!toDisplay">
-                <div
-                    *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
+                <div *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
-                            <div class="p-4 bg-light d-flex justify-content-around border hover rounded">
-                                <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}">
-                                        <p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p>
-                                    </a></div>
-
-                                <div class="col-4">
-                                    <p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p>
-                                </div>
-
-                                <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox"
-                                        (click)="removeUser(item)" /></div>
-
+                            <div class="p-4 bg-light d-flex justify-content-around align-items-center    border hover rounded">
+                                <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
+                                <div class="col-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>
+                                <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox" (click)="removeUser(item)" /></div>
                                 <div *ngIf="auth.IsTrainer && !item.feedBackExists" class="col-2">
-                                    <a (click)="GiveTraineeFeedback(item.id,item.fullName)"> <button type="button"
-                                            class="btn btn-dark pe-4 px-4">Give Trainee Feedback</button>
-                                    </a>
+                                    <a (click)="GiveTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">Give Feedback</button></a>
                                 </div>
                                 <div *ngIf="auth.IsTrainer && item.feedBackExists" class="col-2">
-                                    <a (click)="ViewTraineeFeedback(item.id,item.fullName)"> <button type="button"
-                                            class="btn btn-dark pe-4 px-4">View Trainee Feedback</button>
-                                    </a>
+                                    <a (click)="ViewTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">View Feedback</button></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="trainees.length > 4" class="mt-5">
-                    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
-                </div>
                 <div *ngIf="trainees.length != 0" class="text-left">
+<<<<<<< HEAD
                     <div class="btn btn-dark pe-4 px-4 mt-5 " *ngIf="auth.IsCoordinator" (click)="Save()" title="Remove User From Course">Remove
                     </div>
                 </div>
@@ -94,8 +77,14 @@
                     <h5 class="text-center">No Trainees Found</h5>
                 </div>
             </div>        
+=======
+                    <div class="btn btn-dark pe-4 px-4 mt-5 " *ngIf="auth.IsCoordinator" (click)="Save()">Remove</div>
+                    <div *ngIf="trainees.length > 4" class="mt-5"><pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls></div>
+                </div>
+                <div *ngIf="trainees.length == 0"><h5 class="text-center">No Trainees Found</h5></div>
+            </div>
+>>>>>>> 6cac4b8123a855b21afce9e903eb9f072648c2dc
         </div>
-
     </div>
     <app-footer></app-footer>
 </div>
