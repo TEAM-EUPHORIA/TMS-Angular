@@ -17,7 +17,7 @@
             </ng-template>
 
             <div class="col-md-10 d-flex">
-                <div class="btn btn-dark  pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select </div>
+                <div class="btn btn-dark  pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()" title="Add User to Course">Select </div>
                 <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper mx-4"
                     [(ngModel)]="searchText">
 
@@ -87,17 +87,13 @@
                     <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
                 </div>
                 <div *ngIf="trainees.length != 0" class="text-left">
-                    <div class="btn btn-dark pe-4 px-4 mt-5 " *ngIf="auth.IsCoordinator" (click)="Save()">Remove
+                    <div class="btn btn-dark pe-4 px-4 mt-5 " *ngIf="auth.IsCoordinator" (click)="Save()" title="Remove User From Course">Remove
                     </div>
                 </div>
                 <div *ngIf="trainees.length == 0">
                     <h5 class="text-center">No Trainees Found</h5>
                 </div>
-            </div>
-            <!-- <div *ngIf="auth.IsCoordinator" class="btn btn-dark pe-4 px-4 " (click)="Save()">Save</div> -->
-            <div *ngIf="trainees.length == 0">
-                <h5 class="text-center">No Data Found</h5>
-            </div>
+            </div>        
         </div>
 
     </div>

@@ -95,33 +95,7 @@ export class ReviewlistComponent implements OnInit {
       this.dept = res
     })
   }
-  // filterByDepartment(item: HTMLSelectElement) {
-  //   console.log(item)
-  //   if (item.value != '') {
-  //     this.reviewlist = this.reviewlistcopy.filter(u => u.departmentId == item.value)
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //   }
-  // }
-  // private updateCurrentPageAndTotalLength() {
-  //   this.page = 1;
-  //   this.totalLength = this.reviewlist.length;
-  // }
-  // filterByName(search: HTMLInputElement) {
-  //   const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-  //   dropdown.value = ""
-  //   if (search.value != '') {
-  //     console.log(this.reviewlist)
-  //     this.reviewlist = this.reviewlistcopy.filter((review: any) => review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //     dropdown.disabled = false
-  //   }
-  // }
+
   filterByDepartment(item: HTMLSelectElement,) {
     if (item.value != '') {
       this.reviewlist = this.reviewlistcopy.filter(u => (u.departmentId == item.value))
