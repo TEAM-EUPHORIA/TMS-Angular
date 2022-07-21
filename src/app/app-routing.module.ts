@@ -89,13 +89,13 @@ const routes: Routes = [
   { path: 'UploadAssignment', component: UploadassignmentComponent, canActivate: [MasterGuard], data: { guard: [TrainerGuard, TraineeGuard] } },
   { path: 'ViewAssignment', component: ViewassignmentComponent },
   //Attendance Routing Link
-  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [CoordinatorGuard] },
+  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [MasterGuard], data:{guard:[CoordinatorGuard, TrainerGuard]}  },
   //Assigning course to Trainee
   { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [MasterGuard], data:{guard:[CoordinatorGuard, TrainerGuard]} },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
-  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
+  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard] } },
   ///           <Course>
   //TraineeFeedback Routing Link
   { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent, canActivate: [TrainerGuard] },
@@ -106,13 +106,15 @@ const routes: Routes = [
   ///           <Reviews>
   //Review List routes
   { path: 'Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, ReviewerGuard] } },
+  { path: 'Reviews', component: ReviewlistComponent },
   { path: 'Completed-Review', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
+  { path: 'Scheduled-Reviews', component: ReviewlistComponent, canActivate: [CoordinatorGuard] },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'ScheduleReview/:id', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   //MoM upload and update Routing Link
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard,ReviewerGuard, TraineeGuard ] } },
-  { path: 'UploadMOM/:reviewId', component: GivemomComponent, canActivate: [TraineeGuard] },
+  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
+  { path: 'UploadMOM/:reviewId', component: GivemomComponent, canActivate:  [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent, canActivate: [TraineeGuard] },
   ///           <Reviews>
   { path: 'Home', component: HomeComponent },

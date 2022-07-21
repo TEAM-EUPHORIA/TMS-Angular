@@ -20,7 +20,7 @@
                         <b class="text-primary fs-4">
                             <div *ngIf="auth.IsTrainee">
                                 <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes'
-                                        checked readonly name='checkbox_attendance'></a>
+                                        checked style="pointer-events: none;" name='checkbox_attendance'></a>
                                 <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
@@ -32,7 +32,7 @@
                             <div *ngIf="auth.IsTrainer">
 
                                 <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form' value='Yes'
-                                    checked readonly  name='checkbox_topicCompleted'></a>
+                                    checked style="pointer-events: none;"   name='checkbox_topicCompleted'></a>
                             <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form' value='Yes'
                                     unchecked name='checkbox_topicCompleted' (click)="MarkTopicStatus()" /></a>
 
