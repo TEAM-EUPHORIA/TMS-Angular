@@ -89,14 +89,14 @@ const routes: Routes = [
   { path: 'UploadAssignment', component: UploadassignmentComponent, canActivate: [MasterGuard], data: { guard: [TrainerGuard, TraineeGuard] } },
   { path: 'ViewAssignment', component: ViewassignmentComponent },
   //Attendance Routing Link
-  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [CoordinatorGuard] },
+  { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [MasterGuard], data:{guard:[CoordinatorGuard,TrainerGuard]} },
   //Assigning course to Trainee
 
   { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [MasterGuard], data:{guard:[CoordinatorGuard, TrainerGuard]} },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
-  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
+  { path: 'ViewCourseFeedback/:courseId/:traineeId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard] } },
   ///           <Course>
   //TraineeFeedback Routing Link
   { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent, canActivate: [TrainerGuard] },
