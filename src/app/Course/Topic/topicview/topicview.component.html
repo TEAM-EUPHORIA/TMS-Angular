@@ -19,9 +19,9 @@
                         <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
                         <b class="text-primary fs-4">
                             <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes'
+                                <a *ngIf="Checked == true">Attendance Marked <input type='checkbox' class='form' value='Yes'
                                         checked readonly name='checkbox_attendance'></a>
-                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
+                                <a *ngIf="Checked == false">Mark as Completed <input type='checkbox' class='form' value='Yes'
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
                             <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" (click)="ToAttendanceList()"

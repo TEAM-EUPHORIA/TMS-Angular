@@ -50,30 +50,4 @@ export class MasterGuard implements CanActivate {
       return false;
     }
   }
-
-
-
-  // async activateGuard(key: any): Promise<any> {
-  //   let guard !: HeadGuard | CoordinatorGuard | TrainerGuard | TraineeGuard | ReviewerGuard;
-  //   console.warn(key);
-  //   switch (key) {
-  //     case GUARD.head:
-  //       guard = new HeadGuard(this.auth, this.toast);
-  //       return guard.canActivate(this.route, this.state);
-  //     case GUARD.co:
-  //       guard = new CoordinatorGuard(this.auth, this.toast);
-  //       return guard.canActivate(this.route, this.state);
-  //     case GUARD.trainer:
-  //       guard = new TrainerGuard(this.auth, this.toast);
-  //       return guard.canActivate(this.route, this.state);
-  //     case GUARD.trainee:
-  //       guard = new TraineeGuard(this.auth, this.toast);
-  //       return guard.canActivate(this.route, this.state);
-  //     case GUARD.reviewer:
-  //       guard = new ReviewerGuard(this.auth, this.toast);
-  //       return guard.canActivate(this.route, this.state);
-  //   }
-  //   return guard.canActivate(this.route, this.state);
-  // }
-
 }

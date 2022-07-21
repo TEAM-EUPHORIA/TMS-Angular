@@ -91,7 +91,7 @@ const routes: Routes = [
   //Attendance Routing Link
   { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [CoordinatorGuard] },
   //Assigning course to Trainee
-  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [CoordinatorGuard] },
+  { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate:[MasterGuard],data: { guard : [CoordinatorGuard, TrainerGuard] } },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
