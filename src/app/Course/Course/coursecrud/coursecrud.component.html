@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <select *ngIf="!Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
+                        <select *ngIf="!Editable"  class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
                         <select *ngIf="Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="TrainerId" formControlName="trainer" required>

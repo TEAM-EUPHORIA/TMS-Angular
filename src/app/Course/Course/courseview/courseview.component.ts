@@ -10,67 +10,79 @@ import { CourseService } from '../coursecrud.service';
   styleUrls: ['./courseview.component.css']
 })
 export class CourseviewComponent implements OnInit {
-  
-  constructor(private router : Router,
-    public auth : LoginService,
-    private route : ActivatedRoute,
-    private courseService : CourseService) { }
-    
+
+  constructor(private router: Router,
+    public auth: LoginService,
+    private route: ActivatedRoute,
+    private courseService: CourseService) { }
+
   courseId !: number;
+  Feedbacks !: any[];
   Givefeedback: boolean = false;
-  Course : any;
+  Course: any;
   traineeRoleId = 3;
 
   ngOnInit(): void {
     this.CourseInit();
+    console.log(this.auth.IsTrainee, this.Givefeedback)
   }
-  CourseInit(){
+  CourseInit() {
     this.courseId = this.route.snapshot.params['courseId'];
     this.courseService.getCourse(this.courseId).subscribe({
-      next:(res:any) => {
+      next: (res: any) => {
 
         this.Course = res;
         this.courseService.course = res;
-        this.Givefeedback = (this.Course.feedbacks[0] == null)
+        this.Feedbacks = this.Course.feedbacks;
+        this.FeedbackInit();
         console.warn(this.Course);
-        console.warn(this.Course.name);
+        console.warn(this.Feedbacks);
+        console.warn(this.auth.getId());
       },
-      error:(err:any)=>{
-        window.location.replace("/")
+      error: (err: any) => {
+        // window.location.replace("/")
       }
     });
   }
-  ToTopicView(id : any){
-    this.router.navigate(['CourseView/'+this.Course.id+'/TopicView/'+id],{state : { courseName : this.Course.name}});
-  }
-  ToViewFeedback(){
-    this.router.navigate(['/ViewCourseFeedback/'+this.Course.id+`/`+this.auth.getId()],{state : { courseName : this.Course.name}});
-  }
-  ToAddFeedback(){
-    this.router.navigate(['/GiveCourseFeedback/'+this.Course.id],{state : { courseName : this.Course.name}}); 
-  }
-  ToViewTraineeList(){
-    var obj = {
-     courseId : this.Course.id ,
-     roleId : this.traineeRoleId,
-     feedbacks : this.Course.traineeFeedbacks
-    };
-    this.router.navigate(['/ViewTraineeList'], {state : {vid : obj}});
+  FeedbackInit() {
+    for (var i = 0; i < this.Feedbacks.length; i++) {
+      if (this.auth.getId() == this.Feedbacks[i].traineeId) {
+        this.Givefeedback = true;
+        break;
+      }
     }
-  DisableTopic(courseId : number,topicId : number){
-    this.courseService.disableTopic(courseId,topicId).subscribe(() =>this.CourseInit());
+  }
+  ToTopicView(id: any) {
+    this.router.navigate(['CourseView/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });
+  }
+  ToViewFeedback() {
+    this.router.navigate(['/ViewCourseFeedback/' + this.Course.id + `/` + this.auth.getId()], { state: { courseName: this.Course.name } });
+  }
+  ToAddFeedback() {
+    this.router.navigate(['/GiveCourseFeedback/' + this.Course.id], { state: { courseName: this.Course.name } });
+  }
+  ToViewTraineeList() {
+    var obj = {
+      courseId: this.Course.id,
+      roleId: this.traineeRoleId,
+      feedbacks: this.Course.traineeFeedbacks
+    };
+    this.router.navigate(['/ViewTraineeList'], { state: { vid: obj } });
+  }
+  DisableTopic(courseId: number, topicId: number) {
+    this.courseService.disableTopic(courseId, topicId).subscribe(() => this.CourseInit());
   }
 
-  ToTopic(courseId : number ,topicId :number){
-    this.router.navigate(['/Course/'+courseId +'/Topic/'+ topicId],{state : { CourseName :  this.Course.name}});
+  ToTopic(courseId: number, topicId: number) {
+    this.router.navigate(['/Course/' + courseId + '/Topic/' + topicId], { state: { CourseName: this.Course.name } });
   }
-  myfunction (id : number, topicId : number){
+  myfunction(id: number, topicId: number) {
     let text = "Are you sure you want to disable the Topic";
     if (confirm(text) == true) {
-      this.DisableTopic(this.courseId,topicId)
+      this.DisableTopic(this.courseId, topicId)
     } else {
       text = "You canceled!";
-  }
+    }
   }
 
 }

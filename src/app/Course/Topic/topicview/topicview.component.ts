@@ -38,6 +38,7 @@ export class TopicviewComponent implements OnInit {
 
   //to check the attendance status of trainee
   Checked: boolean = false;
+  TopicChecked : boolean=false;
 
   Coursename: any;
 
@@ -52,7 +53,6 @@ export class TopicviewComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
-    console.log(this.Coursename)
     this.TopicInit();
     if (this.auth.IsloggedIn) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
@@ -78,6 +78,7 @@ export class TopicviewComponent implements OnInit {
         if (this.Topic != null) {
           this.ContentInit(this.Topic);
         }
+        this.TopicChecked = this.Topic.status;
       },
       error: (err: any) => {
         window.location.replace("/")
@@ -140,11 +141,23 @@ export class TopicviewComponent implements OnInit {
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
       this.showToast();
+      this.toastService.success("The attendance was submitted successfully")
 
     });
   }
   showToast() {
     this.toastService.success('Attendance submitted')
   }
+  MarkTopicStatus(){
+   var TopicStatusobj : any ={
+    courseId : this.courseId,
+    topicId : this.topicId,
+    ownerId : this.auth.getId()
+   } 
+   this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res =>{
+    this.toastService.success("Marked as topic completed")
+   });
+  }
+  
 }
 

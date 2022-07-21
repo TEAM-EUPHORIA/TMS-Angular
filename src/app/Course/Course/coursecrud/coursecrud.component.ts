@@ -69,19 +69,21 @@ export class CoursecrudComponent implements OnInit {
     this.getUserByRole();
     // console.warn(this.course.id);
     this.courseId = this.router.snapshot.params["courseId"]
-    this.cs.getCourseByCourseId().subscribe({
-      next: (res: any) => {
-        this.Course = res;
-        console.log(res);
-      },
-      error: (err: any) => {
-        console.warn(err)
+    if (this.auth.IsCoordinator) {
+      this.cs.getCourseById(this.courseId).subscribe({
+        next: (res: any) => {
+          this.Course = res;
+        },
+        error: (err: any) => {
+          console.warn(err)
+          console.log("hi");
+        }
+      })
+      if (this.courseId != undefined) {
+        console.warn(this.Course);
+        this.Title = "Update"
+        // this.Editable = true;
       }
-    })
-    if (this.courseId != undefined) {
-      console.warn(this.Course);
-      this.Title = "Update"
-      // this.Editable = true;
     }
 
   }
