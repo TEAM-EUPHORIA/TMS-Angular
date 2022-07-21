@@ -155,7 +155,7 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView(){
-   // window.location.replace('CourseView/'+this.courseId);
+   window.location.replace('CourseView/'+this.courseId);
   }
   showToast() {
     this.toastService.success('ed')
