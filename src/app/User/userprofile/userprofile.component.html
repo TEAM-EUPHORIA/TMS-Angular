@@ -5,8 +5,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item" *ngIf="breadcrumbs.length > 1"><a routerLink="/{{breadcrumbs[0]}}">{{breadcrumbs[0]}} List</a></li>
-                <li class="breadcrumb-item" *ngIf="breadcrumbs.length > 1" ><a>{{breadcrumbs[1]}}</a></li>
-                <li class="breadcrumb-item" *ngIf="breadcrumbs.length == 1" ><a>{{breadcrumbs[0]}}</a></li>
+                <!-- <li class="breadcrumb-item" *ngIf="breadcrumbs.length > 1" ><a>{{breadcrumbs[1]}}</a></li> -->
+                <!-- <li class="breadcrumb-item" *ngIf="breadcrumbs.length == 1" ><a>{{breadcrumbs[0]}}</a></li> -->
                 <li class="breadcrumb-item" *ngFor="let item of breadcrumbs">{{item}}</li>
             </ol>
         </nav>

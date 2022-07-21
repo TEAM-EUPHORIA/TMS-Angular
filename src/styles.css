@@ -67,8 +67,6 @@ a{
     border-radius: 50px;
 }
 
-
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -97,15 +95,12 @@ a{
     .sidebar {
         margin-left: 0;
     }
-
     .sidebar.open {
         margin-left: -250px;
     }
-
     .content {
         width: calc(100% - 250px);
     }
-
     .content.open {
         width: 100%;
         margin-left: 0;
@@ -116,18 +111,14 @@ a{
     .sidebar {
         margin-left: -250px;
     }
-
     .sidebar.open {
         margin-left: 0;
     }
-
     .content {
         width: 100%;
         margin-left: 0;
     }
 }
-
-
 
 .sidebar .navbar .navbar-nav .nav-link {
     padding: 7px 20px;
@@ -143,7 +134,7 @@ a{
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
     background: white;    
-    /* background: lightgrey;              color changed */
+
     border-color: var(--primary);
 }
 
