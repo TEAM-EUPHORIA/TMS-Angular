@@ -5,14 +5,12 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
 import { UserService } from '../user.service';
-
 @Component({
   selector: 'app-userlist',
   templateUrl: './userlist.component.html',
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
-
   constructor(public ls: LoginService, private ts: HotToastService, private router: Router, private http: HttpClient, private userservice: UserService) { }
   title: any;
   searchuser = '';
@@ -37,8 +35,6 @@ export class UserlistComponent implements OnInit {
     window.location.reload();
   }
   ngOnInit(): void {
-
-
     this.title = this.router.url.slice(1)
     this.dpt = this.title != 'Co-Ordinator'
     switch (this.title) {
@@ -62,7 +58,6 @@ export class UserlistComponent implements OnInit {
         if (this.ls.IsCoordinator) this.edit = true;
         this.showDept = true;
         break;
-
       default:
         break;
     }
@@ -92,29 +87,44 @@ export class UserlistComponent implements OnInit {
       text = "You canceled!";
     }
   }
-  filterByDepartment(item: HTMLSelectElement,) {
+  filterByDepartment() {
+    const item = document.getElementById("departmentId") as HTMLSelectElement
     if (item.value != '') {
-      this.users = this.users.filter(u => (u.departmentId == item.value && u.departmentId == item.value))
-      this.updateCurrentPageAndTotalLength();
+      this.users = this.usersCopy.filter(u => u.departmentId == item.value)
     } else {
       this.users = this.usersCopy
-      this.updateCurrentPageAndTotalLength();
     }
+    this.updateCurrentPageAndTotalLength();
   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.users.length;
   }
-  filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-    if (search.value != '') {
-      this.users = this.users.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()))
-      this.updateCurrentPageAndTotalLength();
-    } else if (search.value != null && dropdown.value != '') {
-      if (dropdown != null) this.users = this.usersCopy.filter((user: any) => user.departmentId == dropdown.value)
-      this.updateCurrentPageAndTotalLength();
-    } else {
-      this.users = this.usersCopy
+  filterByName() {
+    const search = document.getElementById("search") as HTMLInputElement
+    const item = document.getElementById("departmentId") as HTMLSelectElement
+    if (item != null) {
+      if (search.value != '' && item.value != '') {
+        this.users = this.usersCopy.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()) && user.departmentId == item.value)
+      } else if (search.value != '' && item.value == '') {
+        this.users = this.usersCopy.filter((user: any) => this.getFilteredUsers(user, search))
+      } else if (search.value == '' && item.value != '') {
+        this.users = this.usersCopy.filter((user: any) => user.departmentId == item.value)
+      } else if (search.value == '' && item.value == '') {
+        this.users = this.usersCopy
+      }
     }
+    else {
+      if (search.value != '') {
+        this.users = this.usersCopy.filter((user: any) => this.getFilteredUsers(user,search))
+      }else{
+        this.users = this.usersCopy
+      }
+    }
+    this.updateCurrentPageAndTotalLength();
+  }
+  
+  private getFilteredUsers(user: any, search: HTMLInputElement): any {
+    return user.fullName.toLowerCase().includes(search.value.toLowerCase());
   }
 }

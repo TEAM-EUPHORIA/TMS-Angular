@@ -56,12 +56,13 @@ export class DepartmentlistComponent implements OnInit {
   }
   filterByName(search: HTMLInputElement) {
     if (search.value != '') {
-      console.log(this.departmentlist)
-      this.departmentlist = this.departmentlistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
-      this.updateCurrentPageAndTotalLength();
-    } else {
+      this.departmentlist = this.departmentlistcopy.filter((user: any) => this.getFilteredDepartment(user,search))
+    }else{
       this.departmentlist = this.departmentlistcopy
-      this.updateCurrentPageAndTotalLength();
     }
+    this.updateCurrentPageAndTotalLength();
+  }
+  private getFilteredDepartment(department: any, search: HTMLInputElement): any {
+    return department.name.toLowerCase().includes(search.value.toLowerCase());
   }
 }

@@ -45,7 +45,7 @@ export class ReviewlistComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
     this.getDepartments()
-    this.statusId = this.router.url == '/Scheduled-Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Reviews' ? 1 : undefined
+    this.statusId = this.router.url == '/Scheduled-Review' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
     console.log(this.statusId)
     if (this.ls.IsCoordinator) {
       this.edit = true;
@@ -95,62 +95,44 @@ export class ReviewlistComponent implements OnInit {
       this.dept = res
     })
   }
-  // filterByDepartment(item: HTMLSelectElement) {
-  //   console.log(item)
-  //   if (item.value != '') {
-  //     this.reviewlist = this.reviewlistcopy.filter(u => u.departmentId == item.value)
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //   }
-  // }
-  // private updateCurrentPageAndTotalLength() {
-  //   this.page = 1;
-  //   this.totalLength = this.reviewlist.length;
-  // }
-  // filterByName(search: HTMLInputElement) {
-  //   const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-  //   dropdown.value = ""
-  //   if (search.value != '') {
-  //     console.log(this.reviewlist)
-  //     this.reviewlist = this.reviewlistcopy.filter((review: any) => review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //     dropdown.disabled = false
-  //   }
-  // }
-  filterByDepartment(item: HTMLSelectElement,) {
+  filterByDepartment() {
+    const item = document.getElementById("departmentId") as HTMLSelectElement
     if (item.value != '') {
-      this.reviewlist = this.reviewlistcopy.filter(u => (u.departmentId == item.value))
-      console.warn(this.reviewlist)
-      this.updateCurrentPageAndTotalLength();
+      this.reviewlist = this.reviewlistcopy.filter(u => u.departmentId == item.value)
     } else {
       this.reviewlist = this.reviewlistcopy
-      this.updateCurrentPageAndTotalLength();
     }
+    this.updateCurrentPageAndTotalLength();
   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.reviewlist.length;
   }
-  filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-    if (search.value != '') {
-      this.reviewlist = this.reviewlist.filter((review: any) =>{
-        if(review.reviewer.fullName.toLowerCase().includes(search.value.toLowerCase()) || review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-        {
-          return review
-        }
-      })
-      this.updateCurrentPageAndTotalLength();
-    } else if (search.value != null && dropdown.value != '') {
-      if (dropdown != null) this.reviewlist = this.reviewlistcopy.filter((user: any) => user.departmentId == dropdown.value)
-      this.updateCurrentPageAndTotalLength();
-    } else {
-      this.reviewlist = this.reviewlistcopy
+  filterByName() {
+    const search = document.getElementById("search") as HTMLInputElement
+    const item = document.getElementById("departmentId") as HTMLSelectElement
+    if (item != null) {
+      if (search.value != '' && item.value != '') {
+        this.reviewlist = this.reviewlistcopy.filter((review: any) => review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()) && review.departmentId == item.value)
+      } else if (search.value != '' && item.value == '') {
+        this.reviewlist = this.reviewlistcopy.filter((user: any) => this.getFilteredUsers(user, search))
+      } else if (search.value == '' && item.value != '') {
+        this.reviewlist = this.reviewlistcopy.filter((user: any) => user.departmentId == item.value)
+      } else if (search.value == '' && item.value == '') {
+        this.reviewlist = this.reviewlistcopy
+      }
     }
+    else {
+      if (search.value != '') {
+        this.reviewlist = this.reviewlistcopy.filter((review: any) => this.getFilteredUsers(review,search))
+      }else{
+        this.reviewlist = this.reviewlistcopy
+      }
+    }
+    this.updateCurrentPageAndTotalLength();
+  }
+  
+  private getFilteredUsers(review: any, search: HTMLInputElement): any {
+    return review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase());
   }
 }
