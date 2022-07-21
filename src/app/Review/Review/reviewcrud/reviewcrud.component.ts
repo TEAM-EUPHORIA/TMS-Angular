@@ -44,8 +44,8 @@ export class ReviewcrudComponent implements OnInit {
     isDisabled: false
   }
 
-    minDate:Date= new Date();
-    maxDate:Date= new Date();
+    minDate:Date= new Date();
+    maxDate:Date= new Date();
 
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];

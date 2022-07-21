@@ -105,14 +105,13 @@ const routes: Routes = [
 
   ///           <Reviews>
   //Review List routes
-  { path: 'Upcoming-Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, ReviewerGuard] } },
-  { path: 'Upcoming-Review', component: ReviewlistComponent },
+  { path: 'Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, ReviewerGuard] } },
   { path: 'Completed-Review', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   //Schedule Review and edit review routing link
   { path: 'ScheduleReview', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'ScheduleReview/:id', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   //MoM upload and update Routing Link
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [ReviewerGuard, TraineeGuard] } },
+  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   { path: 'UploadMOM/:reviewId', component: GivemomComponent, canActivate: [TraineeGuard] },
   { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent, canActivate: [TraineeGuard] },
   ///           <Reviews>
