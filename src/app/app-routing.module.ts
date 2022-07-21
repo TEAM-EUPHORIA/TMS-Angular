@@ -111,7 +111,7 @@ const routes: Routes = [
   { path: 'ScheduleReview', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'ScheduleReview/:id', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   //MoM upload and update Routing Link
-  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
+  { path: 'ViewMOM/:reviewId,:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard,ReviewerGuard, TraineeGuard ] } },
   { path: 'UploadMOM/:reviewId', component: GivemomComponent, canActivate: [TraineeGuard] },
   { path: 'EditMOM/:reviewId/:traineeId', component: GivemomComponent, canActivate: [TraineeGuard] },
   ///           <Reviews>

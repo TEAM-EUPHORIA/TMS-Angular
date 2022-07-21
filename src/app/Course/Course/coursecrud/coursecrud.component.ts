@@ -37,10 +37,10 @@ export class CoursecrudComponent implements OnInit {
     name: '',
     duration: '',
   }
-  
+
 
   courseform = new FormGroup({
-     name: new FormControl(['',
+    name: new FormControl(['',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
@@ -87,18 +87,19 @@ export class CoursecrudComponent implements OnInit {
       if (this.courseId != undefined) {
         console.warn(this.Course);
         this.Title = "Update"
-        // this.Editable = true;
+        this.Editable = true;
       }
     }
 
   }
   OnSubmit() {
-    if (this.course != undefined || this.course != null) {
+    if (this.courseId != undefined || this.courseId != null) {
       // this.course.trainerId = this.TrainerId;
-      this.cs.putcourse(this.course).subscribe({
+      this.cs.putcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was updated successfully.")
-          // window.location.replace("/CourseList");
+          console.warn(this.course);
+          window.location.replace("/CourseList");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -110,6 +111,7 @@ export class CoursecrudComponent implements OnInit {
         next: (res: any) => {
           this.toastService.success("Course was created successfully.")
           window.location.replace("/CourseList");
+
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -130,7 +132,7 @@ export class CoursecrudComponent implements OnInit {
       }
     });
   }
-  
+
 
   getUserByRole() {
     this.http.get("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {

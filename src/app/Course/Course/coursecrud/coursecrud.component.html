@@ -15,69 +15,114 @@
                     <div class="form-floating mb-4">
                         <!-- <input type="text" class="form-control" name="name" [(ngModel)]="Course.name" formControlName="name" required maxlength="25" minlength="3" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)"> -->
 
-                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
-                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)"> 
+                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="name"
+                            [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required
+                            pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
+                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="name"
+                            [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required
+                            pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
                         <label for="floatingText">Course Name*</label>
-                        <div *ngIf="courseform.controls['name'].invalid && (courseform.controls['name'].dirty || courseform.controls['name'].touched)" class="alert alert-danger">
+                        <div *ngIf="courseform.controls['name'].invalid && (courseform.controls['name'].dirty || courseform.controls['name'].touched)"
+                            class="alert alert-danger">
                             <div *ngIf="courseform.controls['name'].errors?.['required']">Course name is required.</div>
-                            <div *ngIf="courseform.controls['name'].errors?.['minlength']">Name must be at least 4 characters long.</div>
-                            <div *ngIf="courseform.controls['name'].errors?.['maxlength']">Name don't exceed 25 characters long.</div>
+                            <div *ngIf="courseform.controls['name'].errors?.['minlength']">Name must be at least 4
+                                characters long.</div>
+                            <div *ngIf="courseform.controls['name'].errors?.['maxlength']">Name don't exceed 25
+                                characters long.</div>
                             <div *ngIf="courseform.controls['name'].errors?.['serverError']">
                                 {{this.courseform.controls['name'].getError('serverError')}}</div>
-                            <div *ngIf="courseform.controls['name'].invalid || courseform.controls['name'].errors?.['maxlength']">Please enter a valid Course name</div>
+                            <div
+                                *ngIf="courseform.controls['name'].invalid || courseform.controls['name'].errors?.['maxlength']">
+                                Please enter a valid Course name</div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <textarea *ngIf="!Editable" class="form-control" id="floatingText" name="description" [(ngModel)]="Course.description" formControlName="description" maxlength="1000" minlength="3" required ></textarea>
-                        <textarea *ngIf="Editable" class="form-control" id="floatingText" name="description" [(ngModel)]="course.description" formControlName="description" maxlength="1000" minlength="3" required></textarea>
+                        <textarea *ngIf="!Editable" class="form-control" id="floatingText" name="description"
+                            [(ngModel)]="Course.description" formControlName="description" maxlength="1000"
+                            minlength="3" required></textarea>
+                        <textarea *ngIf="Editable" class="form-control" id="floatingText" name="description"
+                            [(ngModel)]="Course.description" formControlName="description" maxlength="1000"
+                            minlength="3" required></textarea>
                         <label for="floatingInput">Description*</label>
-                        <div *ngIf="courseform.controls['description'].invalid && (courseform.controls['description'].dirty || courseform.controls['description'].touched)" class="alert alert-danger">
-                            <div *ngIf="courseform.controls['description'].errors?.['required']">Course description is required.</div>
-                            <div *ngIf="courseform.controls['description'].errors?.['minlength']">Description must be at least 4 characters long.</div>
-                            <div *ngIf="courseform.controls['description'].errors?.['maxlength']">Description don't exceed 100 characters long.</div>
-                            <div *ngIf="courseform.controls['description'].invalid || courseform.controls['description'].errors?.['maxlength']">Please enter a valid Course description</div>
+                        <div *ngIf="courseform.controls['description'].invalid && (courseform.controls['description'].dirty || courseform.controls['description'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="courseform.controls['description'].errors?.['required']">Course description is
+                                required.</div>
+                            <div *ngIf="courseform.controls['description'].errors?.['minlength']">Description must be at
+                                least 4 characters long.</div>
+                            <div *ngIf="courseform.controls['description'].errors?.['maxlength']">Description don't
+                                exceed 100 characters long.</div>
+                            <div
+                                *ngIf="courseform.controls['description'].invalid || courseform.controls['description'].errors?.['maxlength']">
+                                Please enter a valid Course description</div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="duration" [(ngModel)]="Course.duration" formControlName="duration" required pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$" maxlength="15" minlength="4">
-                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="duration" [(ngModel)]="course.duration" formControlName="duration" required pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$" maxlength="15" minlength="4">
+                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="duration"
+                            [(ngModel)]="Course.duration" formControlName="duration" required
+                            pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$"
+                            maxlength="15" minlength="4">
+                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="duration"
+                            [(ngModel)]="Course.duration" formControlName="duration" required
+                            pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$"
+                            maxlength="15" minlength="4">
                         <label for="floatingInput">Duration*</label>
-                        <div *ngIf="courseform.controls['duration'].invalid && (courseform.controls['duration'].dirty || courseform.controls['duration'].touched)" class="alert alert-danger">
-                            <div *ngIf="courseform.controls['duration'].errors?.['required']">Course duration is required.</div>
-                            <div *ngIf="courseform.controls['duration'].errors?.['minlength']">Duration must be at least 4 characters long.</div>
-                            <div *ngIf="courseform.controls['duration'].errors?.['maxlength']">Duration don't exceed 25 characters long.</div>
-                            <div *ngIf="courseform.controls['duration'].invalid || courseform.controls['duration'].errors?.['maxlength']">Please enter a valid Course duration</div>
+                        <div *ngIf="courseform.controls['duration'].invalid && (courseform.controls['duration'].dirty || courseform.controls['duration'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="courseform.controls['duration'].errors?.['required']">Course duration is
+                                required.</div>
+                            <div *ngIf="courseform.controls['duration'].errors?.['minlength']">Duration must be at least
+                                4 characters long.</div>
+                            <div *ngIf="courseform.controls['duration'].errors?.['maxlength']">Duration don't exceed 25
+                                characters long.</div>
+                            <div
+                                *ngIf="courseform.controls['duration'].invalid || courseform.controls['duration'].errors?.['maxlength']">
+                                Please enter a valid Course duration</div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">
                         <select #department *ngIf="!Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required (change)="update(department)">
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
-                        <select *ngIf="Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="course.departmentId" formControlName="department" required>
+                        <select *ngIf="Editable" class="form-select" area-label="default select example"
+                            name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
                         <label for="floatingInput">Department*</label>
-                        <div *ngIf="courseform.controls['department'].invalid && (courseform.controls['department'].dirty || courseform.controls['department'].touched)" class="alert alert-danger">
-                            <div *ngIf="courseform.controls['department'].errors?.['required']">Course department is required.</div>
-                            <div *ngIf="courseform.controls['department'].invalid || courseform.controls['department'].errors?.['maxlength']">Please enter a valid Course department</div>
+                        <div *ngIf="courseform.controls['department'].invalid && (courseform.controls['department'].dirty || courseform.controls['department'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="courseform.controls['department'].errors?.['required']">Course department is
+                                required.</div>
+                            <div
+                                *ngIf="courseform.controls['department'].invalid || courseform.controls['department'].errors?.['maxlength']">
+                                Please enter a valid Course department</div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <select *ngIf="!Editable"  class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
+                        <select *ngIf="!Editable" class="form-select" area-label="default select example" name="Trainer"
+                            [(ngModel)]="Course.trainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
-                        <select *ngIf="Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
+                        <select *ngIf="Editable" class="form-select" style="pointer-events: none ;" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
-                        <label for="floatingInput">Trainer*</label>
-                        <div *ngIf="courseform.controls['trainer'].invalid && (courseform.controls['trainer'].dirty || courseform.controls['trainer'].touched)" class="alert alert-danger">
-                            <div *ngIf="courseform.controls['trainer'].errors?.['required']">Course trainer is required.</div>
-                            <div *ngIf="courseform.controls['trainer'].errors?.['minlength']">Trainer must be at least 3 characters long.</div>
-                            <div *ngIf="courseform.controls['trainer'].errors?.['maxlength']">Trainer don't exceed 25 characters long.</div>
-                            <div *ngIf="courseform.controls['trainer'].invalid || courseform.controls['trainer'].errors?.['maxlength']">Please enter a valid Course trainer</div>
+                        <label *ngIf="Editable" for="floatingInput">Trainer can't be edited </label>
+                        <label *ngIf="!Editable" for="floatingInput">Trainer*</label>
+                        <div *ngIf="courseform.controls['trainer'].invalid && (courseform.controls['trainer'].dirty || courseform.controls['trainer'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="courseform.controls['trainer'].errors?.['required']">Course trainer is required.
+                            </div>
+                            <div *ngIf="courseform.controls['trainer'].errors?.['minlength']">Trainer must be at least 3
+                                characters long.</div>
+                            <div *ngIf="courseform.controls['trainer'].errors?.['maxlength']">Trainer don't exceed 25
+                                characters long.</div>
+                            <div
+                                *ngIf="courseform.controls['trainer'].invalid || courseform.controls['trainer'].errors?.['maxlength']">
+                                Please enter a valid Course trainer</div>
                         </div>
                     </div>
-                    <button [disabled]="!courseform.valid" type="submit" class="btn btn-dark pe-4 px-4 hover">{{Title}}</button>
+                    <button [disabled]="!courseform.valid" type="submit"
+                        class="btn btn-dark pe-4 px-4 hover">{{Title}}</button>
                 </div>
             </form>
         </div>
