@@ -128,8 +128,9 @@ export class TopicviewComponent implements OnInit {
     this.http.post("https://localhost:5001/Course/assignment", Assignmentobj).subscribe(res => {
       console.log(res);
     });
-    this.toastService.success("The assignment was submitted successfully")
     window.location.reload();
+    this.toastService.success("The assignment was submitted successfully")
+
   }
 
   MarkAttendance() {
