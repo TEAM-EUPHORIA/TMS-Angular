@@ -74,9 +74,13 @@ export class TopicviewComponent implements OnInit {
 
       next: (res: any) => {
         this.Topic = res;
+        console.log(this.Topic.assignments[0])
         this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
         if (this.Topic != null) {
           this.ContentInit(this.Topic);
+          console.log(this.auth.IsCoordinator || this.auth.IsTrainer || this.auth.IsTrainee && !this.Topic.assignments[0] ==null)
+          console.log(this.Topic.assignments[0] ==null)
+
         }
         this.TopicChecked = this.Topic.status;
       },
@@ -141,7 +145,7 @@ export class TopicviewComponent implements OnInit {
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
       this.showToast();
-      this.toastService.success("The attendance was submitted successfully")
+      // this.toastService.success("The attendance was submitted successfully")
 
     });
   }
