@@ -28,17 +28,13 @@ export class MasterGuard implements CanActivate {
     this.state = state;
     this.guards = this.route.data['guard'];
 
-    console.warn(this.guards);
-    console.warn(this.guards.length);
-
     for (var i = 0; i < this.guards.length; i++) {
-      console.warn(this.guards[i]);
-      let guard = new this.guards[i](this.auth, this.toast);
+      let guard = new this.guards[i](this.auth);
       this.result = guard.canActivate(this.route, this.state);
       if (this.result) break;
       else continue;
     }
-    console.warn(this.result);
+
     if (this.result) {
       return true;
     }

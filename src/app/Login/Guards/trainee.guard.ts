@@ -9,7 +9,7 @@ import { LoginService } from '../login.service';
 })
 export class TraineeGuard implements CanActivate {
 
-  constructor(private auth: LoginService, private toastService: HotToastService) { }
+  constructor(private auth: LoginService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
