@@ -51,7 +51,7 @@ export class GivemomComponent implements OnInit {
     var btn = event$
     if(btn.innerText == "Upload")
     {
-      btn.innerText = "Hide Mom"
+      btn.innerText = "cancel"
       this.pageTitle = "Upload Mom for Review"
     }
     else 
@@ -102,10 +102,11 @@ export class GivemomComponent implements OnInit {
   }
 
   uploadMOM() {
-    console.log(this.mom)
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
+      console.log(this.mom)
       this.data = res;
       this.data.reviewTime = new Date(this.data.reviewTime)
+      console.log(this.ls.IsTrainee && (this.date.getTime() > this.data.reviewTime.getTime()))
     })
   }
   editMom() {

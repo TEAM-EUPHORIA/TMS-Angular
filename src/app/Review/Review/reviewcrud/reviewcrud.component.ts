@@ -35,6 +35,12 @@ export class ReviewcrudComponent implements OnInit {
     isDisabled: false
   }
 
+<<<<<<< HEAD
+=======
+    minDate:Date= new Date();
+    maxDate:Date= new Date();
+
+>>>>>>> 28f1bfbf515799331d5f66c2a8f1577223830970
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
     this.GetallDepartment();
@@ -71,9 +77,10 @@ export class ReviewcrudComponent implements OnInit {
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe({
         next: (res: any) => {
-          if (this.auth.IsCoordinator) {
-            navigateToListPage('/Scheduled-Reviews');
-          } else {
+          if(this.auth.IsCoordinator)
+          {
+            navigateToListPage('/ScheduledReview');
+          }else{
             navigateToListPage('/Reviews');
           }
         },
@@ -86,9 +93,16 @@ export class ReviewcrudComponent implements OnInit {
       console.log(this.Review) // to be removed
       this.review.postReview(this.Review).subscribe({
         next: (res: any) => {
+<<<<<<< HEAD
           if (this.auth.IsCoordinator) {
             navigateToListPage('/Scheduled-Reviews');
           } else {
+=======
+          if(this.auth.IsCoordinator)
+          {
+            navigateToListPage('/ScheduledReview');
+          }else{
+>>>>>>> 28f1bfbf515799331d5f66c2a8f1577223830970
             navigateToListPage('/Reviews');
           }
         },
