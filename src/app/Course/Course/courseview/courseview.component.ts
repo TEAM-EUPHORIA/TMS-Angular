@@ -15,7 +15,7 @@ export class CourseviewComponent implements OnInit {
     public auth: LoginService,
     private route: ActivatedRoute,
     private courseService: CourseService) { }
-
+  canGiveFeedback = false;
   courseId !: number;
   Feedbacks !: any[];
   Givefeedback: boolean = false;
@@ -38,6 +38,7 @@ export class CourseviewComponent implements OnInit {
         console.warn(this.Course);
         console.warn(this.Feedbacks);
         console.warn(this.auth.getId());
+        this.TopicInit()
       },
       error: (err: any) => {
         // window.location.replace("/")
@@ -51,6 +52,17 @@ export class CourseviewComponent implements OnInit {
         break;
       }
     }
+  }
+  TopicInit(){
+    let topicsCompleted = 0;
+    for (const item of this.Course.topics) {
+      console.log(item)
+      if(!item.status){
+        topicsCompleted++;
+        console.log(topicsCompleted)
+      }
+    }
+    this.canGiveFeedback = topicsCompleted == this.Course.topics.length
   }
   ToTopicView(id: any) {
     this.router.navigate(['CourseView/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });

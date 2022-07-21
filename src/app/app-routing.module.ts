@@ -95,7 +95,7 @@ const routes: Routes = [
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
   { path: 'EditCourseFeedback/:courseId/:traineeId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },
-  { path: 'ViewCourseFeedback/:courseId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard] } },
+  { path: 'ViewCourseFeedback/:courseId/:traineeId', component: ViewcoursefeedbackComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard] } },
   ///           <Course>
   //TraineeFeedback Routing Link
   { path: 'GiveTraineeFeedback/:traineeId', component: GivetraineefeedbackComponent, canActivate: [TrainerGuard] },
