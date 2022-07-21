@@ -14,22 +14,30 @@ export class ViewcoursefeedbackComponent implements OnInit {
 
   data: any;
   id !: number;
+  tid !: number;
   Cname: any;
   userid = this.Auth.getId();
   ngOnInit(): void {
     this.id = this.route.snapshot.params["courseId"]
+    this.tid = this.route.snapshot.params["traineeId"]
     console.log(this.Cname)
     this.getAllFeedback(this.id);
   }
   getAllFeedback(id: any) {
-    this.http.get("https://localhost:5001/FeedBack/course/" + `${id},${this.Auth.getId()}`).subscribe({
-      next: (res) => {
-        this.data = res
-        console.warn(this.data);
-      },error:(err:any)=>{
-        window.location.replace("/")
-      }
-    });
+    if(this.tid == this.Auth.getId())
+    {
+      this.http.get("https://localhost:5001/FeedBack/course/" + `${id},${this.Auth.getId()}`).subscribe({
+        next: (res) => {
+          this.data = res
+          console.warn(this.data);
+        },error:(err:any)=>{
+          
+        }
+      });
+    }
+    else {
+      // window.location.replace("/")
+    }
   }
   ToEditFeedback() {
     console.warn(this.Cname)

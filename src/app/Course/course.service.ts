@@ -21,28 +21,31 @@ export class CourseService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.http.post<any>(this.baseurl + `course`, data)
-}
-putcourse(data: any): Observable<any> {
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json; charset=utf-8');
-  return this.http.put<any>(this.baseurl + `course`, data)
-}
-getAllCourses(): Observable<any> {
-  return this.http.get<any>(this.baseurl)
-}
-getCourseByCourseId(): Observable<any> {
-  return this.http.get<any>(this.baseurl + `myCourses`);
-}
-getCoursesByUserId(id: number): Observable<any> {
-  return this.http.get<any>(this.baseurl + `users/${id}`);
-}
-disableCourse(id: number ): Observable<any> {
-  return this.http.delete<any>(this.baseurl +  `disable/${id}`)
-}
-disableTopic(id: number ,topicId: number): Observable<any> {
-  return this.http.delete<any>(this.baseurl + `${id}/topics/disable/${topicId}`)
-}
-getTopicByCourseId(id : number) : Observable<any> {
-  return this.http.get<any>(this.baseurl + `${id}/topics`)
-}
+  }
+  putcourse(data: any): Observable<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    return this.http.put<any>(this.baseurl + `course`, data)
+  }
+  getAllCourses(): Observable<any> {
+    return this.http.get<any>(this.baseurl)
+  }
+  getCourseByCourseForTraineeTrainer(): Observable<any> {
+    return this.http.get<any>(this.baseurl + `myCourses`);
+  }
+  getCourseById(cid:any): Observable<any> {
+    return this.http.get<any>(this.baseurl + `${cid}`);
+  }
+  getCoursesByUserId(id: number): Observable<any> {
+    return this.http.get<any>(this.baseurl + `users/${id}`);
+  }
+  disableCourse(id: number): Observable<any> {
+    return this.http.delete<any>(this.baseurl + `disable/${id}`)
+  }
+  disableTopic(id: number, topicId: number): Observable<any> {
+    return this.http.delete<any>(this.baseurl + `${id}/topics/disable/${topicId}`)
+  }
+  getTopicByCourseId(id: number): Observable<any> {
+    return this.http.get<any>(this.baseurl + `${id}/topics`)
+  }
 }
