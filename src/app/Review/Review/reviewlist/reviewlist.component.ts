@@ -59,13 +59,14 @@ export class ReviewlistComponent implements OnInit {
         console.log(this.data)
       })
     }
-    if (this.ls.IsTrainee || this.ls.IsReviewer) {
+    if (this.ls.IsloggedIn) {
       this.edit = false;
       this.rs.getReviewByStatusAndUser(this.statusId, this.ls.getId()).subscribe((res: any) => {
         this.changeReviewDateTime(res)
         this.reviewlist = res;
         this.reviewlist.forEach((element:any) => {
-          element.department = this.dept.find((d:any) => d.id == element.departmentId)
+          element.department = this.dept.find((d:any) => d.id == element.reviewer.departmentId)
+          console.log(element.department)
         });
       })
     }
