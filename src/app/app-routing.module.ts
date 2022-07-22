@@ -65,7 +65,6 @@ const routes: Routes = [
   { path: 'DepartmentList', component: DepartmentlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
   { path: 'AddDepartment', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
-  { path: 'CourseView/:courseId', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
   { path: 'TopicView/:courseId/:topicId', component: TopicviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
   { path: 'AddTopic/:courseId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'Course/:courseId/Topic/:topicId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
@@ -76,11 +75,10 @@ const routes: Routes = [
   ///       <Course>
   //Courses Routing Link
   { path: 'CourseList', component: CourselistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard, TraineeGuard] } },
-  { path: 'CourseView', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
-  { path: 'CourseView/:courseId', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
+  { path: ':List/Course/:courseId', component: CourseviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
   { path: 'AddCourse', component: CoursecrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'EditCourse/:courseId', component: CoursecrudComponent, canActivate: [CoordinatorGuard] },
-  { path: 'CourseView/:courseId/TopicView/:topicId', component: TopicviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
+  { path: 'Course/:courseId/TopicView/:topicId', component: TopicviewComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TraineeGuard, TrainerGuard] } },
 
   //Topic Routing Link
   { path: 'AddTopic/:courseId', component: TopiccrudComponent, canActivate: [CoordinatorGuard] },
@@ -92,7 +90,6 @@ const routes: Routes = [
   { path: 'AttendanceList/:courseId/:topicId', component: AttendancelistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
 
   //Assigning course to Trainee
-
   { path: 'AssignCourse/:courseId/:deptId', component: CoursetraineeComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, TrainerGuard] } },
   // CourseFeedback Routing Link
   { path: 'GiveCourseFeedback/:courseId', component: GivecoursefeedbackComponent, canActivate: [TraineeGuard] },

@@ -38,7 +38,7 @@ export class GivetraineefeedbackComponent implements OnInit {
   ngOnInit(): void {
     this.traineeId = this.route.snapshot.params['traineeId'];
     this.courseId = this.route.snapshot.params['courseId'];
-    console.warn(this.courseId)
+    console.log(this.courseId)
     this.trainerId = this.route.snapshot.params['trainerId'];
     this.userService.getUsersById(this.traineeId).subscribe(res => {
       this.temp = res;

@@ -1,79 +1,80 @@
 <div class="content">
-  <app-sidebar></app-sidebar>
-  <div class="pt-4 px-4">
-    <nav aria-label="breadcrumb" class="px-4">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-        <li class="breadcrumb-item">
-          <a routerLink="/CourseList">CourseList</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a routerLink="/CourseList/{{ this.id }}">Topic List</a>
-        </li>
-        <li class="breadcrumb-item active">{{ Title }} Topic</li>
-      </ol>
-    </nav>
-    <div class="container-fluid pt-2 px-4">
-      <h3 class="text-black pb-2">{{ Title }} Topic</h3>
-      <input type="text" class="form-control p-3 mt-2" placeholder="Enter the topic" name="name" id="floatingText"
-        [(ngModel)]="topic.name" formcontrolName="name" maxlength="50"
-        pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)" />
-      <div *ngIf="
+    <app-sidebar></app-sidebar>
+    <div class="pt-4 px-4">
+        <nav aria-label="breadcrumb" class="px-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+                <li class="breadcrumb-item">
+                    <a routerLink="/CourseList">CourseList</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a routerLink="/CourseList/{{ this.id }}">Topic List</a>
+                </li>
+                <li class="breadcrumb-item active">{{ Title }} Topic</li>
+            </ol>
+        </nav>
+        <div class="container-fluid pt-2 px-4">
+            <h3 class="text-black pb-2">{{ Title }} Topic</h3>
+            <input type="text" class="form-control p-3 mt-2" placeholder="Enter the topic" name="name" id="floatingText"
+                [(ngModel)]="topic.name" formcontrolName="name" maxlength="50"
+                pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)" />
+            <div *ngIf="
           topicform.controls['name'].invalid &&
           (topicform.controls['name'].dirty ||
             topicform.controls['name'].touched)
         " class="alert alert-danger">
-        <div *ngIf="topicform.controls['name'].errors?.['required']">
-          Topic name is required.
-        </div>
-        <div *ngIf="topicform.controls['name'].errors?.['minlength']">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="topicform.controls['name'].errors?.['maxlength']">
-          Name don't exceed 25 characters long.
-        </div>
-        <div *ngIf="topicform.controls['name'].errors?.['serverError']">
-          {{ this.topicform.controls["name"].getError("serverError") }}
-        </div>
-        <div *ngIf="topicform.controls['name'].invalid || topicform.controls['name'].errors?.['maxlength']">
-          Please enter a valid Topic name
-        </div>
-      </div>
-      <input type="text" class="form-control p-3 mt-4 mb-4" placeholder="Ex:1 hr 30 mins" name="name" id="name"
-        [(ngModel)]="topic.duration" formcontrolName="duration" maxlength="15"
-        pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$" />
-      <div *ngIf="
+                <div *ngIf="topicform.controls['name'].errors?.['required']">
+                    Topic name is required.
+                </div>
+                <div *ngIf="topicform.controls['name'].errors?.['minlength']">
+                    Name must be at least 4 characters long.
+                </div>
+                <div *ngIf="topicform.controls['name'].errors?.['maxlength']">
+                    Name don't exceed 25 characters long.
+                </div>
+                <div *ngIf="topicform.controls['name'].errors?.['serverError']">
+                    {{ this.topicform.controls["name"].getError("serverError") }}
+                </div>
+                <div *ngIf="topicform.controls['name'].invalid || topicform.controls['name'].errors?.['maxlength']">
+                    Please enter a valid Topic name
+                </div>
+            </div>
+            <input type="text" class="form-control p-3 mt-4 mb-4" placeholder="Ex:1 hr 30 mins" name="name" id="name"
+                [(ngModel)]="topic.duration" formcontrolName="duration" maxlength="15"
+                pattern="^(\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$" />
+            <div *ngIf="
           topicform.controls['duration'].invalid &&
           (topicform.controls['duration'].dirty ||
             topicform.controls['duration'].touched)
         " class="alert alert-danger">
-        <div *ngIf="topicform.controls['duration'].errors?.['required']">
-          Duration is required.
-        </div>
-        <div *ngIf="topicform.controls['duration'].errors?.['minlength']">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="topicform.controls['duration'].errors?.['maxlength']">
-          Name don't exceed 25 characters long.
-        </div>
-        <div *ngIf="topicform.controls['duration'].invalid || topicform.controls['duration'].errors?.['maxlength']">
-          Please enter a valid Duration
-        </div>
-      </div>
+                <div *ngIf="topicform.controls['duration'].errors?.['required']">
+                    Duration is required.
+                </div>
+                <div *ngIf="topicform.controls['duration'].errors?.['minlength']">
+                    Name must be at least 4 characters long.
+                </div>
+                <div *ngIf="topicform.controls['duration'].errors?.['maxlength']">
+                    Name don't exceed 25 characters long.
+                </div>
+                <div
+                    *ngIf="topicform.controls['duration'].invalid || topicform.controls['duration'].errors?.['maxlength']">
+                    Please enter a valid Duration
+                </div>
+            </div>
 
-      <form [formGroup]="topicform" action="" #ngForm (ngSubmit)="OnSubmit()">
-        <div class="col-md-12">
-          <div name="Content" id="editor" class="p-1">
-            <quill-editor id="content" class="border-0"></quill-editor>
-          </div>
-          <div class="d-flex justify-content-end mt-3">
-            <button type="submit" class="btn btn-dark pe-4 px-4 text-right justify-content-end hover">
-              Save
-            </button>
-          </div>
+            <form [formGroup]="topicform" action="" #ngForm (ngSubmit)="OnSubmit()">
+                <div class="col-md-12">
+                    <div name="Content" id="editor" class="p-1">
+                        <quill-editor id="content" class="border-0"></quill-editor>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-dark pe-4 px-4 text-right justify-content-end hover">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <app-footer></app-footer>
+    <app-footer></app-footer>
 </div>

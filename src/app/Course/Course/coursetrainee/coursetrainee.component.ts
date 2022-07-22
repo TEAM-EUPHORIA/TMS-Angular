@@ -31,7 +31,6 @@ export class CoursetraineeComponent implements OnInit {
   totalLength: any;
   coursetraineelist: any[] = [];
   coursetraineelistcopy: any[] = [];
-
   Feedbacks: any
 
   traineeId = 3;
@@ -163,7 +162,6 @@ export class CoursetraineeComponent implements OnInit {
       console.warn(this.data);
     })
   }
-
 }
 
 

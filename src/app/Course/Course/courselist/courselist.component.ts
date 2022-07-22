@@ -13,6 +13,8 @@ import { CourseService } from '../../course.service';
 export class CourselistComponent implements OnInit {
 
   constructor(private CourseService: CourseService, private route: Router, public auth: LoginService, private http: HttpClient) { }
+
+
   _course = '';
   //variable to store and iterate through list of courses
   _dept = '';
@@ -21,6 +23,7 @@ export class CourselistComponent implements OnInit {
   courselist: any = [];
   course: any[] = [];
   courselistcopy: any[] = [];
+
   // Paginate settings
   page: number = 1;
   totalLength: any;
@@ -71,7 +74,6 @@ export class CourselistComponent implements OnInit {
       this.courselistcopy = res
     })
   }
-
   disableCourse(id: number) {
     this.CourseService.disableCourse(id).subscribe(() => this.getAllCourses())
     // this.showToast();
@@ -83,7 +85,7 @@ export class CourselistComponent implements OnInit {
     this.search = search;
   }
   ToCourseView(id: number) {
-    this.route.navigate(['/CourseView/' + id]);
+    this.route.navigate(['CourseList/Course/' + id]);
   }
   // ToEditCourse(obj : any){
   //   var course : any;
@@ -137,4 +139,3 @@ export class CourselistComponent implements OnInit {
     return course.name.toLowerCase().includes(search.value.toLowerCase());
   }
 }
-

@@ -45,18 +45,19 @@ export class ReviewlistComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
     this.getDepartments()
-    this.statusId = this.router.url == '/Scheduled-Review' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
-    console.log(this.statusId)
+    this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
+    console.log("status id :"+this.statusId)
     if (this.ls.IsCoordinator) {
       this.edit = true;
+      console.log(this.edit)
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
         this.reviewlist = res;
-        this.reviewlist.forEach((element:any) => {
-          element.department = this.dept.find((d:any) => d.id == element.departmentId)
+        this.reviewlist.forEach((element: any) => {
+          element.department = this.dept.find((d: any) => d.id == element.departmentId)
         });
         this.reviewlistcopy = res;
-        console.log(this.data)
+        console.log(this.reviewlist.length > 0)
       })
     }
     if (this.ls.IsloggedIn) {
@@ -64,8 +65,8 @@ export class ReviewlistComponent implements OnInit {
       this.rs.getReviewByStatusAndUser(this.statusId, this.ls.getId()).subscribe((res: any) => {
         this.changeReviewDateTime(res)
         this.reviewlist = res;
-        this.reviewlist.forEach((element:any) => {
-          element.department = this.dept.find((d:any) => d.id == element.reviewer.departmentId)
+        this.reviewlist.forEach((element: any) => {
+          element.department = this.dept.find((d: any) => d.id == element.reviewer.departmentId)
           console.log(element.department)
         });
       })
@@ -92,7 +93,7 @@ export class ReviewlistComponent implements OnInit {
   }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
-    
+
       this.dept = res
     })
   }
@@ -125,14 +126,14 @@ export class ReviewlistComponent implements OnInit {
     }
     else {
       if (search.value != '') {
-        this.reviewlist = this.reviewlistcopy.filter((review: any) => this.getFilteredUsers(review,search))
-      }else{
+        this.reviewlist = this.reviewlistcopy.filter((review: any) => this.getFilteredUsers(review, search))
+      } else {
         this.reviewlist = this.reviewlistcopy
       }
     }
     this.updateCurrentPageAndTotalLength();
   }
-  
+
   private getFilteredUsers(review: any, search: HTMLInputElement): any {
     return review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase());
   }
