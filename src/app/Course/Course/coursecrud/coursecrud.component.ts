@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../course.service';
 import { LoginService } from 'src/app/Login/login.service';
 import { HotToastService } from '@ngneat/hot-toast';
-
 
 @Component({
   selector: 'app-coursecrud',
@@ -14,13 +13,11 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class CoursecrudComponent implements OnInit {
 
-  Traineeid !: number;
-
-
   constructor(private route: Router, private cs: CourseService,
     private routing: Router, private router: ActivatedRoute, private http: HttpClient,
     private auth: LoginService, private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
 
+  Traineeid !: number;
   data: any;
   dept: any;
   Title: string = "Add";
@@ -37,7 +34,6 @@ export class CoursecrudComponent implements OnInit {
     name: '',
     duration: '',
   }
-
 
   courseform = new FormGroup({
     name: new FormControl(['',
@@ -64,8 +60,8 @@ export class CoursecrudComponent implements OnInit {
     ]),
   })
 
-  update(department:any){
-    this.Course.departmentId = department.value 
+  update(department: any) {
+    this.Course.departmentId = department.value
     this.getUserByRole();
   }
 
@@ -90,7 +86,6 @@ export class CoursecrudComponent implements OnInit {
         this.Editable = true;
       }
     }
-
   }
   OnSubmit() {
     if (this.courseId != undefined || this.courseId != null) {
@@ -105,8 +100,7 @@ export class CoursecrudComponent implements OnInit {
           this.serverSideErrorMsgs(err);
         }
       })
-    }
-    else {
+    } else {
       this.cs.postcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was created successfully.")
@@ -132,8 +126,6 @@ export class CoursecrudComponent implements OnInit {
       }
     });
   }
-
-
   getUserByRole() {
     this.http.get("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {
       this.data = res

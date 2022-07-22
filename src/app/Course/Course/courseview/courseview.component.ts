@@ -84,5 +84,4 @@ export class CourseviewComponent implements OnInit {
       text = "You canceled!";
     }
   }
-
 }

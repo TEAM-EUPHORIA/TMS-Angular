@@ -23,8 +23,6 @@
                     </div>
                 </div>
             </div>
-            
-            
             <div *ngFor="let item of courselist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
@@ -39,7 +37,6 @@
                 </div>
             </div>
         </div>
-
         <div class="mt-4"><pagination-controls *ngIf="courselist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
     <app-footer></app-footer>
