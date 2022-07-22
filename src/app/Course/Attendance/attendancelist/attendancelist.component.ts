@@ -36,26 +36,29 @@ export class AttendancelistComponent implements OnInit {
       next:(res:any)=>{
         console.log(res)
         this.data = res
+        this.attendancelist = res;
+        this.attendancelistcopy = res;
       },
       error:(err:any)=>{
         console.log(err)
       }
     })
   }
+  filterByName() {
+    const search = document.getElementById("search") as HTMLInputElement
+    if (search.value != '') {
+        this.attendancelist = this.attendancelistcopy.filter((user: any) => this.getFilteredUsers(user,search))
+      }else{
+        this.attendancelist = this.attendancelistcopy
+      }
+
+    this.updateCurrentPageAndTotalLength();
+  }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
+    this.totalLength = this.attendancelist.length;
   }
-  filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-    dropdown.value = ""
-    if (search.value != '') {
-      console.log(this.attendancelist)
-      this.attendancelist = this.attendancelistcopy.filter((attendance: any) => attendance.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-      this.updateCurrentPageAndTotalLength();
-    } else {
-      this.attendancelist = this.attendancelistcopy
-      this.updateCurrentPageAndTotalLength();
-      dropdown.disabled = false
-    }
+  private getFilteredUsers(attendance: any, search: HTMLInputElement): any {
+    return attendance.owner.fullName.toLowerCase().includes(search.value.toLowerCase());
   }
 }

@@ -97,6 +97,7 @@ export class TopiccrudComponent implements OnInit {
       this.PostTopic();
       this.navigateToCourseView();
     }
+    this.showToast();
   }
 
   private UpdateTopic() {
@@ -159,6 +160,6 @@ export class TopiccrudComponent implements OnInit {
     window.location.replace('Course/' + this.courseId);
   }
   showToast() {
-    this.toastService.success('ed')
+    this.toastService.success('Topic Added Successfully')
   }
 }
