@@ -19,14 +19,10 @@
                     <div class="col-3">
                         <h5 class="text-primary fs-5 mx-5">
                             <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes'
-                                        checked style="pointer-events: none;" name='checkbox_attendance'></a>
-                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
-                                        unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
+                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes' checked style="pointer-events: none;" name='checkbox_attendance'></a>
+                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
-                                    routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View
-                                    Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View Attendance</a></div>
                         </h5>
                         <h6 class=" text-dark fs-4">
                             <div *ngIf="auth.IsTrainer">
