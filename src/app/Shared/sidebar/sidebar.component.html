@@ -1,29 +1,44 @@
 <div class="sidebar pe-4 pb-3" id="sidebar">
     <nav class="navbar navbar-light">
         <h3 class="text-primary navbar-brand logo">TMS</h3>
-        <div class="navbar-nav w-100"><a *ngIf="!ls.IsloggedIn" routerLink="/Home" routerLinkActive="active" class="nav-item nav-link "><i class="fa fa-home" aria-hidden="true"></i>Home</a></div>
+        <div class="navbar-nav w-100"><a *ngIf="!ls.IsloggedIn" routerLink="/Home" routerLinkActive="active"
+                class="nav-item nav-link "><i class="fa fa-home" aria-hidden="true"></i>Home</a></div>
         <div class="navbar-nav w-100">
-            <a *ngIf="ls.IsloggedIn" routerLink="/Home" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-home"  aria-hidden="true"></i>Home</a>
-            <a *ngIf="ls.IsloggedIn" routerLink="/Dashboard" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-desktop" aria-hidden="true"></i>Dashboard</a>
-            <a *ngIf="ls.IsloggedIn" routerLink="/Profile" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-card"></i>My Profile</a>
-            <a *ngIf="ls.IsHead" routerLink="/Co-Ordinator" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i>Co-Ordinator</a>
-            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/DepartmentList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="true"></i>Department</a>
-            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainer" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-male" aria-hidden="true"></i>Trainer</a>
-            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainee" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-users" aria-hidden="true"></i>Trainee</a>
-            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsTrainee || ls.IsTrainer" routerLink="/CourseList" routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
-            <a *ngIf="ls.IsCoordinator" routerLink="/Reviews" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Scheduled Reviews</a>
-            <a *ngIf="ls.IsReviewer || ls.IsTrainee" routerLink="/Reviews" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Reviews</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Review" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed Reviews</a>
+            <a *ngIf="ls.IsloggedIn" routerLink="/Home" routerLinkActive="active" class="nav-item nav-link"><i
+                    class="fa fa-home" aria-hidden="true"></i>Home</a>
+            <a *ngIf="ls.IsloggedIn" routerLink="/Dashboard" routerLinkActive="active" class="nav-item nav-link"><i
+                    class="fa fa-desktop" aria-hidden="true"></i>Dashboard</a>
+            <a *ngIf="ls.IsloggedIn" routerLink="/Profile" routerLinkActive="active" class="nav-item nav-link"><i
+                    class="fa fa-address-card"></i>My Profile</a>
+            <a *ngIf="ls.IsHead" routerLink="/Co-Ordinator" routerLinkActive="active" class="nav-item nav-link"><i
+                    class="fa fa-user" aria-hidden="true"></i>Co-Ordinator</a>
+            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/DepartmentList" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa fa-book" aria-hidden="true"></i>Department</a>
+            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainer" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa fa-male" aria-hidden="true"></i>Trainer</a>
+            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Trainee" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa fa-users" aria-hidden="true"></i>Trainee</a>
+            <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
+            <a *ngIf="ls.IsCoordinator || ls.IsTrainee || ls.IsTrainer" routerLink="/CourseList"
+                routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book"
+                    aria-hidden="true"></i>Courses</a>
+            <a *ngIf="ls.IsCoordinator" routerLink="/Reviews" routerLinkActive="active" class="nav-item nav-link"><i
+                    class="fa-solid fa-square-pen"></i>Scheduled Reviews</a>
+            <a *ngIf="ls.IsReviewer || ls.IsTrainee" routerLink="/Reviews" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Reviews</a>
+            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Review"
+                routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed
+                Reviews</a>
         </div>
     </nav>
 </div>
 <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
     <a class="sidebar-toggler flex-shrink-0" (click)="toggleNavbar()"><i class="fa fa-bars"></i></a>
     <div class="navbar-nav align-items-center ms-auto">
-        <div class="nav-item"><a *ngIf="ls.IsloggedIn" routerLink="/"><i class="fa fa-sign-out" aria-hidden="true" (click)="LogOut()"> &nbsp; LogOut</i></a></div>
-        <div><a *ngIf="!ls.IsloggedIn" routerLink="/Login"><i class="fa fa-sign-out" aria-hidden="true"> &nbsp; LogIn</i></a></div>
+        <div class="nav-item"><a *ngIf="ls.IsloggedIn" routerLink="/"><i class="fa fa-sign-out" aria-hidden="true"
+                    (click)="LogOut()"> &nbsp; LogOut</i></a></div>
+        <div><a *ngIf="!ls.IsloggedIn" routerLink="/Login"><i class="fa fa-sign-out" aria-hidden="true"> &nbsp;
+                    LogIn</i></a></div>
     </div>
 </nav>
-  
-  
