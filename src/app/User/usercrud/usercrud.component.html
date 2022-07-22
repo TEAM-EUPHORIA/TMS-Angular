@@ -73,7 +73,8 @@
                             <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>
-                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"#fileUpload>
+                        <input class="d-none" type="file" id="file" name="file" accept="image/*"
+                            (change)="handleUpload($event)" #fileUpload>
                     </div>
                 </div> 
                 <button type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover" [disabled]="userform.pristine">{{pageAction}}</button>

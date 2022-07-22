@@ -65,7 +65,7 @@ export class CourseviewComponent implements OnInit {
     console.log(this.canGiveFeedback);
   }
   ToTopicView(id: any) {
-    this.router.navigate(['CourseView/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });
+    this.router.navigate(['Course/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });
   }
   ToViewFeedback() {
     this.router.navigate(['/ViewCourseFeedback/' + this.Course.id + `/` + this.auth.getId()], { state: { courseName: this.Course.name } });
