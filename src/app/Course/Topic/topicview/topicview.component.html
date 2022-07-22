@@ -5,7 +5,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">{{Coursename}}</a></li>
+                <li class="breadcrumb-item "><a routerLink="/CourseView/{{courseId}}">{{Coursename}}</a></li>
                 <li class="breadcrumb-item active">{{Topic.name}}</li>
             </ol>
         </nav>
@@ -24,17 +24,20 @@
                                 <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/AttendanceList/{{courseId}}/{{topicId}}"
-                                    id="pointer">View Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
+                                    routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View
+                                    Attendance</a></div>
                         </b>
                         <b class=" text-dark fs-4">
 
                             <div *ngIf="auth.IsTrainer">
 
-                                <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form' value='Yes'
-                                    checked style="pointer-events: none;"   name='checkbox_topicCompleted'></a>
-                            <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form' value='Yes'
-                                    unchecked name='checkbox_topicCompleted' (click)="MarkTopicStatus()" /></a>
+                                <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' checked style="pointer-events: none;"
+                                        name='checkbox_topicCompleted'></a>
+                                <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' unchecked name='checkbox_topicCompleted'
+                                        (click)="MarkTopicStatus()" /></a>
 
                             </div>
 
@@ -46,7 +49,8 @@
             <div class="row g-2">
                 <div class="container-fluid  px-4 pb-2">
                     <h3>Topic's Assignment</h3>
-                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer" (SubmittedAssignment)="HandleSubmit($event)" >
+                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer"
+                        (SubmittedAssignment)="HandleSubmit($event)">
                     </app-uploadassignment>
                 </div>
                 <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
@@ -63,7 +67,7 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <div class="container-fluid  px-4" *ngIf="Topic.assignments[0] != null" >
+                <div class="container-fluid  px-4" *ngIf="Topic.assignments[0] != null">
                     <h3>Submitted Assignment</h3>
                     <div class="container-fluid  px-4 pb-2"
                         *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
