@@ -49,11 +49,13 @@ export class ReviewlistComponent implements OnInit {
     console.log("status id :"+this.statusId)
     if (this.ls.IsCoordinator) {
       this.edit = true;
+      console.log(this.edit)
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
         this.reviewlist = res;
         this.reviewlist.forEach((element:any) => {
           element.department = this.dept.find((d:any) => d.id == element.departmentId)
+          console.log(element.statusId)
         });
         this.reviewlistcopy = res;
         console.log(this.reviewlist.length > 0)
