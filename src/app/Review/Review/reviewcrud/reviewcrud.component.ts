@@ -7,32 +7,23 @@ import { DepartmentService } from 'src/app/Department/department.service';
 import { LoginService } from 'src/app/Login/login.service';
 import { UserService } from 'src/app/User/user.service';
 import { ReviewService } from '../../review.service';
-
 @Component({
   selector: 'app-reviewcrud',
   templateUrl: './reviewcrud.component.html',
   styleUrls: ['./reviewcrud.component.css']
 })
 export class ReviewcrudComponent implements OnInit {
-
-  User: any;
   Users: any;
-  dept: any;
+  dept: any = [];
   trainee: any;
   reviewer: any;
-  deptId !: number;
   reviewId !: number;
-
   departmentId !: number;
   Department !: string;
   Title !: string;
-
-  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe,private auth:LoginService) { }
-
+  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe, private auth: LoginService) { }
   StatusId = 1;
-
   errorMsg: any;
-
   Review: any = {
     id: 0,
     reviewerId: 0,
@@ -49,9 +40,7 @@ export class ReviewcrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
-    console.log(this.reviewId)
     this.GetallDepartment();
-    console.warn(this.reviewId);
     if (this.reviewId == null) {
       this.Title = "Add";
     }
@@ -59,15 +48,11 @@ export class ReviewcrudComponent implements OnInit {
       this.Title = "Edit"
     }
     this.setoption();
-
-    this.minDate.setDate(this.minDate.getDate()+2);
-    this.maxDate.setDate(this.maxDate.getDate()+15);
   }
-  setoption(form?: NgForm) {
+  setoption() {
     if (this.reviewId != null) {
       this.getReviewById();
     }
-
   }
   myFunction() {
     this.Review.reviewDate = this.datepipe.transform(this.Review.reviewDate, 'yyyy-MM-dd');
@@ -77,18 +62,14 @@ export class ReviewcrudComponent implements OnInit {
     this.review.getReviewById(this.reviewId).subscribe(res => {
       this.Review = res;
       this.departmentId = this.Review.reviewer.departmentId;
-      console.log(res)
       this.myFunction();
-      this.Click()
     })
   }
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe(res => {
       this.dept = res
-      this.deptId = this.dept.id;
     })
   }
-
   OnSubmit() {
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe({
@@ -104,7 +85,6 @@ export class ReviewcrudComponent implements OnInit {
           console.warn(err["error"])
         },
       })
-
     }
     else {
       console.log(this.Review) // to be removed
@@ -124,36 +104,24 @@ export class ReviewcrudComponent implements OnInit {
     }
   }
   OnSelected(): void {
-    this.Review.departmentId
-    this.dept.departmentId;
-    console.warn()
-    this.deptId = Number.parseInt(this.Review.departmentId);
-    this.GetUsersByDepartmentAndRole_Reviewer(this.deptId);
-    this.GetUsersByDepartmentAndRole_Trainee(this.deptId);
-    this.Selecteddept.emit(this.Department);
+    const departmentId = document.getElementById("departmentId") as HTMLSelectElement 
+    this.GetReviewers(departmentId.value)
+    this.GetTrainees(departmentId.value)
   }
 
-  @Output()
-  Selecteddept: EventEmitter<string> = new EventEmitter<string>();
-
-  Click() {
-    this.GetUsersByDepartmentAndRole_Reviewer(this.departmentId);
-    this.GetUsersByDepartmentAndRole_Trainee(this.departmentId);
-  }
-
-  GetUsersByDepartmentAndRole_Reviewer(dep: number) {
+  GetReviewers(dep: string) {
     this.review.GetUsersByDepartmentAndRole(dep, 5).subscribe(res => {
       this.reviewer = res
+      console.log(res)
     });
   }
-  GetUsersByDepartmentAndRole_Trainee(dsp: number) {
+  GetTrainees(dsp: string) {
     this.review.GetUsersByDepartmentAndRole(dsp, 4).subscribe(res => {
       this.trainee = res
+      console.log(res)
     });
   }
 }
-
 function navigateToListPage(url: string) {
   window.location.replace(url);
 }
-

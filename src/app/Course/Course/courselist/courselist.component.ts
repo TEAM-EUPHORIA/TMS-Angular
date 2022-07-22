@@ -18,7 +18,7 @@ export class CourselistComponent implements OnInit {
   _dept = '';
   //variable to store and iterate through list of departments
   dept: any
-  courselist: any;
+  courselist: any = [];
   course: any[] = [];
   courselistcopy: any[] = [];
 
@@ -97,57 +97,43 @@ export class CourselistComponent implements OnInit {
     })
   }
 
-  filterByDepartment(item: HTMLSelectElement,) {
+  filterByDepartment() {
+    const item = document.getElementById("departmentId") as HTMLSelectElement
     if (item.value != '') {
       this.courselist = this.courselistcopy.filter(u => u.departmentId == item.value)
-      this.updateCurrentPageAndTotalLength();
     } else {
       this.courselist = this.courselistcopy
-      this.updateCurrentPageAndTotalLength();
     }
+    this.updateCurrentPageAndTotalLength();
   }
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.courselist.length;
   }
-  // filterByName(search: HTMLInputElement) {
-  //   const dropdown = document.getElementById("hello")! as HTMLSelectElement 
-  //   console.log(dropdown)
-  //   if(dropdown != null)dropdown.value = ""
-  //   if (search.value != '') {
-  //     console.log(this.courselist)
-  //     this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.courselist = this.courselistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //     dropdown.disabled = false
-  //   }
-  // }
-  filterByName(search: HTMLInputElement) {
-    const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-    if (this.auth.IsCoordinator) {
-      if (search.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
-        this.updateCurrentPageAndTotalLength();
-      } else if (search.value != null && dropdown.value != '') {
-        if (dropdown != null) this.courselistcopy = this.courselistcopy.filter((course: any) => course.departmentId == dropdown.value)
-        this.updateCurrentPageAndTotalLength();
-      } else {
-        this.getAllCourses();
-      }
-    }
-    else (this.auth.IsloggedIn)
-    {
-      if (search.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()))
-        this.updateCurrentPageAndTotalLength();
-      } else if (search.value != null) {
-        if (dropdown != null) this.courselistcopy = this.courselistcopy.filter((course: any) => course.departmentId == dropdown.value)
-        this.updateCurrentPageAndTotalLength();
-      } else {
+  filterByName() {
+    const search = document.getElementById("search") as HTMLInputElement
+    const item = document.getElementById("departmentId") as HTMLSelectElement
+    if (item != null) {
+      if (search.value != '' && item.value != '') {
+        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()) && course.departmentId == item.value)
+      } else if (search.value != '' && item.value == '') {
+        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course, search))
+      } else if (search.value == '' && item.value != '') {
+        this.courselist = this.courselistcopy.filter((course: any) => course.departmentId == item.value)
+      } else if (search.value == '' && item.value == '') {
         this.courselist = this.courselistcopy
       }
     }
+    else {
+      if (search.value != '') {
+        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course,search))
+      }else{
+        this.courselist = this.courselistcopy
+      }
+    }
+    this.updateCurrentPageAndTotalLength();
+  }
+  private getFilteredCourse(course: any, search: HTMLInputElement): any {
+    return course.name.toLowerCase().includes(search.value.toLowerCase());
   }
 }
