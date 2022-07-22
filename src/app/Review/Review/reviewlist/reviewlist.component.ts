@@ -44,16 +44,15 @@ export class ReviewlistComponent implements OnInit {
   }
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
-    this.getDepartments()
-    this.statusId = this.router.url == '/Scheduled-Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Reviews' ? 1 : undefined
-    console.log(this.statusId)
+    this.getDepartments();
+    this.statusId = this.router.url == '/Upcoming-Review' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Reviews' ? 1 : undefined
     if (this.ls.IsCoordinator) {
       this.edit = true;
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
         this.reviewlist = res;
-        this.reviewlist.forEach((element:any) => {
-          element.department = this.dept.find((d:any) => d.id == element.departmentId)
+        this.reviewlist.forEach((element: any) => {
+          element.department = this.dept.find((d: any) => d.id == element.departmentId)
         });
         this.reviewlistcopy = res;
         console.log(this.data)
@@ -64,8 +63,8 @@ export class ReviewlistComponent implements OnInit {
       this.rs.getReviewByStatusAndUser(this.statusId, this.ls.getId()).subscribe((res: any) => {
         this.changeReviewDateTime(res)
         this.reviewlist = res;
-        this.reviewlist.forEach((element:any) => {
-          element.department = this.dept.find((d:any) => d.id == element.departmentId)
+        this.reviewlist.forEach((element: any) => {
+          element.department = this.dept.find((d: any) => d.id == element.departmentId)
         });
       })
     }
@@ -91,37 +90,11 @@ export class ReviewlistComponent implements OnInit {
   }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
-    
+
       this.dept = res
     })
   }
-  // filterByDepartment(item: HTMLSelectElement) {
-  //   console.log(item)
-  //   if (item.value != '') {
-  //     this.reviewlist = this.reviewlistcopy.filter(u => u.departmentId == item.value)
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //   }
-  // }
-  // private updateCurrentPageAndTotalLength() {
-  //   this.page = 1;
-  //   this.totalLength = this.reviewlist.length;
-  // }
-  // filterByName(search: HTMLInputElement) {
-  //   const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
-  //   dropdown.value = ""
-  //   if (search.value != '') {
-  //     console.log(this.reviewlist)
-  //     this.reviewlist = this.reviewlistcopy.filter((review: any) => review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-  //     this.updateCurrentPageAndTotalLength();
-  //   } else {
-  //     this.reviewlist = this.reviewlistcopy
-  //     this.updateCurrentPageAndTotalLength();
-  //     dropdown.disabled = false
-  //   }
-  // }
+
   filterByDepartment(item: HTMLSelectElement,) {
     if (item.value != '') {
       this.reviewlist = this.reviewlistcopy.filter(u => (u.departmentId == item.value))
@@ -139,9 +112,8 @@ export class ReviewlistComponent implements OnInit {
   filterByName(search: HTMLInputElement) {
     const dropdown = document.getElementById("departmentId")! as HTMLSelectElement
     if (search.value != '') {
-      this.reviewlist = this.reviewlist.filter((review: any) =>{
-        if(review.reviewer.fullName.toLowerCase().includes(search.value.toLowerCase()) || review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase()))
-        {
+      this.reviewlist = this.reviewlist.filter((review: any) => {
+        if (review.reviewer.fullName.toLowerCase().includes(search.value.toLowerCase()) || review.trainee.fullName.toLowerCase().includes(search.value.toLowerCase())) {
           return review
         }
       })

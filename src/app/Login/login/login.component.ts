@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -32,38 +33,51 @@ export class LoginComponent {
     Email: '',
     Password: ''
   }
+  loginform = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30),
+      Validators.pattern("^([0-9a-zA-Z.]){3,}@[a-zA-z]{3,}(.[a-zA-Z]{2,}[a-zA-Z]*){0,}$")
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+      Validators.minLength(3),
+    ])
+  })
 
   OnSubmit() {
     console.log(this.Login);
     this.http.post("https://localhost:5001/Auth/login", this.Login).
-    subscribe({
+      subscribe({
 
-      next: (res: any) => {
+        next: (res: any) => {
 
-        localStorage.setItem("Token", res.token);
+          localStorage.setItem("Token", res.token);
 
-        this.toastService.success("Login Successful")
+          this.toastService.success("Login Successful")
 
-        setTimeout(() => {
+          setTimeout(() => {
 
-          window.location.replace("/Home")
+            window.location.replace("/Home")
 
-        }, 1000);
+          }, 1000);
 
-      },
+        },
 
-      error: (err: any) => {
+        error: (err: any) => {
 
-        if (err["error"] == 'Unauthorized user') {
+          if (err["error"] == 'Unauthorized user') {
 
-          this.toastService.error(err["error"])
+            this.toastService.error(err["error"])
+
+          }
 
         }
 
-      }
+      })
 
-    })
-    
     // .subscribe(res => {
     //   this.response = res;
     //   console.log(this.response.token);
