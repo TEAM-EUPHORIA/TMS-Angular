@@ -134,7 +134,7 @@ export class CourselistComponent implements OnInit {
         if (dropdown != null) this.courselistcopy = this.courselistcopy.filter((course: any) => course.departmentId == dropdown.value)
         this.updateCurrentPageAndTotalLength();
       } else {
-        this.courselist = this.courselistcopy
+        this.getAllCourses();
       }
     }
     else (this.auth.IsloggedIn)

@@ -18,9 +18,9 @@ export class TopiccrudComponent implements OnInit {
   config: any;
   Title !: string;
   topicform = new FormGroup({
-    name: new FormControl('', [
+    name: new FormControl(['',
       Validators.required,
-      Validators.maxLength(50),
+      Validators.maxLength(25),
       Validators.minLength(3)
     ]),
     duration: new FormControl('', [
@@ -155,7 +155,7 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView(){
-   window.location.replace('CourseView/'+this.courseId);
+    window.location.replace('CourseView/'+this.courseId);
   }
   showToast() {
     this.toastService.success('ed')
