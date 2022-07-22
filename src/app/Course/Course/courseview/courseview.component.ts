@@ -56,13 +56,13 @@ export class CourseviewComponent implements OnInit {
   TopicInit(){
     let topicsCompleted = 0;
     for (const item of this.Course.topics) {
-      console.log(item)
-      if(!item.status){
+      // console.log(item)
+      if(item.status){
         topicsCompleted++;
-        console.log(topicsCompleted)
       }
     }
     this.canGiveFeedback = topicsCompleted == this.Course.topics.length
+    console.log(this.canGiveFeedback);
   }
   ToTopicView(id: any) {
     this.router.navigate(['CourseView/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });
