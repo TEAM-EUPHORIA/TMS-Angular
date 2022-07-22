@@ -87,9 +87,18 @@ export class ReviewlistComponent implements OnInit {
       this.rs.putReview(data).subscribe(res => {
         this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
           this.changeReviewDateTime(res)
+          window.location.reload()
         })
       })
     })
+  }
+  myfunction(id: number) {
+    let text = "Are You Sure You Want To Cancel the Review";
+    if (confirm(text) == true) {
+      this.disableReview(id)
+    } else {
+      text = "You canceled!";
+    }
   }
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
