@@ -1,4 +1,3 @@
-
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -49,7 +48,6 @@ export class TopicviewComponent implements OnInit {
   public trainerId !: number;
 
   assignment: any = {}
-
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
@@ -74,9 +72,13 @@ export class TopicviewComponent implements OnInit {
 
       next: (res: any) => {
         this.Topic = res;
+        console.log(this.Topic.assignments[0])
         this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
         if (this.Topic != null) {
           this.ContentInit(this.Topic);
+          console.log(this.auth.IsCoordinator || this.auth.IsTrainer || this.auth.IsTrainee && !this.Topic.assignments[0] ==null)
+          console.log(this.Topic.assignments[0] ==null)
+
         }
         this.TopicChecked = this.Topic.status;
       },
@@ -91,8 +93,6 @@ export class TopicviewComponent implements OnInit {
     var quill = new Quill('#editor');
     quill.setContents(topic.content);
     quill.disable();
-    this.courseId = topic.courseId;
-    this.topicId = topic.topicId;
     this.ownerId = this.auth.getId();
     this.trainerId = this.trainerId;
     console.warn(this.Topic)
@@ -157,4 +157,3 @@ export class TopicviewComponent implements OnInit {
   }
   
 }
-
