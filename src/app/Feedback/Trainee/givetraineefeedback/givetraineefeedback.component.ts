@@ -38,6 +38,7 @@ export class GivetraineefeedbackComponent implements OnInit {
   ngOnInit(): void {
     this.traineeId = this.route.snapshot.params['traineeId'];
     this.courseId = this.route.snapshot.params['courseId'];
+    console.log(this.courseId)
     this.trainerId = this.route.snapshot.params['trainerId'];
     this.userService.getUsersById(this.traineeId).subscribe(res => {
       this.temp = res;
@@ -67,13 +68,14 @@ export class GivetraineefeedbackComponent implements OnInit {
       this.TraineeFeedback.trainerId = this.auth.getId();
       console.warn(this.TraineeFeedback);
         this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
+          console.log("done"+this.courseId)
           });
         }
         else {
             this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
       });
     }
-    window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
+    //window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
   }
 }
 

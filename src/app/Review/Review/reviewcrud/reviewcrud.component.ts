@@ -35,8 +35,8 @@ export class ReviewcrudComponent implements OnInit {
     isDisabled: false
   }
 
-    minDate:Date= new Date();
-    maxDate:Date= new Date();
+    minDate:Date= new Date();
+    maxDate:Date= new Date();
 
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
@@ -76,7 +76,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/ScheduledReview');
+            navigateToListPage('/Reviews');
           }else{
             navigateToListPage('/Reviews');
           }
@@ -92,7 +92,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/ScheduledReview');
+            navigateToListPage('/Reviews');
           }else{
             navigateToListPage('/Reviews');
           }

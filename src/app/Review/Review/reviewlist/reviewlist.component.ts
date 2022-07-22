@@ -45,8 +45,8 @@ export class ReviewlistComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
     this.getDepartments()
-    this.statusId = this.router.url == '/Scheduled-Review' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
-    console.log(this.statusId)
+    this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
+    console.log("status id :"+this.statusId)
     if (this.ls.IsCoordinator) {
       this.edit = true;
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
@@ -56,7 +56,7 @@ export class ReviewlistComponent implements OnInit {
           element.department = this.dept.find((d:any) => d.id == element.departmentId)
         });
         this.reviewlistcopy = res;
-        console.log(this.data)
+        console.log(this.reviewlist.length > 0)
       })
     }
     if (this.ls.IsloggedIn) {
