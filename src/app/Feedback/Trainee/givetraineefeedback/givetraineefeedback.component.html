@@ -5,7 +5,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/TopicList">Topic List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/AssignCourse/{{this.courseId}}/{{deptId}}">Course
+                        Trainees</a>
+                </li>
                 <li class="breadcrumb-item active">Give TraineeFeedback</li>
             </ol>
         </nav>
@@ -16,13 +18,17 @@
                     <div class="col-md-6">
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Trainee</b></div>
-                            <div class="col-md-8"><p>{{Traineename}}</p></div>
+                            <div class="col-md-8">
+                                <p>{{Traineename}}</p>
+                            </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-4"><b class="text-dark">Feedback</b></div>
-                            <div class="col-md-8"><textarea name="feedback" [(ngModel)]="TraineeFeedback.feedback" rows="5" cols="45"></textarea> </div>
+                            <div class="col-md-8"><textarea name="feedback" [(ngModel)]="TraineeFeedback.feedback"
+                                    rows="5" cols="45"></textarea> </div>
                         </div>
-                        <a (click)="OnSubmit()"><button type="button" class="btn btn-dark pe-4 px-4">{{button}}</button></a>
+                        <a (click)="OnSubmit()"><button type="button"
+                                class="btn btn-dark pe-4 px-4">{{button}}</button></a>
                     </div>
                 </div>
             </form>
