@@ -18,7 +18,7 @@ export class UsercrudComponent implements OnInit {
 
   departments: any[] = [];
   pageTitle = this.router.url.slice(1).split('/')[0]
-  pageAction = this.router.url.slice(1).split('-')[0]
+  pageAction = this.router.url.slice(1).split('-')[0].split('/')[1]
   redirect = this.router.url.slice(1).split('-')[1]
   edit = false;
   showDept = false;
@@ -60,7 +60,7 @@ export class UsercrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetallDepartment();
-
+    console.log(this.pageAction)
     if(this.pageTitle.indexOf('Co-Ordinator') == -1)
       this.showDept = true
 
@@ -77,7 +77,7 @@ export class UsercrudComponent implements OnInit {
 
   OnSubmit() {
     this.setRole()
-    console.log(this.user)
+    
     if (this.pageAction = 'Add') {
       this.userService.postUser(this.user).subscribe({
         next: (res: any) => {

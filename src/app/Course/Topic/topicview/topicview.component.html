@@ -24,17 +24,20 @@
                                 <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/AttendanceList/{{courseId}}/{{topicId}}"
-                                    id="pointer">View Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
+                                    routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View
+                                    Attendance</a></div>
                         </b>
                         <b class=" text-dark fs-4">
 
                             <div *ngIf="auth.IsTrainer">
 
-                                <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form' value='Yes'
-                                    checked style="pointer-events: none;"   name='checkbox_topicCompleted'></a>
-                            <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form' value='Yes'
-                                    unchecked name='checkbox_topicCompleted' (click)="MarkTopicStatus()" /></a>
+                                <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' checked style="pointer-events: none;"
+                                        name='checkbox_topicCompleted'></a>
+                                <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' unchecked name='checkbox_topicCompleted'
+                                        (click)="MarkTopicStatus()" /></a>
 
                             </div>
 
@@ -46,7 +49,8 @@
             <div class="row g-2">
                 <div class="container-fluid  px-4 pb-2">
                     <h3>Topic's Assignment</h3>
-                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer" (SubmittedAssignment)="HandleSubmit($event)" >
+                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer"
+                        (SubmittedAssignment)="HandleSubmit($event)">
                     </app-uploadassignment>
                 </div>
                 <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
@@ -63,17 +67,16 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <div class="container-fluid  px-4" *ngIf="Topic.assignments[0] != null" >
+                <div class="container-fluid px-4" *ngIf="Topic.assignments[0] != null">
                     <h3>Submitted Assignment</h3>
-                    <div class="container-fluid  px-4 pb-2"
-                        *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
+                    <div class="px-4 pb-2" *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
                         <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
                     </div>
                     <!-- <div class="container-fluid  px-4" > -->
                     <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
                         *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
                     <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
-                        class="container bg-light p-3 rounded border">
+                        class="container-fluid bg-light p-3 rounded border">
                         <div class="d-flex justify-content-around">
                             <div>
                                 Created By : {{assignment.owner.fullName}}

@@ -22,7 +22,7 @@ export class ReviewService {
   getReviewByStatus(statusId: any): Observable<any[]> {
     return this.http.get<any>(this.baseurl + `review/status/${statusId}`)
   }
-  GetUsersByDepartmentAndRole(deptid: number, roleid: number): Observable<any> {
+  GetUsersByDepartmentAndRole(deptid: any, roleid: any): Observable<any> {
     return this.http.get<any>("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${deptid},${roleid}`)
   }
   postReview(data: any): Observable<any> {
