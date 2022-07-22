@@ -31,8 +31,7 @@ export class UserprofileComponent implements OnInit {
       this.getUserProfile(this.userId);
     else
       this.getUserById();
-
-    if(this.breadcrumbs.length > 2)this.breadcrumbs.pop()
+    if(this.breadcrumbs.length > 1)this.breadcrumbs.pop()
   }
 
   getUserById() {

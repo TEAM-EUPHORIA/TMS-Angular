@@ -4,78 +4,125 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item ">{{pageTitle}}</li>
+                <li *ngIf="!edit" class="breadcrumb-item"><a routerLink="/{{breadcrumbs[0]}}">{{breadcrumbs[0]}}
+                        List</a>
+                </li>
+                <li *ngIf="!edit" class="breadcrumb-item"><a>Add {{breadcrumbs[0]}}</a>
+                </li>
+                <li *ngIf="edit" class="breadcrumb-item"><a routerLink="/{{breadcrumbs[0]}}"> {{breadcrumbs[0]}}
+                        List</a>
+                </li>
+                <li *ngIf="edit" class="breadcrumb-item ">Update {{breadcrumbs[0]}}</li>
             </ol>
         </nav>
         <div class="container-fluid pt-2 px-4">
-            <h3 class="text-black pb-2">{{pageTitle}}</h3>
+            <h3 *ngIf="!edit" class="text-black pb-2">Add {{breadcrumbs[0]}}</h3>
+            <h3 *ngIf="edit" class="text-black pb-2">Update {{breadcrumbs[0]}}</h3>
             <form [formGroup]="userform" action="" name="myForm" (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" name="name" [(ngModel)]="user.fullName" formControlName="fullname" required maxlength="25" minlength="3" pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
+                    <input type="text" class="form-control" name="name" [(ngModel)]="user.fullName"
+                        formControlName="fullname" required maxlength="25" minlength="3"
+                        pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
                     <label for="floatingText">Full Name*</label>
-                    <div *ngIf="userform.controls['fullname'].invalid && (userform.controls['fullname'].dirty || userform.controls['fullname'].touched)" class="alert alert-danger">
+                    <div *ngIf="userform.controls['fullname'].invalid && (userform.controls['fullname'].dirty || userform.controls['fullname'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="userform.controls['fullname'].errors?.['required']">Full Name is required.</div>
-                        <div *ngIf="userform.controls['fullname'].errors?.['minlength']">Full Name must be at least 4 characters long.</div>
-                        <div *ngIf="userform.controls['fullname'].errors?.['maxlength']">Full Name don't exceed 25 characters long.</div>
-                        <div *ngIf="userform.controls['fullname'].invalid || userform.controls['fullname'].errors?.['maxlength']">Please enter a valid fullname</div>
+                        <div *ngIf="userform.controls['fullname'].errors?.['minlength']">Full Name must be at least 4
+                            characters long.</div>
+                        <div *ngIf="userform.controls['fullname'].errors?.['maxlength']">Full Name don't exceed 25
+                            characters long.</div>
+                        <div
+                            *ngIf="userform.controls['fullname'].invalid || userform.controls['fullname'].errors?.['maxlength']">
+                            Please enter a valid fullname</div>
                     </div>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="email" [(ngModel)]="user.email"  formControlName="email" class="form-control" name="email" required required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <input type="email" [(ngModel)]="user.email" formControlName="email" class="form-control"
+                        name="email" required required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                     <label for="floatingInput">Email address*</label>
-                    <div *ngIf="userform.controls['email'].invalid && (userform.controls['email'].dirty || userform.controls['email'].touched)" class="alert alert-danger">
+                    <div *ngIf="userform.controls['email'].invalid && (userform.controls['email'].dirty || userform.controls['email'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="userform.controls['email'].errors?.['required']">Email is required.</div>
-                        <div *ngIf="userform.controls['email'].errors?.['minlength']">Email must be at least 4 characters long.</div>
-                        <div *ngIf="userform.controls['email'].errors?.['maxlength']">Email don't exceed 25 characters long.</div>
+                        <div *ngIf="userform.controls['email'].errors?.['minlength']">Email must be at least 4
+                            characters long.</div>
+                        <div *ngIf="userform.controls['email'].errors?.['maxlength']">Email don't exceed 25 characters
+                            long.</div>
                         <div *ngIf="userform.controls['email'].errors?.['serverError']">
                             {{this.userform.controls['email'].getError('serverError')}}</div>
-                        <div *ngIf="userform.controls['email'].invalid || userform.controls['email'].errors?.['maxlength']">Please enter a valid Email address</div>
+                        <div
+                            *ngIf="userform.controls['email'].invalid || userform.controls['email'].errors?.['maxlength']">
+                            Please enter a valid Email address</div>
                     </div>
                 </div>
                 <div class="form-floating form-floating-sm mb-4 nav-item dropdown">
-                    <input type="text" [(ngModel)]="user.userName" formControlName="username" class="form-control" name="username" required pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
+                    <input type="text" [(ngModel)]="user.userName" formControlName="username" class="form-control"
+                        name="username" required pattern="(^(?!.*([A-Za-z])\2{2})\w[a-zA-Z\s]*$)">
                     <label for="floatingText">Nickname*</label>
-                    <div *ngIf="userform.controls['username'].invalid && (userform.controls['username'].dirty || userform.controls['username'].touched)" class="alert alert-danger">
+                    <div *ngIf="userform.controls['username'].invalid && (userform.controls['username'].dirty || userform.controls['username'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="userform.controls['username'].errors?.['required']">Username is required.</div>
-                        <div *ngIf="userform.controls['username'].errors?.['minlength']">Username must be at least 4 characters long.</div>
-                        <div *ngIf="userform.controls['username'].errors?.['maxlength']">Username don't exceed 25 characters long.</div>
-                        <div *ngIf="userform.controls['username'].invalid || userform.controls['username'].errors?.['maxlength']">Please enter a valid Username</div>
+                        <div *ngIf="userform.controls['username'].errors?.['minlength']">Username must be at least 4
+                            characters long.</div>
+                        <div *ngIf="userform.controls['username'].errors?.['maxlength']">Username don't exceed 25
+                            characters long.</div>
+                        <div
+                            *ngIf="userform.controls['username'].invalid || userform.controls['username'].errors?.['maxlength']">
+                            Please enter a valid Username</div>
                     </div>
                 </div>
                 <div class="form-floating mb-4" *ngIf="pageAction === 'Add'">
-                    <input *ngIf="!edit" type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password" required>
-                    <input *ngIf="edit" type="password" [(ngModel)]="user.password" formControlName="password" class="form-control" name="password">
+                    <input *ngIf="!edit" type="password" [(ngModel)]="user.password" formControlName="password"
+                        class="form-control" name="password" required>
+                    <input *ngIf="edit" type="password" [(ngModel)]="user.password" formControlName="password"
+                        class="form-control" name="password">
                     <label for="floatingPassword">Password*</label>
-                    <div *ngIf="userform.controls['password'].invalid && (userform.controls['password'].dirty || userform.controls['password'].touched)" class="alert alert-danger">
+                    <div *ngIf="userform.controls['password'].invalid && (userform.controls['password'].dirty || userform.controls['password'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="userform.controls['password'].errors?.['required']">Password is required.</div>
-                        <div *ngIf="userform.controls['password'].errors?.['minlength']">Password must be at least 4 characters long.</div>
-                        <div *ngIf="userform.controls['password'].errors?.['maxlength']">Password don't exceed 25 characters long.</div>
-                        <div *ngIf="userform.controls['password'].invalid || userform.controls['password'].errors?.['maxlength']">Password enter a valid password</div>
+                        <div *ngIf="userform.controls['password'].errors?.['minlength']">Password must be at least 4
+                            characters long.</div>
+                        <div *ngIf="userform.controls['password'].errors?.['maxlength']">Password don't exceed 25
+                            characters long.</div>
+                        <div
+                            *ngIf="userform.controls['password'].invalid || userform.controls['password'].errors?.['maxlength']">
+                            Password enter a valid password</div>
                     </div>
                 </div>
                 <div class="form-floating mb-4" *ngIf="showDept">
-                    <select name="Department" id="Department Name" formControlName="department" class="form-select" name="_dept" [(ngModel)]="user.departmentId">
+                    <select name="Department" id="Department Name" formControlName="department" class="form-select"
+                        name="_dept" [(ngModel)]="user.departmentId">
                         <option value="">Select the Department</option>
                         <option *ngFor="let item of departments" value={{item.id}}> {{item.name}}</option>
                     </select>
                     <label for="floatingInput">Department*</label>
-                    <div *ngIf="userform.controls['department'].invalid && (userform.controls['department'].dirty || userform.controls['department'].touched)" class="alert alert-danger">
+                    <div *ngIf="userform.controls['department'].invalid && (userform.controls['department'].dirty || userform.controls['department'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="userform.controls['department'].errors?.['required']">Department is required.</div>
-                        <div *ngIf="userform.controls['department'].errors?.['minlength']">Department must be at least 4 characters long.</div>
-                        <div *ngIf="userform.controls['department'].errors?.['maxlength']">Department don't exceed 25 characters long.</div>
-                        <div *ngIf="userform.controls['department'].invalid || userform.controls['department'].errors?.['maxlength']">Please enter a valid department</div>
+                        <div *ngIf="userform.controls['department'].errors?.['minlength']">Department must be at least 4
+                            characters long.</div>
+                        <div *ngIf="userform.controls['department'].errors?.['maxlength']">Department don't exceed 25
+                            characters long.</div>
+                        <div
+                            *ngIf="userform.controls['department'].invalid || userform.controls['department'].errors?.['maxlength']">
+                            Please enter a valid department</div>
                     </div>
                 </div>
                 <div class="col-md-12 card rounded card-body">
                     <div class="form-group">
                         <label class="mr-2 w-100" for="file" id="pointer">
-                            <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)" alt="profile picture" width="150px"> &nbsp;
+
+                            <img *ngIf="user.base64 != ''" [src]="sanitizer.bypassSecurityTrustUrl(user.base64)"
+                                alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>
-                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"#fileUpload>
+                        <input class="d-none" type="file" id="file" name="file" (change)="handleUpload($event)"
+                            #fileUpload>
                     </div>
-                </div> 
-                <button type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover" [disabled]="userform.pristine">{{pageAction}}</button>
+                </div>
+                <button *ngIf="!edit" type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover"
+                    [disabled]="userform.pristine">Add</button>
+                <button *ngIf="edit" type="submit" class="btn btn-dark pe-4 px-4 mt-4 hover"
+                    [disabled]="userform.pristine">Update</button>
             </form>
         </div>
     </div>

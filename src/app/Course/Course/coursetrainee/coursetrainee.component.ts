@@ -12,30 +12,29 @@ import { CourseService } from '../coursecrud.service';
   styleUrls: ['./coursetrainee.component.css']
 })
 export class CoursetraineeComponent implements OnInit {
-  
-  constructor(private http: HttpClient,private route: ActivatedRoute,private router : Router, public auth : LoginService,  private courseService:CourseService) { }
+
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, public auth: LoginService, private courseService: CourseService) { }
 
   addTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   removeTrainees: { courseId: number, users: [{ userId: number, roleId: number }] } = { courseId: 0, users: [{ userId: 0, roleId: 0 }] }
   trainees: any[] | any
   newTrainees: any[] | any
   data: any;
-  course:any;
+  course: any;
   searchText: string = "";
-  id : number = 0;
+  id: number = 0;
   Givefeedback: boolean = false;
-  deptId! : number;
-  List : boolean = false;
-  toDisplay : boolean = false;
+  deptId!: number;
+  List: boolean = false;
+  toDisplay: boolean = false;
   page: number = 1;
   totalLength: any;
-  coursetraineelist:any[]=[];
-  coursetraineelistcopy:any[]=[];
+  coursetraineelist: any[] = [];
+  coursetraineelistcopy: any[] = [];
+  Feedbacks: any
 
-  Feedbacks : any
-  
-   traineeId = 3;
-  toggleData(){
+  traineeId = 3;
+  toggleData() {
     this.toDisplay = !this.toDisplay;
     //this.AddTrainee();
     var model = document.getElementById("exampleModal")
@@ -43,27 +42,26 @@ export class CoursetraineeComponent implements OnInit {
     console.warn(model)
   }
 
-  Save(){
+  Save() {
     this.addTrainees.courseId = this.id
     this.removeTrainees.courseId = this.id
     this.addTrainees.users.shift()
     this.removeTrainees.users.shift()
-    if(this.addTrainees.users.length > 0)
-    console.warn(this.addTrainees,"",this.removeTrainees)
+    if (this.addTrainees.users.length > 0)
+      console.warn(this.addTrainees, "", this.removeTrainees)
     {
-      this.http.put("https://localhost:5001/" + `Course/assignUsers`,this.addTrainees).subscribe(res => {
+      this.http.put("https://localhost:5001/" + `Course/assignUsers`, this.addTrainees).subscribe(res => {
         console.warn(res);
       })
     }
-    if(this.removeTrainees.users.length > 0)
-    {
-      this.http.put("https://localhost:5001/" + `Course/removeUsers`,this.removeTrainees).subscribe(res => {
+    if (this.removeTrainees.users.length > 0) {
+      this.http.put("https://localhost:5001/" + `Course/removeUsers`, this.removeTrainees).subscribe(res => {
         console.warn(res);
       })
     }
     window.location.reload();
   }
-  scrollbar(){
+  scrollbar() {
     overflow: scroll;
   }
   AddTrainee(option: any) {
@@ -91,7 +89,7 @@ export class CoursetraineeComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['courseId'];
     this.deptId = this.route.snapshot.params['deptId'];
-    this.courseService.getCourse(this.id).subscribe((res:any) => {
+    this.courseService.getCourse(this.id).subscribe((res: any) => {
       console.log(res)
       this.course = res;
       this.Givefeedback = (this.course.feedbacks[0] == null)
@@ -107,64 +105,63 @@ export class CoursetraineeComponent implements OnInit {
       this.newTrainees = res
       console.warn(this.newTrainees)
       this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)))
-      this.List = (this.newTrainees.length > 0) ;
+      this.List = (this.newTrainees.length > 0);
     })
   }
-    toviewtraineelist(){
+  toviewtraineelist() {
     var obje = {
-     courseId : this.id, 
-     roleId : this.traineeId
+      courseId: this.id,
+      roleId: this.traineeId
     };
     console.log(obje);
     // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
-    }
+  }
 
-    GiveTraineeFeedback(traineeId : number,traineeName : string){
-      this.router.navigate(['GiveTraineeFeedback/'+traineeId],{state:{TraineeName : traineeName}});
-    }
-    ViewTraineeFeedback(traineeId : number,traineeName : string){
-      this.router.navigate(['ViewTraineeFeedback/'+this.id+'/'+traineeId+'/'+this.auth.getId()],{state:{TraineeName : traineeName}});
-    }
+  GiveTraineeFeedback(traineeId: number, traineeName: string) {
+    this.router.navigate(['GiveTraineeFeedback/' + traineeId], { state: { TraineeName: traineeName } });
+  }
+  ViewTraineeFeedback(traineeId: number, traineeName: string) {
+    this.router.navigate(['ViewTraineeFeedback/' + this.id + '/' + traineeId + '/' + this.auth.getId()], { state: { TraineeName: traineeName } });
+  }
 
-    /////                           NEEDS TO BE IMPLEMENTED WELL
-    // GetAllFeedbacks(){
-    //   this.http.get("https://localhost:5001/FeedBack/trainee/"+this.id).subscribe({
-    //     next : (res) => {
-    //       this.Feedbacks = res;
-    //       console.warn(this.Feedbacks);
-    //     }
-    //   })
-    // }
-    
-    private updateCurrentPageAndTotalLength() {
-      this.page = 1;
-      this.totalLength = this.coursetraineelist.length;
+  /////                           NEEDS TO BE IMPLEMENTED WELL
+  // GetAllFeedbacks(){
+  //   this.http.get("https://localhost:5001/FeedBack/trainee/"+this.id).subscribe({
+  //     next : (res) => {
+  //       this.Feedbacks = res;
+  //       console.warn(this.Feedbacks);
+  //     }
+  //   })
+  // }
+
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.coursetraineelist.length;
+  }
+  filterByName(search: HTMLInputElement) {
+    if (search.value != '') {
+      console.log(this.coursetraineelist)
+      this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
+      this.updateCurrentPageAndTotalLength();
+    } else {
+      this.coursetraineelist = this.coursetraineelistcopy
+      this.updateCurrentPageAndTotalLength();
     }
-    filterByName(search: HTMLInputElement) {
-      if (search.value != '') {
-        console.log(this.coursetraineelist)
-        this.coursetraineelist = this.coursetraineelistcopy.filter((department: any) => department.name.toLowerCase().includes(search.value.toLowerCase()))
-        this.updateCurrentPageAndTotalLength();
-      } else {
-        this.coursetraineelist = this.coursetraineelistcopy
-        this.updateCurrentPageAndTotalLength();
-      }
-    }
-    ToFeedback(){
-      this.router.navigate(['/ViewTraineeFeedback/'+this.id,this.traineeId]);
-    }
-    ToAddFeedback(){
-    var cId : any;
+  }
+  ToFeedback() {
+    this.router.navigate(['/ViewTraineeFeedback/' + this.id, this.traineeId]);
+  }
+  ToAddFeedback() {
+    var cId: any;
     cId = this.id;
-      this.router.navigate(['/GiveTraineeFeedback/'+this.id]); 
-    }
-    getTraineeFeedbackById(){
-      this.http.get("https://localhost:5001/FeedBack/trainee/"+`${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
-        this.data = res
-        console.warn(this.data);
-      })
-    }
-
+    this.router.navigate(['/GiveTraineeFeedback/' + this.id]);
+  }
+  getTraineeFeedbackById() {
+    this.http.get("https://localhost:5001/FeedBack/trainee/" + `${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
+      this.data = res
+      console.warn(this.data);
+    })
+  }
 }
 
 
