@@ -5,14 +5,14 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/ReviewList/1">Upcoming Review List</a></li>
-                <li class="breadcrumb-item active">{{Title}} Review </li>
+                <li class="breadcrumb-item active">{{Title}}Review </li>
             </ol>
         </nav>
         <div class="container-fluid pt-2 px-4">
-            <h3 class="text-black pb-2">{{Title}} Review</h3>
+            <h3 class="text-black pb-2">Schedule Review</h3>
             <form action="" #ngForm (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
-                    <select class="form-select" area-label="default select example" id="departmentId" name="departmentId"[(ngModel)]="Review.departmentId" (change)="OnSelected()">
+                    <select class="form-select" area-label="default select example" name="departmentId"[(ngModel)]="Review.departmentId" (change)="OnSelected()">
                         <option *ngFor="let item of dept" value="{{item.id}}">{{item.name}}</option>
                     </select>
                     <label for="floatingInput">Department</label>
@@ -30,7 +30,7 @@
                     <label for="floatingText">Trainee</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="date" class="form-control rounded" placeholder="Date" aria-label="date" aria-describedby="search-addon" name="reviewDate" [value]='Review.reviewDate | date:"yyyy-MM-dd"' [(ngModel)]="Review.reviewDate" />
+                    <input type="date" class="form-control rounded" placeholder="Date" aria-label="date" aria-describedby="search-addon" name="reviewDate" [min]="minDate|date:'yyyy-MM-dd'" [max]="maxDate|date:'yyyy-MM-dd'" [value]='Review.reviewDate | date:"yyyy-MM-dd"' [(ngModel)]="Review.reviewDate" />
                     <label for="floatingText">Date</label>
                     <span id="reviewDate"></span>
                 </div>
