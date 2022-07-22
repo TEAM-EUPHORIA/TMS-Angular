@@ -4,7 +4,8 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item active">Course List </li>
+                <li class="breadcrumb-item"><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item active">Course Trainees </li>
             </ol>
         </nav>
         <div class="container-fluid px-4 pt-2 pb-2">
@@ -53,6 +54,7 @@
                     *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
+
                             <div
                                 class="p-4 bg-light d-flex justify-content-around align-items-center    border hover rounded">
                                 <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}">
