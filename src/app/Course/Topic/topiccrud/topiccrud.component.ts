@@ -101,10 +101,10 @@ export class TopiccrudComponent implements OnInit {
   private UpdateTopic() {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
-      
+
       next: (res: any) => {
         this.toastService.success("Topic was updated successfully.")
-       // window.location.replace("/CourseList");
+        // window.location.replace("/CourseList");
       },
       error: (err: any) => {
         console.log(err);
@@ -116,11 +116,11 @@ export class TopiccrudComponent implements OnInit {
 
   PostTopic() {
     this.setTopicContent();
-     // to be removed
+    // to be removed
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
         this.toastService.success("Topic was created successfully.")
-      //  window.location.replace("/CourseList");
+        //  window.location.replace("/CourseList");
       },
       error: (err: any) => {
         console.log(err);
@@ -154,11 +154,10 @@ export class TopiccrudComponent implements OnInit {
       this.topic = res;
     })
   }
-  private navigateToCourseView(){
-    window.location.replace('CourseView/'+this.courseId);
+  private navigateToCourseView() {
+    window.location.replace('CourseView/' + this.courseId);
   }
   showToast() {
     this.toastService.success('ed')
   }
-
 }

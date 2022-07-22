@@ -11,37 +11,32 @@
         </nav>
         <div class="container-fluid px-4">
             <div class="row g-2">
-                <div class="col-sm-6 col-xl-12 d-flex ">
-                    <div class="col-10">
-                        <h2 class="pt-4">{{Topic.name}}</h2>
+                <div class="col-sm-10 col-md-12 d-flex ">
+                    <div class="col-9">
+                        <h2 class="pt-">{{Topic.name}}</h2>
+                        <p class="mt-4 font"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
                     </div>
-                    <div class="col-2">
-                        <p class="mt-4"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
-                        <b class="text-primary fs-4">
+                    <div class="col-3">
+                        <h5 class="text-primary fs-5 mx-5">
                             <div *ngIf="auth.IsTrainee">
                                 <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes'
                                         checked style="pointer-events: none;" name='checkbox_attendance'></a>
                                 <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes'
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
-                                    routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View
-                                    Attendance</a></div>
-                        </b>
-                        <b class=" text-dark fs-4">
-
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/AttendanceList/{{courseId}}/{{topicId}}"
+                                    id="pointer">View Attendance</a></div>
+                        </h5>
+                        <h6 class=" text-dark fs-4">
                             <div *ngIf="auth.IsTrainer">
-
                                 <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form'
                                         value='Yes' checked style="pointer-events: none;"
                                         name='checkbox_topicCompleted'></a>
                                 <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form'
                                         value='Yes' unchecked name='checkbox_topicCompleted'
                                         (click)="MarkTopicStatus()" /></a>
-
                             </div>
-
-                        </b>
+                        </h6>
                     </div>
                 </div>
             </div>
