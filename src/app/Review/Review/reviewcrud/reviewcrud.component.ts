@@ -18,7 +18,7 @@ export class ReviewcrudComponent implements OnInit {
   trainee: any;
   reviewer: any;
   reviewId !: number;
-  departmentId !: number;
+  departmentId !: any;
   Department !: string;
   Title !: string;
   constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe, private auth: LoginService) { }
@@ -63,6 +63,8 @@ export class ReviewcrudComponent implements OnInit {
       this.Review = res;
       this.departmentId = this.Review.reviewer.departmentId;
       this.myFunction();
+      this.GetReviewers(this.departmentId)
+      this.GetTrainees(this.departmentId)
     })
   }
   GetallDepartment() {
@@ -76,7 +78,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/Reviews');
+            navigateToListPage('/Scheduled-Reviews');
           }else{
             navigateToListPage('/Reviews');
           }
@@ -92,7 +94,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/Reviews');
+            navigateToListPage('/Scheduled-Reviews');
           }else{
             navigateToListPage('/Reviews');
           }
