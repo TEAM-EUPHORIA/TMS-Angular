@@ -12,14 +12,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./usercrud.component.css']
 })
 export class UsercrudComponent implements OnInit {
-  removeimage = true;
+  removeimage=true;
   option: string = 'choose a image';
   constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) { }
 
   departments: any[] = [];
-  breadcrumbs = this.router.url.slice(1).split('/');
-  pageTitle = this.router.url.slice(1).split('/')[1]
-  pageAction = this.router.url.slice(1).split('-')[1]
+  pageTitle = this.router.url.slice(1).split('/')[0]
+  pageAction = this.router.url.slice(1).split('-')[0].split('/')[1]
   redirect = this.router.url.slice(1).split('-')[1]
   edit = false;
   showDept = false;
@@ -61,7 +60,8 @@ export class UsercrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetallDepartment();
-    if (this.pageTitle.indexOf('Co-Ordinator') == -1)
+    console.log(this.pageAction)
+    if(this.pageTitle.indexOf('Co-Ordinator') == -1)
       this.showDept = true
 
     this.user.id = this.route.snapshot.params["id"]
@@ -77,7 +77,7 @@ export class UsercrudComponent implements OnInit {
 
   OnSubmit() {
     this.setRole()
-    console.log(this.user)
+    
     if (this.pageAction = 'Add') {
       this.userService.postUser(this.user).subscribe({
         next: (res: any) => {
@@ -121,7 +121,7 @@ export class UsercrudComponent implements OnInit {
     });
   }
   showToast() {
-    this.toastService.success(this.pageAction + 'ed')
+    this.toastService.success(this.pageAction+'ed')
   }
 
   handleUpload(event: any) {
@@ -159,7 +159,7 @@ export class UsercrudComponent implements OnInit {
         break;
     }
   }
-  changeimage() {
-    this.removeimage = false;
+  changeimage(){
+    this.removeimage=false;
   }
 }
