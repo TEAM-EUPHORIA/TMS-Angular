@@ -13,8 +13,8 @@
             <form [formGroup]="courseform" action="" #ngForm (ngSubmit)="OnSubmit()">
                 <div class="form-floating mb-4">
                     <div class="form-floating mb-4">
-                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
-                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)">
+                        <input *ngIf="!Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)">
+                        <input *ngIf="Editable" type="text" class="form-control" id="floatingText" name="name" [(ngModel)]="Course.name" formControlName="name" maxlength="24" minlength="3" required pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)">
                         <label for="floatingText">Course Name*</label>
                         <div *ngIf="courseform.controls['name'].invalid && (courseform.controls['name'].dirty || courseform.controls['name'].touched)" class="alert alert-danger">
                             <div *ngIf="courseform.controls['name'].errors?.['required']">Course name is required.</div>
