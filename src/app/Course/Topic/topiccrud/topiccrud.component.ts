@@ -26,7 +26,8 @@ export class TopiccrudComponent implements OnInit {
     duration: new FormControl('', [
       Validators.required,
       Validators.maxLength(15),
-      Validators.minLength(7)
+      Validators.minLength(7),
+      Validators.pattern("^(\\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$")
     ])
   });
   Topic: any
@@ -155,7 +156,7 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView() {
-    window.location.replace('CourseView/' + this.courseId);
+    window.location.replace('Course/' + this.courseId);
   }
   showToast() {
     this.toastService.success('ed')
