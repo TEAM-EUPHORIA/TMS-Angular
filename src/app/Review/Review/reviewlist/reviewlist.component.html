@@ -31,19 +31,17 @@
                 <div *ngFor="let item of reviewlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
-                            <a routerLink="/UploadMOM/{{item.id}}">
                                 <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
                                     <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
                                     <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
                                     <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Department : </b> {{item.department.name }}</p></div>
-                                    <div class="col-0" *ngIf="ls.IsCoordinator && item.statusId === 1"><a routerLink="/ScheduleReview/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
-                                    <div class="col-0 mx-4" *ngIf="ls.IsCoordinator && item.statusId === 1" id="pointer"><a (click)="disableReview(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                                    <div class="col-0" *ngIf="item.statusId === 1 && ls.IsCoordinator"><a routerLink="/ScheduleReview/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                                    <div class="col-0 mx-4" *ngIf="item.statusId === 1 && ls.IsCoordinator" id="pointer"><a (click)="myfunction(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
                                     <div class="col-2 mx-4" *ngIf="(date.getTime() > item.reviewTime.getTime() && ls.IsTrainee) && (item.statusId !== 2)"><a routerLink="/UploadMom/{{item.id}}">
                                         <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Upload MOM</button></a>
                                     </div>
                                     <div class="col-2 mx-4" *ngIf="item.mom !== null"><a routerLink="/ViewMOM/{{item.id}},{{item.traineeId}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View MOM</button></a></div>
                                 </div>
-                            </a>
                         </div>
                     </div>
                 </div>

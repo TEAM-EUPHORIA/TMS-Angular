@@ -22,8 +22,7 @@ export class ReviewcrudComponent implements OnInit {
   reviewer: any;
   deptId !: number;
   reviewId !: number;
-
-  departmentId !: number;
+  departmentId !: any;
   Department !: string;
   Title !: string;
 

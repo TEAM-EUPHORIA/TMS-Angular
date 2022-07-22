@@ -9,10 +9,10 @@
             </ol>
         </nav>
         <div class="col-sm-12 px-4 pt-2">
-            <form [formGroup]="deptform" action="" #ngForm (ngSubmit)="OnSubmit()">
+            <form [formGroup]="deptform" action="" name="myForm " #ngForm (ngSubmit)="OnSubmit()">
                 <h3 class="text-black pb-2">{{Title}} Department</h3>
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name" formControlName="name" maxlength="24" pattern="(^(?!.*([A-Za-z0\d])\2{2})\w[a-zA-Z&.#\d\s]*$)" required>
+                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name" formControlName="name" maxlength="24" pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)" required>
                     <label for="floatingText">Department</label>
                     <div *ngIf="deptform.controls['name'].invalid && (deptform.controls['name'].dirty || deptform.controls['name'].touched)" class="alert alert-danger">
                         <div *ngIf="deptform.controls['name'].errors?.['required']">Name is required.</div>

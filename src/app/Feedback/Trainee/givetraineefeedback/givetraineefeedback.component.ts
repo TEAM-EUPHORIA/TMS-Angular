@@ -11,22 +11,22 @@ import { UserService } from 'src/app/User/user.service';
 })
 export class GivetraineefeedbackComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, 
-    private http : HttpClient,
-    private router : Router,
-    private auth : LoginService,
-    private userService : UserService) { this.Traineename = this.router.getCurrentNavigation()?.extras.state?.['TraineeName'] }
+  constructor(private route: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router,
+    private auth: LoginService,
+    private userService: UserService) { this.Traineename = this.router.getCurrentNavigation()?.extras.state?.['TraineeName'] }
 
-  traineeId ! : number;
+  traineeId !: number;
   Traineename = '';
   id !: number;
-  trainerId : any;
-  courseId : any;
-  deptId : any;
+  trainerId: any;
+  courseId: any;
+  deptId: any;
   txt = '';
   button = '';
 
-  temp : any;
+  temp: any;
 
   TraineeFeedback: any = {
     traineeId: '',
@@ -50,13 +50,13 @@ export class GivetraineefeedbackComponent implements OnInit {
     if (this.trainerId != undefined) {
       this.txt = 'Update';
       this.button = 'Update';
-      this.http.get<any>('https://localhost:5001/FeedBack/trainee/'+`${this.courseId}`+','+ this.traineeId+','+this.trainerId).subscribe({
-        next : (res) => {
+      this.http.get<any>('https://localhost:5001/FeedBack/trainee/' + `${this.courseId}` + ',' + this.traineeId + ',' + this.trainerId).subscribe({
+        next: (res) => {
           this.TraineeFeedback = res;
         }
       });
     }
-    else{
+    else {
       this.txt = 'Give';
       this.button = 'Submit';
     }
@@ -67,15 +67,14 @@ export class GivetraineefeedbackComponent implements OnInit {
       this.TraineeFeedback.traineeId = this.traineeId;
       this.TraineeFeedback.trainerId = this.auth.getId();
       console.warn(this.TraineeFeedback);
-        this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback ).subscribe((res) => {
-          console.log("done"+this.courseId)
-          });
-        }
-        else {
-            this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+      this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+        console.log("done" + this.courseId)
       });
     }
-    //window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
+    else {
+      this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {});
+    }
+    window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
   }
 }
 

@@ -10,9 +10,9 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">Attendance List</h3>
             <div class="col-md-6" id="hov">
-                <input #search class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName(search)">
+                <input  class="form-control" id="search" type="text"placeholder="Search" aria-label="Search"  (keyup)="filterByName()">
             </div>
-            <div *ngFor="let item of data | filter: _user | paginate: { itemsPerPage: 6, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of attendancelist | filter: _user | paginate: { itemsPerPage: 6, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
