@@ -4,6 +4,7 @@
 		<nav aria-label="breadcrumb" class="px-4">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+				<li class="breadcrumb-item active">{{pageTitle}}</li>
 				<li class="breadcrumb-item active">MOM</li>
 			</ol>
 		</nav>
@@ -49,25 +50,26 @@
 							<div class="row mt-4">
 								<div class="col-md-6"><b class="text-dark">Purpose Of Meeting</b></div>
 								<div class="col-md-6">
-									<textarea class="form-control" id="floatingText"
-										name="purposeOfMeeting" [(ngModel)]="mom.purposeOfMeeting"
-										formControlName="purposeOfMeeting" maxlength="1000" minlength="3"
-										required></textarea></div>
+									<textarea class="form-control" id="floatingText" name="purposeOfMeeting"
+										[(ngModel)]="mom.purposeOfMeeting" formControlName="purposeOfMeeting"
+										maxlength="1000" minlength="3" required></textarea>
+								</div>
 							</div>
 							<div class="row mt-4">
 								<div class="col-md-6"><b class="text-dark">Agenda</b></div>
 								<div class="col-md-6">
 									<textarea class="form-control" id="floatingText" name="agenda"
 										[(ngModel)]="mom.agenda" formControlName="agenda" maxlength="1000" minlength="3"
-										required></textarea></div>
+										required></textarea>
+								</div>
 							</div>
 							<div class="row mt-4">
 								<div class="col-md-6"><b class="text-dark">Meeting Notes</b></div>
 								<div class="col-md-6">
-									<textarea class="form-control" id="floatingText"
-										name="meetingNotes" [(ngModel)]="mom.meetingNotes"
-										formControlName="meetingNotes" maxlength="1000" minlength="3"
-										required></textarea></div>
+									<textarea class="form-control" id="floatingText" name="meetingNotes"
+										[(ngModel)]="mom.meetingNotes" formControlName="meetingNotes" maxlength="1000"
+										minlength="3" required></textarea>
+								</div>
 							</div>
 							<button type="submit" class="btn btn-dark mt-4 pe-4 px-4 hover">Submit</button>
 						</div>

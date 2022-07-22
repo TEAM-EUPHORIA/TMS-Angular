@@ -37,7 +37,7 @@ export class TopicviewComponent implements OnInit {
 
   //to check the attendance status of trainee
   Checked: boolean = false;
-  TopicChecked : boolean=false;
+  TopicChecked: boolean = false;
 
   Coursename: any;
 
@@ -59,7 +59,6 @@ export class TopicviewComponent implements OnInit {
             this.assignment = res;
             this.submitted = true
             this.uploadKey = false;
-            console.log(res)
           }
         }
       );
@@ -76,8 +75,8 @@ export class TopicviewComponent implements OnInit {
         this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
         if (this.Topic != null) {
           this.ContentInit(this.Topic);
-          console.log(this.auth.IsCoordinator || this.auth.IsTrainer || this.auth.IsTrainee && !this.Topic.assignments[0] ==null)
-          console.log(this.Topic.assignments[0] ==null)
+          console.log(this.auth.IsCoordinator || this.auth.IsTrainer || this.auth.IsTrainee && !this.Topic.assignments[0] == null)
+          console.log(this.Topic.assignments[0] == null)
 
         }
         this.TopicChecked = this.Topic.status;
@@ -145,15 +144,15 @@ export class TopicviewComponent implements OnInit {
 
     });
   }
-  MarkTopicStatus(){
-   var TopicStatusobj : any ={
-    courseId : this.courseId,
-    topicId : this.topicId,
-    ownerId : this.auth.getId()
-   } 
-   this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res =>{
-    this.toastService.success("Marked as topic completed")
-   });
+  MarkTopicStatus() {
+    var TopicStatusobj: any = {
+      courseId: this.courseId,
+      topicId: this.topicId,
+      ownerId: this.auth.getId()
+    }
+    this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res => {
+      this.toastService.success("Marked as topic completed")
+    });
   }
-  
+
 }
