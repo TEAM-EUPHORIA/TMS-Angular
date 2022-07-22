@@ -12,7 +12,7 @@ import { CourseService } from '../../Course/coursecrud.service';
 export class AttendancelistComponent implements OnInit {
   courseId !: number;
   topicId !: number;
-  data: any
+  data: any = []
   dept: any
   _user = ''
   page: number = 1;
@@ -32,9 +32,14 @@ export class AttendancelistComponent implements OnInit {
   }
   getAttendanceList(courseId : number,topicId: number){
     var tempurl = "https://localhost:5001/Course/getAttendance/"+`${courseId}/${topicId}`;
-    this.http.get(tempurl).subscribe(res => {
-      console.log(res)
-      this.data = res
+    this.http.get(tempurl).subscribe({
+      next:(res:any)=>{
+        console.log(res)
+        this.data = res
+      },
+      error:(err:any)=>{
+        console.log(err)
+      }
     })
   }
   private updateCurrentPageAndTotalLength() {

@@ -26,6 +26,7 @@
                     </div>
                 </div>
             </div>
+                <!-- <div  *ngIf="data.length == 0" class="row h5 w-100 text-center">No Records</div> -->
         </div>
         <div class="mt-5"><pagination-controls *ngIf="data.length > 4" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
