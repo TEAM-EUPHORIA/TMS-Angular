@@ -72,9 +72,9 @@ export class GivetraineefeedbackComponent implements OnInit {
       });
     }
     else {
-      this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {});
+      this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => { });
     }
-    window.location.replace("/AssignCourse/"+this.courseId+'/'+this.deptId);
+    window.location.replace(`CourseTrainees/${this.courseId}/${this.deptId}`);
   }
 }
 

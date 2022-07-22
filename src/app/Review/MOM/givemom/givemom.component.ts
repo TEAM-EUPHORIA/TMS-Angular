@@ -26,7 +26,7 @@ export class GivemomComponent implements OnInit {
   momDetails: any;
   pageTitle = 'Review Details'
   showBtn= true
-  constructor(private reviewService: ReviewService, private router: Router, private http: HttpClient,public ls:LoginService) { }
+  constructor(private reviewService: ReviewService, private router: Router,private route:ActivatedRoute, private http: HttpClient,public ls:LoginService) { }
   momForm = new FormGroup({
     agenda: new FormControl('', [
       Validators.required
@@ -68,11 +68,12 @@ export class GivemomComponent implements OnInit {
 
   ngOnInit(): void {
     var temp = this.router.url.split('/')
+    this.reviewId = this.route.snapshot.params["reviewId"]
     console.log(temp)
+    console.warn(this.traineeId != 'Add')
     this.reviewId = temp[2]
     this.traineeId = temp[3]
-    console.warn(this.reviewId,this.traineeId)
-    if (this.reviewId != undefined && this.traineeId != undefined) {
+    if (this.reviewId != undefined && this.traineeId != undefined)  {
       this.editMom();
     } else if (this.reviewId != undefined) {
       console.warn(this.reviewId ,this.traineeId)      
@@ -129,7 +130,8 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    window.location.replace(`/ViewMOM/${this.reviewId},${this.ls.getId()}`)
+    // Review/:reviewId/MOM/:traineeId
+    window.location.replace(`/Review/${this.reviewId}/MOM/${this.ls.getId()}`)
   }
   OnSubmit() {
     this.http.get(baseurl + `Review/mom/${this.reviewId},${this.traineeId}`).subscribe({

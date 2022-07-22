@@ -52,6 +52,7 @@ export class TopicviewComponent implements OnInit {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
     this.TopicInit();
+    this.Coursename = this.cs.course.name;
     if (this.auth.IsloggedIn) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
         res => {

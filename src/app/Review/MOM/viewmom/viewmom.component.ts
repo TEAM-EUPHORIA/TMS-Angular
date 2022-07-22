@@ -19,10 +19,11 @@ export class ViewmomComponent implements OnInit {
   data: any;
   momId :any;
   ngOnInit(): void {
-    var ids = this.route.url.split('/')[2].split(',')
-    this.reviewId = ids[0]
-    this.traineeId = ids[1]
+    var ids = this.route.url.split('/')
     // console.log(ids)
+    this.reviewId = ids[2]
+    this.traineeId = ids[4]
+    // console.log(this.reviewId, this.traineeId)
     this.getMom(this.reviewId, this.traineeId);
   }
   toEditMOM(){

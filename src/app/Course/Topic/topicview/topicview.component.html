@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
                 <li class="breadcrumb-item "><a routerLink="/CourseView/{{courseId}}">{{Coursename}}</a></li>
                 <li class="breadcrumb-item active">{{Topic.name}}</li>
             </ol>
@@ -25,7 +25,7 @@
                                         unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
                             <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
-                                    routerLink="/AttendanceList/{{courseId}}/{{topicId}}" id="pointer">View
+                                    routerLink="/Course/{{courseId}}/Topic/{{topicId}}/Attendances" id="pointer">View
                                     Attendance</a></div>
                         </h5>
                         <h6 class=" text-dark fs-4">

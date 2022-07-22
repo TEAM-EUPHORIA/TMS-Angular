@@ -45,7 +45,7 @@ export class ReviewlistComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitle = this.router.url.slice(1)
     this.getDepartments()
-    this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Review' ? 2 : this.router.url == '/Upcoming-Review' ? 1 : undefined
+    this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Reviews' ? 2 : this.router.url == '/Schedule-Reviews' ? 1 : undefined
     console.log("status id :"+this.statusId)
     if (this.ls.IsCoordinator) {
       this.edit = true;

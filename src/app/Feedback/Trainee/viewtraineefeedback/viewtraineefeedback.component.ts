@@ -22,7 +22,7 @@ export class ViewtraineefeedbackComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.traineeId = this.route.snapshot.params['traineeId'];
-    this.trainerId = this.route.snapshot.params['trainerId'];
+    this.trainerId = this.auth.getId();
     this.GetFeedbackOfTrainee();
   }
   
