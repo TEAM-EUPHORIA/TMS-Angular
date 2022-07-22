@@ -37,8 +37,6 @@ export class UserlistComponent implements OnInit {
     window.location.reload();
   }
   ngOnInit(): void {
-
-
     this.title = this.router.url.slice(1)
     this.dpt = this.title != 'Co-Ordinator'
     switch (this.title) {

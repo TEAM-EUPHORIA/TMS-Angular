@@ -47,7 +47,9 @@
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <select #department *ngIf="!Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required (change)="update(department)">
+                        <select #department *ngIf="!Editable" class="form-select" area-label="default select example"
+                            name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required
+                            (change)="update(department)">
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
                         <select *ngIf="Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
@@ -63,10 +65,12 @@
                         <select *ngIf="!Editable" class="form-select" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
-                        <select *ngIf="Editable" class="form-select" style="pointer-events: none ;" area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId" formControlName="trainer" required>
+                        <select *ngIf="Editable" class="form-select" style="pointer-events: none ;"
+                            area-label="default select example" name="Trainer" [(ngModel)]="Course.trainerId"
+                            formControlName="trainer" required>
                             <option *ngFor="let item of data" value="{{item.id}}"> {{item.fullName}} </option>
                         </select>
-                        <label *ngIf="Editable" for="floatingInput">Trainer can't be edited </label>
+                        <label *ngIf="Editable" for="floatingInput">Trainer field can't be edited </label>
                         <label *ngIf="!Editable" for="floatingInput">Trainer*</label>
                         <div *ngIf="courseform.controls['trainer'].invalid && (courseform.controls['trainer'].dirty || courseform.controls['trainer'].touched)" class="alert alert-danger">
                             <div *ngIf="courseform.controls['trainer'].errors?.['required']">Course trainer is required.</div>
