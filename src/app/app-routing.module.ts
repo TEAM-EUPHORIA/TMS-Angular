@@ -31,6 +31,7 @@ import { CoordinatorGuard } from './Login/Guards/coordinator.guard';
 import { ReviewerGuard } from './Login/Guards/reviewer.guard';
 import { TraineeGuard } from './Login/Guards/trainee.guard';
 import { TrainerGuard } from './Login/Guards/trainer.guard';
+import { ReviewViewComponent } from './Review/review-view/review-view.component';
 
 
 
@@ -106,12 +107,13 @@ const routes: Routes = [
   { path: 'Course/:courseId/CourseTrainee/:traineeId/Add', component: GivetraineefeedbackComponent, canActivate: [TrainerGuard] },
   { path: 'Course/:courseId/CourseTrainee/:traineeId', component: ViewtraineefeedbackComponent },
   //Review List routes
-  { path: 'Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [ReviewerGuard, TraineeGuard] } },
+  { path: 'Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [ReviewerGuard, TraineeGuard, CoordinatorGuard] } },
   { path: 'Completed-Reviews', component: ReviewlistComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   { path: 'Schedule-Reviews', component: ReviewlistComponent, canActivate: [CoordinatorGuard] },
   //Schedule Review and edit review routing link
   { path: 'Review/Add', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'Review/Edit/:id', component: ReviewcrudComponent, canActivate: [CoordinatorGuard] },
+  { path: 'Review/:reviewId/view', component: ReviewViewComponent,canActivate:  [MasterGuard], data: { guard: [ReviewerGuard, TraineeGuard, CoordinatorGuard] } },
   //MoM upload and update Routing Link
   { path: 'Review/:reviewId/MOM/Add', component: GivemomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   { path: 'Review/:reviewId/MOM/:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },

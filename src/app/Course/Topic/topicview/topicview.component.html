@@ -5,7 +5,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseView/{{courseId}}">{{Coursename}}</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses/Course/{{courseId}}">{{Coursename}}</a></li>
                 <li class="breadcrumb-item active">{{Topic.name}}</li>
             </ol>
         </nav>
@@ -44,10 +44,12 @@
             <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
             <div class="row g-2">
                 <div class="container-fluid  px-4 pb-2">
-                    <h3>Topic's Assignment</h3>
-                    <app-uploadassignment *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer"
-                        (SubmittedAssignment)="HandleSubmit($event)">
-                    </app-uploadassignment>
+                    <ng-container *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer">
+                        <h3>Topic's Assignment</h3>
+                        <app-uploadassignment
+                            (SubmittedAssignment)="HandleSubmit($event)">
+                        </app-uploadassignment>
+                    </ng-container>
                 </div>
                 <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
@@ -63,35 +65,32 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <<<<<<< HEAD <div class="container-fluid  px-4" *ngIf="Topic.assignments[0] != null">
-                    =======
-                    <div class="container-fluid px-4" *ngIf="Topic.assignments[0] != null">
-                        >>>>>>> 4644382ec1b45b961129d773b7404f24455a5695
-                        <h3>Submitted Assignment</h3>
-                        <div class="px-4 pb-2" *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
-                            <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
-                        </div>
-                        <!-- <div class="container-fluid  px-4" > -->
-                        <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
-                            *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                        <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
-                            class="container-fluid bg-light p-3 rounded border">
-                            <div class="d-flex justify-content-around">
-                                <div>
-                                    Created By : {{assignment.owner.fullName}}
-                                </div>
-                                <div>
-                                    Created On : {{assignment.createdOn | date}}
-                                </div>
-                                <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
-                                    class="text-primary">View</a>
-                                <a download="assignment.pdf"
-                                    [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
-                                    Download
-                                </a>
+                <div class="container-fluid px-4" *ngIf="Topic.assignments[0] != null">
+                    <h3>Submitted Assignment</h3>
+                    <div class="px-4 pb-2" *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
+                        <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
+                    </div>
+                    <!-- <div class="container-fluid  px-4" > -->
+                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
+                        *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
+                    <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
+                        class="container-fluid bg-light p-3 rounded border">
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                Created By : {{assignment.owner.fullName}}
                             </div>
+                            <div>
+                                Created On : {{assignment.createdOn | date}}
+                            </div>
+                            <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
+                                class="text-primary">View</a>
+                            <a download="assignment.pdf"
+                                [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
+                                Download
+                            </a>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

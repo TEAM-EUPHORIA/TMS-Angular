@@ -89,12 +89,11 @@ export class CoursecrudComponent implements OnInit {
   }
   OnSubmit() {
     if (this.courseId != undefined || this.courseId != null) {
-      // this.course.trainerId = this.TrainerId;
       this.cs.putcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was updated successfully.")
           console.warn(this.course);
-          window.location.replace("/CourseList");
+          window.location.replace("/Courses");
         },
         error: (err: any) => {
           this.serverSideErrorMsgs(err);
@@ -104,7 +103,7 @@ export class CoursecrudComponent implements OnInit {
       this.cs.postcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success("Course was created successfully.")
-          window.location.replace("/CourseList");
+          window.location.replace("/Courses");
 
         },
         error: (err: any) => {

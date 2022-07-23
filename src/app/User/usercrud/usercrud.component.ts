@@ -1,10 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
-import { DepartmentService } from 'src/app/Department/department.service';
-import { UserService } from '../user.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  DomSanitizer
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
+import {
+  HotToastService
+} from '@ngneat/hot-toast';
+import {
+  DepartmentService
+} from 'src/app/Department/department.service';
+import {
+  UserService
+} from '../user.service';
 
 @Component({
   selector: 'app-usercrud',
@@ -12,9 +30,9 @@ import { UserService } from '../user.service';
   styleUrls: ['./usercrud.component.css']
 })
 export class UsercrudComponent implements OnInit {
-  removeimage=true;
+  removeimage = true;
   option: string = 'choose a image';
-  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) { }
+  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) {}
 
   departments: any[] = [];
   pageTitle = this.router.url.slice(1).split('/')[0]
@@ -57,16 +75,14 @@ export class UsercrudComponent implements OnInit {
     email: '',
     base64: '',
   };
-
   ngOnInit(): void {
     this.GetallDepartment();
 
     console.log(this.pageTitle)
-    if(this.pageTitle.indexOf('Co-Ordinator') == -1)
-    {
+    if (this.pageTitle.indexOf('Co-Ordinator') == -1) {
       this.showDept = true
     }
-    
+
     this.pageAction = this.router.url.slice(1).split('/')[1].split('-')[0]
     this.user.id = this.route.snapshot.params["id"]
     if (this.user.id != undefined) {
@@ -78,11 +94,10 @@ export class UsercrudComponent implements OnInit {
       })
     }
   }
-
   OnSubmit() {
     this.setRole()
-    
-    if (this.pageAction = 'Add') {
+    if (this.pageAction == 'Add') {
+      console.log(this.redirect)
       this.userService.postUser(this.user).subscribe({
         next: (res: any) => {
           window.location.replace(`${this.redirect}`)
@@ -93,10 +108,10 @@ export class UsercrudComponent implements OnInit {
         }
       })
     }
-    if (this.pageAction = 'Update') {
+    if (this.pageAction == 'Update') {
+      console.log(this.redirect)
       this.userService.updateUser(this.user).subscribe({
         next: (res: any) => {
-          this.redirect = this.redirect.split('/')[0]
           window.location.replace(`${this.redirect}`)
           this.toastService.success("The User was updated successfully.")
         },
@@ -105,11 +120,6 @@ export class UsercrudComponent implements OnInit {
         }
       })
     }
-  }
-  private navigateToListPage() {
-    window.location.replace(`/${this.redirect.split('/')[0]}`);
-    console.log(this.redirect)
-    this.showToast()
   }
   private serverSideErrorMsgs(err: any) {
     console.warn(err["error"]);
@@ -124,10 +134,6 @@ export class UsercrudComponent implements OnInit {
       }
     });
   }
-  showToast() {
-    this.toastService.success(this.pageAction+'ed')
-  }
-
   handleUpload(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -141,11 +147,12 @@ export class UsercrudComponent implements OnInit {
   GetallDepartment() {
     this.dservice.getAllDepartment().subscribe((res) => this.departments = res)
   }
-
   setRole() {
-    console.log(this.redirect)
+    if (this.pageAction == 'Update') this.redirect = this.redirect.split('/')[0]
+    if (this.pageAction == 'Add' && this.redirect.includes('Ordinator/Add')) this.redirect = this.redirect.split('/')[0].split('/')[0]
+    console.log(this.redirect, this.pageAction)
     switch (this.redirect) {
-      case 'Co':
+      case 'Ordinator':
         this.user.roleId = 2
         this.redirect = 'Co-Ordinator'
         break;
@@ -162,8 +169,5 @@ export class UsercrudComponent implements OnInit {
       default:
         break;
     }
-  }
-  changeimage(){
-    this.removeimage=false;
   }
 }

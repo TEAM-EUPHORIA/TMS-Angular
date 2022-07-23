@@ -52,10 +52,11 @@
                             (change)="update(department)">
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
-                        <select *ngIf="Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
+                        <select *ngIf="Editable" style="pointer-events: none;" [disabled]="Editable" class="form-select" area-label="default select example" name="departmentId" [(ngModel)]="Course.departmentId" formControlName="department" required>
                             <option *ngFor="let item of dept" value="{{item.id}}"> {{item.name}}</option>
                         </select>
-                        <label for="floatingInput">Department*</label>
+                        <label *ngIf="Editable" for="floatingInput">Department field can't be edited </label>
+                        <label *ngIf="!Editable" for="floatingInput">Department*</label>
                         <div *ngIf="courseform.controls['department'].invalid && (courseform.controls['department'].dirty || courseform.controls['department'].touched)" class="alert alert-danger">
                             <div *ngIf="courseform.controls['department'].errors?.['required']">Course department is required.</div>
                             <div *ngIf="courseform.controls['department'].invalid || courseform.controls['department'].errors?.['maxlength']">Please enter a valid Course department</div>

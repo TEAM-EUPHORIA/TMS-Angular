@@ -91,24 +91,19 @@ export class TopiccrudComponent implements OnInit {
   OnSubmit() {
     if (this.courseId != 0 && this.topicId != undefined) {
       this.UpdateTopic();
-      this.navigateToCourseView();
     } else {
       this.PostTopic();
-      this.navigateToCourseView();
     }
-    this.showToast();
   }
 
   private UpdateTopic() {
     this.setTopicContent();
     this.topicService.UpdateTopic(this.topic).subscribe({
-
       next: (res: any) => {
         this.toastService.success("Topic was updated successfully.")
-        // window.location.replace("/CourseList");
+        this.navigateToCourseView()
       },
       error: (err: any) => {
-        console.log(err);
         this.toastService.error("Topic name already exists")
         this.serverSideErrorMsgs(err);
       }
@@ -117,11 +112,11 @@ export class TopiccrudComponent implements OnInit {
 
   PostTopic() {
     this.setTopicContent();
-    // to be removed
+    console.log(this.topic)
     this.topicService.CreateTopic(this.topic).subscribe({
       next: (res: any) => {
         this.toastService.success("Topic was created successfully.")
-        //  window.location.replace("/CourseList");
+        this.navigateToCourseView();
       },
       error: (err: any) => {
         console.log(err);
@@ -156,9 +151,6 @@ export class TopiccrudComponent implements OnInit {
     })
   }
   private navigateToCourseView() {
-    window.location.replace('/Courselist/Course/' + this.courseId);
-  }
-  showToast() {
-    this.toastService.success('Topic Added Successfully')
+    window.location.replace('/Courses/Course/' + this.courseId);
   }
 }

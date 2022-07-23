@@ -56,7 +56,6 @@ export class CourseviewComponent implements OnInit {
   TopicInit() {
     let topicsCompleted = 0;
     for (const item of this.Course.topics) {
-      // console.log(item)
       console.log(`/Course/${this.Course.id}/Topic/${item.topicId}`);
       if (item.status) {
         topicsCompleted++;
@@ -68,7 +67,7 @@ export class CourseviewComponent implements OnInit {
     this.router.navigate(['/Course/' + this.Course.id + '/Topic/' + id], { state: { courseName: this.Course.name } });
   }
   ToEditTopic(id: any) {
-    this.router.navigateByUrl('/EditTopic/' + id);
+    this.router.navigateByUrl('/Course/' + this.Course.id + '/Edit/Topic/' + id);
   }
   ToViewFeedback() {
     this.router.navigate([`/Course/${this.Course.id}/Feedback/${this.auth.getId()}`], { state: { courseName: this.Course.name } });

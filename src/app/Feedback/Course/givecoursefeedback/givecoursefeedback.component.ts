@@ -62,7 +62,7 @@ export class GivecoursefeedbackComponent implements OnInit {
         console.log(res);
       })
     }
-    this.route.navigate(['/Course/' + `${this.id}`])
+    this.route.navigate(['/Courses/Course/' + `${this.id}`])
   }
   EditFeedback(CourseFeedback: any) {
     console.warn(CourseFeedback);
