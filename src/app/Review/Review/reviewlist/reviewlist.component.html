@@ -110,17 +110,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-            </ng-container>
-            <!-- <ng-container *ngIf="reviewlist.length == 0">
-                <div class="row g-3 my-2">
-                    <h4 class="text-center">No Reviews Found</h4>
-                </div>
-            </ng-container> -->
-        </div>
-        <div class="mt-4">
-            <pagination-controls *ngIf="reviewlist.length > 5" class="text-center" (pageChange)="page = $event">
-            </pagination-controls>
-        </div>
-    </div>
-    <app-footer></app-footer>
-</div>
+                                            <div>
+                                            </div>
+                                            <div class="mt-4">
+                                                <pagination-controls *ngIf="reviewlist.length > 5" class="text-center"
+                                                    (pageChange)="page = $event">
+                                                </pagination-controls>
+                                            </div>
+                                        </div>
+                                        <app-footer></app-footer>
+                                    </div>
