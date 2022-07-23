@@ -28,12 +28,11 @@
                 </div>
             </div>
             <ng-container *ngIf="reviewlist.length > 0">
-                <!-- {{"hello"}} -->
                 <div *ngFor="let item of reviewlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                     <div class="row g-3 my-2">
                         <div class="col-md-12">
                                 <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
-                                    <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></div>
+                                    <a routerLink="/Review/{{item.id}}/view" class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></a>
                                     <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
                                     <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Department : </b> {{item.department.name }}</p></div>
                                     <div class="col-0" *ngIf="item.statusId === 1 && ls.IsCoordinator"><a routerLink="/Review/Edit/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
@@ -47,11 +46,6 @@
                     </div>
                 </div>
             </ng-container>
-            <!-- <ng-container *ngIf="reviewlist.length == 0">
-                <div class="row g-3 my-2">
-                    <h4 class="text-center">No Reviews Found</h4>
-                </div>
-            </ng-container> -->
         </div>
         <div class="mt-4"><pagination-controls *ngIf="reviewlist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>
