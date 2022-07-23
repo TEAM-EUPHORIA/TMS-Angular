@@ -53,25 +53,27 @@ export class CourseviewComponent implements OnInit {
       }
     }
   }
-  TopicInit(){
+  TopicInit() {
     let topicsCompleted = 0;
     for (const item of this.Course.topics) {
-      // console.log(item)
-      if(item.status){
+      console.log(`/Course/${this.Course.id}/Topic/${item.topicId}`);
+      if (item.status) {
         topicsCompleted++;
       }
     }
     this.canGiveFeedback = topicsCompleted == this.Course.topics.length
-    console.log(this.canGiveFeedback);
   }
   ToTopicView(id: any) {
-    this.router.navigate(['Course/' + this.Course.id + '/TopicView/' + id], { state: { courseName: this.Course.name } });
+    this.router.navigate(['/Course/' + this.Course.id + '/Topic/' + id], { state: { courseName: this.Course.name } });
+  }
+  ToEditTopic(id: any) {
+    this.router.navigateByUrl('/Course/' + this.Course.id + '/Edit/Topic/' + id);
   }
   ToViewFeedback() {
-    this.router.navigate(['/ViewCourseFeedback/' + this.Course.id + `/` + this.auth.getId()], { state: { courseName: this.Course.name } });
+    this.router.navigate([`/Course/${this.Course.id}/Feedback/${this.auth.getId()}`], { state: { courseName: this.Course.name } });
   }
   ToAddFeedback() {
-    this.router.navigate(['/GiveCourseFeedback/' + this.Course.id], { state: { courseName: this.Course.name } });
+    this.router.navigate([`Course/${this.Course.id}/Feedback/Add`], { state: { courseName: this.Course.name } });
   }
   ToViewTraineeList() {
     var obj = {

@@ -25,7 +25,7 @@ export class TopicviewComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private http: HttpClient,
     private cs: CourseService,
-    private toastService: HotToastService) { this.Coursename = this.router.getCurrentNavigation()?.extras.state?.['courseName'] }
+    private toastService: HotToastService) {}
 
   //temparary variable for data storage
   temp: any;
@@ -51,6 +51,7 @@ export class TopicviewComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
+    this.Coursename = this.cs.course.name;
     this.TopicInit();
     if (this.auth.IsloggedIn) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
@@ -63,7 +64,6 @@ export class TopicviewComponent implements OnInit {
         }
       );
     }
-    // console.log(this.auth.IsTrainee || this.Topic.assignments[0] != null)
   }
 
   TopicInit() {

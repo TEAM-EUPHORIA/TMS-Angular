@@ -94,7 +94,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/Scheduled-Reviews');
+            navigateToListPage('/Schedule-Reviews');
           }else{
             navigateToListPage('/Reviews');
           }
@@ -111,7 +111,7 @@ export class ReviewcrudComponent implements OnInit {
         next: (res: any) => {
           if(this.auth.IsCoordinator)
           {
-            navigateToListPage('/Scheduled-Reviews');
+            navigateToListPage('/Schedule-Reviews');
           }else{
             navigateToListPage('/Reviews');
           }

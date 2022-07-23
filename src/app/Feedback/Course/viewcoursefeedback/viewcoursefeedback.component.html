@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
                 <li class="breadcrumb-item "><a routerLink="/TopicList">Topic List</a></li>
                 <li class="breadcrumb-item active">CourseFeedback</li>
             </ol>
@@ -15,16 +15,22 @@
                 <div class="col-md-6">
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Course</b></div>
-                        <div class="col-md-8"><p>{{Cname}}</p></div>
+                        <div class="col-md-8">
+                            <p>{{Cname}}</p>
+                        </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Rating</b></div>
-                        <div class="col-md-8"><ngb-rating style="color:rgb(27, 140, 233);font-size: 40px;" class="rating bg-none" [max]="5"
-                            [(rate)]="data.rating" [readonly]="true"></ngb-rating></div>
+                        <div class="col-md-8">
+                            <ngb-rating style="color:rgb(27, 140, 233);font-size: 40px;" class="rating bg-none"
+                                [max]="5" [(rate)]="data.rating" [readonly]="true"></ngb-rating>
+                        </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Feedback</b></div>
-                        <div class="col-md-8"><p>{{data.feedback}}</p></div>
+                        <div class="col-md-8">
+                            <p>{{data.feedback}}</p>
+                        </div>
                     </div>
                     <!-- <a (click)="ToEditFeedback()"><button type="submit" class="btn btn-dark mt-4 pe-4 px-4 hover">EDIT</button></a> -->
                 </div>

@@ -20,14 +20,13 @@
                 class="nav-item nav-link"><i class="fa fa-users" aria-hidden="true"></i>Trainee</a>
             <a *ngIf="ls.IsHead || ls.IsCoordinator" routerLink="/Reviewer" routerLinkActive="active"
                 class="nav-item nav-link"><i class="fa fa-user-md" aria-hidden="true"></i>Reviewer</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsTrainee || ls.IsTrainer" routerLink="/CourseList"
-                routerLinkActive="active" class="nav-item nav-link"><i class="fa fa-address-book"
-                    aria-hidden="true"></i>Courses</a>
-            <a *ngIf="ls.IsCoordinator" routerLink="/Reviews" routerLinkActive="active" class="nav-item nav-link"><i
+            <a *ngIf="ls.IsCoordinator || ls.IsTrainee || ls.IsTrainer" routerLink="/Courses" routerLinkActive="active"
+                class="nav-item nav-link"><i class="fa fa-address-book" aria-hidden="true"></i>Courses</a>
+            <a *ngIf="ls.IsCoordinator" routerLink="/Schedule-Reviews" routerLinkActive="active" class="nav-item nav-link"><i
                     class="fa-solid fa-square-pen"></i>Scheduled Reviews</a>
             <a *ngIf="ls.IsReviewer || ls.IsTrainee" routerLink="/Reviews" routerLinkActive="active"
                 class="nav-item nav-link"><i class="fa-solid fa-square-pen"></i>Reviews</a>
-            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Review"
+            <a *ngIf="ls.IsCoordinator || ls.IsReviewer || ls.IsTrainee" routerLink="/Completed-Reviews"
                 routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-clipboard-list"></i>Completed
                 Reviews</a>
         </div>

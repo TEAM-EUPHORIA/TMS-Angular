@@ -43,6 +43,7 @@ import { DatePipe } from '@angular/common';
 import { AssignmentquesComponent } from './Course/Assignment/assignmentques/assignmentques.component';
 import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
+import { ReviewViewComponent } from './Review/review-view/review-view.component';
 export function tokenGetter() {
   return localStorage.getItem("Token");
 }
@@ -80,6 +81,7 @@ export function tokenGetter() {
     GivetraineefeedbackComponent,
     ViewassignmentComponent,
     AssignmentquesComponent,
+    ReviewViewComponent,
   ],
   imports: [
     FormsModule,

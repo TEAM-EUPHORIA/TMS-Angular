@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
                 <li class="breadcrumb-item "><a routerLink="/TopicList">Topic List</a></li>
                 <li class="breadcrumb-item active">TraineeFeedback</li>
             </ol>
@@ -15,11 +15,15 @@
                 <div class="col-md-6">
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Trainee</b></div>
-                        <div class="col-md-8"><p>{{data.trainee.userName}}</p></div>
+                        <div class="col-md-8">
+                            <p>{{data.trainee.userName}}</p>
+                        </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Feedback</b></div>
-                        <div class="col-md-8"><p>{{data.feedback}}</p></div>
+                        <div class="col-md-8">
+                            <p>{{data.feedback}}</p>
+                        </div>
                     </div>
                     <!-- <a (click)="ToEditFeedbackOfTrainee()"><button type="button" class="btn btn-dark pe-4 px-4 hover">Edit</button></a> -->
                 </div>

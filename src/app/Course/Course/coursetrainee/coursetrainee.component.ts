@@ -118,10 +118,10 @@ export class CoursetraineeComponent implements OnInit {
   }
 
   GiveTraineeFeedback(traineeId: number, traineeName: string) {
-    this.router.navigate(['GiveTraineeFeedback/' + `${this.id}/${traineeId}`], { state: { TraineeName: traineeName } });
+    this.router.navigate([`Course/${this.id}/CourseTrainee/${traineeId}/Add`], { state: { TraineeName: traineeName } });
   }
   ViewTraineeFeedback(traineeId: number, traineeName: string) {
-    this.router.navigate(['ViewTraineeFeedback/' + this.id + '/' + traineeId + '/' + this.auth.getId()], { state: { TraineeName: traineeName } });
+    this.router.navigate([`Course/${this.id}/CourseTrainee/${traineeId}`], { state: { TraineeName: traineeName } });
   }
 
   /////                           NEEDS TO BE IMPLEMENTED WELL

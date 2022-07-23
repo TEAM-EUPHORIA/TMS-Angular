@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/CourseList">Course List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
                 <li class="breadcrumb-item active">{{Course.name}}</li>
             </ol>
         </nav>
@@ -41,7 +41,7 @@
                         <h5 class="text-dark"><b>Course Topics :</b></h5>
                     </div>
                     <div class="col-1" id="btn" *ngIf="auth.IsCoordinator">
-                        <a routerLink="/AddTopic/{{Course.id}}"><button type="button" class="btn btn-dark hover">Add Topic</button></a>
+                        <a routerLink="/Course/{{courseId}}/Add/Topic"><button type="button" class="btn btn-dark hover">Add Topic</button></a>
                     </div>
                 </div>
             </div>
@@ -49,11 +49,11 @@
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
-                            <div class="w-100 mx-4" id="pointer"><a class="pointer" (click)="ToTopicView(item.topicId)">
+                            <div class="w-100 mx-4" id="pointer"><a class="pointer" routerLink="/Course/{{this.Course.id}}/Topic/{{item.topicId}}">
                                 <p class="text-dark mt-2 mx-4 font" title="Click here to view {{item.name}}"><b>{{item.name}}</b></p></a>
                             </div>
                             <div class="col-2" *ngIf="auth.IsCoordinator">
-                                <a (click)="ToTopic(item.courseId,item.topicId)"><i class="fa-solid fa-pen-to-square text-dark"></i></a>
+                                <a (click)="ToEditTopic(item.topicId)"><i class="fa-solid fa-pen-to-square text-dark"></i></a>
                             </div>
                             <div class="col-1" *ngIf="auth.IsCoordinator" id="pointer">
                                 <a (click)="myfunction(item.id,item.topicId)"><i class="fa-solid fa-ban text-dark"></i></a>
