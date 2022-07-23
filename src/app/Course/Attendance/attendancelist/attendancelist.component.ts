@@ -20,6 +20,8 @@ export class AttendancelistComponent implements OnInit {
   attendance:any[]=[];
   attendancelist:any[]=[];
   attendancelistcopy:any[]=[];
+  Coursename: string|any ='';
+  Topicname: string|any ='';
     
   constructor(private route : ActivatedRoute, private http : HttpClient,private router : Router,private cs:CourseService) { this.obj = this.router.getCurrentNavigation()?.extras.state?.['aid']};
   course :any = {}
@@ -27,7 +29,8 @@ export class AttendancelistComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
-
+    this.Coursename = localStorage.getItem('courseName')
+    this.Topicname = localStorage.getItem('topicName')
     this.getAttendanceList(this.courseId,this.topicId);
   }
   getAttendanceList(courseId : number,topicId: number){

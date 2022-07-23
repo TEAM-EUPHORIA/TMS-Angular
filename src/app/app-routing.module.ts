@@ -68,7 +68,7 @@ const routes: Routes = [
   { path: ':list/Profile/:id', component: UserprofileComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
 
   //Department routing
-  { path: 'DepartmentList', component: DepartmentlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
+  { path: 'Department', component: DepartmentlistComponent, canActivate: [MasterGuard], data: { guard: [HeadGuard, CoordinatorGuard] } },
   { path: 'AddDepartment', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
   { path: 'EditDepartment/:deptId', component: DepartmentcrudComponent, canActivate: [CoordinatorGuard] },
 

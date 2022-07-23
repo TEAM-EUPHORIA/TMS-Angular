@@ -21,8 +21,8 @@ export class GivecoursefeedbackComponent implements OnInit {
   text !: string;
   data: any
   name: any;
-  Course !: string;
-  id !: number;
+  CourseName !: string|any;
+  courseId !: number;
   temp: any;
   CourseFeedback: any;
   Feedback: any = {
@@ -35,8 +35,10 @@ export class GivecoursefeedbackComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.name)
-    this.id = this.router.snapshot.params['courseId'];
-    this.http.get("https://localhost:5001/FeedBack/course/" + `${this.id},${this.auth.getId()}`).subscribe(res => {
+    this.courseId = this.router.snapshot.params['courseId'];
+    console.log(localStorage.getItem('courseName'))
+    this.CourseName = localStorage.getItem('courseName')
+    this.http.get("https://localhost:5001/FeedBack/course/" + `${this.courseId},${this.auth.getId()}`).subscribe(res => {
       if (res) {
         this.CourseFeedback = res;
         this.Add = false;
@@ -49,7 +51,7 @@ export class GivecoursefeedbackComponent implements OnInit {
   }
 
   OnSubmit() {
-    this.Feedback.courseId = this.id;
+    this.Feedback.courseId = this.courseId;
     this.Feedback.traineeId = this.auth.getId();
     console.warn(this.Feedback);
     if (this.CourseFeedback == null) {
@@ -62,7 +64,7 @@ export class GivecoursefeedbackComponent implements OnInit {
         console.log(res);
       })
     }
-    this.route.navigate(['/Courses/Course/' + `${this.id}`])
+    this.route.navigate(['/Courses/Course/' + `${this.courseId}`])
   }
   EditFeedback(CourseFeedback: any) {
     console.warn(CourseFeedback);

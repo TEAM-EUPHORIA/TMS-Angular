@@ -30,14 +30,11 @@ export class CourseviewComponent implements OnInit {
     this.courseId = this.route.snapshot.params['courseId'];
     this.courseService.getCourse(this.courseId).subscribe({
       next: (res: any) => {
-
+        localStorage.setItem('courseName',res.name)
+        
         this.Course = res;
-        this.courseService.course = res;
         this.Feedbacks = this.Course.feedbacks;
         this.FeedbackInit();
-        console.warn(this.Course);
-        console.warn(this.Feedbacks);
-        console.warn(this.auth.getId());
         this.TopicInit()
       },
       error: (err: any) => {
@@ -56,7 +53,6 @@ export class CourseviewComponent implements OnInit {
   TopicInit() {
     let topicsCompleted = 0;
     for (const item of this.Course.topics) {
-      console.log(`/Course/${this.Course.id}/Topic/${item.topicId}`);
       if (item.status) {
         topicsCompleted++;
       }

@@ -25,7 +25,7 @@ export class TopicviewComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private http: HttpClient,
     private cs: CourseService,
-    private toastService: HotToastService) {}
+    private toastService: HotToastService) { }
 
   //temparary variable for data storage
   temp: any;
@@ -51,7 +51,7 @@ export class TopicviewComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
-    this.Coursename = this.cs.course.name;
+    this.Coursename = localStorage.getItem('courseName')
     this.TopicInit();
     if (this.auth.IsloggedIn) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
@@ -68,9 +68,9 @@ export class TopicviewComponent implements OnInit {
 
   TopicInit() {
     this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe({
-
       next: (res: any) => {
         this.Topic = res;
+        localStorage.setItem('topicName', res.name)
         console.log(this.Topic.assignments[0])
         this.Checked = (this.Topic.attendances[0] != null || this.Topic.attendances.length > 1);
         if (this.Topic != null) {

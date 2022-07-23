@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/Login/login.service';
   styleUrls: ['./viewtraineefeedback.component.css']
 })
 export class ViewtraineefeedbackComponent implements OnInit {
+  CourseName: string | any;
 
   constructor(private route : ActivatedRoute, private auth : LoginService, private http : HttpClient, private router : Router) { }
 
@@ -23,6 +24,7 @@ export class ViewtraineefeedbackComponent implements OnInit {
     this.courseId = this.route.snapshot.params['courseId'];
     this.traineeId = this.route.snapshot.params['traineeId'];
     this.trainerId = this.auth.getId();
+    this.CourseName = localStorage.getItem('courseName')
     this.GetFeedbackOfTrainee();
   }
   

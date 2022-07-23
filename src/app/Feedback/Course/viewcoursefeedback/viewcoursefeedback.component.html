@@ -5,7 +5,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/TopicList">Topic List</a></li>
+                <li class="breadcrumb-item "><a routerLink="/Courses/Course/{{courseId}}">{{CourseName}}</a></li>
                 <li class="breadcrumb-item active">CourseFeedback</li>
             </ol>
         </nav>
@@ -16,7 +16,7 @@
                     <div class="row mt-4">
                         <div class="col-md-4"><b class="text-dark">Course</b></div>
                         <div class="col-md-8">
-                            <p>{{Cname}}</p>
+                            <p>{{CourseName}}</p>
                         </div>
                     </div>
                     <div class="row mt-4">

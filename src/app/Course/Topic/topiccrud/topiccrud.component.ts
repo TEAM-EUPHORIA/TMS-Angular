@@ -32,6 +32,7 @@ export class TopiccrudComponent implements OnInit {
   });
   Topic: any
   quill: any;
+  CourseName: string | any = '';
   constructor(private topicService: TopicService, private router: Router, private route: ActivatedRoute, private http: HttpClient, private toastService: HotToastService) { }
   id!: number;
   name!: string;
@@ -75,6 +76,9 @@ export class TopiccrudComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params["courseId"]
     this.topicId = this.route.snapshot.params["topicId"]
+    this.CourseName = localStorage.getItem('courseName')
+    if (this.router.url.includes('Add')) this.Title = 'Add'
+    else this.Title = 'Update'
     this.quill = this.getQuill()
     if (this.courseId != undefined && this.topicId != undefined) {
       this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}`).subscribe({

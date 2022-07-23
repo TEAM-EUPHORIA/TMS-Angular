@@ -6,8 +6,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CourseService {
-  public course:any = {}
-
   constructor(private http: HttpClient) { }
   baseurl = "https://localhost:5001/Course/"
 

@@ -22,7 +22,7 @@ export class CoursetraineeComponent implements OnInit {
   data: any;
   course: any;
   searchText: string = "";
-  id: number = 0;
+  courseId: number = 0;
   Givefeedback: boolean = false;
   deptId!: number;
   List: boolean = false;
@@ -43,8 +43,8 @@ export class CoursetraineeComponent implements OnInit {
   }
 
   Save() {
-    this.addTrainees.courseId = this.id
-    this.removeTrainees.courseId = this.id
+    this.addTrainees.courseId = this.courseId
+    this.removeTrainees.courseId = this.courseId
     this.addTrainees.users.shift()
     this.removeTrainees.users.shift()
     if (this.addTrainees.users.length > 0)
@@ -87,15 +87,16 @@ export class CoursetraineeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['courseId'];
+    this.courseId = this.route.snapshot.params['courseId'];
     this.deptId = this.route.snapshot.params['deptId'];
-    this.courseService.getCourse(this.id).subscribe((res: any) => {
-      console.log(res)
+    this.courseService.getCourse(this.courseId).subscribe((res: any) => {
       this.course = res;
+      localStorage.setItem('courseName',res.name)
+      this.course.name = localStorage.getItem('courseName')
       this.Givefeedback = (this.course.feedbacks[0] == null)
       console.warn(this.course);
     });
-    var route = `Course/getCourseUser/${this.id}`
+    var route = `Course/getCourseUser/${this.courseId}`
     this.http.get("https://localhost:5001/" + route).subscribe(res => {
       this.trainees = res;
       console.warn(this.trainees)
@@ -110,7 +111,7 @@ export class CoursetraineeComponent implements OnInit {
   }
   toviewtraineelist() {
     var obje = {
-      courseId: this.id,
+      courseId: this.courseId,
       roleId: this.traineeId
     };
     console.log(obje);
@@ -118,10 +119,10 @@ export class CoursetraineeComponent implements OnInit {
   }
 
   GiveTraineeFeedback(traineeId: number, traineeName: string) {
-    this.router.navigate([`Course/${this.id}/CourseTrainee/${traineeId}/Add`], { state: { TraineeName: traineeName } });
+    this.router.navigate([`Course/${this.courseId}/CourseTrainee/${traineeId}/Add`], { state: { TraineeName: traineeName } });
   }
   ViewTraineeFeedback(traineeId: number, traineeName: string) {
-    this.router.navigate([`Course/${this.id}/CourseTrainee/${traineeId}`], { state: { TraineeName: traineeName } });
+    this.router.navigate([`Course/${this.courseId}/CourseTrainee/${traineeId}`], { state: { TraineeName: traineeName } });
   }
 
   /////                           NEEDS TO BE IMPLEMENTED WELL
@@ -149,15 +150,15 @@ export class CoursetraineeComponent implements OnInit {
     }
   }
   ToFeedback() {
-    this.router.navigate(['/ViewTraineeFeedback/' + this.id, this.traineeId]);
+    this.router.navigate(['/ViewTraineeFeedback/' + this.courseId, this.traineeId]);
   }
   ToAddFeedback() {
     var cId: any;
-    cId = this.id;
-    this.router.navigate(['/GiveTraineeFeedback/' + this.id]);
+    cId = this.courseId;
+    this.router.navigate(['/GiveTraineeFeedback/' + this.courseId]);
   }
   getTraineeFeedbackById() {
-    this.http.get("https://localhost:5001/FeedBack/trainee/" + `${this.id},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
+    this.http.get("https://localhost:5001/FeedBack/trainee/" + `${this.courseId},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
       this.data = res
       console.warn(this.data);
     })

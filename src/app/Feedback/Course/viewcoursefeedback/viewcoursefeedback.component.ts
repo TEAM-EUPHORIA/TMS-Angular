@@ -9,22 +9,24 @@ import { LoginService } from 'src/app/Login/login.service';
   styleUrls: ['./viewcoursefeedback.component.css']
 })
 export class ViewcoursefeedbackComponent implements OnInit {
+  CourseName!: string | any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private Auth: LoginService, private router: Router) { this.Cname = this.router.getCurrentNavigation()?.extras.state?.['courseName']; }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private Auth: LoginService, private router: Router) {}
 
   data: any;
-  id !: number;
-  tid !: number;
+  courseId !: number;
+  traineeId !: number;
   Cname: any;
   userid = this.Auth.getId();
   ngOnInit(): void {
-    this.id = this.route.snapshot.params["courseId"]
-    this.tid = this.route.snapshot.params["traineeId"]
-    console.log(this.Cname)
-    this.getAllFeedback(this.id);
+    this.courseId = this.route.snapshot.params["courseId"]
+    this.traineeId = this.route.snapshot.params["traineeId"]
+    console.log(localStorage.getItem('courseName'))
+    this.CourseName = localStorage.getItem('courseName')
+    this.getAllFeedback(this.courseId);
   }
   getAllFeedback(id: any) {
-    if(this.tid == this.Auth.getId())
+    if(this.traineeId == this.Auth.getId())
     {
       this.http.get("https://localhost:5001/FeedBack/course/" + `${id},${this.Auth.getId()}`).subscribe({
         next: (res) => {
@@ -41,7 +43,7 @@ export class ViewcoursefeedbackComponent implements OnInit {
   }
   ToEditFeedback() {
     console.warn(this.Cname)
-    this.router.navigate(['/EditCourseFeedback/' + this.id + '/' + this.userid], { state: { courseName: this.Cname } });
+    this.router.navigate(['/EditCourseFeedback/' + this.courseId + '/' + this.userid], { state: { courseName: this.Cname } });
   }
 
 }

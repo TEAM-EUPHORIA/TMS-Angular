@@ -13,15 +13,26 @@ export class ReviewViewComponent implements OnInit {
   data: any = {};
   reviewId: any;
   date: any;
+  navLink!: string;
   constructor(private route: ActivatedRoute, private reviewService: ReviewService, public ls: LoginService) { }
 
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params["reviewId"]
     this.reviewService.getReviewById(this.reviewId).subscribe(res => {
       this.data = res;
+      if(this.data.statusId == 1 && this.ls.IsCoordinator){
+        this.navLink = 'Schedule-Reviews'
+      }else if(this.data.statusId == 1){
+        this.navLink = 'Reviews'
+      }
+      else if(this.data.statusId == 2 && this.ls.IsCoordinator){
+        this.navLink = 'Completed-Reviews'
+      }else if(this.data.statusId == 2){
+        this.navLink = 'Reviews'
+      }
+      this.pageTitle = 'Review Details'
       this.data.reviewTime = new Date(this.data.reviewTime)
       console.log(this.data)
-      // console.log(this.ls.IsTrainee && (this.date.getTime() > this.data.reviewTime.getTime()))
       this.reviewService.getMoMbyId(this.data.id, this.data.traineeId).subscribe((res) => {
         this.data.mom = res;
         console.log(this.data)

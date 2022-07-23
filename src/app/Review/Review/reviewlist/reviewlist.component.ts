@@ -43,13 +43,12 @@ export class ReviewlistComponent implements OnInit {
   constructor(public ls: LoginService, private rs: ReviewService, private router: Router, private http: HttpClient) {
   }
   ngOnInit(): void {
-    this.pageTitle = this.router.url.slice(1)
     this.getDepartments()
     this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Reviews' ? 2 : this.router.url == '/Schedule-Reviews' ? 1 : undefined
-    console.log("status id :"+this.statusId)
+    if(this.ls.IsCoordinator && this.statusId == 1) this.pageTitle = 'Schedule Reviews'
+    if(this.ls.IsCoordinator && this.statusId == 2) this.pageTitle = 'Completed Reviews'
     if (this.ls.IsCoordinator) {
       this.edit = true;
-      console.log(this.edit)
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {
         this.changeReviewDateTime(res);
         this.reviewlist = res;
@@ -57,7 +56,6 @@ export class ReviewlistComponent implements OnInit {
           element.department = this.dept.find((d: any) => d.id == element.departmentId)
         });
         this.reviewlistcopy = res;
-        console.log(this.reviewlist.length > 0)
       })
     }
     if (this.ls.IsloggedIn) {

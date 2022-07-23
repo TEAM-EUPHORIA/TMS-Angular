@@ -10,6 +10,7 @@ import { UserService } from 'src/app/User/user.service';
   styleUrls: ['./givetraineefeedback.component.css']
 })
 export class GivetraineefeedbackComponent implements OnInit {
+  CourseName: string | any;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
@@ -38,8 +39,8 @@ export class GivetraineefeedbackComponent implements OnInit {
   ngOnInit(): void {
     this.traineeId = this.route.snapshot.params['traineeId'];
     this.courseId = this.route.snapshot.params['courseId'];
-    console.log(this.courseId)
     this.trainerId = this.route.snapshot.params['trainerId'];
+    this.CourseName = localStorage.getItem('courseName')
     this.userService.getUsersById(this.traineeId).subscribe(res => {
       this.temp = res;
       this.deptId = this.temp.departmentId;

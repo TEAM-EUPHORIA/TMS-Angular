@@ -66,7 +66,7 @@ export class DepartmentcrudComponent implements OnInit {
       console.warn("edit")
       this.departmentservice.putdepartment(this.department).subscribe({
         next: (res: any) => {
-          window.location.replace("DepartmentList")
+          window.location.replace("Department")
           this.toastService.success("Department was updated successfully.")
         },
         error: (err: any) => {
@@ -78,7 +78,7 @@ export class DepartmentcrudComponent implements OnInit {
       console.warn("add")
       this.departmentservice.postdepartment(this.department).subscribe({
         next: (res: any) => {
-          window.location.replace("DepartmentList")
+          window.location.replace("Department")
           this.toastService.success("Department was created successfully.")
         },
         error: (err: any) => {
