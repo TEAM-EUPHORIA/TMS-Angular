@@ -32,7 +32,7 @@ import {
 export class UsercrudComponent implements OnInit {
   removeimage = true;
   option: string = 'choose a image';
-  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) {}
+  constructor(private userService: UserService, private dservice: DepartmentService, private router: Router, public sanitizer: DomSanitizer, private route: ActivatedRoute, private toastService: HotToastService) { }
 
   departments: any[] = [];
   pageTitle = this.router.url.slice(1).split('/')[0]
@@ -60,6 +60,9 @@ export class UsercrudComponent implements OnInit {
       Validators.required,
       Validators.maxLength(20),
       Validators.minLength(8)
+    ]),
+    image: new FormControl('', [
+      Validators.required,
     ]),
     department: new FormControl('', [
       Validators.required,

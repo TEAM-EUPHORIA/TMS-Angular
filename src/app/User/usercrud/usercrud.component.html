@@ -107,7 +107,7 @@
                                 alt="profile picture" width="150px"> &nbsp;
                             <i class="fa fa-upload" aria-hidden="true"></i> {{option}}
                         </label>
-                        <input class="d-none" type="file" id="file" name="file" accept="image/*"
+                        <input class="d-none" type="file" id="file" name="file" accept="image/*" formControlName="image" required
                             (change)="handleUpload($event)" #fileUpload>
                     </div>
                 </div>

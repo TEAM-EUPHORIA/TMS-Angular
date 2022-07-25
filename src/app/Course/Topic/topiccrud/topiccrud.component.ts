@@ -26,8 +26,8 @@ export class TopiccrudComponent implements OnInit {
     duration: new FormControl('', [
       Validators.required,
       Validators.maxLength(15),
-      Validators.minLength(7),
-      Validators.pattern("^(\\d+ ((hr)|(hrs)|(mins)){1}$)|(\d+ ((hr)|(hrs)){1})\s([0-5][0-9] ((min)|(mins)){1})$")
+      Validators.minLength(3),
+      Validators.pattern("^([01]?[0-9]|2[0-3])\\s(([h][r][s])|([h][r]))\\s[0-9][0-9]\\s(([m][i][n][s])|([m][i][n]))$")
     ])
   });
   Topic: any
