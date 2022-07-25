@@ -49,15 +49,10 @@ export class GivemomComponent implements OnInit {
   };
   showMom(event$:HTMLDivElement){
     var btn = event$
-    if(btn.innerText == "Upload")
+    if(btn.innerText == "Upload MOM")
     {
-      btn.innerText = "cancel"
+      btn.classList.toggle('d-none')
       this.pageTitle = "Upload Mom for Review"
-    }
-    else 
-    {
-      btn.innerText = "Upload"
-      this.pageTitle = "Review Details"
     }
     this.toggleDisplayNone();
   }
@@ -76,30 +71,10 @@ export class GivemomComponent implements OnInit {
     if (this.reviewId != undefined && this.traineeId != undefined)  {
       this.editMom();
     } else if (this.reviewId != undefined) {
-      console.warn(this.reviewId ,this.traineeId)      
+      console.warn(this.reviewId ,this.traineeId)
       this.uploadMOM();
     }
-    this.showOrHideBtn(temp);
-  }
-  private showOrHideBtn(temp: string[]) {
-    if (temp.length == 3) {
-      if(temp[1] == 'UploadMOM')
-      {
-        this.pageTitle = "Review Details"
-      }
-      else
-      {
-        console.warn("else")
-        this.pageTitle = "Edit Mom for Review"
-        this.toggleDisplayNone()
-        this.showBtn = false
-      }
-    }
-    else if (temp.length == 4) {
-      this.showBtn = false;
-      this.pageTitle = "Edit Mom for Review"
-      this.toggleDisplayNone()
-    }
+
   }
 
   uploadMOM() {

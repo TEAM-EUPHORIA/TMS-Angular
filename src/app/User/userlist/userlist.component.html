@@ -50,6 +50,9 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="users.length == 0">
+              <h5 class="text-center">No Trainees Found</h5>
+          </div>
         </div>
         <div *ngIf="users.length > 5" class="mt-4">
             <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
