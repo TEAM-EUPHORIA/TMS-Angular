@@ -26,8 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                *ngFor="let item of courselist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+            <div *ngFor="let item of courselist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
                 <div class="row g-3 my-2">
                     <div class="col-md-12">
                         <div class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded">
@@ -49,6 +48,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="courselist.length == 0">
+                <h3 class="text-center mt-5">No Data Found</h3>
             </div>
         </div>
         <div class="mt-4">

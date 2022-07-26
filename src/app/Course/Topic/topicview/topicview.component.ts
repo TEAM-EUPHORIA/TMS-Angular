@@ -65,7 +65,6 @@ export class TopicviewComponent implements OnInit {
       );
     }
   }
-
   TopicInit() {
     this.topicService.GetTopicByCourseIdandTopicId(this.courseId, this.topicId).subscribe({
       next: (res: any) => {
@@ -141,7 +140,7 @@ export class TopicviewComponent implements OnInit {
     this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
       this.toastService.success("The attendance was submitted successfully")
-
+      window.location.reload();
     });
   }
   MarkTopicStatus() {
@@ -152,7 +151,7 @@ export class TopicviewComponent implements OnInit {
     }
     this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res => {
       this.toastService.success("Marked as topic completed")
+      window.location.reload();
     });
   }
-
 }

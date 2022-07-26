@@ -52,7 +52,7 @@
                             <div class="w-100 mx-4" id="pointer"><a class="pointer" routerLink="/Course/{{this.Course.id}}/Topic/{{item.topicId}}">
                                 <p class="text-dark mt-2 mx-4 font" title="Click here to view {{item.name}}"><b>{{item.name}}</b></p></a>
                             </div>
-                            <div class="col-2" *ngIf="auth.IsCoordinator">
+                            <div class="col-2" *ngIf="auth.IsCoordinator" id="pointer">
                                 <a (click)="ToEditTopic(item.topicId)"><i class="fa-solid fa-pen-to-square text-dark"></i></a>
                             </div>
                             <div class="col-1" *ngIf="auth.IsCoordinator" id="pointer">

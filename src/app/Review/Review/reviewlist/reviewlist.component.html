@@ -12,7 +12,7 @@
         <div class="container-fluid px-4 pt-2 pb-2">
             <h3 class="text-black pb-2">{{pageTitle}}</h3>
             <div class="header" id="style">
-                <a *ngIf="ls.IsCoordinator" routerLink="/Review/Add"><button type="button" class="btn btn-dark pe-4 px-4 hover">Add</button></a>
+                <a *ngIf="ls.IsCoordinator && statusId ===1" routerLink="/Review/Add"><button type="button" class="btn btn-dark pe-4 px-4 hover">Add</button></a>
                 <div class="container">
                     <div class="col-md-11" id="hov">
                         <input class="form-control hover" id="search" type="text" placeholder="Search"
@@ -29,25 +29,26 @@
                     </div>
                 </div>
             </div>
-            <ng-container *ngIf="reviewlist.length > 0">
-                <div *ngFor="let item of reviewlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
-                    <div class="row g-3 my-2">
-                        <div class="col-md-12">
-                                <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
-                                    <a routerLink="/Review/{{item.id}}/view" class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></a>
-                                    <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
-                                    <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Department : </b> {{item.department.name }}</p></div>
-                                    <div class="col-0" *ngIf="item.statusId === 1 && ls.IsCoordinator"><a routerLink="/Review/Edit/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
-                                    <div class="col-0 mx-4" *ngIf="item.statusId === 1 && ls.IsCoordinator" id="pointer"><a (click)="myfunction(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
-                                    <div class="col-2 mx-4" *ngIf="(date.getTime() > item.reviewTime.getTime() && ls.IsTrainee) && (item.statusId !== 2)"><a routerLink="/Review/{{item.id}}/MOM/Add">
-                                        <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Upload MOM</button></a>
-                                    </div>
-                                    <div class="col-2 mx-4" *ngIf="item.mom !== null"><a routerLink="/Review/{{item.id}}/MOM/{{item.traineeId}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View MOM</button></a></div>
+            <div *ngFor="let item of reviewlist | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+                <div class="row g-3 my-2">
+                    <div class="col-md-12">
+                            <div class="p-4 bg-light d-flex justify-content-between align-items-center border hover rounded">
+                                <a routerLink="/Review/{{item.id}}/view" class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Trainee : </b> {{item.trainee.fullName}}</p></a>
+                                <div class="col-2"><p class="mb-0 text-dark font"><b>Reviewer : </b> {{item.reviewer.fullName}}</p></div>
+                                <div class="col-2 mx-4"><p class="mb-0 text-dark font"><b>Department : </b> {{item.department.name }}</p></div>
+                                <div class="col-0" *ngIf="item.statusId === 1 && ls.IsCoordinator"><a routerLink="/Review/Edit/{{item.id}}"><i class="fa-solid fa-pen-to-square text-dark"></i></a></div>
+                                <div class="col-0 mx-4" *ngIf="item.statusId === 1 && ls.IsCoordinator" id="pointer"><a (click)="myfunction(item.id)"><i class="fa-solid fa-ban text-dark"></i></a></div>
+                                <div class="col-2 mx-4" *ngIf="(date.getTime() > item.reviewTime.getTime() && ls.IsTrainee) && (item.statusId !== 2)"><a routerLink="/Review/{{item.id}}/MOM/Add">
+                                    <button type="button" class="btn btn-dark pe-3 px-3 mx-3">Upload MOM</button></a>
                                 </div>
-                        </div>
+                                <div class="col-2 mx-4" *ngIf="item.mom !== null"><a routerLink="/Review/{{item.id}}/MOM/{{item.traineeId}}"><button type="button" class="btn btn-dark pe-3 px-3 mx-3">View MOM</button></a></div>
+                            </div>
                     </div>
                 </div>
-            </ng-container>
+            </div>
+            <div *ngIf="reviewlist.length == 0">
+                <h3 class="text-center mt-5">No Data Found</h3>
+            </div>
         </div>
         <div class="mt-4"><pagination-controls *ngIf="reviewlist.length > 5" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
     </div>

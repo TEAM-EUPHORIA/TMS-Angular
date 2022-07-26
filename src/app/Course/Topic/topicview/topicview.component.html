@@ -19,37 +19,34 @@
                     <div class="col-3">
                         <h5 class="text-primary fs-5 mx-5">
                             <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Checked == true">Attendance <input type='checkbox' class='form' value='Yes' checked style="pointer-events: none;" name='checkbox_attendance'></a>
-                                <a *ngIf="Checked == false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
+                                <a *ngIf="Checked === true">Attendance <input type='checkbox' class='form' value='Yes' checked style="pointer-events: none;" name='checkbox_attendance'></a>
+                                <a *ngIf="Checked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
                             </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer"
-                                    routerLink="/Course/{{courseId}}/Topic/{{topicId}}/Attendances" id="pointer">View
-                                    Attendance</a></div>
+                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/Course/{{courseId}}/Topic/{{topicId}}/Attendances" id="pointer">View Attendance</a></div>
                         </h5>
-                        <h6 class=" text-dark fs-4">
+                        <h5 class="text-dark mx-5">
                             <div *ngIf="auth.IsTrainer">
-                                <a *ngIf="TopicChecked == true">Topic Completed <input type='checkbox' class='form'
-                                        value='Yes' checked style="pointer-events: none;"
-                                        name='checkbox_topicCompleted'></a>
-                                <a *ngIf="TopicChecked == false">Topic Completed <input type='checkbox' class='form'
-                                        value='Yes' unchecked name='checkbox_topicCompleted'
-                                        (click)="MarkTopicStatus()" /></a>
+                                <a *ngIf="TopicChecked === true">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' checked style="pointer-events: none;" name='checkbox_topicCompleted'></a>
+                                <a *ngIf="TopicChecked === false">Topic Completed <input type='checkbox' class='form'
+                                        value='Yes' unchecked name='checkbox_topicCompleted'(click)="MarkTopicStatus()" /></a>
                             </div>
-                        </h6>
+                        </h5>
                     </div>
                 </div>
             </div>
             <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
             <div class="row g-2">
                 <div class="container-fluid  px-4 pb-2">
-                    <ng-container *ngIf="!submitted && Topic.assignments[0] == null && auth.IsTrainer">
+                    <ng-container *ngIf="!submitted && Topic.assignments[0] === null && auth.IsTrainer">
                         <h3>Topic's Assignment</h3>
                         <app-uploadassignment
                             (SubmittedAssignment)="HandleSubmit($event)">
                         </app-uploadassignment>
                     </ng-container>
                 </div>
-                <div *ngIf="Topic.assignments[0] != null" class="container bg-light p-3 rounded border">
+                <h3 *ngIf="Topic.assignments[0] !== null">Topic's Assignment</h3>
+                <div *ngIf="Topic.assignments[0] !== null" class="container bg-light p-3 rounded border">
                     <div class="d-flex justify-content-around">
                         <div>
                             Created By : {{Topic.assignments[0].owner.fullName}}
@@ -63,7 +60,7 @@
                             [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
                     </div>
                 </div>
-                <div class="container-fluid px-4" *ngIf="Topic.assignments[0] != null">
+                <div class="container-fluid" *ngIf="Topic.assignments[0] !== null">
                     <h3>Submitted Assignment</h3>
                     <div class="px-4 pb-2" *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
                         <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
@@ -71,7 +68,7 @@
                     <!-- <div class="container-fluid  px-4" > -->
                     <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
                         *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                    <div *ngIf="assignment.ownerId != undefined && !auth.IsTrainer && !auth.IsCoordinator"
+                    <div *ngIf="assignment.ownerId !== undefined && !auth.IsTrainer && !auth.IsCoordinator"
                         class="container-fluid bg-light p-3 rounded border">
                         <div class="d-flex justify-content-around">
                             <div>

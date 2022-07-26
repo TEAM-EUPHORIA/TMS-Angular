@@ -46,7 +46,8 @@ export class ReviewlistComponent implements OnInit {
     this.getDepartments()
     this.statusId = this.router.url == '/Reviews' ? 1 : this.router.url == '/Completed-Reviews' ? 2 : this.router.url == '/Schedule-Reviews' ? 1 : undefined
     if(this.ls.IsCoordinator && this.statusId == 1) this.pageTitle = 'Schedule Reviews'
-    if(this.ls.IsCoordinator && this.statusId == 2) this.pageTitle = 'Completed Reviews'
+    if((this.ls.IsTrainee || this.ls.IsReviewer) && this.statusId == 1) this.pageTitle = 'Reviews'
+    if((this.ls.IsCoordinator || this.ls.IsTrainee || this.ls.IsReviewer) && this.statusId == 2) this.pageTitle = 'Completed Reviews'
     if (this.ls.IsCoordinator) {
       this.edit = true;
       this.rs.getReviewByStatus(this.statusId).subscribe((res: any) => {

@@ -5,4 +5,4 @@
             accept="application/pdf,application/" (change)="handleUpload($event)" class="d-none">
     </label>
 </form>
-<button *ngIf="fileName != 'Upload Assignment'" (click)="Onsubmit()" class="btn btn-dark mt-3"> Upload</button>
+<button *ngIf="fileName !== 'Upload Assignment'" (click)="Onsubmit()" class="btn btn-dark mt-3"> Upload</button>
