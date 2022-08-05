@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-assignmentques',
@@ -11,41 +12,38 @@ import { Router } from '@angular/router';
 })
 export class AssignmentquesComponent implements OnInit {
 
-  constructor(private http : HttpClient, public sanitizer : DomSanitizer, private router : Router) { }
+  constructor(private http: HttpClient, public sanitizer: DomSanitizer, private router: Router) { }
 
   @Input()
-  courseId : any;
+  courseId: any;
   @Input()
-  topicId : any;
+  topicId: any;
   @Input()
-  trainerId : any;
-  
-  AssignmentQuestion : any;
+  trainerId: any;
 
-  Assignment : any;
+  AssignmentQuestion: any;
 
-  errormsg : any;
+  Assignment: any;
+
+  errormsg: any;
 
   ngOnInit(): void {
     this.GetAssignmentByTrainer(this.trainerId)
   }
 
-  GetAssignmentByTrainer(trainerId : number){
-    this.http.get<any>("https://localhost:5001/Course/"+ this.courseId +"/topics/"+ this.topicId +"/assignments/"+ trainerId).subscribe({
-      next: (res:any) =>{
-        if(res != null)
-        this.AssignmentQuestion = res;
-        console.warn("hi assignment")
+  GetAssignmentByTrainer(trainerId: number) {
+    this.http.get<any>(baseurl + "Course/" + this.courseId + "/topics/" + this.topicId + "/assignments/" + trainerId).subscribe({
+      next: (res: any) => {
+        if (res != null)
+          this.AssignmentQuestion = res;
       },
-      error(err){
+      error(err) {
         this.error = err;
-        console.warn(err["error"]);
-      } 
+      }
     })
   }
-  ViewAssignment(){
-    this.AssignmentQuestion.base64 = this.AssignmentQuestion.base64 + "," +this.AssignmentQuestion.document;
-    // console.warn(this.AssignmentQuestion);
-    this.router.navigate(['/ViewAssignment'], {state : { assignment : this.AssignmentQuestion.base64 }});
+  ViewAssignment() {
+    this.AssignmentQuestion.base64 = this.AssignmentQuestion.base64 + "," + this.AssignmentQuestion.document;
+    this.router.navigate(['/ViewAssignment'], { state: { assignment: this.AssignmentQuestion.base64 } });
   }
 }

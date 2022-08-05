@@ -7,20 +7,19 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class UploadassignmentComponent {
   fileName = 'Upload Assignment'
-  constructor() 
+  constructor()
   { }
 
   base64 = '';
 
   @Output()
   SubmittedAssignment : EventEmitter<any> = new EventEmitter<any>();
-  
+
   Onsubmit() {
     this.SubmittedAssignment.emit(this.base64);
   }
 
   handleUpload(event: any) {
-    console.log("hi assignment")
     const file = event.target.files[0];
     this.fileName = event.target.files[0].name
     const reader = new FileReader();
@@ -30,5 +29,5 @@ export class UploadassignmentComponent {
         this.base64 = reader.result.toString();
     };
   }
-  
+
 }

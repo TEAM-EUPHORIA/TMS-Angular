@@ -1,28 +1,10 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import {
-  DomSanitizer
-} from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
-import {
-  HotToastService
-} from '@ngneat/hot-toast';
-import {
-  DepartmentService
-} from 'src/app/Department/department.service';
-import {
-  UserService
-} from '../user.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+import { DepartmentService } from 'src/app/Department/department.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-usercrud',

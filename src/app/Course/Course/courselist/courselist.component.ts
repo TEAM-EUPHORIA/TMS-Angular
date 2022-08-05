@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DepartmentService } from 'src/app/Department/department.service';
 import { LoginService } from 'src/app/Login/login.service';
+import { baseurl } from 'src/app/URL';
 import { CourseService } from '../../course.service';
 
 @Component({
@@ -28,7 +29,6 @@ export class CourselistComponent implements OnInit {
   page: number = 1;
   totalLength: any;
   search !: string;
-  // 
 
   private CoordinatorId: number = 2;     // Coordinator role id
   private TrainerId: number = 3;        // Trainer role id
@@ -37,7 +37,7 @@ export class CourselistComponent implements OnInit {
   //Enables the add button in course list for coordinator
   add: boolean = false;
 
-  //This method activates the methods when Courseist component created 
+  //This method activates the methods when Courseist component created
   ngOnInit(): void {
     if (this.auth.getRoleId() == this.CoordinatorId) {
       this.getAllCourses();
@@ -76,10 +76,6 @@ export class CourselistComponent implements OnInit {
   }
   disableCourse(id: number) {
     this.CourseService.disableCourse(id).subscribe(() => this.getAllCourses())
-    // this.showToast();
-    // }
-    // showToast() {
-    //   this.toastService.error('Disabled')
   }
   SearchActive(search: string) {
     this.search = search;
@@ -87,14 +83,9 @@ export class CourselistComponent implements OnInit {
   ToCourseView(id: number) {
     this.route.navigate(['CourseList/Course/' + id]);
   }
-  // ToEditCourse(obj : any){
-  //   var course : any;
-  //   course = obj;
-  //   this.route.navigate(['/EditCourse/'+course], { state: { course :course }})
-  // }
 
   GetallDepartment() {
-    this.http.get("https://localhost:5001/Department/departments").subscribe(res => {
+    this.http.get(baseurl + "Department/departments").subscribe(res => {
       this.dept = res;
     })
   }
@@ -128,8 +119,8 @@ export class CourselistComponent implements OnInit {
     }
     else {
       if (search.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course,search))
-      }else{
+        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course, search))
+      } else {
         this.courselist = this.courselistcopy
       }
     }

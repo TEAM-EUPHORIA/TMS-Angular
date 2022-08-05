@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../course.service';
 import { LoginService } from 'src/app/Login/login.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-coursecrud',
@@ -13,8 +14,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class CoursecrudComponent implements OnInit {
 
-  constructor(private route: Router, private cs: CourseService,
-    private routing: Router, private router: ActivatedRoute, private http: HttpClient,
+  constructor(private route: Router, private cs: CourseService, private router: ActivatedRoute, private http: HttpClient,
     private auth: LoginService, private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
 
   Traineeid !: number;
@@ -126,19 +126,19 @@ export class CoursecrudComponent implements OnInit {
     });
   }
   getUserByRole() {
-    this.http.get("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {
+    this.http.get(baseurl + "User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {
       this.data = res
       console.log(res)
     });
   }
   getAllDepartment() {
-    this.http.get("https://localhost:5001/Department/departments").subscribe(res => {
+    this.http.get(baseurl + "Department/departments").subscribe(res => {
       this.dept = res
       console.log(this.dept)
     })
   }
   getCourseById() {
-    this.http.get("https://localhost:5001/Course/").subscribe(res => {
+    this.http.get(baseurl + "Course/").subscribe(res => {
       this.Course = res;
     })
   }

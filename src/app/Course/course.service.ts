@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
+import { baseurl } from '../URL';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CourseService {
   }
 
   constructor(private http: HttpClient) { }
-  baseurl = "https://localhost:5001/Course/"
+  baseurl = baseurl + "Course/"
 
   postcourse(data: any): Observable<any> {
     const headers = new Headers();
@@ -33,7 +34,7 @@ export class CourseService {
   getCourseByCourseForTraineeTrainer(): Observable<any> {
     return this.http.get<any>(this.baseurl + `myCourses`);
   }
-  getCourseById(cid:any): Observable<any> {
+  getCourseById(cid: any): Observable<any> {
     return this.http.get<any>(this.baseurl + `${cid}`);
   }
   getCoursesByUserId(id: number): Observable<any> {

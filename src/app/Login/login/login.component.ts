@@ -4,6 +4,7 @@ import { LoginService } from '../login.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { baseurl } from 'src/app/URL';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class LoginComponent {
   })
 
   OnSubmit() {
-    this.http.post("https://localhost:5001/Auth/login", this.Login).
+    this.http.post(baseurl + "Auth/login", this.Login).
       subscribe({
 
         next: (res: any) => {
@@ -76,26 +77,6 @@ export class LoginComponent {
         }
 
       })
-
-    // .subscribe(res => {
-    //   this.response = res;
-    //   console.log(this.response.token);
-    //   if (this.response != null) {
-    //     localStorage.setItem("Token", this.response.token);
-    //     window.location.replace("/")
-    //   }
-    //   this.Responsemsg = "LoggedIn Successfully"
-    //   window.location.replace("/")
-    // }, err => {
-    //   this.errormsg = err;
-    //   if (this.errormsg.error.errors.Email[0] != undefined) {
-    //     this.Emailmsg = this.errormsg.error.errors.Email[0];
-    //   }
-    //   if (this.errormsg.error.errors.Password[0] != undefined) {
-    //     this.Passwordmsg = this.errormsg.error.errors.Password[0];
-    //   }
-    // })
-    // setTimeout(() => this.showToast(), 2000)
   }
 
   showToast() {

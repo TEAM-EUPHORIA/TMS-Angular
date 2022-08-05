@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { baseurl } from '../URL';
 // import { Department } from '../Models/Department';
 
 
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class DepartmentService {
 
   constructor(private http: HttpClient) { }
-  baseurl = "https://localhost:5001/Department/"
+  baseurl = baseurl + "Department/"
 
   getAllDepartment(): Observable<any[]> {
     return this.http.get<any[]>(this.baseurl + `departments`)

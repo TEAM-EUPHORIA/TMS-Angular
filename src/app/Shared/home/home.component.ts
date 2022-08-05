@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +6,4 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  constructor() { }
 }

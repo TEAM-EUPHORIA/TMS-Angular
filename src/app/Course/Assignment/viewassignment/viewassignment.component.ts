@@ -7,13 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './viewassignment.component.html',
   styleUrls: ['./viewassignment.component.css']
 })
-export class ViewassignmentComponent{
+export class ViewassignmentComponent {
 
-  constructor(public sanitizer : DomSanitizer, private router : Router) { this.Assignment = this.router.getCurrentNavigation()?.extras.state?.['assignment']}
-  
-  Assignment : any;
+  constructor(public sanitizer: DomSanitizer, private router: Router) { this.Assignment = this.router.getCurrentNavigation()?.extras.state?.['assignment'] }
 
-  // ngOnInit(): void {
-  // }
-
+  Assignment: any;
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../Course/coursecrud.service';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-attendancelist',
@@ -16,33 +16,32 @@ export class AttendancelistComponent implements OnInit {
   dept: any
   _user = ''
   page: number = 1;
-  totalLength:any;
-  attendance:any[]=[];
-  attendancelist:any[]=[];
-  attendancelistcopy:any[]=[];
-  Coursename: string|any ='';
-  Topicname: string|any ='';
-    
-  constructor(private route : ActivatedRoute, private http : HttpClient,private router : Router,private cs:CourseService) { this.obj = this.router.getCurrentNavigation()?.extras.state?.['aid']};
-  course :any = {}
-  obj : any;
+  totalLength: any;
+  attendance: any[] = [];
+  attendancelist: any[] = [];
+  attendancelistcopy: any[] = [];
+  Coursename: string | any = '';
+  Topicname: string | any = '';
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { this.obj = this.router.getCurrentNavigation()?.extras.state?.['aid'] };
+  course: any = {}
+  obj: any;
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params['courseId'];
     this.topicId = this.route.snapshot.params['topicId'];
     this.Coursename = localStorage.getItem('courseName')
     this.Topicname = localStorage.getItem('topicName')
-    this.getAttendanceList(this.courseId,this.topicId);
+    this.getAttendanceList(this.courseId, this.topicId);
   }
-  getAttendanceList(courseId : number,topicId: number){
-    var tempurl = "https://localhost:5001/Course/getAttendance/"+`${courseId}/${topicId}`;
+  getAttendanceList(courseId: number, topicId: number) {
+    var tempurl = baseurl + "Course/getAttendance/" + `${courseId}/${topicId}`;
     this.http.get(tempurl).subscribe({
-      next:(res:any)=>{
-        console.log(res)
+      next: (res: any) => {
         this.data = res
         this.attendancelist = res;
         this.attendancelistcopy = res;
       },
-      error:(err:any)=>{
+      error: (err: any) => {
         console.log(err)
       }
     })
@@ -50,10 +49,10 @@ export class AttendancelistComponent implements OnInit {
   filterByName() {
     const search = document.getElementById("search") as HTMLInputElement
     if (search.value != '') {
-        this.attendancelist = this.attendancelistcopy.filter((user: any) => this.getFilteredUsers(user,search))
-      }else{
-        this.attendancelist = this.attendancelistcopy
-      }
+      this.attendancelist = this.attendancelistcopy.filter((user: any) => this.getFilteredUsers(user, search))
+    } else {
+      this.attendancelist = this.attendancelistcopy
+    }
 
     this.updateCurrentPageAndTotalLength();
   }

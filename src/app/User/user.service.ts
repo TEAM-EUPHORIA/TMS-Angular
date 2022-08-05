@@ -35,19 +35,19 @@ export class UserService {
 
   // baseurl = "https://localhost:5001/User/Dashboard"
   getDashboard(): Observable<any> {
-    return this.http.get<any>("https://localhost:5001/User/Dashboard")
+    return this.http.get<any>(this.baseurl + "Dashboard")
   }
   getUserCount(): Observable<any[]> {
-    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetUserCount`)
+    return this.http.get<any[]>(this.baseurl + "Dashboard" + `GetUserCount`)
   }
   getCourseCount(): Observable<any[]> {
-    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetCourseCount`)
+    return this.http.get<any[]>(this.baseurl + "Dashboard" + `GetCourseCount`)
   }
   getReviewCount(): Observable<any[]> {
-    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetReviewCount`)
+    return this.http.get<any[]>(this.baseurl + "Dashboard" + `GetReviewCount`)
   }
   getDepartmentCount(): Observable<any[]> {
-    return this.http.get<any[]>("https://localhost:5001/User/Dashboard" + `GetDepartmentCount`)
+    return this.http.get<any[]>(this.baseurl + "Dashboard" + `GetDepartmentCount`)
   }
 
 
