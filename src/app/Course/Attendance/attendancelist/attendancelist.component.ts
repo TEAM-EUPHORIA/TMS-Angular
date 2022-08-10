@@ -34,10 +34,7 @@ export class AttendancelistComponent implements OnInit {
   //Stroing error message from server
   errormsg: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-  ) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   //Component initialization
   ngOnInit(): void {
@@ -45,7 +42,9 @@ export class AttendancelistComponent implements OnInit {
     this.topicId = this.route.snapshot.params['topicId'];
     this.Coursename = localStorage.getItem('courseName');
     this.Topicname = localStorage.getItem('topicName');
-    this.getAttendanceList(this.courseId,  this.topicId);
+    if (this.courseId != 0 && this.topicId != 0)
+      this.getAttendanceList(this.courseId, this.topicId);
+    else window.location.replace('/PageNotFound');
   }
 
   //Gets list of user assigned in the course

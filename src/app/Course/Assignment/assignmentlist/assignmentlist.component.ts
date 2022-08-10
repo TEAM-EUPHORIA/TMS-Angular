@@ -11,7 +11,6 @@ import { baseurl } from 'src/app/URL';
   styleUrls: ['./assignmentlist.component.css'],
 })
 export class AssignmentlistComponent implements OnInit {
-  
   constructor(
     private http: HttpClient,
     public auth: LoginService,
@@ -47,8 +46,9 @@ export class AssignmentlistComponent implements OnInit {
         )
         .subscribe((res) => {
           this.ListOfAssignments = res;
-          console.log(this.ListOfAssignments);
         });
+    } else {
+      window.location.replace('/PageNotFound');
     }
   }
 

@@ -7,17 +7,21 @@ import { baseurl } from 'src/app/URL';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  data:any={}
-  constructor(public ls: LoginService, public sanitizer: DomSanitizer,private http:HttpClient) { }
-  ngOnInit(): void {
-    this.http.get(baseurl + `User/Dashboard`).subscribe(res => {
-      this.data = res
-      this.data.Base64 = this.data.Base64 + "," + this.data.Image
-      console.warn(this.data);
-    })
-  }
+  data: any = {};
+  constructor(
+    public auth: LoginService,
+    public sanitizer: DomSanitizer,
+    private http: HttpClient
+  ) {}
 
+  // Component Initialization
+  ngOnInit(): void {
+    this.http.get(baseurl + `User/Dashboard`).subscribe((res) => {
+      this.data = res;
+      this.data.Base64 = this.data.Base64 + ',' + this.data.Image;
+    });
+  }
 }

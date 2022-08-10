@@ -8,122 +8,155 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-userlist',
   templateUrl: './userlist.component.html',
-  styleUrls: ['./userlist.component.css']
+  styleUrls: ['./userlist.component.css'],
 })
 export class UserlistComponent implements OnInit {
-  constructor(public ls: LoginService, private ts: HotToastService, private router: Router, private http: HttpClient, private userservice: UserService) { }
+  constructor(
+    public auth: LoginService,
+    private toastservice: HotToastService,
+    private router: Router,
+    private http: HttpClient,
+    private userservice: UserService
+  ) {}
+  //sets title UserList for the page
   title: any;
-  searchuser = '';
-  _dept = ''
-  data: any
+  data: any;
   showDept = false;
-  dpt = false
+  dpt = false;
+  // stores list of department from server
   dept: any[] = [];
   users: any[] = [];
   usersCopy: any[] = [];
-  edit = false
+  edit = false;
+
+  // Pagination settings
   page: number = 1;
   totalLength: any;
-  roleId: any;
+
+  // Function to disable User
   disableUser(id: any) {
-    console.warn(id)
-    this.userservice.disableUser(id).subscribe(res => {
-      this.data = res
-      console.log(res)
-    })
+    this.userservice.disableUser(id).subscribe((res) => {
+      this.data = res;
+    });
     this.showToast();
     window.location.reload();
   }
+
+  //Component initialization
   ngOnInit(): void {
-    this.title = this.router.url.slice(1)
-    this.dpt = this.title != 'Co-Ordinator'
+    this.title = this.router.url.slice(1);
+    this.dpt = this.title != 'Co-Ordinator';
     switch (this.title) {
       case 'Co-Ordinator':
-        this.getUsers(2)
-        if (this.ls.IsHead) this.edit = true;
+        this.getUsers(2);
+        if (this.auth.IsHead) this.edit = true;
         this.showDept = false;
         break;
       case 'Trainer':
-        this.getUsers(3)
-        if (this.ls.IsCoordinator) this.edit = true;
+        this.getUsers(3);
+        if (this.auth.IsCoordinator) this.edit = true;
         this.showDept = true;
         break;
       case 'Trainee':
-        this.getUsers(4)
-        if (this.ls.IsCoordinator) this.edit = true;
+        this.getUsers(4);
+        if (this.auth.IsCoordinator) this.edit = true;
         this.showDept = true;
         break;
       case 'Reviewer':
-        this.getUsers(5)
-        if (this.ls.IsCoordinator) this.edit = true;
+        this.getUsers(5);
+        if (this.auth.IsCoordinator) this.edit = true;
         this.showDept = true;
         break;
       default:
+        window.location.replace('/InvalidRequest');
         break;
     }
-    this.getDepartments()
-    this.getUsers(this.roleId)
+    this.getDepartments();
   }
+
+  // Gets list of department to filter
   getDepartments() {
     this.http.get(baseurl + `Department/departments`).subscribe((res: any) => {
-      this.dept = res
-    })
+      this.dept = res;
+    });
   }
+  // Gets list of users with speccified role Id
   getUsers(roleId: any) {
     this.http.get(baseurl + `User/role/${roleId}`).subscribe((res: any) => {
-      console.warn(roleId)
-      this.users = res
-      this.usersCopy = this.users
-    })
+      this.users = res;
+      this.usersCopy = this.users;
+    });
   }
   showToast() {
-    this.ts.error('Disabled')
+    this.toastservice.error('Disabled');
   }
+
+  //Display dialog for Disable conformation
   myfunction(id: number) {
-    let text = "Are you sure you want to disable the user";
-    if (confirm(text) == true) {
-      this.disableUser(id)
+    if (id != 0) {
+      let text = 'Are you sure you want to disable the user';
+      if (confirm(text) == true) {
+        this.disableUser(id);
+      } else {
+        text = 'You canceled!';
+      }
     } else {
-      text = "You canceled!";
+      window.location.replace('/InvalidRequest');
     }
   }
+
+  // Filter Users by Department selected
   filterByDepartment() {
-    const item = document.getElementById("departmentId") as HTMLSelectElement
+    const item = document.getElementById('departmentId') as HTMLSelectElement;
     if (item.value != '') {
-      this.users = this.usersCopy.filter(u => u.departmentId == item.value)
+      this.users = this.usersCopy.filter((u) => u.departmentId == item.value);
     } else {
-      this.users = this.usersCopy
+      this.users = this.usersCopy;
     }
     this.updateCurrentPageAndTotalLength();
   }
+
+  // Pagination update function
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.users.length;
   }
+
+  // Filter functionn for Search and Department dropdown
   filterByName() {
-    const search = document.getElementById("search") as HTMLInputElement
-    const item = document.getElementById("departmentId") as HTMLSelectElement
+    const search = document.getElementById('search') as HTMLInputElement;
+    const item = document.getElementById('departmentId') as HTMLSelectElement;
     if (item != null) {
       if (search.value != '' && item.value != '') {
-        this.users = this.usersCopy.filter((user: any) => user.fullName.toLowerCase().includes(search.value.toLowerCase()) && user.departmentId == item.value)
+        this.users = this.usersCopy.filter(
+          (user: any) =>
+            user.fullName.toLowerCase().includes(search.value.toLowerCase()) &&
+            user.departmentId == item.value
+        );
       } else if (search.value != '' && item.value == '') {
-        this.users = this.usersCopy.filter((user: any) => this.getFilteredUsers(user, search))
+        this.users = this.usersCopy.filter((user: any) =>
+          this.getFilteredUsers(user, search)
+        );
       } else if (search.value == '' && item.value != '') {
-        this.users = this.usersCopy.filter((user: any) => user.departmentId == item.value)
+        this.users = this.usersCopy.filter(
+          (user: any) => user.departmentId == item.value
+        );
       } else if (search.value == '' && item.value == '') {
-        this.users = this.usersCopy
+        this.users = this.usersCopy;
       }
-    }
-    else {
+    } else {
       if (search.value != '') {
-        this.users = this.usersCopy.filter((user: any) => this.getFilteredUsers(user,search))
-      }else{
-        this.users = this.usersCopy
+        this.users = this.usersCopy.filter((user: any) =>
+          this.getFilteredUsers(user, search)
+        );
+      } else {
+        this.users = this.usersCopy;
       }
     }
     this.updateCurrentPageAndTotalLength();
   }
-  
+
+  // Filter Users by Search text
   private getFilteredUsers(user: any, search: HTMLInputElement): any {
     return user.fullName.toLowerCase().includes(search.value.toLowerCase());
   }

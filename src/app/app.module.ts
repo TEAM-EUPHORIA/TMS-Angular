@@ -44,6 +44,8 @@ import { AssignmentquesComponent } from './Course/Assignment/assignmentques/assi
 import { AssignmentlistComponent } from './Course/Assignment/assignmentlist/assignmentlist.component';
 import { ViewassignmentComponent } from './Course/Assignment/viewassignment/viewassignment.component';
 import { ReviewViewComponent } from './Review/review-view/review-view.component';
+import { PageNotFoundComponent } from './Shared/page-not-found/page-not-found.component';
+
 export function tokenGetter() {
   return localStorage.getItem("Token");
 }
@@ -82,6 +84,7 @@ export function tokenGetter() {
     ViewassignmentComponent,
     AssignmentquesComponent,
     ReviewViewComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     FormsModule,

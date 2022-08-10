@@ -63,7 +63,6 @@ export class UsercrudComponent implements OnInit {
   ngOnInit(): void {
     this.GetallDepartment();
 
-    console.log(this.pageTitle)
     if (this.pageTitle.indexOf('Co-Ordinator') == -1) {
       this.showDept = true
     }
@@ -82,7 +81,6 @@ export class UsercrudComponent implements OnInit {
   OnSubmit() {
     this.setRole()
     if (this.pageAction == 'Add') {
-      console.log(this.redirect)
       this.userService.postUser(this.user).subscribe({
         next: (res: any) => {
           window.location.replace(`${this.redirect}`)
@@ -94,7 +92,6 @@ export class UsercrudComponent implements OnInit {
       })
     }
     if (this.pageAction == 'Update') {
-      console.log(this.redirect)
       this.userService.updateUser(this.user).subscribe({
         next: (res: any) => {
           window.location.replace(`${this.redirect}`)
@@ -115,7 +112,6 @@ export class UsercrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.userform.controls['email'].getError('serverError'));
       }
     });
   }
@@ -135,7 +131,6 @@ export class UsercrudComponent implements OnInit {
   setRole() {
     if (this.pageAction == 'Update') this.redirect = this.redirect.split('/')[0]
     if (this.pageAction == 'Add' && this.redirect.includes('Ordinator/Add')) this.redirect = this.redirect.split('/')[0].split('/')[0]
-    console.log(this.redirect, this.pageAction)
     switch (this.redirect) {
       case 'Ordinator':
         this.user.roleId = 2

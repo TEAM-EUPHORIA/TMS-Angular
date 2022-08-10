@@ -1,93 +1,205 @@
 <div class="content">
-    <app-sidebar></app-sidebar>
-    <div class="pt-4 px-4">
-        <nav aria-label="breadcrumb" class="px-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/Courses/Course/{{courseId}}">{{Coursename}}</a></li>
-                <li class="breadcrumb-item active">{{Topic.name}}</li>
-            </ol>
-        </nav>
-        <div class="container-fluid px-4">
-            <div class="row g-2">
-                <div class="col-sm-10 col-md-12 d-flex ">
-                    <div class="col-9">
-                        <h2 class="pt-">{{Topic.name}}</h2>
-                        <p class="mt-4 font"><b class="text-dark fs-5">Duration : </b>{{Topic.duration}}</p>
-                    </div>
-                    <div class="col-3">
-                        <h5 class="text-primary fs-5 mx-5">
-                            <div *ngIf="auth.IsTrainee">
-                                <a *ngIf="Checked === true">Attendance <input type='checkbox' class='form' value='Yes' checked style="pointer-events: none;" name='checkbox_attendance'></a>
-                                <a *ngIf="Checked === false">Attendance <input type='checkbox' class='form' value='Yes' unchecked name='checkbox_attendance' (click)="MarkAttendance()" /></a>
-                            </div>
-                            <div><a *ngIf="auth.IsCoordinator || auth.IsTrainer" routerLink="/Course/{{courseId}}/Topic/{{topicId}}/Attendances" id="pointer">View Attendance</a></div>
-                        </h5>
-                        <h5 class="text-dark mx-5">
-                            <div *ngIf="auth.IsTrainer">
-                                <a *ngIf="TopicChecked === true">Topic Completed <input type='checkbox' class='form'
-                                        value='Yes' checked style="pointer-events: none;" name='checkbox_topicCompleted'></a>
-                                <a *ngIf="TopicChecked === false">Topic Completed <input type='checkbox' class='form'
-                                        value='Yes' unchecked name='checkbox_topicCompleted'(click)="MarkTopicStatus()" /></a>
-                            </div>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <quill-view class="ql-container ql-snow" id="editor" format="text"></quill-view>
-            <div class="row g-2">
-                <div class="container-fluid  px-4 pb-2">
-                    <ng-container *ngIf="!submitted && Topic.assignments[0] === null && auth.IsTrainer">
-                        <h3>Topic's Assignment</h3>
-                        <app-uploadassignment
-                            (SubmittedAssignment)="HandleSubmit($event)">
-                        </app-uploadassignment>
-                    </ng-container>
-                </div>
-                <h3 *ngIf="Topic.assignments[0] !== null">Topic's Assignment</h3>
-                <div *ngIf="Topic.assignments[0] !== null" class="container bg-light p-3 rounded border">
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            Created By : {{Topic.assignments[0].owner.fullName}}
-                        </div>
-                        <div>
-                            Created On : {{Topic.assignments[0].createdOn | date}}
-                        </div>
-                        <a (click)="ViewAssignment(Topic.assignments[0])" target="_blank" rel="noopener noreferrer"
-                            class="text-primary">View</a>
-                        <a download="assignment.pdf"
-                            [href]="sanitizer.bypassSecurityTrustUrl(Topic.assignments[0].base64+','+Topic.assignments[0].document)">Download</a>
-                    </div>
-                </div>
-                <div class="container-fluid" *ngIf="Topic.assignments[0] !== null">
-                    <h3>Submitted Assignment</h3>
-                    <div class="px-4 pb-2" *ngIf="(auth.IsTrainee && !submitted) || (Topic.assignments.length > 1)">
-                        <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)"></app-uploadassignment>
-                    </div>
-                    <!-- <div class="container-fluid  px-4" > -->
-                    <app-assignmentlist [courseId]="courseId" [topicId]="topicId"
-                        *ngIf="auth.IsCoordinator || auth.IsTrainer"></app-assignmentlist>
-                    <div *ngIf="assignment.ownerId !== undefined && !auth.IsTrainer && !auth.IsCoordinator"
-                        class="container-fluid bg-light p-3 rounded border">
-                        <div class="d-flex justify-content-around">
-                            <div>
-                                Created By : {{assignment.owner.fullName}}
-                            </div>
-                            <div>
-                                Created On : {{assignment.createdOn | date}}
-                            </div>
-                            <a (click)="ViewAssignment(assignment)" target="_blank" rel="noopener noreferrer"
-                                class="text-primary">View</a>
-                            <a download="assignment.pdf"
-                                [href]="sanitizer.bypassSecurityTrustUrl(assignment.base64+','+assignment.document)">
-                                Download
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Sidebar start -->
+  <app-sidebar></app-sidebar>
+  <!-- Sidebar end -->
+  <div class="pt-4 px-4">
+    <!-- Breadcrumb start -->
+    <nav aria-label="breadcrumb" class="px-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses">Course List</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses/Course/{{ courseId }}">{{ Coursename }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ Topic.name }}</li>
+      </ol>
+    </nav>
+    <!--Breadcrumb end -->
+
+    <!-- Content Start -->
+    <div class="container-fluid px-4">
+      <!-- Topic Detail Start -->
+      <div class="row g-2">
+        <div class="col-sm-10 col-md-12 d-flex">
+          <div class="col-9">
+            <h2 class="pt-">{{ Topic.name }}</h2>
+            <p class="mt-4 font">
+              <b class="text-dark fs-5">Duration : </b>{{ Topic.duration }}
+            </p>
+          </div>
+          <div class="col-3">
+            <h5 class="text-primary fs-5 mx-5">
+              <!-- Attendance for Trainee -->
+              <div *ngIf="auth.IsTrainee">
+                <a *ngIf="Checked === true"
+                  >Attendance
+                  <input
+                    type="checkbox"
+                    class="form"
+                    value="Yes"
+                    checked
+                    style="pointer-events: none"
+                    name="checkbox_attendance"
+                /></a>
+                <a *ngIf="Checked === false"
+                  >Attendance
+                  <input
+                    type="checkbox"
+                    class="form"
+                    value="Yes"
+                    unchecked
+                    name="checkbox_attendance"
+                    (click)="MarkAttendance()"
+                /></a>
+              </div>
+              <!-- Attendance List for Coordinator and Trainer -->
+              <div>
+                <a
+                  *ngIf="auth.IsCoordinator || auth.IsTrainer"
+                  routerLink="/Course/{{ courseId }}/Topic/{{
+                    topicId
+                  }}/Attendances"
+                  id="pointer"
+                  >View Attendance</a
+                >
+              </div>
+            </h5>
+            <h5 class="text-dark mx-5">
+              <!-- Topic completion -->
+              <div *ngIf="auth.IsTrainer">
+                <a *ngIf="TopicChecked === true"
+                  >Topic Completed
+                  <input
+                    type="checkbox"
+                    class="form"
+                    value="Yes"
+                    checked
+                    style="pointer-events: none"
+                    name="checkbox_topicCompleted"
+                /></a>
+                <a *ngIf="TopicChecked === false"
+                  >Topic Completed
+                  <input
+                    type="checkbox"
+                    class="form"
+                    value="Yes"
+                    unchecked
+                    name="checkbox_topicCompleted"
+                    (click)="MarkTopicStatus()"
+                /></a>
+              </div>
+              <!-- Topic completion -->
+            </h5>
+          </div>
         </div>
+      </div>
+      <!-- Topic Detail end -->
+
+      <!-- Quill Viewer -->
+      <quill-view
+        class="ql-container ql-snow"
+        id="editor"
+        format="text"
+      ></quill-view>
+      <!-- Quill Viewer -->
+
+      <!-- Assignment Starts -->
+      <div class="row g-2">
+        <div class="container-fluid px-4 pb-2">
+          <ng-container
+            *ngIf="
+              !submitted && Topic.assignments[0] === null && auth.IsTrainer
+            "
+          >
+            <h3>Topic's Assignment</h3>
+            <app-uploadassignment (SubmittedAssignment)="HandleSubmit($event)">
+            </app-uploadassignment>
+          </ng-container>
+        </div>
+        <h3 *ngIf="Topic.assignments[0] !== null">Topic's Assignment</h3>
+        <div
+          *ngIf="Topic.assignments[0] !== null"
+          class="container bg-light p-3 rounded border"
+        >
+          <div class="d-flex justify-content-around">
+            <div>Created By : {{ Topic.assignments[0].owner.fullName }}</div>
+            <div>Created On : {{ Topic.assignments[0].createdOn | date }}</div>
+            <a
+              (click)="ViewAssignment(Topic.assignments[0])"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary"
+              >View</a
+            >
+            <a
+              download="assignment.pdf"
+              [href]="
+                sanitizer.bypassSecurityTrustUrl(
+                  Topic.assignments[0].base64 +
+                    ',' +
+                    Topic.assignments[0].document
+                )
+              "
+              >Download</a
+            >
+          </div>
+        </div>
+        <div class="container-fluid" *ngIf="Topic.assignments[0] !== null">
+          <h3>Submitted Assignment</h3>
+          <div
+            class="px-4 pb-2"
+            *ngIf="
+              (auth.IsTrainee && !submitted) || Topic.assignments.length > 1
+            "
+          >
+            <app-uploadassignment
+              (SubmittedAssignment)="HandleSubmit($event)"
+            ></app-uploadassignment>
+          </div>
+          <app-assignmentlist
+            [courseId]="courseId"
+            [topicId]="topicId"
+            *ngIf="auth.IsCoordinator || auth.IsTrainer"
+          ></app-assignmentlist>
+          <div
+            *ngIf="
+              assignment.ownerId !== undefined &&
+              !auth.IsTrainer &&
+              !auth.IsCoordinator
+            "
+            class="container-fluid bg-light p-3 rounded border"
+          >
+            <div class="d-flex justify-content-around">
+              <div>Created By : {{ assignment.owner.fullName }}</div>
+              <div>Created On : {{ assignment.createdOn | date }}</div>
+              <a
+                (click)="ViewAssignment(assignment)"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary"
+                >View</a
+              >
+              <a
+                download="assignment.pdf"
+                [href]="
+                  sanitizer.bypassSecurityTrustUrl(
+                    assignment.base64 + ',' + assignment.document
+                  )
+                "
+              >
+                Download
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Assignment Ends -->
     </div>
-    <app-footer></app-footer>
+    <!-- Content End -->
+  </div>
+  <!-- Footer Start -->
+  <app-footer></app-footer>
+  <!-- Footer End -->
 </div>

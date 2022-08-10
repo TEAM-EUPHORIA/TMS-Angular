@@ -31,7 +31,11 @@ export class AssignmentquesComponent implements OnInit {
   AssignmentQuestion: any;
 
   ngOnInit(): void {
-    this.GetAssignmentByTrainer(this.trainerId);
+    if (this.courseId != null && this.topicId != null && this.trainerId != null)
+      this.GetAssignmentByTrainer(this.trainerId);
+    else {
+      window.location.replace('/PageNotFound');
+    }
   }
   //Gets assignment submitted by Trainer of the course
   GetAssignmentByTrainer(trainerId: number) {

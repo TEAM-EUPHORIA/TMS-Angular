@@ -7,83 +7,83 @@ import { baseurl } from 'src/app/URL';
 @Component({
   selector: 'app-givecoursefeedback',
   templateUrl: './givecoursefeedback.component.html',
-  styleUrls: ['./givecoursefeedback.component.css']
+  styleUrls: ['./givecoursefeedback.component.css'],
 })
 export class GivecoursefeedbackComponent implements OnInit {
-
-  constructor(private router: ActivatedRoute, private http: HttpClient, private auth: LoginService, private route: Router) {
-    this.CourseFeedback = this.route.getCurrentNavigation()?.extras.state?.['fid'];
-    this.name = this.route.getCurrentNavigation()?.extras.state?.['courseName'];
-  }
-  Add: boolean = true;
+  constructor(
+    private router: ActivatedRoute,
+    private http: HttpClient,
+    private auth: LoginService,
+    private route: Router
+  ) {}
   Edit: boolean = false;
-  txt !: string;
-  Traineeid !: number;
-  text !: string;
-  data: any
-  name: any;
-  CourseName !: string | any;
-  courseId !: number;
-  temp: any;
+  txt!: string;
+  text!: string;
+  CourseName!: string | any;
+  courseId!: number;
   CourseFeedback: any;
+
+  //Feedback Model
   Feedback: any = {
     courseId: '',
     traineeId: '',
     feedback: '',
-    rating: ''
-  }
+    rating: '',
+  };
 
-
+  //Component initialization
   ngOnInit(): void {
-    console.log(this.name)
     this.courseId = this.router.snapshot.params['courseId'];
-    console.log(localStorage.getItem('courseName'))
-    this.CourseName = localStorage.getItem('courseName')
-    this.http.get(baseurl + "FeedBack/course/" + `${this.courseId},${this.auth.getId()}`).subscribe(res => {
-      if (res) {
-        this.CourseFeedback = res;
-        this.Add = false;
-        this.EditFeedback(this.CourseFeedback);
-      }
-    });
-    if (this.Add == true) {
+    this.CourseName = localStorage.getItem('courseName');
+    if (this.courseId != 0) {
+      this.http
+        .get(
+          baseurl + 'FeedBack/course/' + `${this.courseId},${this.auth.getId()}`
+        )
+        .subscribe((res) => {
+          if (res) {
+            this.CourseFeedback = res;
+            this.EditFeedback(this.CourseFeedback);
+          }
+        });
+    } else {
+      window.location.replace('/PageNotFound');
+    }
+    if (!this.Edit) {
       this.GiveFeedback();
     }
   }
 
+  //Clicks Submit button
   OnSubmit() {
     this.Feedback.courseId = this.courseId;
     this.Feedback.traineeId = this.auth.getId();
-    console.warn(this.Feedback);
     if (this.CourseFeedback == null) {
-      this.http.post(baseurl + "FeedBack/course/feedback", this.Feedback).subscribe((res) => {
-        console.log(res);
-      })
+      this.http
+        .post(baseurl + 'FeedBack/course/feedback', this.Feedback)
+        .subscribe((res) => {});
+    } else {
+      this.http
+        .put(baseurl + 'FeedBack/course/feedback', this.CourseFeedback)
+        .subscribe((res) => {});
     }
-    else {
-      this.http.put(baseurl + "FeedBack/course/feedback", this.CourseFeedback).subscribe((res) => {
-        console.log(res);
-      })
-    }
-    this.route.navigate(['/Courses/Course/' + `${this.courseId}`])
+    this.route.navigate(['/Courses/Course/' + `${this.courseId}`]);
   }
+  // Update if the Feedback is not null
   EditFeedback(CourseFeedback: any) {
-    console.warn(CourseFeedback);
     if (CourseFeedback != null || CourseFeedback != undefined) {
-      this.txt = "Update";
-      this.text = "Edit Coursefeedback";
+      this.txt = 'Update';
+      this.text = 'Edit Coursefeedback';
       this.Edit = true;
-    }
-    else {
-      alert("Non editable");
+    } else {
+      alert('Non editable');
     }
   }
+  // Set the Submit to button and Give in Header
   GiveFeedback() {
     if (this.CourseFeedback == null || this.CourseFeedback == undefined) {
-      this.txt = "Submit";
-      this.text = "Give Coursefeedback";
-      this.Add = true;
+      this.txt = 'Submit';
+      this.text = 'Give Coursefeedback';
     }
   }
 }
-

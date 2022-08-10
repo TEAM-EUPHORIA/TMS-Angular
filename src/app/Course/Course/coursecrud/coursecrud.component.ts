@@ -30,8 +30,7 @@ export class CoursecrudComponent implements OnInit {
   data: any;
   //Store Department list from server
   dept: any;
-  //
-  course!: any;
+
   //Model for Course
   Course: any = {
     id: 0,
@@ -74,6 +73,15 @@ export class CoursecrudComponent implements OnInit {
   ngOnInit(): void {
     this.GetAllDepartment();
     this.courseId = this.router.snapshot.params['courseId'];
+    if (this.courseId != 0) {
+      this.ContentInit();
+    } else {
+      window.location.replace('/PageNotFound');
+    }
+  }
+
+  //initialize the content after validating the courseId
+  ContentInit() {
     if (this.auth.IsCoordinator) {
       this.courseService.getCourseById(this.courseId).subscribe({
         next: (res: any) => {
@@ -81,12 +89,10 @@ export class CoursecrudComponent implements OnInit {
           this.GetUsersByRole();
         },
         error: (err: any) => {
-          console.warn(err);
-          console.log('hi');
+          this.ServerSideErrorMsgs(err);
         },
       });
       if (this.courseId != undefined) {
-        console.warn(this.Course);
         this.Title = 'Update';
         this.Editable = true;
       }
@@ -99,7 +105,6 @@ export class CoursecrudComponent implements OnInit {
       this.courseService.putcourse(this.Course).subscribe({
         next: (res: any) => {
           this.toastService.success('Course was updated successfully.');
-          console.warn(this.course);
           window.location.replace('/Courses');
         },
         error: (err: any) => {
@@ -121,7 +126,6 @@ export class CoursecrudComponent implements OnInit {
 
   //Handles multiple error message from server
   private ServerSideErrorMsgs(err: any) {
-    console.warn(err['error']);
     const errors = err['error'];
     Object.keys(errors).forEach((prop) => {
       const formControl = this.courseform.get(prop);
@@ -129,7 +133,6 @@ export class CoursecrudComponent implements OnInit {
         formControl.setErrors({
           serverError: errors[prop],
         });
-        console.warn(this.courseform.controls['name'].getError('serverError'));
       }
     });
   }
@@ -151,7 +154,6 @@ export class CoursecrudComponent implements OnInit {
       )
       .subscribe((res) => {
         this.data = res;
-        console.log(res);
       });
   }
 
@@ -161,8 +163,6 @@ export class CoursecrudComponent implements OnInit {
       .get('https://localhost:5001/Department/departments')
       .subscribe((res) => {
         this.dept = res;
-        console.log(this.dept);
       });
   }
 }
-

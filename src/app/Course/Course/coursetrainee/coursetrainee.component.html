@@ -1,79 +1,166 @@
 <div class="content">
-    <app-sidebar></app-sidebar>
-    <div class="pt-4 px-4">
-        <nav aria-label="breadcrumb" class="px-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item"><a routerLink="/Courses">Course List</a></li>
-                <li class="breadcrumb-item"><a routerLink="/Courses/Course/{{courseId}}">{{course.name}}</a></li>
-                <li class="breadcrumb-item active">Course Trainees</li>
-            </ol>
-        </nav>
-        <div class="container-fluid px-4 pt-2 pb-2">
-            <div *ngIf="!toDisplay ; else adduser">
-                <h3>Course Trainees</h3>
-            </div>
-            <ng-template #adduser>
-                <h3>Assign Trainees</h3>
-            </ng-template>
-            <div class="col-md-10 d-flex">
-                <div class="btn btn-dark pe-4 px-4" *ngIf="auth.IsCoordinator" (click)="toggleData()">Select</div>
-                <input #search type="search" placeholder="Search Trainee" class="form-control search-wrapper mx-4" [(ngModel)]="searchText">
-            </div>
-            <div class="container" *ngIf="toDisplay">
-                <div *ngIf="List ; else elseblock">
-                    <div *ngIf="newTrainees.length > 4 ;else noscroll">
-                        <div class="scrollbar">
-                            <div *ngFor="let option of newTrainees | filter:searchText"
-                                class="my-3 p-4 d-flex bg-light justify-content-around">
-                                <div [id]="option.id" class="col-4">{{option.fullName}}</div>
-                                <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)" /></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ng-template #noscroll>
-                        <div *ngFor="let option of newTrainees | filter:searchText"
-                            class="my-3 p-4 d-flex bg-light justify-content-around">
-                            <div [id]="option.id" class="col-4">{{option.fullName}}</div>
-                            <div class="col-0"><input type="checkbox" (click)="AddTrainee(option)" /></div>
-                        </div>
-                    </ng-template>
-                </div>
-                <br>
-                <div *ngIf="newTrainees.length !== 0" class="text-left">
-                    <div class="btn btn-dark pe-4 px-4" (click)="Save()">Add</div>
-                </div>
-                <ng-template #elseblock>
-                    <h5 class="text-center">No Trainees Found</h5>
-                </ng-template>
-            </div>
-            <div *ngIf="!toDisplay">
-                <div *ngFor="let item of trainees | filter:searchText | paginate: { itemsPerPage: 4, currentPage: page, totalItems: totalLength }">
-                    <div class="row g-3 my-2">
-                        <div class="col-md-12">
-                            <div class="p-4 bg-light d-flex justify-content-around align-items-center    border hover rounded">
-                                <div class="col-2"><a routerLink="/Trainee/Profile/{{item.id}}"><p class="mb-0 text-dark font"><b>Name : </b>{{ item.fullName }}</p></a></div>
-                                <div class="col-4"><p class="mb-0 text-dark font"><b>Email : </b> {{ item.email }}</p></div>
-                                <div class="col-0" *ngIf="auth.IsCoordinator"><input type="checkbox" (click)="removeUser(item)" /></div>
-                                <div *ngIf="auth.IsTrainer && !item.feedBackExists" class="col-2">
-                                    <a (click)="GiveTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">Give Feedback</button></a>
-                                </div>
-                                <div *ngIf="auth.IsTrainer && item.feedBackExists" class="col-2">
-                                    <a (click)="ViewTraineeFeedback(item.id,item.fullName)"> <button type="button" class="btn btn-dark pe-4 px-4">View Feedback</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4"><pagination-controls *ngIf="trainees.length > 4" class="text-center" (pageChange)="page = $event"></pagination-controls></div>
-                <div *ngIf="trainees.length !== 0" class="text-left">
-                    <div class="btn btn-dark pe-4 px-4 mt-5 " *ngIf="auth.IsCoordinator" (click)="Save()" title="Remove User From Course">Remove</div>
-                </div>
-                <div *ngIf="trainees.length === 0">
-                    <h5 class="text-center">No Trainees Found</h5>
-                </div>
-            </div>
+  <!-- Sidebar start -->
+  <app-sidebar></app-sidebar>
+  <!-- Sidebar end -->
+  <div class="pt-4 px-4">
+    <!-- Breadcrumb Start -->
+    <nav aria-label="breadcrumb" class="px-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses">Course List</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses/Course/{{ courseId }}">{{ course.name }}</a>
+        </li>
+        <li class="breadcrumb-item active">Course Trainees</li>
+      </ol>
+    </nav>
+    <!-- Breadcrumb End -->
+
+    <!-- Content Start -->
+    <div class="container-fluid px-4 pt-2 pb-2">
+      <div *ngIf="!toDisplay; else adduser">
+        <h3>Course Trainees</h3>
+      </div>
+      <ng-template #adduser>
+        <h3>Assign Trainees</h3>
+      </ng-template>
+      <div class="col-md-10 d-flex">
+        <div
+          class="btn btn-dark pe-4 px-4"
+          *ngIf="auth.IsCoordinator"
+          (click)="toggleData()"
+        >
+          Select
         </div>
+        <input
+          #search
+          type="search"
+          placeholder="Search Trainee"
+          class="form-control search-wrapper mx-4"
+          [(ngModel)]="searchText"
+        />
+      </div>
+      <div class="container" *ngIf="toDisplay">
+        <div *ngIf="List; else elseblock">
+          <div *ngIf="newTrainees.length > 4; else noscroll">
+            <div class="scrollbar">
+              <div
+                *ngFor="let option of newTrainees | filter: searchText"
+                class="my-3 p-4 d-flex bg-light justify-content-around"
+              >
+                <div [id]="option.id" class="col-4">{{ option.fullName }}</div>
+                <div class="col-0">
+                  <input type="checkbox" (click)="AddTrainee(option)" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #noscroll>
+            <div
+              *ngFor="let option of newTrainees | filter: searchText"
+              class="my-3 p-4 d-flex bg-light justify-content-around"
+            >
+              <div [id]="option.id" class="col-4">{{ option.fullName }}</div>
+              <div class="col-0">
+                <input type="checkbox" (click)="AddTrainee(option)" />
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <br />
+        <div *ngIf="newTrainees.length !== 0" class="text-left">
+          <div class="btn btn-dark pe-4 px-4" (click)="Save()">Add</div>
+        </div>
+        <ng-template #elseblock>
+          <h5 class="text-center">No Trainees Found</h5>
+        </ng-template>
+      </div>
+      <div *ngIf="!toDisplay">
+        <div
+          *ngFor="
+            let item of trainees
+              | filter: searchText
+              | paginate
+                : {
+                    itemsPerPage: 4,
+                    currentPage: page,
+                    totalItems: totalLength
+                  }
+          "
+        >
+          <div class="row g-3 my-2">
+            <div class="col-md-12">
+              <div
+                class="p-4 bg-light d-flex justify-content-around align-items-center border hover rounded"
+              >
+                <div class="col-2">
+                  <a routerLink="/Trainee/Profile/{{ item.id }}"
+                    ><p class="mb-0 text-dark font">
+                      <b>Name : </b>{{ item.fullName }}
+                    </p></a
+                  >
+                </div>
+                <div class="col-4">
+                  <p class="mb-0 text-dark font">
+                    <b>Email : </b> {{ item.email }}
+                  </p>
+                </div>
+                <div class="col-0" *ngIf="auth.IsCoordinator">
+                  <input type="checkbox" (click)="removeUser(item)" />
+                </div>
+                <div
+                  *ngIf="auth.IsTrainer && !item.feedBackExists"
+                  class="col-2"
+                >
+                  <a (click)="GiveTraineeFeedback(item.id, item.fullName)">
+                    <button type="button" class="btn btn-dark pe-4 px-4">
+                      Give Feedback
+                    </button></a
+                  >
+                </div>
+                <div
+                  *ngIf="auth.IsTrainer && item.feedBackExists"
+                  class="col-2"
+                >
+                  <a (click)="ViewTraineeFeedback(item.id, item.fullName)">
+                    <button type="button" class="btn btn-dark pe-4 px-4">
+                      View Feedback
+                    </button></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <pagination-controls
+            *ngIf="trainees.length > 4"
+            class="text-center"
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </div>
+        <div *ngIf="trainees.length !== 0" class="text-left">
+          <div
+            class="btn btn-dark pe-4 px-4 mt-5"
+            *ngIf="auth.IsCoordinator"
+            (click)="Save()"
+            title="Remove User From Course"
+          >
+            Remove
+          </div>
+        </div>
+        <!-- Error message  -->
+        <div *ngIf="trainees.length === 0">
+          <h5 class="text-center">No Trainees Found</h5>
+        </div>
+        <!-- Error message  -->
+      </div>
     </div>
-    <app-footer></app-footer>
+    <!-- Content end -->
+  </div>
+  <!-- Footer start -->
+  <app-footer></app-footer>
+  <!-- Footer end -->
 </div>

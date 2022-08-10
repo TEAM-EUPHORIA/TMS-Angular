@@ -1,14 +1,20 @@
 <div class="content">
+    <!-- Sidebar Start -->
     <app-sidebar></app-sidebar>
+    <!-- Sidebar End -->
     <div class="pt-4 px-4">
+        <!-- Breadcrumb Start -->
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
+        <!-- Breadcrumb End -->
         <h2 class="pt-2 px-4">Dashboard</h2>
-        <div *ngIf="ls.IsHead">
+
+        <!-- Head Dashboard -->
+        <div *ngIf="auth.IsHead">
             <div class="container-fluid pt-2 px-2">
                 <div class="row g-1">
                     <div class="col-m-6">
@@ -78,7 +84,7 @@
             </div>
         </div>
         <!-- Co-Ordinator Dashboard -->
-        <div *ngIf="ls.IsCoordinator">
+        <div *ngIf="auth.IsCoordinator">
             <div class="container-fluid pt-2 px-2">
                 <div class="row g-1">
                     <div class="col-m-6">
@@ -150,7 +156,7 @@
             </div>
         </div>
         <!-- Trainer Dashboard -->
-        <div *ngIf="ls.IsTrainer">
+        <div *ngIf="auth.IsTrainer">
             <div class="container-fluid px-2">
                 <div class="row g-1">
                     <div class="col-m-6">
@@ -177,33 +183,11 @@
                             </div>
                         </a>
                     </div>
-                    <!-- <div class="col-md-6">
-                        <a routerLink="/ReviewList/1" class="nav-item nav-link active">
-                            <div
-                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <i class="fa fa-book text-dark fs-3 mx-4" aria-hidden="true"></i>
-                                <h4 class="mb-0 text-dark">Completed Course</h4>
-                                <h3 class="mb-0 mx-4">{{data.completedCourseCount}}</h3>
-                            </div>
-                        </a>
-                    </div> -->
                 </div>
-                <!-- <div class="row g-3 my-2">
-                    <div class="col-md-6">
-                        <a routerLink="Completed-Reviews" class="nav-item nav-link active">
-                            <div
-                                class="p-4 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <i class="fa fa-male text-dark mx-4 fs-3" aria-hidden="true"></i>
-                                <h4 class="mb-0 text-dark">Progress Course</h4>
-                                <h3 class="mb-0 mx-4">{{data.inProgressCourseCount}}</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div> -->
             </div>
         </div>
         <!-- Trainee Dashboard -->
-        <div *ngIf="ls.IsTrainee">
+        <div *ngIf="auth.IsTrainee">
             <div class="container-fluid pt-2 px-2">
                 <div class="row g-1">
                     <div class="col-m-6">
@@ -254,7 +238,7 @@
         </div>
 
         <!-- Reviewer Dashboard -->
-        <div *ngIf="ls.IsReviewer">
+        <div *ngIf="auth.IsReviewer">
             <div class="container-fluid pt-2 px-2">
                 <div class="row g-1">
                     <div class="col-m-6">
@@ -293,5 +277,7 @@
             </div>
         </div>
     </div>
+    <!-- Footer Start -->
     <app-footer></app-footer>
+    <!-- Footer End -->
 </div>

@@ -14,13 +14,19 @@ export class UploadassignmentComponent {
   //Final variable to store the Uploaded assignment
   base64 = '';
 
+  public errormsg!: string;
+
   //EventEmitter creation
   @Output()
   SubmittedAssignment: EventEmitter<any> = new EventEmitter<any>();
 
   //EventEmitter triggering point to parent component
   Onsubmit() {
-    this.SubmittedAssignment.emit(this.base64);
+    if (this.base64 != null) this.SubmittedAssignment.emit(this.base64);
+    else {
+      this.errormsg = 'Please upload a assignment before submitting';
+      // window.location.replace('/PageNotFound');
+    }
   }
 
   //Function to handle the file upload

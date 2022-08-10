@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <h2>Oops! {{title}}.</h2>
+    <div>
+        <img src="./assets/img/Error.png" alt="404">
+    </div>
+    <h4 *ngIf="Error">We can't fint the page you're looking for.</h4>
+    <h4 *ngIf="!Error">We can't process you're request.</h4>
+    <a routerLink="/Home">
+        <button type="button" class="main-btn">GO BACK HOME</button>
+    </a>
+</div>

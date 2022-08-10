@@ -11,7 +11,6 @@ import { DepartmentService } from '../department.service';
 })
 export class DepartmentcrudComponent implements OnInit {
 
-  role = "Co-Ordinator"
   id!: number;
   Title!: string;
   title! : string;
@@ -39,16 +38,6 @@ export class DepartmentcrudComponent implements OnInit {
     } else {
       this.Title = "Edit";
       this.title = "Save"
-
-    }
-    console.warn(this.id);
-    if (this.id != null || !this.id) {
-      this.setoption();
-    }
-  }
-
-  setoption(form?: NgForm) {
-    if (this.id != null) {
       this.GetDepartmentById();
     }
   }
@@ -60,10 +49,7 @@ export class DepartmentcrudComponent implements OnInit {
   }
 
   OnSubmit() {
-    console.log(this.department)
     if (this.department.id != undefined) {
-      console.warn(this.department)
-      console.warn("edit")
       this.departmentservice.putdepartment(this.department).subscribe({
         next: (res: any) => {
           window.location.replace("Department")
@@ -74,8 +60,6 @@ export class DepartmentcrudComponent implements OnInit {
         }
       })
     } else {
-      console.warn(this.department)
-      console.warn("add")
       this.departmentservice.postdepartment(this.department).subscribe({
         next: (res: any) => {
           window.location.replace("Department")
@@ -87,20 +71,15 @@ export class DepartmentcrudComponent implements OnInit {
       })
     }
   }
-  showToast() {
-    this.toastService.success('Login Successfully')
-  }
+  
   private serverSideErrorMsgs(err: any) {
-    console.warn(err["error"]);
     const errors = err["error"];
     Object.keys(errors).forEach(prop => {
-      console.log(this.deptform.get(prop))
       const formControl = this.deptform.get(prop);
       if (formControl) {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.deptform.controls['name'].getError('serverError'));
       }
     });
   }

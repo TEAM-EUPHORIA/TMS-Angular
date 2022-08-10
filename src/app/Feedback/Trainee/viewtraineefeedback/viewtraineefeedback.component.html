@@ -1,34 +1,46 @@
 <div class="content">
-    <app-sidebar></app-sidebar>
-    <div class="pt-4 px-4">
-        <nav aria-label="breadcrumb" class="px-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
-                <li class="breadcrumb-item "><a routerLink="/Courses">Course List</a></li>
-                <li class="breadcrumb-item "><a routerLink="/Courses/Course/{{courseId}}">{{CourseName}}</a></li>
-                <li class="breadcrumb-item active">TraineeFeedback</li>
-            </ol>
-        </nav>
-        <div class="container-fluid px-4 pt-2 pb-2">
-            <h3 class="text-black">Course Feedback</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row mt-4">
-                        <div class="col-md-4"><b class="text-dark">Trainee</b></div>
-                        <div class="col-md-8">
-                            <p>{{data.trainee.userName}}</p>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4"><b class="text-dark">Feedback</b></div>
-                        <div class="col-md-8">
-                            <p>{{data.feedback}}</p>
-                        </div>
-                    </div>
-                    <!-- <a (click)="ToEditFeedbackOfTrainee()"><button type="button" class="btn btn-dark pe-4 px-4 hover">Edit</button></a> -->
-                </div>
+  <!-- Sidebar start -->
+  <app-sidebar></app-sidebar>
+  <!-- Sidebar end -->
+  <div class="pt-4 px-4">
+    <!-- Breadcrumb start -->
+    <nav aria-label="breadcrumb" class="px-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses">Course List</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/Courses/Course/{{ courseId }}">{{ CourseName }}</a>
+        </li>
+        <li class="breadcrumb-item active">TraineeFeedback</li>
+      </ol>
+    </nav>
+    <!--Breadcrumb end -->
+
+    <!-- Content Start -->
+    <div class="container-fluid px-4 pt-2 pb-2">
+      <h3 class="text-black">Course Feedback</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row mt-4">
+            <div class="col-md-4"><b class="text-dark">Trainee</b></div>
+            <div class="col-md-8">
+              <p>{{ data.trainee.userName }}</p>
             </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-4"><b class="text-dark">Feedback</b></div>
+            <div class="col-md-8">
+              <p>{{ data.feedback }}</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <app-footer></app-footer>
+    <!-- Content End -->
+  </div>
+  <!-- Footer Start -->
+  <app-footer></app-footer>
+  <!-- Footer End -->
 </div>

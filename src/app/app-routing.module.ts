@@ -31,6 +31,7 @@ import { ReviewerGuard } from './Login/Guards/reviewer.guard';
 import { TraineeGuard } from './Login/Guards/trainee.guard';
 import { TrainerGuard } from './Login/Guards/trainer.guard';
 import { ReviewViewComponent } from './Review/review-view/review-view.component';
+import { PageNotFoundComponent } from './Shared/page-not-found/page-not-found.component';
 
 
 
@@ -116,6 +117,9 @@ const routes: Routes = [
   //MoM upload and update Routing Link
   { path: 'Review/:reviewId/MOM/Add', component: GivemomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
   { path: 'Review/:reviewId/MOM/:traineeId', component: ViewmomComponent, canActivate: [MasterGuard], data: { guard: [CoordinatorGuard, ReviewerGuard, TraineeGuard] } },
+
+  { path : 'PageNotFound', component : PageNotFoundComponent},
+  { path : 'InvalidRequest', component : PageNotFoundComponent},
 ]
 
 @NgModule({

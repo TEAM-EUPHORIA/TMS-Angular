@@ -16,14 +16,14 @@ export class CourselistComponent implements OnInit {
     private route: Router,
     public auth: LoginService,
     private http: HttpClient,
-    private toastService : HotToastService
+    private toastService: HotToastService
   ) {}
 
-  //variable to store and iterate through list of departments
+  //to store and iterate through list of departments
   dept: any;
   //variable to bind ngModule data
-  _dept : any;
-  //variable to store and iterate through list of courses
+  _dept: any;
+  //to store and iterate through list of courses
   courselist: any = [];
   // Copy of the course list
   courselistcopy: any[] = [];
@@ -31,14 +31,14 @@ export class CourselistComponent implements OnInit {
   //Pagination settings
   page: number = 1;
   totalLength: any;
-  search !: string;
-  // 
+  search!: string;
+  //
 
   private CoordinatorId: number = 2; // Coordinator Role id
   private TrainerId: number = 3; // Trainer Role id
   private TraineeId: number = 4; // Trainee Role id
 
-  //This method activates the methods when Courseist component created 
+  //Component initialization
   ngOnInit(): void {
     if (this.auth.getRoleId() == this.CoordinatorId) {
       this.GetAllCourses();
@@ -52,11 +52,13 @@ export class CourselistComponent implements OnInit {
 
   //Display dialog for Disable conformation
   myfunction(id: number) {
-    let text = 'Are You Sure You Want To Disable The Course';
-    if (confirm(text) == true) {
-      this.DisableCourse(id);
-    } else {
-      text = 'You canceled!';
+    if (id != 0 || id != null) {
+      let text = 'Are You Sure You Want To Disable The Course';
+      if (confirm(text) == true) {
+        this.DisableCourse(id);
+      } else {
+        text = 'You canceled!';
+      }
     }
   }
 
@@ -65,7 +67,6 @@ export class CourselistComponent implements OnInit {
     this.CourseService.getAllCourses().subscribe((res) => {
       this.courselist = res;
       this.courselistcopy = res;
-      console.log(this.courselistcopy);
     });
   }
 
@@ -79,16 +80,17 @@ export class CourselistComponent implements OnInit {
 
   // Function to disable Course
   DisableCourse(id: number) {
-    this.CourseService.disableCourse(id).subscribe(() => this.GetAllCourses());
-    this.showToast();
+    if (id != null) {
+      this.CourseService.disableCourse(id).subscribe(() =>
+        this.GetAllCourses()
+      );
+      this.toastService.error('Disabled');
     }
-    showToast() {
-      this.toastService.error('Disabled')
   }
 
   // Navigate to Individual Course
   ToCourseView(id: number) {
-    this.route.navigate(['CourseList/Course/' + id]);
+    if (id != 0 || id != null) this.route.navigate(['CourseList/Course/' + id]);
   }
 
   //Gets All Department from server
@@ -100,26 +102,20 @@ export class CourselistComponent implements OnInit {
       });
   }
 
-  // Filters list of Courses by Depatment selected 
+  // Filters list of Courses by Depatment selected
   filterByDepartment() {
     const item = document.getElementById('departmentId') as HTMLSelectElement;
     if (item.value != '') {
       this.courselist = this.courselistcopy.filter(
         (u) => u.departmentId == item.value
-        );
-      } else {
-        this.courselist = this.courselistcopy;
-      }
-      this.updateCurrentPageAndTotalLength();
+      );
+    } else {
+      this.courselist = this.courselistcopy;
     }
+    this.updateCurrentPageAndTotalLength();
+  }
 
-    // Update pagination setting
-    private updateCurrentPageAndTotalLength() {
-      this.page = 1;
-      this.totalLength = this.courselist.length;
-    }
-
-  // Filters list of Courses by Search entered  
+  // Filters list of Courses by Search entered
   FilterByName() {
     const search = document.getElementById('search') as HTMLInputElement;
     const item = document.getElementById('departmentId') as HTMLSelectElement;
@@ -152,8 +148,15 @@ export class CourselistComponent implements OnInit {
     }
     this.updateCurrentPageAndTotalLength();
   }
+
+  // Update pagination setting
+  private updateCurrentPageAndTotalLength() {
+    this.page = 1;
+    this.totalLength = this.courselist.length;
+  }
+
+  //Returns list of course filtered by search
   private getFilteredCourse(course: any, search: HTMLInputElement): any {
     return course.name.toLowerCase().includes(search.value.toLowerCase());
   }
 }
-
