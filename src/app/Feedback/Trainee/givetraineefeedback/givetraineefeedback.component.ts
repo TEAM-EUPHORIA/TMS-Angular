@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
+import { baseurl } from 'src/app/URL';
 import { UserService } from 'src/app/User/user.service';
 
 @Component({
@@ -51,7 +52,7 @@ export class GivetraineefeedbackComponent implements OnInit {
     if (this.trainerId != undefined) {
       this.txt = 'Update';
       this.button = 'Update';
-      this.http.get<any>('https://localhost:5001/FeedBack/trainee/' + `${this.courseId}` + ',' + this.traineeId + ',' + this.trainerId).subscribe({
+      this.http.get<any>(baseurl + 'FeedBack/trainee/' + `${this.courseId}` + ',' + this.traineeId + ',' + this.trainerId).subscribe({
         next: (res) => {
           this.TraineeFeedback = res;
         }
@@ -68,12 +69,12 @@ export class GivetraineefeedbackComponent implements OnInit {
       this.TraineeFeedback.traineeId = this.traineeId;
       this.TraineeFeedback.trainerId = this.auth.getId();
       console.warn(this.TraineeFeedback);
-      this.http.post("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
+      this.http.post(baseurl + "FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => {
         console.log("done" + this.courseId)
       });
     }
     else {
-      this.http.put("https://localhost:5001/FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => { });
+      this.http.put(baseurl + "FeedBack/Trainee/feedback", this.TraineeFeedback).subscribe((res) => { });
     }
     window.location.replace(`CourseTrainees/${this.courseId}/${this.deptId}`);
   }

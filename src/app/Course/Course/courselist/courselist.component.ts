@@ -31,14 +31,14 @@ export class CourselistComponent implements OnInit {
   //Pagination settings
   page: number = 1;
   totalLength: any;
-  //Search text
-  search!: string;
+  search !: string;
+  // 
 
   private CoordinatorId: number = 2; // Coordinator Role id
   private TrainerId: number = 3; // Trainer Role id
   private TraineeId: number = 4; // Trainee Role id
 
-  //This method activates the methods when Courseist component created
+  //This method activates the methods when Courseist component created 
   ngOnInit(): void {
     if (this.auth.getRoleId() == this.CoordinatorId) {
       this.GetAllCourses();
@@ -152,9 +152,8 @@ export class CourselistComponent implements OnInit {
     }
     this.updateCurrentPageAndTotalLength();
   }
-
-
   private getFilteredCourse(course: any, search: HTMLInputElement): any {
     return course.name.toLowerCase().includes(search.value.toLowerCase());
   }
 }
+

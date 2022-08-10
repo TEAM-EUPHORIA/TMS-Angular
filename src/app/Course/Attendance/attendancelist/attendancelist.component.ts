@@ -45,7 +45,7 @@ export class AttendancelistComponent implements OnInit {
     this.topicId = this.route.snapshot.params['topicId'];
     this.Coursename = localStorage.getItem('courseName');
     this.Topicname = localStorage.getItem('topicName');
-    this.getAttendanceList(this.courseId, this.topicId);
+    this.getAttendanceList(this.courseId,  this.topicId);
   }
 
   //Gets list of user assigned in the course

@@ -2,10 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observer } from 'rxjs';
 import { DepartmentService } from 'src/app/Department/department.service';
 import { LoginService } from 'src/app/Login/login.service';
-import { UserService } from 'src/app/User/user.service';
 import { ReviewService } from '../../review.service';
 
 @Component({
@@ -26,7 +24,7 @@ export class ReviewcrudComponent implements OnInit {
   Department !: string;
   Title !: string;
 
-  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe,private auth:LoginService) { }
+  constructor(private review: ReviewService, private dservice: DepartmentService, private route: ActivatedRoute, public datepipe: DatePipe, private auth: LoginService) { }
 
   StatusId = 1;
 
@@ -43,8 +41,8 @@ export class ReviewcrudComponent implements OnInit {
     isDisabled: false
   }
 
-    minDate:Date= new Date();
-    maxDate:Date= new Date();
+  minDate: Date = new Date();
+  maxDate: Date = new Date();
 
   ngOnInit(): void {
     this.reviewId = this.route.snapshot.params['id'];
@@ -59,8 +57,8 @@ export class ReviewcrudComponent implements OnInit {
     }
     this.setoption();
 
-    this.minDate.setDate(this.minDate.getDate()+2);
-    this.maxDate.setDate(this.maxDate.getDate()+15);
+    this.minDate.setDate(this.minDate.getDate() + 2);
+    this.maxDate.setDate(this.maxDate.getDate() + 15);
   }
   setoption(form?: NgForm) {
     if (this.reviewId != null) {
@@ -92,10 +90,9 @@ export class ReviewcrudComponent implements OnInit {
     if (this.reviewId) {
       this.review.putReview(this.Review).subscribe({
         next: (res: any) => {
-          if(this.auth.IsCoordinator)
-          {
+          if (this.auth.IsCoordinator) {
             navigateToListPage('/Schedule-Reviews');
-          }else{
+          } else {
             navigateToListPage('/Reviews');
           }
         },
@@ -109,10 +106,9 @@ export class ReviewcrudComponent implements OnInit {
       console.log(this.Review) // to be removed
       this.review.postReview(this.Review).subscribe({
         next: (res: any) => {
-          if(this.auth.IsCoordinator)
-          {
+          if (this.auth.IsCoordinator) {
             navigateToListPage('/Schedule-Reviews');
-          }else{
+          } else {
             navigateToListPage('/Reviews');
           }
         },

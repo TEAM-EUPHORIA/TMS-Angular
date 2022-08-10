@@ -25,8 +25,8 @@ export class GivemomComponent implements OnInit {
   MOMId!: number;
   momDetails: any;
   pageTitle = 'Review Details'
-  showBtn= true
-  constructor(private reviewService: ReviewService, private router: Router,private route:ActivatedRoute, private http: HttpClient,public ls:LoginService) { }
+  showBtn = true
+  constructor(private reviewService: ReviewService, private router: Router, private route: ActivatedRoute, private http: HttpClient, public ls: LoginService) { }
   momForm = new FormGroup({
     agenda: new FormControl('', [
       Validators.required
@@ -47,10 +47,9 @@ export class GivemomComponent implements OnInit {
     meetingNotes: '',
     purposeOfMeeting: ''
   };
-  showMom(event$:HTMLDivElement){
+  showMom(event$: HTMLDivElement) {
     var btn = event$
-    if(btn.innerText == "Upload MOM")
-    {
+    if (btn.innerText == "Upload MOM") {
       btn.classList.toggle('d-none')
       this.pageTitle = "Upload Mom for Review"
     }
@@ -68,13 +67,12 @@ export class GivemomComponent implements OnInit {
     console.warn(this.traineeId != 'Add')
     this.reviewId = temp[2]
     this.traineeId = temp[3]
-    if (this.reviewId != undefined && this.traineeId != undefined)  {
+    if (this.reviewId != undefined && this.traineeId != undefined) {
       this.editMom();
     } else if (this.reviewId != undefined) {
-      console.warn(this.reviewId ,this.traineeId)
+      console.warn(this.reviewId, this.traineeId)
       this.uploadMOM();
     }
-
   }
 
   uploadMOM() {
@@ -96,7 +94,6 @@ export class GivemomComponent implements OnInit {
       this.reviewTime = this.data.reviewTime;
       this.data.reviewTime = new Date(this.data.reviewTime)
       console.log(this.data.reviewTime.getTime())
-      // this.traineeId = this.data.traineeId;
       this.showBtn = (this.date.getTime() > this.data.reviewTime.getTime() && this.ls.IsTrainee) && (this.data.statusId != 2) && (this.ls.IsTrainee);
       this.reviewService.getMoMbyId(this.reviewId, this.traineeId).subscribe(result => {
         this.mom = result;
@@ -105,7 +102,6 @@ export class GivemomComponent implements OnInit {
     })
   }
   private navigateToListPage() {
-    // Review/:reviewId/MOM/:traineeId
     window.location.replace(`/Review/${this.reviewId}/MOM/${this.ls.getId()}`)
   }
   OnSubmit() {

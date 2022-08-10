@@ -50,12 +50,12 @@ export class CoursetraineeComponent implements OnInit {
     if (this.addTrainees.users.length > 0)
       console.warn(this.addTrainees, "", this.removeTrainees)
     {
-      this.http.put("https://localhost:5001/" + `Course/assignUsers`, this.addTrainees).subscribe(res => {
+      this.http.put(baseurl + `Course/assignUsers`, this.addTrainees).subscribe(res => {
         console.warn(res);
       })
     }
     if (this.removeTrainees.users.length > 0) {
-      this.http.put("https://localhost:5001/" + `Course/removeUsers`, this.removeTrainees).subscribe(res => {
+      this.http.put(baseurl + `Course/removeUsers`, this.removeTrainees).subscribe(res => {
         console.warn(res);
       })
     }
@@ -91,18 +91,18 @@ export class CoursetraineeComponent implements OnInit {
     this.deptId = this.route.snapshot.params['deptId'];
     this.courseService.getCourse(this.courseId).subscribe((res: any) => {
       this.course = res;
-      localStorage.setItem('courseName',res.name)
+      localStorage.setItem('courseName', res.name)
       this.course.name = localStorage.getItem('courseName')
       this.Givefeedback = (this.course.feedbacks[0] == null)
       console.warn(this.course);
     });
     var route = `Course/getCourseUser/${this.courseId}`
-    this.http.get("https://localhost:5001/" + route).subscribe(res => {
+    this.http.get(baseurl + route).subscribe(res => {
       this.trainees = res;
       console.warn(this.trainees)
     })
     route = `User/GetUsersByDepartmentAndRole/${this.deptId},4`
-    this.http.get("https://localhost:5001/" + route).subscribe(res => {
+    this.http.get(baseurl + route).subscribe(res => {
       this.newTrainees = res
       console.warn(this.newTrainees)
       this.newTrainees = this.newTrainees.filter((ar: any) => !this.trainees.find((rm: any) => (rm.id === ar.id)))
@@ -115,7 +115,6 @@ export class CoursetraineeComponent implements OnInit {
       roleId: this.traineeId
     };
     console.log(obje);
-    // this.router.navigate(['/ViewTraineeList'], {state : {vid : obje}});
   }
 
   GiveTraineeFeedback(traineeId: number, traineeName: string) {
@@ -124,17 +123,6 @@ export class CoursetraineeComponent implements OnInit {
   ViewTraineeFeedback(traineeId: number, traineeName: string) {
     this.router.navigate([`Course/${this.courseId}/CourseTrainee/${traineeId}`], { state: { TraineeName: traineeName } });
   }
-
-  /////                           NEEDS TO BE IMPLEMENTED WELL
-  // GetAllFeedbacks(){
-  //   this.http.get("https://localhost:5001/FeedBack/trainee/"+this.id).subscribe({
-  //     next : (res) => {
-  //       this.Feedbacks = res;
-  //       console.warn(this.Feedbacks);
-  //     }
-  //   })
-  // }
-
   private updateCurrentPageAndTotalLength() {
     this.page = 1;
     this.totalLength = this.coursetraineelist.length;
@@ -158,7 +146,7 @@ export class CoursetraineeComponent implements OnInit {
     this.router.navigate(['/GiveTraineeFeedback/' + this.courseId]);
   }
   getTraineeFeedbackById() {
-    this.http.get("https://localhost:5001/FeedBack/trainee/" + `${this.courseId},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
+    this.http.get(baseurl + "FeedBack/trainee/" + `${this.courseId},+${this.traineeId},+${this.auth.getId()}`).subscribe(res => {
       this.data = res
       console.warn(this.data);
     })

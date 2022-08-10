@@ -6,17 +6,17 @@ import { Injectable } from '@angular/core';
 
 export class LoginService {
 
-  constructor() { if(this.IsloggedIn) this.CheckUsers(); }
+  constructor() { if (this.IsloggedIn) this.CheckUsers(); }
 
   public IsloggedIn = localStorage.getItem('Token') != null;
   public IsHead = false;
   public IsCoordinator = false;
   public IsTrainer = false;
-  public IsTrainee = false ;
+  public IsTrainee = false;
   public IsReviewer = false;
 
   CheckUsers() {
-    
+
     this.IsHead = (this.getRole() == 'Training Head')
 
     this.IsCoordinator = (this.getRole() == 'Training Coordinator')
@@ -32,7 +32,7 @@ export class LoginService {
     return localStorage.getItem('Token') || '';
   }
 
-  getRole() {    
+  getRole() {
     if (this.getToken() != undefined) {
       var _token = this.getToken();
       var extract = _token.split('.')[1];
@@ -61,8 +61,8 @@ export class LoginService {
       var _atobtoken = atob(extract);
       var _finaldata = JSON.parse(_atobtoken);
       return _finaldata.UserId;
-      } else {
-        return '';
-      }
+    } else {
+      return '';
+    }
   }
 }

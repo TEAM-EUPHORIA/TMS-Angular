@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/Login/login.service';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-viewcoursefeedback',
@@ -11,7 +12,7 @@ import { LoginService } from 'src/app/Login/login.service';
 export class ViewcoursefeedbackComponent implements OnInit {
   CourseName!: string | any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private Auth: LoginService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private Auth: LoginService, private router: Router) { }
 
   data: any;
   courseId !: number;
@@ -26,14 +27,13 @@ export class ViewcoursefeedbackComponent implements OnInit {
     this.getAllFeedback(this.courseId);
   }
   getAllFeedback(id: any) {
-    if(this.traineeId == this.Auth.getId())
-    {
-      this.http.get("https://localhost:5001/FeedBack/course/" + `${id},${this.Auth.getId()}`).subscribe({
+    if (this.traineeId == this.Auth.getId()) {
+      this.http.get(baseurl + "FeedBack/course/" + `${id},${this.Auth.getId()}`).subscribe({
         next: (res) => {
           this.data = res
           console.warn(this.data);
-        },error:(err:any)=>{
-          
+        }, error: (err: any) => {
+
         }
       });
     }

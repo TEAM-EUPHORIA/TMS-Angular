@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
-import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-assignmentlist',
@@ -11,12 +10,6 @@ import { baseurl } from 'src/app/URL';
   styleUrls: ['./assignmentlist.component.css'],
 })
 export class AssignmentlistComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    public auth: LoginService,
-    private router: Router,
-    public sanitizer: DomSanitizer
-  ) {}
 
   //Course ID of the assignment list
   @Input()

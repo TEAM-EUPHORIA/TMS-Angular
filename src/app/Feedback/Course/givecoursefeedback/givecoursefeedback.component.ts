@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
+import { baseurl } from 'src/app/URL';
 
 @Component({
   selector: 'app-givecoursefeedback',
@@ -21,7 +22,7 @@ export class GivecoursefeedbackComponent implements OnInit {
   text !: string;
   data: any
   name: any;
-  CourseName !: string|any;
+  CourseName !: string | any;
   courseId !: number;
   temp: any;
   CourseFeedback: any;
@@ -38,7 +39,7 @@ export class GivecoursefeedbackComponent implements OnInit {
     this.courseId = this.router.snapshot.params['courseId'];
     console.log(localStorage.getItem('courseName'))
     this.CourseName = localStorage.getItem('courseName')
-    this.http.get("https://localhost:5001/FeedBack/course/" + `${this.courseId},${this.auth.getId()}`).subscribe(res => {
+    this.http.get(baseurl + "FeedBack/course/" + `${this.courseId},${this.auth.getId()}`).subscribe(res => {
       if (res) {
         this.CourseFeedback = res;
         this.Add = false;
@@ -55,12 +56,12 @@ export class GivecoursefeedbackComponent implements OnInit {
     this.Feedback.traineeId = this.auth.getId();
     console.warn(this.Feedback);
     if (this.CourseFeedback == null) {
-      this.http.post("https://localhost:5001/FeedBack/course/feedback", this.Feedback).subscribe((res) => {
+      this.http.post(baseurl + "FeedBack/course/feedback", this.Feedback).subscribe((res) => {
         console.log(res);
       })
     }
     else {
-      this.http.put("https://localhost:5001/FeedBack/course/feedback", this.CourseFeedback).subscribe((res) => {
+      this.http.put(baseurl + "FeedBack/course/feedback", this.CourseFeedback).subscribe((res) => {
         console.log(res);
       })
     }

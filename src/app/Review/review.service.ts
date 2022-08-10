@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { baseurl } from '../URL';
 // import { ReviewDTO } from '../Models/ReviewDTO';
 
 
@@ -8,12 +9,12 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class ReviewService {
-  
+
   constructor(private http: HttpClient) { }
-  
-  baseurl = "https://localhost:5001/Review/";
-  
-  getReviewByStatusAndUser(statusId: number, userId : number) : Observable<any> {
+
+  baseurl = baseurl + "Review/";
+
+  getReviewByStatusAndUser(statusId: number, userId: number): Observable<any> {
     return this.http.get<any>(this.baseurl + `review/status/${statusId},${userId}`)
   }
   getReviewById(id: any): Observable<any[]> {
@@ -23,7 +24,7 @@ export class ReviewService {
     return this.http.get<any>(this.baseurl + `review/status/${statusId}`)
   }
   GetUsersByDepartmentAndRole(deptid: any, roleid: any): Observable<any> {
-    return this.http.get<any>("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${deptid},${roleid}`)
+    return this.http.get<any>(baseurl + "User/GetUsersByDepartmentAndRole/" + `${deptid},${roleid}`)
   }
   postReview(data: any): Observable<any> {
     const headers = new Headers();

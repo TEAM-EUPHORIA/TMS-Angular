@@ -29,7 +29,7 @@ export class DepartmentcrudComponent implements OnInit {
   public department: any = {
     name: "",
   }
-  
+
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['deptId']
@@ -104,10 +104,4 @@ export class DepartmentcrudComponent implements OnInit {
       }
     });
   }
-  // showToast_Add() {
-  //   this.toastService.success("Department was created successfully.")
-  // }
-  // showToast_Edit() {
-  //   this.toastService.success("Department was updated successfully.")
-  // }
 }

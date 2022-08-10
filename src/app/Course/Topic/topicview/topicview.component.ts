@@ -110,7 +110,6 @@ export class TopicviewComponent implements OnInit {
 
   ViewAssignment(assignment: any) {
     assignment.base64 = assignment.base64 + "," + assignment.document;
-    // console.warn(this.assignmenton);
     this.router.navigate(['/ViewAssignment'], { state: { assignment: assignment.base64 } });
   }
 
@@ -121,7 +120,7 @@ export class TopicviewComponent implements OnInit {
       ownerId: this.auth.getId(),
       base64: event
     }
-    this.http.post("https://localhost:5001/Course/assignment", Assignmentobj).subscribe(res => {
+    this.http.post(baseurl + "Course/assignment", Assignmentobj).subscribe(res => {
       console.log(res);
     });
     window.location.reload();
@@ -135,7 +134,7 @@ export class TopicviewComponent implements OnInit {
       topicId: this.topicId,
       ownerId: this.auth.getId()
     }
-    this.http.put("https://localhost:5001/Course/attendance", Attendanceobj).subscribe(res => {
+    this.http.put(baseurl + "Course/attendance", Attendanceobj).subscribe(res => {
       console.log("any")
       this.toastService.success("The attendance was submitted successfully")
       window.location.reload();
@@ -147,7 +146,7 @@ export class TopicviewComponent implements OnInit {
       topicId: this.topicId,
       ownerId: this.auth.getId()
     }
-    this.http.put("https://localhost:5001/Course/MarkAsComplete", TopicStatusobj).subscribe(res => {
+    this.http.put(baseurl + "Course/MarkAsComplete", TopicStatusobj).subscribe(res => {
       this.toastService.success("Marked as topic completed")
       window.location.reload();
     });

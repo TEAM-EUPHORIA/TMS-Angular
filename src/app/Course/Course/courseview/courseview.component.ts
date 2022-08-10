@@ -31,14 +31,13 @@ export class CourseviewComponent implements OnInit {
     this.courseService.getCourse(this.courseId).subscribe({
       next: (res: any) => {
         localStorage.setItem('courseName',res.name)
-        
+
         this.Course = res;
         this.Feedbacks = this.Course.feedbacks;
         this.FeedbackInit();
         this.TopicInit()
       },
       error: (err: any) => {
-        // window.location.replace("/")
       }
     });
   }

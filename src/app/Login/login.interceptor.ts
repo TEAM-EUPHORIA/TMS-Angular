@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class LoginInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor() { }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     req.clone(
