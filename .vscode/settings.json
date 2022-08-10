@@ -1,0 +1,5 @@
+{
+    "html.format.wrapAttributesIndentSize": 4,
+    "html.format.indentHandlebars": true,
+    "workbench.tree.renderIndentGuides": "always"
+}

@@ -13,12 +13,14 @@ export class LoginInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    req : req.clone({
-      setHeaders: {
-        accept: 'application/json',
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    req.clone(
+      {
+        setHeaders: {
+          accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
       }
-    });
+      );
     return next.handle(req);
   }
 }

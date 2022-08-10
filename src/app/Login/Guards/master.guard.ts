@@ -2,14 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Observable } from 'rxjs';
-import { GUARD } from 'src/app/Guards';
 import { LoginService } from '../login.service';
-import { CoordinatorGuard } from './coordinator.guard';
-import { HeadGuard } from './head.guard';
-import { ReviewerGuard } from './reviewer.guard';
-import { TraineeGuard } from './trainee.guard';
-import { TrainerGuard } from './trainer.guard';
-
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +20,13 @@ export class MasterGuard implements CanActivate {
     this.route = route;
     this.state = state;
     this.guards = this.route.data['guard'];
-
-    for (var i = 0; i < this.guards.length; i++) {
-      let guard = new this.guards[i](this.auth);
-      this.result = guard.canActivate(this.route, this.state);
-      if (this.result) break;
-      else continue;
+    
+    if(this.guards != null){
+      for (var i = 0; i < this.guards.length; i++) {
+        this.result = this.guards[i](this.auth).canActivate(this.route, this.state);
+        if (this.result) break;
+        else continue;
+      }
     }
 
     if (this.result) {

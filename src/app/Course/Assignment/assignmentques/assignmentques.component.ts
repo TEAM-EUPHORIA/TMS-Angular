@@ -7,45 +7,63 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-assignmentques',
   templateUrl: './assignmentques.component.html',
-  styleUrls: ['./assignmentques.component.css']
+  styleUrls: ['./assignmentques.component.css'],
 })
 export class AssignmentquesComponent implements OnInit {
+  constructor(
+    private http: HttpClient,
+    public sanitizer: DomSanitizer,
+    private router: Router
+  ) {}
 
-  constructor(private http : HttpClient, public sanitizer : DomSanitizer, private router : Router) { }
-
+  //Course ID of the assignment
   @Input()
-  courseId : any;
+  courseId: any;
+  //Topic ID of the assignment
   @Input()
-  topicId : any;
+  topicId: any;
+  //Trainee ID of the assignment
   @Input()
-  trainerId : any;
-  
-  AssignmentQuestion : any;
+  trainerId: any;
 
-  Assignment : any;
-
-  errormsg : any;
+  //Storing assignment response from the server
+  AssignmentQuestion: any;
 
   ngOnInit(): void {
-    this.GetAssignmentByTrainer(this.trainerId)
+    this.GetAssignmentByTrainer(this.trainerId);
   }
-
-  GetAssignmentByTrainer(trainerId : number){
-    this.http.get<any>("https://localhost:5001/Course/"+ this.courseId +"/topics/"+ this.topicId +"/assignments/"+ trainerId).subscribe({
-      next: (res:any) =>{
-        if(res != null)
-        this.AssignmentQuestion = res;
-        console.warn("hi assignment")
-      },
-      error(err){
-        this.error = err;
-        console.warn(err["error"]);
-      } 
-    })
+  //Gets assignment submitted by Trainer of the course
+  GetAssignmentByTrainer(trainerId: number) {
+    if (
+      this.courseId != null &&
+      this.topicId != null &&
+      this.trainerId != null
+    ) {
+      this.http
+        .get<any>(
+          'https://localhost:5001/Course/' +
+            this.courseId +
+            '/topics/' +
+            this.topicId +
+            '/assignments/' +
+            trainerId
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res != null) this.AssignmentQuestion = res;
+          },
+          error(err) {
+            this.error = err;
+          },
+        });
+    }
   }
-  ViewAssignment(){
-    this.AssignmentQuestion.base64 = this.AssignmentQuestion.base64 + "," +this.AssignmentQuestion.document;
-    // console.warn(this.AssignmentQuestion);
-    this.router.navigate(['/ViewAssignment'], {state : { assignment : this.AssignmentQuestion.base64 }});
+  //Function to View individual assignment
+  ViewAssignment() {
+    this.AssignmentQuestion.base64 =
+      this.AssignmentQuestion.base64 + ',' + this.AssignmentQuestion.document;
+    this.router.navigate(['/ViewAssignment'], {
+      state: { assignment: this.AssignmentQuestion.base64 },
+    });
   }
 }

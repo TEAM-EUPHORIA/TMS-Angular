@@ -1,140 +1,159 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { DepartmentService } from 'src/app/Department/department.service';
+import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from 'src/app/Login/login.service';
 import { CourseService } from '../../course.service';
 
 @Component({
   selector: 'app-courselist',
   templateUrl: './courselist.component.html',
-  styleUrls: ['./courselist.component.css']
+  styleUrls: ['./courselist.component.css'],
 })
 export class CourselistComponent implements OnInit {
+  constructor(
+    private CourseService: CourseService,
+    private route: Router,
+    public auth: LoginService,
+    private http: HttpClient,
+    private toastService : HotToastService
+  ) {}
 
-  constructor(private CourseService: CourseService, private route: Router, public auth: LoginService, private http: HttpClient) { }
-
-
-  _course = '';
-  //variable to store and iterate through list of courses
-  _dept = '';
   //variable to store and iterate through list of departments
-  dept: any
+  dept: any;
+  //variable to bind ngModule data
+  _dept : any;
+  //variable to store and iterate through list of courses
   courselist: any = [];
-  course: any[] = [];
+  // Copy of the course list
   courselistcopy: any[] = [];
 
-  // Paginate settings
+  //Pagination settings
   page: number = 1;
   totalLength: any;
-  search !: string;
-  // 
+  //Search text
+  search!: string;
 
-  private CoordinatorId: number = 2;     // Coordinator role id
-  private TrainerId: number = 3;        // Trainer role id
-  private TraineeId: number = 4;       // Trainee role id
+  private CoordinatorId: number = 2; // Coordinator Role id
+  private TrainerId: number = 3; // Trainer Role id
+  private TraineeId: number = 4; // Trainee Role id
 
-  //Enables the add button in course list for coordinator
-  add: boolean = false;
-
-  //This method activates the methods when Courseist component created 
+  //This method activates the methods when Courseist component created
   ngOnInit(): void {
     if (this.auth.getRoleId() == this.CoordinatorId) {
-      this.getAllCourses();
-      this.add = true;
+      this.GetAllCourses();
+    } else if (this.auth.getRoleId() == this.TrainerId) {
+      this.GetCoursebyToken(this.auth.getId());
+    } else if (this.auth.getRoleId() == this.TraineeId) {
+      this.GetCoursebyToken(this.auth.getId());
     }
-    else if (this.auth.getRoleId() == this.TrainerId) {
-      this.getCoursebyToken(this.auth.getId())
-    }
-    else if (this.auth.getRoleId() == this.TraineeId) {
-      this.getCoursebyToken(this.auth.getId())
-    }
-    this.GetallDepartment();
+    this.GetAllDepartment();
   }
-  getAllCourses() {
-    this.CourseService.getAllCourses().subscribe(res => {
-      this.courselist = res
-      this.courselistcopy = res
-      console.log(this.courselistcopy)
-    })
-  }
+
+  //Display dialog for Disable conformation
   myfunction(id: number) {
-    let text = "Are You Sure You Want To Disable The Course";
+    let text = 'Are You Sure You Want To Disable The Course';
     if (confirm(text) == true) {
-      this.disableCourse(id)
+      this.DisableCourse(id);
     } else {
-      text = "You canceled!";
+      text = 'You canceled!';
     }
   }
-  //returns list of courses assigned to the particular user
-  getCoursebyToken(id: number) {
-    console.warn(id)
-    this.CourseService.getCourseByCourseForTraineeTrainer().subscribe(res => {
+
+  //Gets list of All Courses
+  GetAllCourses() {
+    this.CourseService.getAllCourses().subscribe((res) => {
       this.courselist = res;
-      this.courselistcopy = res
-    })
+      this.courselistcopy = res;
+      console.log(this.courselistcopy);
+    });
   }
-  disableCourse(id: number) {
-    this.CourseService.disableCourse(id).subscribe(() => this.getAllCourses())
-    // this.showToast();
-    // }
-    // showToast() {
-    //   this.toastService.error('Disabled')
+
+  //returns list of courses assigned to the particular user
+  GetCoursebyToken(id: number) {
+    this.CourseService.getCourseByCourseForTraineeTrainer().subscribe((res) => {
+      this.courselist = res;
+      this.courselistcopy = res;
+    });
   }
-  SearchActive(search: string) {
-    this.search = search;
+
+  // Function to disable Course
+  DisableCourse(id: number) {
+    this.CourseService.disableCourse(id).subscribe(() => this.GetAllCourses());
+    this.showToast();
+    }
+    showToast() {
+      this.toastService.error('Disabled')
   }
+
+  // Navigate to Individual Course
   ToCourseView(id: number) {
     this.route.navigate(['CourseList/Course/' + id]);
   }
-  // ToEditCourse(obj : any){
-  //   var course : any;
-  //   course = obj;
-  //   this.route.navigate(['/EditCourse/'+course], { state: { course :course }})
-  // }
 
-  GetallDepartment() {
-    this.http.get("https://localhost:5001/Department/departments").subscribe(res => {
-      this.dept = res;
-    })
+  //Gets All Department from server
+  GetAllDepartment() {
+    this.http
+      .get('https://localhost:5001/Department/departments')
+      .subscribe((res) => {
+        this.dept = res;
+      });
   }
 
+  // Filters list of Courses by Depatment selected 
   filterByDepartment() {
-    const item = document.getElementById("departmentId") as HTMLSelectElement
+    const item = document.getElementById('departmentId') as HTMLSelectElement;
     if (item.value != '') {
-      this.courselist = this.courselistcopy.filter(u => u.departmentId == item.value)
-    } else {
-      this.courselist = this.courselistcopy
+      this.courselist = this.courselistcopy.filter(
+        (u) => u.departmentId == item.value
+        );
+      } else {
+        this.courselist = this.courselistcopy;
+      }
+      this.updateCurrentPageAndTotalLength();
     }
-    this.updateCurrentPageAndTotalLength();
-  }
-  private updateCurrentPageAndTotalLength() {
-    this.page = 1;
-    this.totalLength = this.courselist.length;
-  }
-  filterByName() {
-    const search = document.getElementById("search") as HTMLInputElement
-    const item = document.getElementById("departmentId") as HTMLSelectElement
+
+    // Update pagination setting
+    private updateCurrentPageAndTotalLength() {
+      this.page = 1;
+      this.totalLength = this.courselist.length;
+    }
+
+  // Filters list of Courses by Search entered  
+  FilterByName() {
+    const search = document.getElementById('search') as HTMLInputElement;
+    const item = document.getElementById('departmentId') as HTMLSelectElement;
     if (item != null) {
       if (search.value != '' && item.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => course.name.toLowerCase().includes(search.value.toLowerCase()) && course.departmentId == item.value)
+        this.courselist = this.courselistcopy.filter(
+          (course: any) =>
+            course.name.toLowerCase().includes(search.value.toLowerCase()) &&
+            course.departmentId == item.value
+        );
       } else if (search.value != '' && item.value == '') {
-        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course, search))
+        this.courselist = this.courselistcopy.filter((course: any) =>
+          this.getFilteredCourse(course, search)
+        );
       } else if (search.value == '' && item.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => course.departmentId == item.value)
+        this.courselist = this.courselistcopy.filter(
+          (course: any) => course.departmentId == item.value
+        );
       } else if (search.value == '' && item.value == '') {
-        this.courselist = this.courselistcopy
+        this.courselist = this.courselistcopy;
       }
-    }
-    else {
+    } else {
       if (search.value != '') {
-        this.courselist = this.courselistcopy.filter((course: any) => this.getFilteredCourse(course,search))
-      }else{
-        this.courselist = this.courselistcopy
+        this.courselist = this.courselistcopy.filter((course: any) =>
+          this.getFilteredCourse(course, search)
+        );
+      } else {
+        this.courselist = this.courselistcopy;
       }
     }
     this.updateCurrentPageAndTotalLength();
   }
+
+
   private getFilteredCourse(course: any, search: HTMLInputElement): any {
     return course.name.toLowerCase().includes(search.value.toLowerCase());
   }

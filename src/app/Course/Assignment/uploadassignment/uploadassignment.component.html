@@ -1,8 +1,23 @@
 <form action="">
-    <i class="fa fa-upload" aria-hidden="true"></i>
-    <label class="control-label mt-3 mx-4" for="file">{{fileName}}
-        <input class="form-control" name="fields[]" type="file" id="file" name="filename"
-            accept="application/pdf,application/" (change)="handleUpload($event)" class="d-none">
-    </label>
+  <i class="fa fa-upload" aria-hidden="true"></i>
+  <label class="control-label mt-3 mx-4" for="file"
+    >{{ fileName }}
+    <input
+      class="form-control"
+      name="fields[]"
+      type="file"
+      id="file"
+      name="filename"
+      accept="application/pdf,application/"
+      (change)="handleUpload($event)"
+      class="d-none"
+    />
+  </label>
 </form>
-<button *ngIf="fileName !== 'Upload Assignment'" (click)="Onsubmit()" class="btn btn-dark mt-3"> Upload</button>
+<button
+  *ngIf="fileName !== 'Upload Assignment'"
+  (click)="Onsubmit()"
+  class="btn btn-dark mt-3"
+>
+  Upload
+</button>

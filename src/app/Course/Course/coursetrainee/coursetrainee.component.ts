@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { baseurl } from 'src/app/URL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
-import { CourseService } from '../coursecrud.service';
+import { CourseService } from '../../course.service';
 
 @Component({
   selector: 'app-coursetrainee',

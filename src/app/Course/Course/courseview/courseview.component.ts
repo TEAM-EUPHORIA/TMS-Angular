@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Login/login.service';
-import { CourseService } from '../coursecrud.service';
+import { CourseService } from '../../course.service';
 
 @Component({
   selector: 'app-courseview',
@@ -14,7 +13,8 @@ export class CourseviewComponent implements OnInit {
   constructor(private router: Router,
     public auth: LoginService,
     private route: ActivatedRoute,
-    private courseService: CourseService) { }
+    private courseService: CourseService)
+  { }
   canGiveFeedback = false;
   courseId !: number;
   Feedbacks !: any[];

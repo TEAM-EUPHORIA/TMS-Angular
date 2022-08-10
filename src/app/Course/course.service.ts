@@ -18,13 +18,9 @@ export class CourseService {
   baseurl = "https://localhost:5001/Course/"
 
   postcourse(data: any): Observable<any> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.http.post<any>(this.baseurl + `course`, data)
   }
   putcourse(data: any): Observable<any> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.http.put<any>(this.baseurl + `course`, data)
   }
   getAllCourses(): Observable<any> {
@@ -47,5 +43,8 @@ export class CourseService {
   }
   getTopicByCourseId(id: number): Observable<any> {
     return this.http.get<any>(this.baseurl + `${id}/topics`)
+  }
+  getCourse(id : number) : Observable<any>{
+    return this.http.get<any>(this.baseurl + id);
   }
 }

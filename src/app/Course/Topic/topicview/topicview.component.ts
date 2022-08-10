@@ -7,7 +7,6 @@ import { HotToastModule, HotToastService, Toast } from '@ngneat/hot-toast';
 import Quill from 'quill';
 import { LoginService } from 'src/app/Login/login.service';
 import { baseurl } from 'src/app/URL';
-import { CourseService } from '../../Course/coursecrud.service';
 import { TopicService } from '../topic.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class TopicviewComponent implements OnInit {
     public datepipe: DatePipe,
     public sanitizer: DomSanitizer,
     private http: HttpClient,
-    private cs: CourseService,
     private toastService: HotToastService) { }
 
   //temparary variable for data storage
@@ -54,7 +52,7 @@ export class TopicviewComponent implements OnInit {
     this.Coursename = localStorage.getItem('courseName')
     this.TopicInit();
     if (this.auth.IsloggedIn) {
-      this.http.get(baseurl + `Course/${this.courseId}/topics/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
+      this.http.get(baseurl + `Course/${this.courseId}/topicourseService/${this.topicId}/assignments/${this.auth.getId()}`).subscribe(
         res => {
           if (res) {
             this.assignment = res;

@@ -9,22 +9,30 @@ import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-coursecrud',
   templateUrl: './coursecrud.component.html',
-  styleUrls: ['./coursecrud.component.css']
+  styleUrls: ['./coursecrud.component.css'],
 })
 export class CoursecrudComponent implements OnInit {
+  constructor(
+    private courseService: CourseService,
+    private router: ActivatedRoute,
+    private http: HttpClient,
+    private auth: LoginService,
+    private toastService: HotToastService
+  ) {}
 
-  constructor(private route: Router, private cs: CourseService,
-    private routing: Router, private router: ActivatedRoute, private http: HttpClient,
-    private auth: LoginService, private toastService: HotToastService) { this.course = this.route.getCurrentNavigation()?.extras.state?.['course'] }
-
-  Traineeid !: number;
-  data: any;
-  dept: any;
-  Title: string = "Add";
-  course!: any;
+  //Course id for the Edit
   courseId!: number;
+  //Set Title for the Add/Edit in the page
+  Title: string = 'Add';
+  //Boolean variable to check Add/Edit Department
   Editable: boolean = false;
-  TrainerId = '';
+  //Temparary data storing form server
+  data: any;
+  //Store Department list from server
+  dept: any;
+  //
+  course!: any;
+  //Model for Course
   Course: any = {
     id: 0,
     statusId: 1,
@@ -33,113 +41,127 @@ export class CoursecrudComponent implements OnInit {
     description: '',
     name: '',
     duration: '',
-  }
+  };
 
+  //Creates formGroup and formControl for Course and its property
   courseform = new FormGroup({
-    name: new FormControl(['',
+    name: new FormControl([
+      '',
       Validators.required,
       Validators.maxLength(25),
       Validators.minLength(3),
     ]),
-    description: new FormControl(['',
+    description: new FormControl([
+      '',
       Validators.required,
       Validators.maxLength(200),
-      Validators.minLength(25)
+      Validators.minLength(25),
     ]),
-    duration: new FormControl(['',
+    duration: new FormControl([
+      '',
       Validators.required,
-      Validators.pattern("^([01]?[0-9]|2[0-3])\s(([h][r][s])|([h][r]))\s[0-9][0-9]\s(([m][i][n][s])|([m][i][n]))$"),
+      Validators.pattern(
+        '^([01]?[0-9]|2[0-3])s(([h][r][s])|([h][r]))s[0-9][0-9]s(([m][i][n][s])|([m][i][n]))$'
+      ),
       Validators.maxLength(15),
-      Validators.minLength(4)
+      Validators.minLength(4),
     ]),
-    department: new FormControl(['',
-      Validators.required,
-    ]),
-    trainer: new FormControl(['',
-      Validators.required,
-    ]),
-  })
+    department: new FormControl(['', Validators.required]),
+    trainer: new FormControl(['', Validators.required]),
+  });
 
-  update(department: any) {
-    this.Course.departmentId = department.value
-    this.getUserByRole();
-  }
-
+  //Component initialization
   ngOnInit(): void {
-    this.getAllDepartment();
-    // console.warn(this.course.id);
-    this.courseId = this.router.snapshot.params["courseId"]
+    this.GetAllDepartment();
+    this.courseId = this.router.snapshot.params['courseId'];
     if (this.auth.IsCoordinator) {
-      this.cs.getCourseById(this.courseId).subscribe({
+      this.courseService.getCourseById(this.courseId).subscribe({
         next: (res: any) => {
           this.Course = res;
-          this.getUserByRole();
+          this.GetUsersByRole();
         },
         error: (err: any) => {
-          console.warn(err)
-          console.log("hi");
-        }
-      })
+          console.warn(err);
+          console.log('hi');
+        },
+      });
       if (this.courseId != undefined) {
         console.warn(this.Course);
-        this.Title = "Update"
+        this.Title = 'Update';
         this.Editable = true;
       }
     }
   }
+
+  // Button clicked
   OnSubmit() {
     if (this.courseId != undefined || this.courseId != null) {
-      this.cs.putcourse(this.Course).subscribe({
+      this.courseService.putcourse(this.Course).subscribe({
         next: (res: any) => {
-          this.toastService.success("Course was updated successfully.")
+          this.toastService.success('Course was updated successfully.');
           console.warn(this.course);
-          window.location.replace("/Courses");
+          window.location.replace('/Courses');
         },
         error: (err: any) => {
-          this.serverSideErrorMsgs(err);
-        }
-      })
+          this.ServerSideErrorMsgs(err);
+        },
+      });
     } else {
-      this.cs.postcourse(this.Course).subscribe({
+      this.courseService.postcourse(this.Course).subscribe({
         next: (res: any) => {
-          this.toastService.success("Course was created successfully.")
-          window.location.replace("/Courses");
-
+          this.toastService.success('Course was created successfully.');
+          window.location.replace('/Courses');
         },
         error: (err: any) => {
-          this.serverSideErrorMsgs(err);
-        }
-      })
+          this.ServerSideErrorMsgs(err);
+        },
+      });
     }
   }
-  private serverSideErrorMsgs(err: any) {
-    console.warn(err["error"]);
-    const errors = err["error"];
-    Object.keys(errors).forEach(prop => {
+
+  //Handles multiple error message from server
+  private ServerSideErrorMsgs(err: any) {
+    console.warn(err['error']);
+    const errors = err['error'];
+    Object.keys(errors).forEach((prop) => {
       const formControl = this.courseform.get(prop);
       if (formControl) {
         formControl.setErrors({
-          serverError: errors[prop]
+          serverError: errors[prop],
         });
         console.warn(this.courseform.controls['name'].getError('serverError'));
       }
     });
   }
-  getUserByRole() {
-    this.http.get("https://localhost:5001/User/GetUsersByDepartmentAndRole/" + `${this.Course.departmentId},${3}`).subscribe((res) => {
-      this.data = res
-      console.log(res)
-    });
+
+  //Update Department
+  Update(department: any) {
+    if (department != null) {
+      this.Course.departmentId = department.value;
+      this.GetUsersByRole();
+    }
   }
-  getAllDepartment() {
-    this.http.get("https://localhost:5001/Department/departments").subscribe(res => {
-      this.dept = res
-      console.log(this.dept)
-    })
+
+  //Gets list of Trainer in the Department
+  GetUsersByRole() {
+    this.http
+      .get(
+        'https://localhost:5001/User/GetUsersByDepartmentAndRole/' +
+          `${this.Course.departmentId},${3}`
+      )
+      .subscribe((res) => {
+        this.data = res;
+        console.log(res);
+      });
   }
-  getCourseById() {
-    this.http.get("https://localhost:5001/Course/").subscribe(res => {
-      this.Course = res;
-    })
+
+  //Gets all department for filter by Department
+  GetAllDepartment() {
+    this.http
+      .get('https://localhost:5001/Department/departments')
+      .subscribe((res) => {
+        this.dept = res;
+        console.log(this.dept);
+      });
   }
 }

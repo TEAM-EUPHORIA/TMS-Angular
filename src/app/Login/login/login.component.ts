@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../login.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-
-  constructor(private router: Router, private toastService: HotToastService,
-    private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private toastService: HotToastService,
+    private http: HttpClient
+  ) {}
   Tokendata: any;
   public Role: any;
   public RoleId: any;
@@ -31,74 +31,45 @@ export class LoginComponent {
   //model for Login
   Login: any = {
     Email: '',
-    Password: ''
-  }
+    Password: '',
+  };
   loginform = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(30),
-      Validators.pattern("^([0-9a-zA-Z.]){3,}@[a-zA-z]{3,}(.[a-zA-Z]{2,}[a-zA-Z]*){0,}$")
+      Validators.pattern(
+        '^([0-9a-zA-Z.]){3,}@[a-zA-z]{3,}(.[a-zA-Z]{2,}[a-zA-Z]*){0,}$'
+      ),
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
       Validators.minLength(3),
-    ])
-  })
+    ]),
+  });
 
   OnSubmit() {
-    this.http.post("https://localhost:5001/Auth/login", this.Login).
-      subscribe({
+    this.http.post('https://localhost:5001/Auth/login', this.Login).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('Token', res.token);
 
-        next: (res: any) => {
+        this.toastService.success('Login Successful');
 
-          localStorage.setItem("Token", res.token);
+        setTimeout(() => {
+          window.location.replace('/Home');
+        }, 1000);
+      },
 
-          this.toastService.success("Login Successful")
-
-          setTimeout(() => {
-
-            window.location.replace("/Home")
-
-          }, 1000);
-
-        },
-
-        error: (err: any) => {
-
-          if (err["error"] == 'Unauthorized user') {
-
-            this.toastService.error(err["error"])
-
-          }
-
+      error: (err: any) => {
+        if (err['error'] == 'Unauthorized user') {
+          this.toastService.error(err['error']);
         }
-
-      })
-
-    // .subscribe(res => {
-    //   this.response = res;
-    //   console.log(this.response.token);
-    //   if (this.response != null) {
-    //     localStorage.setItem("Token", this.response.token);
-    //     window.location.replace("/")
-    //   }
-    //   this.Responsemsg = "LoggedIn Successfully"
-    //   window.location.replace("/")
-    // }, err => {
-    //   this.errormsg = err;
-    //   if (this.errormsg.error.errors.Email[0] != undefined) {
-    //     this.Emailmsg = this.errormsg.error.errors.Email[0];
-    //   }
-    //   if (this.errormsg.error.errors.Password[0] != undefined) {
-    //     this.Passwordmsg = this.errormsg.error.errors.Password[0];
-    //   }
-    // })
-    // setTimeout(() => this.showToast(), 2000)
+      },
+    });
   }
 
   showToast() {
-    this.toastService.success('Login Successfully')
+    this.toastService.success('Login Successfully');
   }
 }
