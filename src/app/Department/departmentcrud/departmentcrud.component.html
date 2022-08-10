@@ -1,6 +1,9 @@
 <div class="content">
+    <!-- Sidebar Starts -->
     <app-sidebar></app-sidebar>
+    <!-- Sidebar Ends -->
     <div class="pt-4 px-4">
+        <!-- Breadcrumbs Starts -->
         <nav aria-label="breadcrumb" class="px-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/Home">Home</a></li>
@@ -8,24 +11,40 @@
                 <li class="breadcrumb-item active">{{Title}} Department</li>
             </ol>
         </nav>
+        <!-- Breadcrumbs Ends -->
         <div class="col-sm-12 px-4 pt-2">
+            <!-- DepartmentForm Starts -->
             <form [formGroup]="deptform" action="" name="myForm " #ngForm (ngSubmit)="OnSubmit()">
                 <h3 class="text-black pb-2">{{Title}} Department</h3>
+                <!-- Department Name and its validation error Starts -->
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name" formControlName="name" maxlength="24" pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)" required>
+                    <input type="text" class="form-control" id="floatingText" dept="dept" [(ngModel)]="department.name"
+                    formControlName="name" maxlength="24" pattern="(^(?!.*([A-Za-z0])\2{2})\w[a-zA-Z&.#\s]*$)"
+                    required>
                     <label for="floatingText">Department</label>
-                    <div *ngIf="deptform.controls['name'].invalid && (deptform.controls['name'].dirty || deptform.controls['name'].touched)" class="alert alert-danger">
+                    <div *ngIf="deptform.controls['name'].invalid && (deptform.controls['name'].dirty || deptform.controls['name'].touched)"
+                        class="alert alert-danger">
                         <div *ngIf="deptform.controls['name'].errors?.['required']">Name is required.</div>
-                        <div *ngIf="deptform.controls['name'].errors?.['minlength']">Name must be at least 3 characters long.</div>
-                        <div *ngIf="deptform.controls['name'].errors?.['maxlength']">Name don't exceed 15 characters long.</div>
-                        <div *ngIf="deptform.controls['name'].errors?.['serverError']">
-                            {{this.deptform.controls['name'].getError('serverError')}}</div>
-                        <div *ngIf="deptform.controls['name'].invalid || deptform.controls['name'].errors?.['maxlength']">Please enter a valid name</div>
+                        <div *ngIf="deptform.controls['name'].errors?.['minlength']">Name must be at least 3 characters
+                            long.</div>
+                            <div *ngIf="deptform.controls['name'].errors?.['maxlength']">Name don't exceed 15 characters
+                            long.</div>
+                            <div *ngIf="deptform.controls['name'].errors?.['serverError']">
+                            {{this.deptform.controls['name'].getError('serverError')}}
+                        </div>
+                        <div
+                        *ngIf="deptform.controls['name'].invalid || deptform.controls['name'].errors?.['maxlength']">
+                        Please enter a valid name</div>
                     </div>
                 </div>
-                <a><button [disabled]="!deptform.valid" type="submit" class="btn btn-dark pe-4 px-4 hover">{{title}}</button></a>
+                <!-- Department Name and its validation error Ends -->
+                <a><button [disabled]="!deptform.valid" type="submit"
+                        class="btn btn-dark pe-4 px-4 hover">{{title}}</button></a>
             </form>
+            <!-- DepartmentForm Ends -->
         </div>
     </div>
+    <!-- Footer Starts -->
     <app-footer></app-footer>
+    <!-- Footer Ends -->
 </div>

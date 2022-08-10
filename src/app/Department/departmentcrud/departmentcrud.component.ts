@@ -10,13 +10,14 @@ import { DepartmentService } from '../department.service';
   styleUrls: ['./departmentcrud.component.css']
 })
 export class DepartmentcrudComponent implements OnInit {
-
-  role = "Co-Ordinator"
+  // Department Id for Edit Department
   id!: number;
+  //Set Title for the Add/Edit in the page
   Title!: string;
+  //Set Button Name for the Add/Edit in the page
   title! : string;
 
-
+  //Creates formGroup and formControl for Department Name
   deptform = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -30,7 +31,7 @@ export class DepartmentcrudComponent implements OnInit {
     name: "",
   }
 
-
+  //Component initialization
   ngOnInit(): void {
     this.id = this.route.snapshot.params['deptId']
     if (this.id == null) {
@@ -39,31 +40,21 @@ export class DepartmentcrudComponent implements OnInit {
     } else {
       this.Title = "Edit";
       this.title = "Save"
-
-    }
-    console.warn(this.id);
-    if (this.id != null || !this.id) {
-      this.setoption();
-    }
-  }
-
-  setoption(form?: NgForm) {
-    if (this.id != null) {
       this.GetDepartmentById();
     }
-  }
 
+  }
+  
+  // Get Department by Id for Edit
   GetDepartmentById() {
     this.departmentservice.GetDepartmentById(this.id).subscribe(res => {
       this.department = res;
     })
   }
-
+  
+  // Button Clicked
   OnSubmit() {
-    console.log(this.department)
     if (this.department.id != undefined) {
-      console.warn(this.department)
-      console.warn("edit")
       this.departmentservice.putdepartment(this.department).subscribe({
         next: (res: any) => {
           window.location.replace("Department")
@@ -74,8 +65,6 @@ export class DepartmentcrudComponent implements OnInit {
         }
       })
     } else {
-      console.warn(this.department)
-      console.warn("add")
       this.departmentservice.postdepartment(this.department).subscribe({
         next: (res: any) => {
           window.location.replace("Department")
@@ -87,20 +76,16 @@ export class DepartmentcrudComponent implements OnInit {
       })
     }
   }
-  showToast() {
-    this.toastService.success('Login Successfully')
-  }
+
+  //Handles multiple error message from server
   private serverSideErrorMsgs(err: any) {
-    console.warn(err["error"]);
     const errors = err["error"];
     Object.keys(errors).forEach(prop => {
-      console.log(this.deptform.get(prop))
       const formControl = this.deptform.get(prop);
       if (formControl) {
         formControl.setErrors({
           serverError: errors[prop]
         });
-        console.warn(this.deptform.controls['name'].getError('serverError'));
       }
     });
   }
