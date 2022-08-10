@@ -10,12 +10,14 @@ import { DepartmentService } from '../department.service';
   styleUrls: ['./departmentcrud.component.css']
 })
 export class DepartmentcrudComponent implements OnInit {
-
+  // Department Id for Edit Department
   id!: number;
+  //Set Title for the Add/Edit in the page
   Title!: string;
+  //Set Button Name for the Add/Edit in the page
   title! : string;
 
-
+  //Creates formGroup and formControl for Department Name
   deptform = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -29,7 +31,7 @@ export class DepartmentcrudComponent implements OnInit {
     name: "",
   }
 
-
+  //Component initialization
   ngOnInit(): void {
     this.id = this.route.snapshot.params['deptId']
     if (this.id == null) {
@@ -40,14 +42,17 @@ export class DepartmentcrudComponent implements OnInit {
       this.title = "Save"
       this.GetDepartmentById();
     }
-  }
 
+  }
+  
+  // Get Department by Id for Edit
   GetDepartmentById() {
     this.departmentservice.GetDepartmentById(this.id).subscribe(res => {
       this.department = res;
     })
   }
-
+  
+  // Button Clicked
   OnSubmit() {
     if (this.department.id != undefined) {
       this.departmentservice.putdepartment(this.department).subscribe({
@@ -71,7 +76,8 @@ export class DepartmentcrudComponent implements OnInit {
       })
     }
   }
-  
+
+  //Handles multiple error message from server
   private serverSideErrorMsgs(err: any) {
     const errors = err["error"];
     Object.keys(errors).forEach(prop => {

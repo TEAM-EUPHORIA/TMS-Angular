@@ -27,6 +27,7 @@ export class GivemomComponent implements OnInit {
   pageTitle = 'Review Details'
   showBtn = true
   constructor(private reviewService: ReviewService, private router: Router, private route: ActivatedRoute, private http: HttpClient, public ls: LoginService) { }
+  //Creates formGroup and formControl for mom properties
   momForm = new FormGroup({
     agenda: new FormControl('', [
       Validators.required
